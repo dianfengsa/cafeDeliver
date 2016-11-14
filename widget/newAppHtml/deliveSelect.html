@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="content-type" content="text/html" charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" >
+    <meta name="format-detection" content="telephone=no">
+
+    <title>配送员选择</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/deliveSelect.css">
+</head>
+<body style="background-color:#FFFFFF">
+        <nav class="nav"><span>选择配送员</span></nav>
+</body>
+</html>
+<script src="../newAppJs/jquery.min.js"></script>
+<script src="../newAppJs/jquery.touchSwipe.min.js"></script>
+<script src="../newAppJs/jquery.rotate.min.js"></script>
+<script src="../newAppJs/api.js"></script>
+<script src="../newAppJs/doT.min.js"></script>
+<script src="../newAppJs/wilddog.js" ></script>
+<script src="../newAppJs/share.js"></script>
+<script src="../newAppJs/orderDelive.js"></script>
+<script src="../newAppJs/underscore-min.js"></script>
+<script>
+    var pageParam;
+    apiready = function() {
+        pageParam = api.pageParam.deliverMan;
+        console.log("pageParam>>>>>>" + JSON.stringify(pageParam))
+        if (pageParam.cafeCar) {
+            //有送餐区域,加载数据
+            loadOrders(pageParam.cafeCar);
+        } else {
+            api.toast({
+                msg : '你还未分配送餐区域,请联系管理员!',
+                location : "middle",
+                duration : 3000
+            });
+        }
+
+
+        var UIListView = api.require('UIListView');
+        UIListView.open({
+            rect : {
+                x : 0,
+                y : 60,
+                w : api.winWidth,
+                h : api.frameHeight
+            },
+            data : [{
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员1号',
+                subTitle : '吉大区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员2号',
+                subTitle : '香洲区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员三号',
+                subTitle : '斗门区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员4号',
+                subTitle : '南屏区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }, {
+                uid : '1001',
+                imgPath : 'widget://image/clock.png',
+                title : '配送员5号',
+                subTitle : '横琴区域',
+                remark : '备注',
+                icon : ''
+            }],
+            rightBtns : [{
+                bgColor : '#388e8e',
+                activeBgColor : '',
+                width : 70,
+                title : '按钮',
+                titleSize : 12,
+                titleColor : '#fff',
+                icon : '',
+                iconWidth : 20
+            }],
+            styles : {
+                borderColor : '#FFFFFF',
+                item : {
+                    bgColor : '#FFFFFF',
+                    activeBgColor : '#F5F5F5',
+                    height : 70,
+                    imgWidth : 40,
+                    imgHeight : 40,
+                    imgCorner : 4,
+                    placeholderImg : '',
+                    titleSize : 12.0,
+                    titleColor : '#000',
+                    subTitleSize : 12.0,
+                    subTitleColor : '#000',
+                    remarkColor : '#000',
+                    remarkSize : 16,
+                    remarkIconWidth : 30
+                }
+            },
+            fixedOn : api.frameName
+        }, function(ret, err) {
+            if (ret) {
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+        api.addEventListener({
+            name : 'scrolltobottom',
+            extra : {
+                threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            api.toast({
+                msg : '暂无更多数据...',
+                duration : 2000,
+                location : 'bottom'
+            });
+        });
+    }
+    //获取申请退款的数目
+    function loadOrders(carId) {
+        //调用野狗,实时获取数据
+        var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
+        var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [];
+        ref.limitToFirst(100).on("value", function(datasnapshot) {
+            var snap = _.groupBy(datasnapshot.val(), function(val) {
+                val.deliverMark = val.deliverMark ? val.deliverMark : "0";
+                return val.deliverMark;
+            });
+            var ordersByMark1 = _.sortBy(snap[1], function(val) {
+                return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
+            });
+            var ordersByMark0 = _.sortBy(snap[0], function(val) {
+                return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
+            });
+            var newOrderArr = ordersByMark1.concat(ordersByMark0);
+            waitingArr = _.filter(newOrderArr, function(val, key) {
+                return val.status == "等待接单";
+            });
+            deliverArr = _.filter(newOrderArr, function(val, key) {
+                return val.status == "配送中" && val.deliveryMan == uName;
+            });
+            finisheddArr = _.filter(newOrderArr, function(val, key) {
+                return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
+            });
+            console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr))
+            console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr))
+            console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr))
+        });
+    }
+</script>

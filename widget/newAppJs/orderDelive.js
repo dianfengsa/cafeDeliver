@@ -57,6 +57,7 @@ $(document).ready(function(){
             $("#nav-new3").hide();
             slide("3");
             hideAll();
+
         }
     };
     //点击触发事件
@@ -91,10 +92,7 @@ $(document).ready(function(){
         $(this).parents().children(".i-2").toggleClass("rotate");
     });
 
-    $(".m-content").on("click",".dispatch2",function () { //dispatch2按钮(重新派单)
-        maskStaus(1);
-        $(".reset-shop").toggle();
-    });
+
     //dispatch3按钮(确认订单)
 
     $(".reset-shop").on("click",".off",function () {   //配送员窗口关闭按钮

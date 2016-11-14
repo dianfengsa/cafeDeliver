@@ -1,0 +1,13 @@
+nav{
+    text-align: center;
+    font-size: 1.8rem;
+    color: #FFF;
+    background-color: #0459c4;
+    height: 4rem;
+    top: 0;
+    left: 0;
+    padding: 20px 0 0 0;
+    line-height: 4rem;
+    position: fixed;
+    width: 100%;
+}

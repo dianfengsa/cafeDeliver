@@ -79,20 +79,20 @@ br {
 }
 
 .m-container-1{
-	padding: 10rem 0 0 0;
+	padding: 10rem 0 6rem 0;
 position: relative;
 	overflow-y:scroll ;
 	overflow-x: hidden;
 }
 .m-container-2{
-	padding: 10rem 0 0 0;
+	padding: 10rem 0 6rem 0;
 	position: relative;
 	overflow-y:scroll ;
 	overflow-x: hidden;
 }
 
 .m-container-3{
-	padding: 10rem 0 0 0;
+	padding: 10rem 0 6rem 0;
 	position: relative;
 	overflow-y:scroll ;
 	overflow-x: hidden;

@@ -4,7 +4,7 @@
 		<meta name="content-type" content="text/html" charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" >
 		<meta name="format-detection" content="telephone=no">
 		<link href="../css/web_css.css" rel="stylesheet">
 		<!--页面样式-->
@@ -369,8 +369,81 @@
 						</div>
 					</div>
 				</div>
-				<div class="flex-item-24 flex-center notform flex-bottom">
-					暂无更多订单···
+				<div class="user-box flex-item-23 ">
+					<div class="user-info-top flex-item-24 ">
+						<div class="user-info-text">
+							<p>
+								客户电话：15915251578
+							</p>
+							<p class="fr orderNumber" >
+								编号：2354
+							</p>
+						</div>
+					</div>
+					<div class="user-info-body flex-row flex-item-24 flex-center">
+						<div class="user-info-add  flex-row flex-item-24 flex-center">
+							<ul class="user-info-add-text flex-item-23 flex-center">
+								<li class="clearfix order-cancel">
+									<div class="cancel-img"></div><span class="">订单已取消</span>
+								</li>
+								<li class="clearfix">
+									<div class="destination">
+										送
+									</div><span class="add-destination">荷花田旗舰餐厅-珠海市吉大景园路景山路1号</span>
+								</li>
+								<li class="clearfix">
+									<div class="source">
+										取
+									</div><span class="add-source">珠海市香洲区吉大钰海环球金融中心5楼312室腾飞科技有限公司</span>
+								</li>
+							</ul>
+							<ul class="user-info-other flex-item-23 flex-center">
+								<li class="">
+									<p class="ddbz">
+										订单备注:订单定尽快送达
+									</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="user-box flex-item-23 ">
+					<div class="user-info-top flex-item-24 ">
+						<div class="user-info-text">
+							<p>
+								客户电话：15915251578
+							</p>
+							<p class="fr orderNumber" >
+								编号：2354
+							</p>
+						</div>
+					</div>
+					<div class="user-info-body flex-row flex-item-24 flex-center">
+						<div class="user-info-add  flex-row flex-item-24 flex-center">
+							<ul class="user-info-add-text flex-item-23 flex-center">
+								<li class="clearfix order-cancel">
+									<div class="cancel-img"></div><span class="">订单已取消</span>
+								</li>
+								<li class="clearfix">
+									<div class="destination">
+										送
+									</div><span class="add-destination">荷花田旗舰餐厅-珠海市吉大景园路景山路1号</span>
+								</li>
+								<li class="clearfix">
+									<div class="source">
+										取
+									</div><span class="add-source">珠海市香洲区吉大钰海环球金融中心5楼312室腾飞科技有限公司</span>
+								</li>
+							</ul>
+							<ul class="user-info-other flex-item-23 flex-center">
+								<li class="">
+									<p class="ddbz">
+										订单备注:订单定尽快送达
+									</p>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -413,153 +486,257 @@
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
 <script>
-		var pageParam;
+	var pageParam;
 	apiready = function() {
-	<<<<<<< .mine
 	pageParam = api.pageParam.deliverMan;
-	console.log("pageParam>>>>>>" + JSON.stringify(pageParam))
-	if (pageParam.cafeCar) {
-	//有送餐区域,加载数据
-	loadOrders(pageParam.cafeCar);
-	} else {
-	api.toast({
-	msg : '你还未分配送餐区域,请联系管理员!',
-	location : "middle",
-	duration : 3000
-	});
-	}
-	=======
-	var UIListView = api.require('UIListView');
-	UIListView.open({
-	rect: {
-	x: 0,
-	y: 20,
-	w: api.winWidth,
-	h: api.frameHeight
-	},
-	data: [{
-	uid: '1001',
-	imgPath: 'widget://res/img/apicloud.png',
-	title: '配送员1号',
-	subTitle: '吉大区域',
-	remark: '备注',
-	icon: ''
-	}, {
-	uid: '1001',
-	imgPath: 'widget://res/img/apicloud.png',
-	title: '配送员2号',
-	subTitle: '香洲区域',
-	remark: '备注',
-	icon: ''
-	}, {
-	uid: '1001',
-	imgPath: 'widget://res/img/apicloud.png',
-	title: '配送员三号',
-	subTitle: '斗门区域',
-	remark: '备注',
-	icon: ''
-	}, {
-	uid: '1001',
-	imgPath: 'widget://res/img/apicloud.png',
-	title: '配送员4号',
-	subTitle: '南屏区域',
-	remark: '备注',
-	icon: ''
-	}, {
-	uid: '1001',
-	imgPath: 'widget://res/img/apicloud.png',
-	title: '配送员5号',
-	subTitle: '横琴区域',
-	remark: '备注',
-	icon: ''
-	}],
-	rightBtns: [{
-	bgColor: '#388e8e',
-	activeBgColor: '',
-	width: 70,
-	title: '按钮',
-	titleSize: 12,
-	titleColor: '#fff',
-	icon: '',
-	iconWidth: 20
-	}],
-	styles: {
-	borderColor: '#FFFFFF',
-	item: {
-	bgColor: '#FFFFFF',
-	activeBgColor: '#F5F5F5',
-	height: 70,
-	imgWidth: 40,
-	imgHeight: 40,
-	imgCorner: 4,
-	placeholderImg: '',
-	titleSize: 12.0,
-	titleColor: '#000',
-	subTitleSize: 12.0,
-	subTitleColor: '#000',
-	remarkColor: '#000',
-	remarkSize: 16,
-	remarkIconWidth: 30
-	}
-	},
-	fixedOn: api.frameName
-	}, function(ret, err) {
-	if (ret) {
-	} else {
-	alert(JSON.stringify(err));
-	}
-	});
-	UIListView.hide();
-	$(".m-content").on("click",".dispatch",function () { //dispatch按钮(立即接单)
-	UIListView.show();
-	});
-	api.addEventListener({
-	name:'scrolltobottom',
-	extra:{
-	threshold:0            //设置距离底部多少距离时触发，默认值为0，数字类型
-	}
-	}, function(ret, err){
-	api.toast({
-	msg: '暂无更多数据...',
-	duration: 2000,
-	location: 'bottom'
-	});
-	});
-	api.addEventListener({
-	name:'keyback'
-	},function(ret,err){
-	UIListView.hide();
-	});
-	>>>>>>> .r553
+		console.log("pageParam>>>>>>" + JSON.stringify(pageParam))
+		if (pageParam.cafeCar) {
+			//有送餐区域,加载数据
+			loadOrders(pageParam.cafeCar);
+		} else {
+			api.toast({
+				msg : '你还未分配送餐区域,请联系管理员!',
+				location : "middle",
+				duration : 3000
+			});
+		}
+
+		var UIListView = api.require('UIListView');
+		UIListView.open({
+			rect : {
+				x : 0,
+				y : 25,
+				w : api.winWidth,
+				h : api.frameHeight
+			},
+			data : [{
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员1号',
+				subTitle : '吉大区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员2号',
+				subTitle : '香洲区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员三号',
+				subTitle : '斗门区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员4号',
+				subTitle : '南屏区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}, {
+				uid : '1001',
+				imgPath : 'widget://image/clock.png',
+				title : '配送员5号',
+				subTitle : '横琴区域',
+				remark : '备注',
+				icon : ''
+			}],
+			rightBtns : [{
+				bgColor : '#388e8e',
+				activeBgColor : '',
+				width : 70,
+				title : '按钮',
+				titleSize : 12,
+				titleColor : '#fff',
+				icon : '',
+				iconWidth : 20
+			}],
+			styles : {
+				borderColor : '#FFFFFF',
+				item : {
+					bgColor : '#FFFFFF',
+					activeBgColor : '#F5F5F5',
+					height : 70,
+					imgWidth : 40,
+					imgHeight : 40,
+					imgCorner : 4,
+					placeholderImg : '',
+					titleSize : 12.0,
+					titleColor : '#000',
+					subTitleSize : 12.0,
+					subTitleColor : '#000',
+					remarkColor : '#000',
+					remarkSize : 16,
+					remarkIconWidth : 30
+				}
+			},
+			fixedOn : api.frameName
+		}, function(ret, err) {
+			if (ret) {
+			} else {
+				alert(JSON.stringify(err));
+			}
+		});
+		UIListView.hide();
+		$(".m-content").on("click", ".dispatch", function() {//dispatch按钮(立即接单)
+			api.showProgress({
+				style: 'default',
+				animationType: 'fade',
+				title: '努力加载中...',
+				text: '先喝杯茶...',
+				modal: true
+			});
+			api.openWin({
+				name: 'orderDelive.html',
+				url: '../newAppHtml/deliveSelect.html',
+				opaque: true, // 页面不透明
+				bounces: false, // 不允许页面弹动，ripple
+				vScrollBarEnabled: false,
+				slidBackEnabled: false,
+				animation: {
+					type: "fade", //动画类型（详见动画类型常量）
+					subType: "from_right", //动画子类型（详见动画子类型常量）
+					duration: 300 //动画过渡时间，默认300毫秒
+				},
+				delay: 0
+			});
+			api.hideProgress();
+		});
+		api.addEventListener({
+			name : 'scrolltobottom',
+			extra : {
+				threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+			}
+		}, function(ret, err) {
+			api.toast({
+				msg : '暂无更多数据...',
+				duration : 2000,
+				location : 'bottom'
+			});
+		});
+		api.addEventListener({
+			name : 'keyback'
+		}, function(ret, err) {
+			UIListView.hide();
+		});
 	}
 	//获取申请退款的数目
 	function loadOrders(carId) {
-	//调用野狗,实时获取数据
-	var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
-	var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [];
-	ref.limitToFirst(100).on("value", function(datasnapshot) {
-	var snap = _.groupBy(datasnapshot.val(), function(val) {
-	val.deliverMark = val.deliverMark ? val.deliverMark : "0";
-	return val.deliverMark;
-	});
-	var ordersByMark1 = _.sortBy(snap[1], function(val) {
-	return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
-	});
-	var ordersByMark0 = _.sortBy(snap[0], function(val) {
-	return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
-	});
-	var newOrderArr = ordersByMark1.concat(ordersByMark0);
-	waitingArr = _.filter(newOrderArr, function(val, key) {
-	return val.status == "等待接单";
-	});
-	deliverArr = _.filter(newOrderArr, function(val, key) {
-	return val.status == "配送中" && val.deliveryMan == uName;
-	});
-	finisheddArr = _.filter(newOrderArr, function(val, key) {
-	return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
-	});
-	console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr))
-	console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr))
-	console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr))
-	});
-	}</script>
+		//调用野狗,实时获取数据
+		var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
+		var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [];
+		ref.limitToFirst(100).on("value", function(datasnapshot) {
+			var snap = _.groupBy(datasnapshot.val(), function(val) {
+				val.deliverMark = val.deliverMark ? val.deliverMark : "0";
+				return val.deliverMark;
+			});
+			var ordersByMark1 = _.sortBy(snap[1], function(val) {
+				return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
+			});
+			var ordersByMark0 = _.sortBy(snap[0], function(val) {
+				return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
+			});
+			var newOrderArr = ordersByMark1.concat(ordersByMark0);
+			waitingArr = _.filter(newOrderArr, function(val, key) {
+				return val.status == "等待接单";
+			});
+			deliverArr = _.filter(newOrderArr, function(val, key) {
+				return val.status == "配送中" && val.deliveryMan == uName;
+			});
+			finisheddArr = _.filter(newOrderArr, function(val, key) {
+				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
+			});
+			console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr))
+			console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr))
+			console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr))
+		});
+	}
+</script>

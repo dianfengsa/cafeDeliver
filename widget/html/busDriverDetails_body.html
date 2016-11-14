@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>中转点配送员设置</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+			}
+		</style>
+	</head>
+	<body style="background-color: #F0F0F0;">
+		<script type="text/template" id="template_deliverItem">
+			<div style="line-height: 60px;border-bottom: 1px solid rgb(178, 175, 175);">
+			<span  style="font-weight: bold;color: black;font-size: 20px;width: 20%;text-align:left;padding-left: 10px;">单号</span>
+			<span  style="font-weight: bold;color: black;font-size: 20px;width: 70%;text-align:left;">餐厅名称</span>
+			</div>
+			<ul>
+			{{~it:order:index}}
+			{{?order.status=="等待拿货"}}
+			<li id="id{{=order.orderId}}" style="border-bottom: 1px dashed;height:60px;padding-top:5px;" onclick="updateKitchenTaskStatus('{{=order.numberCount}}','{{=order.orderId}}','{{=order.status}}')" tapmode>
+			<div style="float: left;width:70%;line-height: 30px;">
+			<div style="line-height: 53px;">
+			<span style="font-size: 14px;color: gray;font-weight: bold;padding-left: 10px;"><em style="font-size: large;">#{{=order.numberCount}}</em></span>
+			<span style="font-size: 14px;color: black;padding-left: 25px;width: 110px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">{{=order.name}} </span>
+			</div>
+			</div>
+			<span id="span{{=order.orderId}}" style="line-height: 40px;background-color: #ED5E25;width: 30%;font-weight: bold;color: white;text-align: -webkit-center;height: 40px;margin-top: 6px;border-radius: 6px;">{{=order.status}}</span>
+			</li>
+			{{??order.status=="已拿货"}}
+			<div style="height: 5px;"></div>
+			<li id="id{{=order.orderId}}" style="border-bottom: 1px dashed;height:60px;padding-top:5px;" onclick="updateKitchenTaskStatus('{{=order.numberCount}}','{{=order.orderId}}','{{=order.status}}')" tapmode>
+			<div style="float: left;width:70%;line-height: 30px;">
+			<div style="line-height: 53px;">
+			<span style="font-size: 14px;color: gray;font-weight: bold;padding-left: 10px;">#<em style="font-size: large;">{{=order.numberCount}}</em></span>
+			<span style="font-size: 14px;color: black;padding-left: 25px;width: 110px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">{{=order.name}}</span>
+			</div>
+			</div>
+			<span id="span{{=order.orderId}}" style="line-height: 40px;background-color:#817C7C;width: 30%;font-weight: bold;color: white;text-align: -webkit-center;height: 40px;margin-top: 6px;border-radius: 6px;">{{=order.status}}</span>
+			</li>
+			{{?}}
+			{{~}}
+			<div style="height: 5px;"></div>
+			</ul>
+		</script>
+		<div id="deliverOrder" style="  background-color:white;margin: 6px;"></div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/av.min.js"></script>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/AV_common.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript">
+		var kitaskArr = new Array();
+		apiready = function() {
+			kitaskArr = $api.getStorage("kitaskArr");
+			console.log("kitaskArr>>>" + JSON.stringify(kitaskArr))
+			loadkitchenTask(kitaskArr.kitchenId);
+			api.setRefreshHeaderInfo({
+				visible : true,
+				bgColor : '#EFEFEF',
+				textDown : '刷新配送订单..',
+				textUp : '刷新配送订单..',
+				textLoading : '数据加载中..'
+			}, function(ret, err) {
+				document.getElementById('deliverOrder').innerHTML = '';
+				loadkitchenTask(kitaskArr.kitchenId).then(function() {
+					api.refreshHeaderLoadDone();
+				}).catch(function(error) {
+					api.refreshHeaderLoadDone();
+					errorAlert(error);
+				});
+			});
+		};
+		function updateKitchenTaskStatus(numberCount, orderId, status) {
+			var request = {
+				orderId : orderId,
+				kitchenId : kitaskArr.kitchenId,
+				numberCount : numberCount
+			};
+			console.log("request>>>" + document.getElementById('span' + orderId).innerHTML)
+			if (status != "已拿货" && document.getElementById('span' + orderId).innerHTML != '已拿货') {
+				api.confirm({
+					title : '操作提示',
+					msg : '是否确认拿货？',
+					buttons : ['取消', '确定']
+				}, function(ret, err) {
+					if (ret.buttonIndex == 2) {
+						AV.Cloud.run("changeKitchenTaskStatus", request).then(function(ret) {
+							api.toast({
+								location : 'middle',
+								msg : '修改成功'
+							});
+							document.getElementById('span' + orderId).innerHTML = '已拿货';
+							document.getElementById('span' + orderId).style.backgroundColor = '#817C7C';
+							document.getElementById('id' + orderId).style.backgroundColor = 'rgb(222, 225, 226)';
+						}).catch(function(error) {
+							console.log("error：" + JSON.stringify(error));
+							var msg = error.hasOwnProperty("msg") ? error.msg : JSON.stringify(error);
+							api.hideProgress();
+							api.alert({
+								title : '提示',
+								msg : msg
+							});
+						});
+					}
+				});
+			} else {
+				api.toast({
+					location : 'middle',
+					msg : '您已经拿过货了,没有了|_|'
+				});
+			}
+		}
+
+		function loadkitchenTask(kitId) {
+			console.log("kitId>>>" + kitId)
+			api.showProgress({
+				title : '加载数据中...',
+				modal : true
+			});
+			return AV.Cloud.run("getKitchenTask", {
+				"kitchenId" : kitId
+			}).then(function(ret) { 
+				console.log("loadkitchenTask>>>" + JSON.stringify(ret))
+				if (ret && ret.length) {
+					var template_deliverItem = document.getElementById("template_deliverItem").innerHTML;
+					document.getElementById("deliverOrder").innerHTML = doT.template(template_deliverItem)(ret);
+				}
+				api.hideProgress();
+			}).catch(function(error) {
+				api.hideProgress();
+				console.log("error：" + JSON.stringify(error));
+			});
+		}
+	</script>
+</html>

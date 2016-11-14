@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>我的货存</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/myInventory.css" />
+		<link rel="stylesheet" type="text/css" href="../css/inventoryList.css" />
+		<style>
+			.redSpan {
+				color: white;
+				font-size: 18px;
+				background-color: #ED5E25;
+			}
+			.redSpan  em {
+				color: white;
+			}
+			.redDivSpan {
+				color: white;
+				font-size: 18px;
+				background-color: #ED5E25;
+			}
+			.redDivSpan  span {
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<script type="text/template" charset="utf-8"  id='timeSlot_template'>
+			{{ if(it){ }}
+			{{ var l = parseInt(100/it.length) + "%"; }}
+			{{ for(var i=0; i<it.length; i++){}}
+			<div style="width: {{=l}}; float: left;line-height: 24px;">
+			<div name="selectSolt" data-value="{{=it[i].name}}" type="{{=it[i].name}}" class="spanSty1">
+			{{=it[i].name}}
+			<br />
+			<em class="spanEm">
+			({{=it[i].officeHours[0]}}--{{=it[i].officeHours[1]}})
+			</em>
+			</div>
+			</div>
+			{{}}}
+			{{}}}
+		</script>
+		<!--<div class="header" id="header">
+		<div class="backIcon" onclick="goBack();"><img src="../image/deliver/icon_back.png" alt="" />
+		</div>
+		<div class="title" >
+		<div>
+		<span id="title">我的货存</span>
+		</div>
+		</div>
+		<div class="stockbtn" id="stockbtn" onclick="displayOptions();">
+		库存调整
+		</div>
+		</div>-->
+		<div id="wrap" style="height: 50px;">
+			<header class="header" id="header">
+				<div>
+					<img src="../image/deliver/icon_back.png" alt="" class="left_back" id="topbar_search"  onclick="goback()">
+				</div>
+				<div id="order"  style="text-align: center;" id="title">
+					<a class="btn_middle" style="color: #fff;" tapmode id="title"><b>剩余管理</b></a>
+				</div>
+			</header>
+		</div>
+		<div class="divBg">
+			<div name ="typeName" onclick="loadType(0)" data-value="0" class="spanSty"  id="divQcwm">
+				<span id="spanQcwm" class="lang">全城外卖</span>
+			</div>
+			<div  name ="typeName" onclick="loadType(1)" data-value="1" class="spanSty" id="sty2">
+				<span class="lang">甜品饮料</span>
+			</div>
+			<div   name ="typeName" onclick="loadType(2)" data-value="2" class="spanSty" id="sty3">
+				<span class="lang">生活超市</span>
+			</div>
+			<div  name ="typeName" onclick="loadType(3)" data-value="3" class="spanSty" id="sty4">
+				<span class="lang">其它服务</span>
+			</div>
+		</div>
+		<div class="timeSlot" id="timeSlot">
+			<!--	<div style="width: 33%; float: left;line-height: 24px;">
+			<div name="selectSolt" data-value="{{=i}}" num="{{=it.num}}" type="{{=temp[i].name}}" class="spanSty1">
+			早餐
+			<br />
+			<em class="spanEm"> (08:00--10:000) </em>
+			</div>
+			</div>
+			<div style="width:33%; float: left;line-height: 24px;">
+			<div name="selectSolt" data-value="{{=i}}" num="{{=it.num}}" type="{{=temp[i].name}}" class="spanSty1">
+			中餐
+			<br />
+			<em class="spanEm"> (12:00--14:000) </em>
+			</div>
+			</div>
+			<div style="width:33%; float: left;line-height: 24px;">
+			<div name="selectSolt" data-value="{{=i}}" num="{{=it.num}}" type="{{=temp[i].name}}" class="spanSty1">
+			晚餐
+			<br />
+			<em class="spanEm"> (18:00--20:000) </em>
+			</div>
+			</div>-->
+		</div>
+		</div> <!--<div class="blank" id="optionsBlank" onclick="hideOptions();" hidden>
+		<div class="options" id="options">
+		<div class="optionItem"  onclick="excuteManage('数量调整');">
+		<div class="optionIcon"><img src="../image/car/inventory.png" />
+		</div>
+		<div class="action">
+		<span>数量调整</span>
+		</div>
+		</div>
+		<div class="optionH1"></div>
+		<div class="optionItem" onclick="excuteManage('客户换货');">
+		<div class="optionIcon"><img src="../image/car/inventory.png" />
+		</div>
+		<div class="action">
+		<span>客户换货</span>
+		</div>
+		</div>
+		<div class="optionH1"></div>
+		<div class="optionItem" onclick="excuteManage('现金出售');">
+		<div class="optionIcon"><img src="../image/car/inventory.png" />
+		</div>
+		<div class="action">
+		<span>现金出售</span>
+		</div>
+		</div>
+		</div>
+		</div>-->
+		<!--	<div class="topInfo" id="topInfo">
+		<div class="totalMoney">
+		应收：<span id="receivable">0</span>&nbsp;元(不含优惠)
+		</div>
+		<div class="totalMoney">
+		网上实收：<span id="actual">0</span>&nbsp;元(不含优惠)
+		</div>
+		<div class="totalMoney">
+		未收金额：<span id="remain">0</span>&nbsp;元(不含优惠)
+		</div>
+		</div>-->
+		<div id="topInfo" style="height: 30px;line-height: 30px; background-color: #FF7220;">
+			<span style="  width: 80%;  text-align: -webkit-center;font-weight: bolder;color: white;">菜单名称</span>
+			<span style="  width: 15%;  text-align: -webkit-center;font-weight: bolder;color: white;">上架</span>
+		</div>
+		<div id="main"></div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/av.min.js"></script>
+	<script type="text/javascript" src="../script/AV_common.js"></script>
+	<script type="text/javascript" src="../script/common.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.11.1.min.js"></script>
+	<!--<script type="text/javascript" src="../script/jquery.lazyload.js"></script>-->
+	<script>
+		var tmp = new Array();
+		apiready = function() {
+			console.log(JSON.stringify(api.pageParam));
+			document.getElementById('title').innerHTML = api.pageParam.type;
+			api.addEventListener({
+				name : 'keyBack'
+			}, function(ret, err) {
+				goBack();
+			});
+			//默认为正餐
+			loadType(0);
+		}
+		function goBack() {
+			api.closeWin({
+			});
+		}
+
+		function displayOptions() {
+			document.getElementById('optionsBlank').hidden = false;
+		}
+
+		function hideOptions() {
+			document.getElementById('optionsBlank').hidden = true;
+		}
+
+		function loadingInventoryList(catalog, hoursType) {
+			console.log("傳入的參數：" + catalog + ":" + hoursType)
+			window.header = $api.byId('header');
+			window.topInfo = $api.byId('topInfo');
+			$api.fixStatusBar(header);
+			var headerPos = $api.offset(header);
+			var topInfoPos = $api.offset(topInfo);
+			var main = $api.byId('main');
+			var mainPos = $api.offset(main);
+			api.openFrame({
+				name : 'inventoryList',
+				url : '../html/inventoryList_2.html',
+				rect : {
+					x : 0,
+					y : headerPos.h + topInfoPos.h + 100,
+					w : 'auto',
+					h : 'auto'
+				},
+				pageParam : {
+					catalog : catalog,
+					hoursType : hoursType,
+					type : api.pageParam.type
+				},
+				bounces : false,
+				opaque : true,
+				reload : true
+			});
+		}
+
+		function excuteManage(type) {
+			console.log("catalog:" + catalog)
+			api.execScript({
+				name : 'myInventory',
+				frameName : 'inventoryList',
+				script : 'exceptionEnsure("' + type + '","' + hoursType + '","' + catalog + '");'
+			});
+		}
+
+		function loadMoney(total, paid, remain) {
+			//			document.getElementById('receivable').innerHTML = changeTwoDecimal_f(total);
+			//			document.getElementById('actual').innerHTML = changeTwoDecimal_f(Math.abs(paid));
+			//			document.getElementById('remain').innerHTML = changeTwoDecimal_f(remain);
+		}
+
+		function callback(ret, err) {
+			if (!ret) {
+				console.log(err["msg"]);
+				return;
+			}
+			if ((ret.id == 0 && ret.index == 0) || ret.id == 1) {
+				navigationBar.show({
+					id : 1
+				});
+			} else {
+				navigationBar.hide({
+					id : 1
+				});
+			}
+		}
+
+		function loadType(num) { 
+			AV.Cloud.run("getOfficeHoursByType", {
+				cateLog : num
+			}).then(function(ret) {
+				if (ret) {
+					$("div[name=typeName]").each(function() {
+						var thisCateLog = $(this).attr("data-value");
+						var timeNow = ret.cateLog;
+						console.log("thisCateLog>>>timeNow>>>" + thisCateLog + ":" + timeNow)
+						if (thisCateLog == timeNow) {
+							$(this).addClass('redDivSpan');
+						} else {
+							$(this).removeClass('redDivSpan');
+						}
+					});
+					//营业时间段
+					var menuitem_template = document.getElementById('timeSlot_template').innerHTML;
+					document.getElementById('timeSlot').innerHTML = doT.template( menuitem_template )(ret.type);
+					$("div[name=selectSolt]").each(function() {
+						var thisValue = $(this).attr("data-value");
+						var timeNow = ret.currentOfficeHours;
+						if (timeNow == thisValue) {
+							$(this).addClass('redSpan');
+							loadingInventoryList(num, thisValue);
+						} else {
+							$(this).removeClass('redSpan');
+						}
+						//绑定点击事件
+						$(this).click(function() {
+							var thisVal = $(this).attr("data-value");
+							$("div[name=selectSolt]").each(function() {
+								$(this).removeClass('redSpan');
+							});
+							$(this).addClass('redSpan');
+							//根据carType和选取的时间段查询数据
+							loadingInventoryList(num, thisVal);
+						});
+					});
+				} else {
+					console.log("没有查询到相关数据！！")
+				}
+			}).catch(function(erroe) {
+				console.log("error:" + JSON.stringify(error))
+			});
+		}
+
+		function show(num) {
+			console.log("tmp[Number(num - 1)]>>>" + JSON.stringify(tmp[Number(num - 1)]))
+			var template = document.getElementById("timeSlot_template").innerHTML;
+			document.getElementById("timeSlot").innerHTML = doT.template(template)(tmp[Number(num - 1)]);
+			$("div[name=selectSolt]").each(function() {
+				var start = $(this).attr("data-value");
+				if (start == 0) {
+					$(this).addClass("changeColor");
+					catalog = $(this).attr("num");
+					hoursType = $(this).attr("type");
+					loadingInventoryList(catalog, hoursType);
+				}
+				$(this).click(function() {
+					var a = $(this).attr("data-value");
+					$("div[name=selectSolt]").each(function() {
+						var b = $(this).attr("data-value");
+						if (a == b) {
+							$(this).addClass("changeColor");
+						} else if ($(this).hasClass("changeColor")) {
+							$(this).removeClass("changeColor");
+						}
+					});
+					catalog = $(this).attr("num");
+					hoursType = $(this).attr("type");
+					loadingInventoryList(catalog, hoursType);
+				});
+			});
+			for (var i = 1; i <= 4; i++) {
+				if (i == num) {
+					var style = "width: 25%;text-align: center;font-size: 17px;background-color:rgb(28, 171, 234)"
+					document.getElementById("sty" + i).setAttribute("style", style);
+				} else {
+					var style = "width: 25%;text-align: center;font-size: 17px;background-color:white"
+					document.getElementById("sty" + i).setAttribute("style", style);
+				}
+			}
+		}
+
+		function goback() {
+			api.closeWin({
+			});
+		}
+	</script>
+</html>

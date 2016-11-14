@@ -1,0 +1,497 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta name="content-type" content="text/html" charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no">
+		<link href="../css/web_css.css" rel="stylesheet">	<!--页面样式-->
+		<link href="../css/reset.css" rel="stylesheet"><!--重置样式-->
+		<link rel="stylesheet" href="../css/flex-layout.css">
+		<link rel="stylesheet" href="../css/layout.css">
+		<link rel="stylesheet" href="../css/index.css">
+		<title>配送订单</title>
+
+	</head>
+	<body>
+		<div class="top">
+			<header class="m-header flex-column flex-middle flex-item-24">
+				<p class="header-text flex-item-24 flex-center">
+					<i class="back"></i>配送订单<i class="refresh"></i>
+				</p>
+			</header>
+			<nav class="nav-box flex-item-24 flex-around flex-column">
+				<div class="flex-item-8 nav-text active" id="nav-1">
+					<span>待接单</span><i id="nav-new1" class="nav-new">1</i>
+				</div>
+				<div class="flex-item-8 nav-text" id="nav-2">
+					<span>配送中</span><i id="nav-new2" class="nav-new">1</i>
+				</div>
+				<div class="flex-item-8 nav-text " id="nav-3">
+					<span>已完成</span><i id="nav-new3" class="nav-new">1</i>
+				</div>
+			</nav>
+		</div>
+		<!--顶部导航栏!-->
+		<div class="mask flex-item-24"></div>
+		<!--弹窗事件的遮罩-->
+		<div class="reset-shop flex-item-22 flex-column flex-center" style="display: none">
+			<div class="off"><img src="../image/wrong.png" >
+			</div>
+			<div class="flex-item-24 flex-center flex-column" id="transportPersonnel">
+				<div class="reset-shop-text flex-item-23 flex-center">
+					<p>22222222222</p>
+					<p>33333333</p>
+				</div>
+				<div class="reset-shop-text flex-item-23 flex-center">
+					<p>12312312312312</p>
+					<p>66666666666666</p>
+				</div>
+				<div class="reset-shop-text flex-item-23 flex-center">
+					<p>1222222222223</p>
+					<p>55555555555</p>
+				</div>
+				<div class="reset-shop-text flex-item-23 flex-center">
+					<p>1222222222223</p>
+					<p>55555555555</p>
+				</div>
+				<div class="reset-shop-text flex-item-23 flex-center">
+					<p>1222222222223</p>
+					<p>55555555555</p>
+				</div>
+				<div class="reset-shop-text flex-item-23 flex-center">
+					<p>1222222222223</p>
+					<p>55555555555</p>
+				</div>
+				<div class="reset-shop-text flex-item-23 flex-center">
+					<p>1222222222223</p>
+					<p>55555555555</p>
+				</div>
+
+			</div>
+		</div>
+		<!--选择配送员窗口-->
+		<div class="refund" id="refund">
+			<p>
+				是否同意退款？
+			</p>
+			<div class="clearfix refund-box">
+				<button type="button" value="同意退款" id="refund-yes">
+					同意退款
+				</button>
+				<button type="button" value="拒绝退款" id="refund-no">
+					拒绝退款
+				</button>
+				<button type="button" value="取消" id="refund-cancel">
+					取消
+				</button>
+			</div>
+		</div>
+		<!--退单确认窗口-->
+		<div class="refund" id="sure">
+			<!--确认配送员-->
+			<p>
+				是否选择该配送员？
+			</p>
+			<div class="clearfix refund-box">
+				<button type="button" value="确定" id="sure-yes">
+					确定
+				</button>
+				<button type="button" value="返回" id="sure-no">
+					返回
+				</button>
+			</div>
+		</div>
+		<div class="m-content flex-item-24 flex-row flex-center " id="m-content">
+			<!--订单模版渲染区域-->
+			<div class="m-container-1 flex-item-24 flex-column flex-center" id="waitingOrder">
+				<div class="user-box flex-item-23 ">
+					<div class="user-info-top flex-item-24 ">
+						<div class="user-info-text">
+							<p>
+								客户电话：15915251578
+							</p>
+							<p class="fr orderNumber" >
+								编号：6552}
+							</p>
+						</div>
+					</div>
+					<div class="user-info-body flex-row flex-item-24 flex-center">
+						<div class="user-info-add  flex-row flex-item-24 flex-center">
+							<ul class="user-info-add-text flex-item-23 flex-center">
+								<li>
+									<div class="clock"></div><span class="clock-text">30分钟预达</span><span class="money"><i>&#165</i> 50.00</span>
+								</li>
+								<li class="clearfix">
+									<div class="destination">
+										送
+									</div><span class="add-destination">荷花田旗舰餐厅-珠海市吉大景园路景山路1号</span>
+								</li>
+								<li class="clearfix">
+									<div class="source">
+										取
+									</div><span class="add-source">珠海市香洲区吉大钰海环球金融中心5楼312室腾飞科技有限公司融中心5楼312室腾飞科技有限公司融中心5楼312室腾飞科技有限公司</span>
+								</li>
+							</ul>
+							<ul class="user-info-other flex-item-23 flex-center">
+								<li class="">
+									<p class="ddbz">
+										订单备注:清仔规定时间送达
+									</p>
+								</li>
+							</ul>
+							<span>
+								<input type="button" value="立即接单" class="dispatch">
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="m-container-2 flex-item-24 flex-column flex-center" id="deliverOrder">
+				<div class="user-box flex-item-23 ">
+					<div class="user-info-top flex-item-24 ">
+						<div class="user-info-text">
+							<p>
+								客户电话：15915251578
+							</p>
+							<p class="fr orderNumber" >
+								编号：2554
+							</p>
+						</div>
+					</div>
+					<div class="user-info-body flex-row flex-item-24 flex-center">
+						<div class="user-info-add  flex-row flex-item-24 flex-center">
+							<ul class="user-info-add-text flex-item-23 flex-center">
+								<li>
+									<div class="clock"></div><span class="clock-text">30分钟预达</span><span class="money"><i>&#165</i> 55.00</span>
+								</li>
+								<li class="clearfix">
+									<div class="destination">
+										送
+									</div><span class="add-destination">荷花田旗舰餐厅-珠海市吉大景园路景山路1号</span>
+								</li>
+								<li class="clearfix">
+									<div class="source">
+										取
+									</div><span class="add-source">珠海市香洲区吉大钰海环球金融中心5楼312室腾飞科技有限公司</span>
+								</li>
+							</ul>
+							<ul class="user-info-other flex-item-23 flex-center">
+								<li class="businessInfo">
+									<p class="ddbz">
+										订单备注:请尽快送达
+									</p><i class="i-2"></i>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="user-info-other-box flex-item-24 flex-row " style="display:none">
+						<div class="user-info-text flex-item-24">
+							<p>
+								商家电话:15915251578
+							</p>
+						</div>
+						<div class="user-info-other flex-item-23 flex-center">
+							<ul class="">
+								<li>
+									<span>支付方式:支付宝支付</span><span class="fr">状态:配送中</span>
+								</li>
+							</ul>
+						</div>
+						<div class="user-info-other-table flex-item-23 flex-center">
+							<table class="flex-item-24 ">
+								<tr class="th">
+									<th>菜名</th>
+									<th>数量</th>
+									<th>单价</th>
+								</tr>
+								<tr class="td">
+									<td>梅菜扣肉</td>
+									<td>×1</td>
+									<td>22/元</td>
+								</tr>
+							</table>
+						</div>
+						<div class="user-info-other-button flex-item-24 flex-column">
+							<div class="flex-item-24 flex-between">
+								<button type="button" value="重新派单" class="dispatch2">
+									重新派单
+								</button>
+								<button type="button" value="确认送达" class="dispatch3">
+									确认送达
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="m-container-3 flex-item-24 flex-column flex-center" id="finishedOrder">
+				<div class="user-box flex-item-23 ">
+					<div class="user-info-top flex-item-24 ">
+						<div class="user-info-text">
+							<p>
+								客户电话：15915251578
+							</p>
+							<p class="fr orderNumber" >
+								编号：2354
+							</p>
+						</div>
+					</div>
+					<div class="user-info-body flex-row flex-item-24 flex-center">
+						<div class="user-info-add  flex-row flex-item-24 flex-center">
+							<ul class="user-info-add-text flex-item-23 flex-center">
+								<li class="clearfix order-complete">
+									<div class="complete-img"></div><span class="">订单已完成</span>
+								</li>
+								<li class="clearfix">
+									<div class="destination">
+										送
+									</div><span class="add-destination">荷花田旗舰餐厅-珠海市吉大景园路景山路1号</span>
+								</li>
+								<li class="clearfix">
+									<div class="source">
+										取
+									</div><span class="add-source">珠海市香洲区吉大钰海环球金融中心5楼312室腾飞科技有限公司</span>
+								</li>
+							</ul>
+							<ul class="user-info-other flex-item-23 flex-center">
+								<li class="">
+									<p class="ddbz">
+										订单备注:订单定尽快送达
+									</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="user-box flex-item-23 ">
+					<div class="user-info-top flex-item-24 ">
+						<div class="user-info-text">
+							<p>
+								客户电话：15915251578
+							</p>
+							<p class="fr orderNumber" >
+								编号：2354
+							</p>
+						</div>
+					</div>
+					<div class="user-info-body flex-row flex-item-24 flex-center">
+						<div class="user-info-add  flex-row flex-item-24 flex-center">
+							<ul class="user-info-add-text flex-item-23 flex-center">
+								<li class="clearfix order-refund">
+									<div class="cancel-img"></div><span class="">订单已退单</span>
+								</li>
+								<li class="clearfix">
+									<div class="destination">
+										送
+									</div><span class="add-destination">荷花田旗舰餐厅-珠海市吉大景园路景山路1号</span>
+								</li>
+								<li class="clearfix">
+									<div class="source">
+										取
+									</div><span class="add-source">珠海市香洲区吉大钰海环球金融中心5楼312室腾飞科技有限公司</span>
+								</li>
+							</ul>
+							<ul class="user-info-other flex-item-23 flex-center">
+								<li class="">
+									<p class="ddbz">
+										订单备注:订单定尽快送达
+									</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="user-box flex-item-23 ">
+					<div class="user-info-top flex-item-24 ">
+						<div class="user-info-text">
+							<p>
+								客户电话：15915251578
+							</p>
+							<p class="fr orderNumber" >
+								编号：2354
+							</p>
+						</div>
+					</div>
+					<div class="user-info-body flex-row flex-item-24 flex-center">
+						<div class="user-info-add  flex-row flex-item-24 flex-center">
+							<ul class="user-info-add-text flex-item-23 flex-center">
+								<li class="clearfix order-cancel">
+									<div class="cancel-img"></div><span class="">订单已取消</span>
+								</li>
+								<li class="clearfix">
+									<div class="destination">
+										送
+									</div><span class="add-destination">荷花田旗舰餐厅-珠海市吉大景园路景山路1号</span>
+								</li>
+								<li class="clearfix">
+									<div class="source">
+										取
+									</div><span class="add-source">珠海市香洲区吉大钰海环球金融中心5楼312室腾飞科技有限公司</span>
+								</li>
+							</ul>
+							<ul class="user-info-other flex-item-23 flex-center">
+								<li class="">
+									<p class="ddbz">
+										订单备注:订单定尽快送达
+									</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="footer-box flex-item-24 flex-middle flex-column">
+			<div class="flex-item-6 footer-text  active" id="footer-1">
+				<span><img src="../image/calendar_active.png" />
+					<p>
+						外卖订单
+					</p></span><i id="footer-new1">1</i>
+			</div>
+			<div class="flex-item-6 footer-text" id="footer-2">
+				<span><img src="../image/process.png" />
+					<p>
+						配送请求
+					</p></span>
+			</div>
+			<div class="flex-item-6 footer-text" id="footer-3">
+				<span><img src="../image/Viewlist.png" />
+					<p>
+						订单管理
+					</p></span>
+			</div>
+			<div class="flex-item-6 footer-text" id="footer-4">
+				<span><img src="../image/account.png" />
+					<p>
+						我的信息
+					</p></span>
+			</div>
+		</footer>
+		<!--底部固定栏-->
+	</body>
+</html>
+<script src="../newAppJs/jquery.min.js"></script>
+<script src="../newAppJs/jquery.touchSwipe.min.js"></script>
+<script src="../newAppJs/jquery.rotate.min.js"></script>
+<script src="../newAppJs/api.js"></script>
+<script src="../newAppJs/doT.min.js"></script>
+<!--模版配置脚本-->
+<script src="../newAppJs/share.js"></script>
+<script src="../newAppJs/orderDelive.js"></script>
+<!--页面脚本-->
+
+<script>
+	apiready = function() {
+	
+	var UIListView = api.require('UIListView');
+UIListView.open({
+    rect: {
+        x: 0,
+        y: 20,
+        w: api.winWidth,
+        h: api.frameHeight
+    },
+    data: [{
+        uid: '1001',
+        imgPath: 'widget://res/img/apicloud.png',
+        title: '配送员1号',
+        subTitle: '吉大区域',
+        remark: '备注',
+        icon: ''
+    }, {
+        uid: '1001',
+        imgPath: 'widget://res/img/apicloud.png',
+        title: '配送员2号',
+        subTitle: '香洲区域',
+        remark: '备注',
+        icon: ''
+    }, {
+        uid: '1001',
+        imgPath: 'widget://res/img/apicloud.png',
+        title: '配送员三号',
+        subTitle: '斗门区域',
+        remark: '备注',
+        icon: ''
+    }, {
+        uid: '1001',
+        imgPath: 'widget://res/img/apicloud.png',
+        title: '配送员4号',
+        subTitle: '南屏区域',
+        remark: '备注',
+        icon: ''
+    }, {
+        uid: '1001',
+        imgPath: 'widget://res/img/apicloud.png',
+        title: '配送员5号',
+        subTitle: '横琴区域',
+        remark: '备注',
+        icon: ''
+    }],
+    rightBtns: [{
+        bgColor: '#388e8e',
+        activeBgColor: '',
+        width: 70,
+        title: '按钮',
+        titleSize: 12,
+        titleColor: '#fff',
+        icon: '',
+        iconWidth: 20
+    }],
+    styles: {
+        borderColor: '#FFFFFF',
+        item: {
+            bgColor: '#FFFFFF',
+            activeBgColor: '#F5F5F5',
+            height: 70,
+            imgWidth: 40,
+            imgHeight: 40,
+            imgCorner: 4,
+            placeholderImg: '',
+            titleSize: 12.0,
+            titleColor: '#000',
+            subTitleSize: 12.0,
+            subTitleColor: '#000',
+            remarkColor: '#000',
+            remarkSize: 16,
+            remarkIconWidth: 30
+        }
+    },
+    fixedOn: api.frameName
+}, function(ret, err) {
+    if (ret) {
+      
+    } else {
+        alert(JSON.stringify(err));
+    }
+});
+
+ UIListView.hide();
+    $(".m-content").on("click",".dispatch",function () { //dispatch按钮(立即接单)
+        UIListView.show();
+    });
+    
+    
+    api.addEventListener({
+    name:'scrolltobottom',
+    extra:{
+        threshold:0            //设置距离底部多少距离时触发，默认值为0，数字类型
+    }
+}, function(ret, err){        
+   api.toast({
+    msg: '暂无更多数据...',
+    duration: 2000,
+    location: 'bottom'
+});
+
+});
+
+api.addEventListener({
+    name:'keyback'
+},function(ret,err){
+      UIListView.hide();
+});
+
+	}
+</script>

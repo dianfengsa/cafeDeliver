@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>送餐app入口</title>
+		<link rel="stylesheet" type="text/css" href="./css/api.css" />
+		<link rel="stylesheet" type="text/css" href="./css/common.css" />
+	</head>
+	<body></body>
+	<script type="text/javascript" src="./newAppJs/api.js"></script>
+	<script type="text/javascript" src="./newAppJs/av.js"></script>
+	<script type="text/javascript" src="./newAppJs/dbSearch.js"></script>
+	<script type="text/javascript" src="./newAppJs/underscore-min.js"></script>
+	<script>
+		apiready = function() {
+			newInit();
+		}
+		function newInit() {
+			var user = AV.User.current();
+			if (user && user.authenticated()) {
+				checkDeliverManSataus(user).then(function(ret) {
+					///如果存在这个deliverMan,就直接登录订单页面
+					console.log("ret>>>" + JSON.stringify(ret))
+					if (!_.isEmpty(ret)) {
+						api.openWin({
+							name : 'orderDelive',
+							url : './newAppHtml/orderDelive.html',
+							opaque : true, // 页面不透明
+							bounces : false, // 不允许页面弹动，ripple
+							vScrollBarEnabled : false,
+							pageParam : {
+								"deliverMan" : ret
+							},
+							slidBackEnabled : false,
+							animation : {
+								type : "fade", //动画类型（详见动画类型常量）
+								subType : "from_right", //动画子类型（详见动画子类型常量）
+								duration : 300 //动画过渡时间，默认300毫秒
+							},
+							delay : 0
+						});
+					} else {
+						//没有这个deliverMan就跳转登录页面注册
+						api.openWin({
+							name : 'login',
+							url : './new_login.html',
+							opaque : true, // 页面不透明
+							bounces : false, // 不允许页面弹动
+							reload : true,
+							delay : 0
+						});
+					}
+				}).catch(function(error) {
+				});
+			} else {
+				//没有这个用户就跳转登录页面注册
+				api.openWin({
+					name : 'login',
+					url : './new_login.html',
+					opaque : true, // 页面不透明
+					bounces : false, // 不允许页面弹动
+					reload : true,
+					delay : 0
+				});
+			}
+		}
+	</script>
+</html>

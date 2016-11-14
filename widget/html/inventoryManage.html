@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>货存列表</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/inventoryManage.css" />
+	</head>
+	<body>
+		<script type="text/template" id="template_dishItem">
+			{{ if(it && it.length>0){ }}
+			{{ for(var i=0; i<it.length; i++){ }}
+			<tr>
+			<td class="dishName">板栗排骨</td>
+			<td class="dishNum">12</td>
+			</tr>
+			{{ } }}
+			{{ } }}
+		</script>
+		<div class="cartInfo">
+			<div class="h10"></div>
+			<div class="relevant">
+				<div class="row">
+					区域：<span>杨师傅</span>
+				</div>
+				<div class="h1"></div>
+				<div class="row">
+					配送员：<span>小樊</span>
+				</div>
+			</div>
+			<div class="h10"></div>
+			<div class="relevant">
+				<div class="row">
+					<div class="officeHoursType">
+						<input type="radio" name="officeHoursType" value="早餐">
+						早餐
+					</div>
+					<div class="officeHoursType">
+						<input type="radio" name="officeHoursType" value="午餐" checked="">
+						午餐
+					</div>
+					<div class="officeHoursType">
+						<input type="radio" name="officeHoursType" value="晚餐">
+						晚餐
+					</div>
+				</div>
+			</div>
+			<div class="h10"></div>
+			<div class="inventoryList" id="inventoryListDiv">
+				<table>
+					<tr>
+						<td class="dishName">板栗排骨</td>
+						<td class="dishNum">2</td>
+					</tr>
+					<tr>
+						<td class="dishName">板栗排骨</td>
+						<td class="dishNum">12</td>
+					</tr>
+				</table>
+			</div>
+			<div class="h10"></div>
+			<div class="exceptionType">
+				<div class="reasonType">
+					<input type="radio" name="type" value="商家出货异常">
+					商家出货异常
+				</div>
+				<div class="reasonType">
+					<input type="radio" name="type" value="配送耗损">
+					配送耗损
+				</div>
+				<div class="reasonType">
+					<input type="radio" name="type" value="现货出售" checked="">
+					现货出售
+				</div>
+				<div class="reasonType">
+					<input type="radio" name="type" value="其它" >
+					其它
+				</div>
+			</div>
+			<div class="h10"></div>
+			<div class="discrition" >
+				<span>描述：</span>
+				<div class="content">
+					<textarea placeholder="请描述货存调整的原因"></textarea>
+				</div>
+				<div class="submitBtn">
+					<button>
+						提交保存
+					</button>
+					<button>
+						取消返回
+					</button>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/av.min.js"></script>
+	<script type="text/javascript" src="../script/AV_common.js"></script>
+	<script type="text/javascript" src="../script/common.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script>
+		apiready = function() {
+			//			api.setRefreshHeaderInfo({
+			//				visible : true,
+			//				bgColor : '#EFEFEF',
+			//				//				textColor : '#fff',
+			//				textDown : '刷新货存..',
+			//				textUp : '刷新货存..',
+			//				textLoading : '数据加载中..'
+			//			}, function(ret, err) {
+			//				//从服务器加载数据，完成后调用api.refreshHeaderLoadDone()方法恢复组件到默认状态
+			//				loadingInventory().then(function() {
+			//					api.refreshHeaderLoadDone();
+			//				}).catch(function(error) {
+			//					api.refreshHeaderLoadDone();
+			//					errorAlert(error);
+			//				});
+			//			});
+			//			if (AV.User.current()) {
+			//				api.showProgress({
+			//					title : '货存列表获取中...',
+			//					modal : false
+			//				});
+			//				loadingInventory().then(function() {
+			//					api.hideProgress();
+			//				}).catch(function(error) {
+			//					api.hideProgress();
+			//					errorAlert(error);
+			//				});
+			//			} else {
+			//				api.toast({
+			//					msg : '当前登录无效，请重新登录',
+			//					location : 'middle',
+			//					duration : 2000
+			//				});
+			//				AV.User.logOut();
+			//				api.openWin({
+			//					name : 'login',
+			//					url : '../new_login.html',
+			//					opaque : true, // 页面不透明
+			//					bounces : false, // 不允许页面弹动
+			//					reload : true,
+			//					delay : 2000
+			//				});
+			//			}
+		}
+		function loadingInventory() {
+			var queryMan = new AV.Query(DeliveryMan);
+			queryMan.equalTo('owner', AV.User.current());
+			queryMan.include("cafeCar");
+			return queryMan.first().then(function(manObj) {
+				if (manObj) {
+					var carObj = manObj.cafeCar();
+					return getDishes(carObj);
+				} else {
+					AV.Promise.error("没有找到送餐员");
+				}
+			}).catch(function(error) {
+				console.log(JSON.stringify(error));
+				return AV.Promise.error(error);
+			});
+		}
+
+		function getDishes(carObj) {
+			//			return new AV.Promise(function(resolve, reject) {
+			//				if (!carObj) {
+			//					document.getElementById('inventoryListDiv').innerHTML = '';
+			//					document.getElementById('emptyDiv').hidden = false;
+			//					return resolve();
+			//				} else if (carObj && !carObj.cart()) {
+			//					document.getElementById('inventoryListDiv').innerHTML = '';
+			//					document.getElementById('emptyDiv').hidden = false;
+			//					return resolve();
+			//				} else if (carObj && carObj.cart()) {
+			//					document.getElementById('emptyDiv').hidden = true;
+			//					return AV.Cloud.run("getCarInventory", {
+			//						"cafecarId" : carObj.id
+			//					}).then(function(dishes) {
+			//						console.log("dishes>>>" + JSON.stringify(dishes));
+			//						insertOrderItem(dishes);
+			//						return resolve();
+			//					}).catch(function(error) {
+			//						return reject(error);
+			//					});
+			//				}
+			//			});
+		}
+
+		function insertOrderItem(items) {
+			var template = document.getElementById('template_dishItem').innerHTML;
+			document.getElementById('inventoryListDiv').innerHTML = doT.template( template )(items);
+		}
+	</script>
+</html>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>开饭吧</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/orderList_simple.css" />
+		<style>
+			html, body {
+				width: 100%;
+				min-height: 100%;
+				background: rgba(255,255,255,0);
+				overflow: hidden;
+			}
+			.leftCs {
+				width: 50px;
+				padding-left: 13px;
+				position: absolute;
+			}
+			.rightCs {
+				width: 50px;
+				float: right;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header" id="header">
+			<div class="backIcon" onclick="goBack();">
+				<span style="position: absolute;margin-top: 7px;"><img style="width: 30px;" src="../image/deliver/icon_back.png" alt="" /> </span>
+				<span style="width: 100%;text-align:-webkit-center;color: white;font-weight: bold;">配送请求</span>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/av.min.js"></script>
+	<script type="text/javascript" src="../script/common.js"></script>
+	<script type="text/javascript" src="../script/date.format.js"></script>
+	<script type="text/javascript">
+		//用于记录返回键按钮次数
+		var keybackNum = 0;
+		apiready = function() {
+			var pageParam = api.pageParam;
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			if (pageParam.noCars) {//首次进入
+				pageParam = new Object();
+			}
+			//监听keyback键
+			api.addEventListener({
+				name : 'keyback'
+			}, function(ret, err) {
+				var advLs = $api.getStorage('adv');
+				var panorama = $api.getStorage('panorama');
+				if (advLs) {
+					api.execScript({
+						name : advLs,
+						script : 'goBack();'
+					});
+				}
+				if (panorama) {
+					api.execScript({
+						name : panorama,
+						script : 'goBack();'
+					});
+				} else {
+					if (keybackNum) {
+						api.closeWidget({
+							silent : true
+						});
+					} else {
+						keybackNum += 1;
+						api.toast({
+							msg : '再按一次返回键退出程序。'
+						});
+						setTimeout(function() {
+							keybackNum = 0;
+						}, 3000);
+					}
+				}
+			}); 
+			api.openFrame({
+				name : 'Distribution_body',
+				pageBounce : true,
+				url : './Distribution_body.html',
+				reload : true,
+				pageParam : {
+					"noCars" : true
+				},
+				rect : {
+					x : 0,
+					y : api.systemType == 'ios' ? 70 : 50,
+					w : 'auto',
+					h : 'auto'
+				}
+			});
+		}
+		function goBack() {
+			$api.rmStorage('adv');
+			$api.rmStorage("panorama");
+			api.closeWin({
+			});
+		}
+	</script>
+</html>

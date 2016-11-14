@@ -1,0 +1,109 @@
+/*.dishInfo {
+ float: left;
+ width: 80%;
+ line-height: 35px;
+ padding-left: 5%;
+ }
+ .manage {
+ float: left;
+ width: 15%;
+ }
+ .reason {
+ line-height: 35px;
+ padding-left: 5%;
+ }
+ .ps {
+ line-height: 35px;
+ padding-left: 5%;
+ }
+ .ps textarea {
+ border: red solid;
+ border-width: 1 1 1 1;
+ color: #1A1A1A;
+ font-size: 15px;
+ }*/
+
+.cartInfo {
+	background-color: #FFFFFF;
+}
+.h10 {
+	height: 10px;
+	background-color: #eee;
+}
+.h1 {
+	height: 0.5px;
+	background-color: #EEEEEE;
+	width: 90%;
+	margin-left: 5%;
+}
+.row {
+	height: 40px;
+	line-height: 40px;
+	margin-left: 5%;
+	font-size: 16px;
+	color: #666;
+}
+.row span, .officeHoursType {
+	font-size: 16px;
+	color: black;
+	font-weight: bold;
+}
+.officeHoursType {
+	float: left;
+	width: 20%;
+}
+.inventoryList {
+	margin: 3% 5% 3% 8%;
+}
+table {
+	width: 100%;
+	font-size: 16px;
+	line-height: 22px;
+	font-weight: bold;
+}
+.dishName {
+	width: 60%;
+	color: #FF6633;
+}
+.dishNum {
+	width: 30%;
+}
+.exceptionType {
+	margin: 3% 5% 3% 5%;
+}
+.reasonType {
+	width: 80%;
+	font-size: 16px;
+	line-height: 26px;
+	font-weight: bold;
+}
+.discrition {
+	margin: 1% 5% 1% 5%;
+}
+.discrition span{
+    font-size: 16px;
+    line-height: 34px;
+    color: #666;
+}
+.content{
+    border: 1px dotted #CCCCCC;
+    height: 80px;
+}
+.content textarea{
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+}
+.submitBtn{
+    margin: 8% 10% 8% 10%;
+}
+.submitBtn button{
+    height: 30px;
+    width: 40%;
+    margin-right: 8%;
+    border: 1px solid #36A8DC;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #11264F;
+
+}

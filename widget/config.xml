@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="A6972705759463" version="0.0.1"> 
+  <name>cafeDeliver</name>  
+  <description>cafeDeliver</description>  
+  <author email="68467681@qq.com" href="http://www.apicloud.com">zwgoal</author>  
+  <content src="index.html"/>  
+  <preference name="pageBounce" value="false"/>  
+  <preference name="appBackground" value="rgba(0,0,0,0.0)"/>  
+  <preference name="windowBackground" value="rgba(0,0,0,0.0)"/>  
+  <preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>  
+  <preference name="hScrollBarEnabled" value="true"/>  
+  <preference name="vScrollBarEnabled" value="true"/>  
+  <preference name="autoLaunch" value="true"/>  
+  <preference name="fullScreen" value="false"/>  
+  <preference name="autoUpdate" value="true"/>  
+  <preference name="smartUpdate" value="true"/>  
+  <preference name="debug" value="false"/>  
+  <preference name="statusBarAppearance" value="true"/>  
+  <preference name="iOS7StatusBarAppearance" value="true"/>  
+  <preference name="softInputMode" value="pan"/>  
+  <permission name="readPhoneState"/>  
+  <permission name="call"/>  
+  <permission name="sms"/>  
+  <permission name="camera"/>  
+  <permission name="record"/>  
+  <permission name="fileSystem"/>  
+  <permission name="internet"/>  
+  <permission name="bootCompleted"/>  
+  <permission name="hardware"/>  
+  <permission name="contact"/>  
+  <access origin="*"/>  
+  <feature name="ajpush"> 
+    <param name="app_key" value="2933910a753b57a6f17dd443"/>  
+    <param name="channel" value="cafebarDeliver"/> 
+  </feature>  
+  <feature name="bMap"> 
+    <param name="android_api_key" value="LiUfL8PjuhGGBNZ2Ys4s05EB"/>  
+    <param name="ios_api_key" value="ij8Aon2c6vFbZmp2MzfZ3sgH"/> 
+  </feature>  
+  <feature name="listView"/>  
+  <feature name="navigationBar"/>  
+  <feature name="bubbleMenu"/>  
+  <feature name="UICalendar"/> 
+</widget>

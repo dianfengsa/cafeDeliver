@@ -1,0 +1,120 @@
+@charset "UTF-8";
+body,ul,li,p,h1,h2,h3,h4,h5,h6,img,br,hr,table,tr,td,dl,dt,dd,form,input,button{
+  margin: 0;
+  padding: 0;
+}
+html{
+font-size: 62.5% !important;
+}
+
+@media only screen and (min-width: 481px){
+    html {
+        font-size: 100% !important;
+    }
+
+}
+@media only screen and (min-width: 561px){
+    html {
+        font-size: 109% !important;
+    }
+}
+@media only screen and (min-width: 641px){
+    html {
+        font-size: 125% !important;
+    }
+}
+@media only screen and (max-width: 640px){
+}
+body {
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+  -webkit-overflow-scrolling:touch;
+}
+input:focus{
+  outline: none;
+}
+ul,li {
+  list-style: none;
+}
+img,input,button{
+  border: none;
+  border:0;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+label{
+    display: block;
+}
+a,button{
+  cursor: pointer;
+}
+.fb{
+  font-weight: bold;
+}
+.ma{
+  margin: 0 auto;
+}
+.tc{
+  text-align: center;
+}
+.tl{
+  text-align: left;
+}
+.tr{
+  text-align: right;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.f14{
+  font-size: 14px;
+}
+.f16{
+  font-size: 16px;
+}
+/*栅格*/
+.col-2{
+  width: 20%;
+}
+.col-3{
+  width: 25%;
+}
+.col-4{
+  width: 40%;
+}
+.col-5{
+  width: 50%;
+}
+.col-6{
+  width: 60%;
+}
+.col-7{
+  width: 75%;
+}
+.position{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%,-50%);
+  -ms-transform:translate(-50%,-50%);   /* IE 9 */
+  -moz-transform:translate(-50%,-50%);  /* Firefox */
+  -webkit-transform:translate(-50%,-50%);/* Safari 和 Chrome */
+  -o-transform:translate(-50%,-50%);  /* Opera */
+}
+.clear:after{
+  content: "";
+  font-size: 0;
+  display: table;
+  clear: both;
+}
+.transition{
+  transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+}

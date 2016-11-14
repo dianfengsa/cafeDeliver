@@ -1,0 +1,844 @@
+.top{
+    width: 100%;
+    position: fixed;
+    top:0;
+    z-index: 1;
+}
+
+.hr_05{
+background-color: #FFFFFF;
+}
+
+body{
+
+height: 100%;
+}
+
+header{
+    height: 4rem;
+    background-color: #0459c4;
+
+}
+
+header .header-text{
+    text-align: center;
+    font-size: 2.2rem;
+    color: #FFFFFF;
+
+}
+
+.back{
+    position: absolute;
+    left: 1rem;
+    display: inline-block;
+    height: 3rem;
+    width: 3rem;
+    background: url("../image/back.png")left center no-repeat;
+    background-size: cover;
+}
+
+.search-box {
+    font-size: 1.8rem;
+    padding: 0 0.5rem 0 3rem;
+    color: #c9c9c9;
+    height: 2.5rem;
+    width: 100%;
+    border: none;
+    background: url("../image/search.png") 3% center no-repeat;
+
+    background-size:2rem 2rem;
+
+}
+
+.search-data{
+    font-weight: bold;
+    color: #000000;
+    line-height: 2.5rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0 0 0 0.2rem;
+}
+
+.data-box{
+    border: none;
+    width: 100%;
+    height: 2.5rem;
+    background: url("../image/data.png") 95% center no-repeat;
+    background-size:2rem 2rem;
+}
+
+
+
+nav{
+    height: 3rem;
+
+
+}
+
+.nav-box{
+color: #a0a0a0;
+    background-color: #ffffff;
+
+
+}
+
+nav .active{
+
+    color:#ff6600 ;
+
+
+}
+nav span{
+    display: inline-block;
+    height: 3rem;
+    padding:  0 0.2rem 0 0.2rem;
+
+}
+
+nav .active span{
+    border-bottom: #ff6600 solid 0.2rem;
+}
+nav  i{
+    position: absolute;
+    display: inline-block;
+    height: 1.2rem;
+    width: 1.2rem;
+    background-color: #FF0000;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    color: #FFFFFF;
+    border-radius: 1.2rem;
+   -webkit-border-radius: 1.2rem;
+    font-style: normal;
+
+}
+
+
+nav .nav-text{
+
+
+    line-height: 3rem;
+     font-size: 1.4rem;
+     text-align: center;
+    cursor: pointer;
+ }
+
+footer{
+    height: 4rem;
+    background-color: #FFFFFF;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    z-index: 3;
+}
+
+.footer-box{
+border-top:#c9c9c9 solid 0.1rem ;
+}
+
+footer p{
+    font-size: 1rem;
+}
+
+
+footer .footer-text{
+    color: #000000;
+
+    font-size: 0.5rem;
+    text-align: center;
+}
+
+footer .footer-text img{
+    height: 2rem;
+}
+
+
+footer .active span{
+
+    color: #0379fd;
+
+}
+
+footer div{
+    position: relative;
+}
+
+footer i{
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    display: inline-block;
+    height: 1.2rem;
+    width: 1.2rem;
+    background-color: #FF0000;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    color: #FFFFFF;
+    border-radius: 1.2rem;
+    -webkit-border-radius:1.2rem ;
+    font-style: normal;
+}
+.ban-scroll{
+    overflow:hidden
+}
+
+.test{
+
+    background-color: #007BC5;
+}
+
+.test:last-child{
+    margin-bottom: 0;
+}
+
+.user-box:last-child{
+    margin-bottom: 0;
+}
+
+.money i {
+    font-style: normal;
+    font-weight: bold;
+}
+
+.user-box{
+    margin-bottom: 1rem;
+
+    border-radius: 0.5rem;
+    background-color: #FFFFFF;
+}
+.user-box:last-child{
+    margin-bottom: 0;
+}
+.user-info-top{
+    background-color: #0894d2;
+    -webkit-border-top-left-radius: 0.4rem;
+    -webkit-border-top-right-radius: 0.4rem;
+
+}
+
+.destination{
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 1.8rem;
+    height: 1.6rem;
+    width: 1.6rem;
+    background-color: #088144;
+    border-radius: 100%;
+    margin-right: 0.5rem;
+    font-family: 微软雅黑;
+}
+
+.source{
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 1.8rem;
+    height: 1.6rem;
+    width: 1.6rem;
+    background-color: #ff6803;
+    border-radius: 100%;
+    margin-right: 0.5rem;
+    font-family: 微软雅黑;
+}
+
+.user-info-text{
+    color: #FFFFFF;
+    height: 3rem;
+    padding:0 1.5rem ;
+
+    border-bottom:#c9c9c9 solid 0.1rem ;
+}
+
+
+.user-info-other-box .user-info-text{
+    color: #FFFFFF;
+    background-color: #04b7f1;
+    font-size: 1.6rem;
+    line-height: 3rem;
+
+}
+
+.user-info-other-box ul{
+    line-height: 4rem;
+}
+
+.user-info-top p{
+    margin: 0;
+    line-height: 3rem;
+    display: inline-block;
+    font-size: 1.6rem;
+
+}
+
+.user-info-add{
+    padding-top: 0.3rem;
+}
+
+.clock{
+    display: inline-block;
+    font-size: 1.2rem;
+    background: url("../image/clock.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 1.8rem;
+    height: 1.6rem;
+    width: 1.6rem;
+    margin-right: 0.5rem;
+}
+
+.clock-text{
+    width: 20rem;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #f9b665;
+}
+
+.user-info-other .ddbz{
+    font-size: 1.3rem;
+}
+
+.user-info-add-text{
+
+    border-bottom:#dfdfdf solid 1px ;
+}
+
+.user-info-add-text ul li img{
+   text-align: center;
+    transform:rotate(180deg);
+}
+
+.user-info-add-text ul{
+    display: inline-block;
+    word-break:break-all; /*支持IE，chrome，FF不支持*/
+    word-wrap:break-word;/*支持IE，chrome，FF*/
+    margin-left: 1.5rem;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    font-size: 1.2rem;
+}
+
+.user-info-add-text li .add-destination,.add-source{
+
+
+    width: 20rem;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    word-break:keep-all;/* 不换行 */
+    white-space:nowrap;/* 不换行 */
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;
+}
+
+
+.user-info-add-text img{
+    margin-right: 0.5rem;
+}
+
+.user-info-other{
+    line-height: 32px;
+    padding:0.3rem 0 0 0;
+    font-size: 1.2rem;
+}
+
+.user-info-add-text li,.user-info-other li{
+    margin-left: 1.5rem;
+    margin-right: 1rem;
+}
+.user-info-add-text li{
+    margin-bottom: 0.5rem; ;
+}
+
+
+.user-info-other .ul-1{
+    height: 3rem;
+    line-height: 3rem;
+}
+
+.user-info-other li span{
+    margin: 0 1rem 0 0;
+    font-size: 1.6rem;
+}
+
+.user-info-other p{
+    font-size: 1.2rem;
+    margin-right: 1.2rem;
+    display: inline;
+    color:#626262 ;
+
+}
+
+.user-info-add-text img{
+    height: 2rem;
+}
+.money{
+    font-size: 1.6rem;
+    float: right;
+    color: #FF0000;
+}
+
+
+
+.user-info-other .i-1{
+
+    display: inline-block;
+    height: 3.6rem;
+    width: 3.1rem;
+    left: -2rem;
+    position: relative;
+    top: -0.8rem;
+    float: right;
+    background: url("../image/phone.png")right center no-repeat;
+   transform:  scale(0.6);
+}
+
+.user-info-other .i-2{
+
+    float: right;
+    display: inline-block;
+    position: relative;
+    height: 32px;
+    width: 32px;
+    background: url("../image/jt.png")right center no-repeat;
+
+}
+.rotate{
+    animation: myfirst .1s;
+    animation-fill-mode: forwards;
+    animation-timing-function:ease;
+}
+
+@keyframes myfirst
+{
+    from {transform:rotate(0deg); scale(0.6)}
+    to {transform:rotate(180deg); scale(0.6)}
+}
+
+@-webkit-keyframes myfirst
+{
+    from {transform:rotate(0deg);}
+    to {transform:rotate(180deg);}
+}
+
+
+
+
+
+
+.user-info-other-box{
+
+
+    font-size: 1.8rem;
+    color: #000000;
+
+}
+.user-info-other-table{
+
+}
+
+.th th{
+    background-color: #eeeeee;
+    color: #000000;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: normal;
+    padding: 0.4rem 0;
+
+}
+
+.td td{
+    font-size: 1.4rem;
+    padding: 0.1rem 0;
+    color:#7f7f7f;
+}
+
+
+
+
+
+.user-info-other-table {
+
+    text-align: center;
+    font-size: 1.4rem;
+    color: #c9c9c9;
+}
+
+
+
+.user-info-other-button{
+    padding: 0 2rem;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+
+
+.user-info-other-button .dispatch2{
+    margin: 1rem 0 1rem 0;
+    height: 2.5rem;
+    border: #ff182c solid 0.1rem;
+    width: 12rem;
+    background: none;
+    border-radius: 0.2rem;
+    -webkit-border-radius: 0.2rem;
+    color: #ff182c;
+    font-size: 1.6rem;
+}
+
+.user-info-other-button .dispatch3{
+    font-size: 1.6rem;
+    margin: 1rem 0 1rem 0;
+    height: 2.5rem;
+    background: none;
+    border: #f3854a solid 0.1rem;
+    width: 12rem;
+    color: #f3854a;
+    border-radius: 0.2rem;
+    -webkit-border-radius: 0.2rem;
+}
+.user-info-add span .dispatch{
+
+   height: 2.5rem;
+    width: 16rem;
+    font-size: 1.6rem;
+    color: #ffffff;
+    background-color: #5abfdf;
+    border-radius: 0.2rem;
+    -webkit-border-radius: 0.2rem;
+    border: none;
+    margin:  0 0 1rem 0;
+
+}
+
+
+.dispatch4{
+    height: 3rem;
+    width: 8rem;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #666666;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    border: none;
+}
+
+.dispatch5{
+    height: 3rem;
+    width: 8rem;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #60c684;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    border: none;
+}
+
+
+
+
+.dispatch3{
+    margin: 1rem 0 1rem 0;
+    height: 3rem;
+    border: none;
+    width: 10rem;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    background-color: #60c684;
+    color: #ffffff;
+}
+
+ .reset-shop{
+     top:15%;
+     left: 5%;
+     height: 75%;
+     background-color: #FFF;
+     border: #000000 solid 0.2rem;
+     padding: 2rem 0 0 0 ;
+    position: fixed;
+    margin-bottom: 10rem;
+     overflow:scroll;
+        z-index: 5;
+
+ }
+
+ .off{
+   color: #000000;
+     position: fixed;
+     right: 4rem;
+     font-size: 4rem;
+ }
+
+ .off img {
+     height: 3rem;
+ }
+
+
+
+ .reset-shop-text{
+     padding: 0 0 2rem 2rem;
+     font-size: 1.6rem;
+     line-height: 3rem;
+     border-bottom: #CCC solid 0.1rem;
+     margin: 0 0 2rem 0;
+     cursor: pointer;
+ }
+
+
+.user-logo{
+    margin: 4rem 0 2rem 0;
+    text-align: center;
+    line-height: 10rem;
+    height: 12rem;
+    width: 12rem;
+    border:#ff6600 solid 0.3rem;
+    border-radius: 100%;
+    background-color: #FFF;
+}
+
+
+.user-info-web-bg{
+    background: url("../image/info_no_bg_01.jpg")center center no-repeat;
+    background-size: cover;
+    border-bottom: #FF6600 solid 0.1rem;
+}
+
+
+
+.user-info-web-bg li{
+    line-height: 3rem;
+    font-size: 1.5rem;
+
+}
+
+/*开关按钮*/
+#div1{
+    top: 0.5rem;
+    width: 3rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+    position: relative;
+}
+#div2{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 1.5rem;
+    -webkit-border-radius: 1.5rem;
+    position: absolute;
+    background: white;
+
+}
+.open1{
+    background: #ff6803;
+}
+.open2{
+    border: 0.3rem solid #ff6803;
+    right: 0.01rem;
+}
+
+.close1{
+    background:#FFFFFF;
+    border: 0.3rem solid #c9c9c9;
+    border-left: transparent;
+}
+.close2{
+    left: 0;
+    top: -0.25rem;
+    border: 0.3rem solid #c9c9c9;
+}
+
+
+.user-info-web{
+    position:absolute;
+
+    background-color: #ffffff;
+    padding-bottom: 10rem;
+
+}
+
+.user-info-web-box{
+    margin-top: 4rem;
+    font-size: 1.8rem;
+}
+
+
+.user-logo-img{
+    margin:  25% 0 0 25%;
+    line-height: 6rem;
+    height: 6rem;
+    width: 6rem;
+    background: url("../image/info_no.png")center center no-repeat;
+    background-size: cover;
+}
+
+.user-info-web-box ul .bt{
+
+    color: #a0a0a0;
+}
+
+.user-info-web-box ul{
+    line-height: 3rem;
+}
+
+#shop-yes{
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+    border: none;
+    border-radius: 5rem;
+}
+
+#shop-no{
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+    border: none;
+    border-radius: 5rem;
+    -webkit-border-radius: 5rem;
+}
+
+.mask{
+    height: 100%;
+    width: 100%;
+    background-color: #000000;
+    position: fixed;
+    opacity: 0.4;
+    z-index: 2;
+    display: none;
+}
+
+.user-out{
+
+}
+
+.user-out .user-out-button{
+
+}
+
+
+.user-out{
+     text-align: center;
+ }
+
+.user-out .user-out-button {
+    color: #FFFFFF;
+    height: 3rem;
+    margin:  2rem 0 0 0;
+    font-size: 1.6rem;
+    background-color: #ff6600;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    border-radius: 0.5rem; ;
+    width: 80%;
+    border: none;
+}
+.buff{
+    color: #FF6600;
+    vertical-align: middle;
+}
+
+.notform{
+    font-size: 2rem;
+    text-align: center;
+    padding: 2rem 0 0 0;
+}
+
+.refund{
+    top: 40%;
+    left: 10%;
+    z-index: 5;
+    position: fixed;
+    display: none;
+    width: 80%;
+    border: #000000 solid 0.1rem;
+    background-color: #FFFFFF;
+}
+
+.refund p {
+    font-size: 2rem;
+    text-align: center;
+    margin:  2rem 0 2rem 0;
+}
+.refund-box{
+ border-top: #000000 solid 0.1rem;
+}
+
+
+.refund button{
+   border: none;
+    background: #FFFFFF;
+    font-size: 1.6rem;
+
+    height: 3rem;
+    float: left;
+    width: 33.3%;
+
+}
+
+.refund button:active{
+    color: #FFFFFF;
+    background: #00a0df;
+}
+
+/*状态封条*/
+.seal-box{
+    width: 100%;
+    text-align: center;
+}
+
+
+.seal-achieve{
+   transform: rotate(8deg);
+    color: #7AD548;
+    -webkit-transform: rotate(8deg);
+    margin: 5rem 0 0 5rem;
+    position: absolute;
+    height: 4rem;
+    width: 20rem;
+
+    border: #72df56 dashed 0.3rem;
+    border-radius:1rem ;
+    text-align: center;
+
+}
+
+.seal-return{
+    transform: rotate(8deg);
+    -webkit-transform: rotate(8deg);
+    margin: 5rem 0 0 5rem;
+    position: absolute;
+    color: #dfa24f;
+    height: 4rem;
+    width: 20rem;
+
+    border: #dfa24f dashed 0.3rem;
+    border-radius:1rem ;
+    text-align: center;
+
+}
+
+.seal{
+    transform: rotate(8deg);
+    -webkit-transform: rotate(8deg);
+    margin: 5rem 0 0 5rem;
+    position: absolute;
+    color: #df4a5b;
+    height: 4rem;
+    width: 20rem;
+
+    border: #df4a5b dashed 0.3rem;
+    border-radius:1rem ;
+    text-align: center;
+
+}
+
+
+.seal-box span{
+    text-align: center;
+    line-height: 4rem;
+    font-size: 3rem;
+
+}

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			.adcss {
+				background: rgb(199, 242, 244);
+			}
+		</style>
+	</head>
+	<body style="background-color: #F0F0F0;">
+		<script type="text/template" id="template_driverItem">
+			<span  style="width: 100%;line-height: 30px;font-weight: bold;background-color: #434343;color: white;">中转点列表</span>
+			<ul>
+			{{~it:value:index}}
+			<li id="liid{{=value.kitchenId}}" style="border-bottom: 1px dashed;height:66px;padding-top:5px;" onclick="getOrderDetail('{{=value.kitchenId}}')" tapmode>
+			<div style="float: left;width:70%;padding-top: 5px;line-height: 30px;">
+			站点名称:{{=value.name}} <span style="display: -webkit-box;font-size: 14px;color: gray;">站点地址:{{=value.addr}}</span>
+			</div>
+			<div style="float: left;margin-top: 20px;">
+			<img id="imgid{{=value.kitchenId}}" style="visibility:visible;width: 40px;padding-left: 30px;  margin-top: -10px;" src="../image/mark_red.png" />
+			</div>
+			</li>
+			<div style="height: 5px;"></div>
+			{{~}}
+			</ul>
+		</script>
+		<script type="text/template" id="template_deliverItem">
+			<div style="line-height: 60px;border-bottom: 1px solid rgb(178, 175, 175);">
+			<span  style="font-weight: bold;color: black;font-size: 20px;width: 13%;text-align: -webkit-center;"></span>
+			<span  style="font-weight: bold;color: black;font-size: 20px;width: 30%;text-align:left;">商家名称</span>
+			<span  style="font-weight: bold;color: black;font-size: 20px;width: 50%;text-align:left;">商家地址</span>
+			</div>
+			<ul>
+			{{~it:value:index}}
+			<li id="liid{{=value.kitchenId}}" style="height:66px;padding-top:5px;" onclick="getOrderDetail('{{=value.kitchenId}}')" tapmode>
+			<div style="float: left;margin-top: 10px;width: 15%;">
+			<img id="imgid{{=value.kitchenId}}" style="visibility:visible;width: 40px;margin-top: -15px;" src="../image/mark_red.png" />
+			</div>
+			<div style="float: left;width: 30%;line-height: 20px;">
+			<span style="color:#817F7F; font-weight: bold;font-size: 14px;">{{=value.name}}</span>
+			</div>
+			<div style="float: left;line-height: 20px;width: 50%;">
+			<span style="display: -webkit-box;font-size: 14px;color: #817F7F;font-weight: bold;">{{=value.addr}}</span>
+			</div>
+			</li>
+			<div style="height: 5px;"></div>
+			{{~}}
+			</ul>
+		</script>
+		<div style="padding-left:20px;height:70px;font-size: 14px;font-weight: bold;background-color:white;" onclick="getSiteOrders();">
+			<div style="line-height: 30px;">
+				您好:<em id="logRole" style="font-size: 16px;">未分配角色</em>
+			</div>
+			<div  style="line-height: 30px;">
+				所属公交点:<em id="siteId" style="color: #ED5E25; font-size: 16px;">未分配站点</em>
+			</div>
+			<img src="../image/deliver/arrow_right.png" style="float: right;margin-top: -60px;" />
+		</div>
+		<div style="height: 15px;"></div>
+		<div id="busDriverList"  style="margin: 5px;background-color: white;"></div>
+		<div id="showDeliverList" style="margin: 5px;background-color: white;"></div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/av.min.js"></script>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/AV_common.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/GeoUtils_min.js"></script>
+	<script type="text/javascript" src="../script/date.format.js"></script>
+	<script type="text/javascript" src="../script/jquery.transit.js"></script>
+	<script type="text/javascript" src="../script/requestAnimationFrame.js"></script>
+	<script type="text/javascript" src="../script/iscroll.js"></script>
+	<script type="text/javascript" src="../script/echo.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			api.showProgress({
+				title : '加载数据中...',
+				modal : true
+			}, 10000);
+			load();
+			api.setRefreshHeaderInfo({
+				visible : true,
+				bgColor : '#EFEFEF',
+				textDown : '刷新配送订单..',
+				textUp : '刷新配送订单..',
+				textLoading : '数据加载中..'
+			}, function(ret, err) {
+				document.getElementById('showDeliverList').innerHTML = '';
+				load();
+				api.refreshHeaderLoadDone();
+			});
+		};
+		function load() {
+			return AV.Cloud.run("getDeliverRole").then(function(result) {
+				var indexArr = new Array();
+				console.log("result>>>" + JSON.stringify(result))
+				if (result) {
+					if (result.noRet == 1) {
+						document.getElementById("logRole").innerHTML = "公交司机";
+						document.getElementById("siteId").innerHTML = result.siteInfo.siteName;
+						var template_driverItem = document.getElementById("template_driverItem").innerHTML;
+						document.getElementById("busDriverList").innerHTML = doT.template(template_driverItem)(result.transPointArr);
+					} else if (result.noRet == 2) {
+						document.getElementById("logRole").innerHTML = "送餐员";
+						document.getElementById("siteId").innerHTML = result.siteInfo.siteName;
+						var template_deliverItem = document.getElementById("template_deliverItem").innerHTML;
+						document.getElementById("showDeliverList").innerHTML = doT.template(template_deliverItem)(result.transPointArr);
+						result.transPointArr.forEach(function(e) {
+							if (e.taskObjArr.length > 0) {
+								for (var i = 0; i < e.taskObjArr.length; i++) {
+									if (e.taskObjArr[i].status == "等待拿货") {
+										indexArr.push(e.kitchenId);
+									}
+								}
+							}
+						});
+					} else {
+						document.getElementById("busDriverList").innerHTML = "";
+						document.getElementById("showDeliverList").innerHTML = "";
+					}
+					indexArr = removeArr(indexArr);
+					show(indexArr);
+					$api.setStorage("kitOrderList", result);
+					$api.setStorage("siteInfo", result.siteInfo);
+				}
+				api.hideProgress();
+			}).catch(function(error) {
+				api.hideProgress();
+				document.getElementById("showDeliverList").innerHTML = "暂无订单数据";
+				console.log("error>>>" + JSON.stringify(error))
+			});
+		}
+
+		function removeArr(newArr) {
+			var sameArr = "";
+			var newArrList = new Array();
+			if (newArr.length > 0) {
+				for (var i = 0; i < newArr.length; i++) {
+					if (newArr[i] != sameArr) {
+						newArrList.push(newArr[i]);
+					}
+					sameArr = newArr[i];
+				}
+			}
+			return newArrList;
+		}
+
+		function show(indexArr) {
+			for (var i = 0; i < indexArr.length; i++) {
+				var imgid = document.getElementById("imgid" + indexArr[i]);
+				if (imgid.style.visibility == "visible") {
+					imgid.style.visibility = "hidden";
+					imgid.style.backgroundColor = '#817C7C';
+				} else {
+					imgid.style.visibility = "visible";
+					imgid.style.backgroundColor = '#fff';
+				}
+			}
+			setTimeout(function() {
+				show(indexArr);
+			}, 500);
+		}
+
+		function goBack() {
+			api.closeWin({
+			});
+		}
+
+		function getOrderDetail(kitId) {
+			var orders = new Object();
+			var oList = $api.getStorage("kitOrderList");
+			if (oList) {
+				for (var i = 0; i < oList.transPointArr.length; i++) {
+					if (oList.transPointArr[i].kitchenId == kitId) {
+						if (oList.transPointArr[i].taskObjArr.length > 0) {
+							orders.taskObjArr = oList.transPointArr[i].taskObjArr;
+							orders.orderIdArr = oList.transPointArr[i].orderIdArr;
+							orders.kitchenId = kitId;
+						}
+					}
+				}
+				$api.setStorage("kitaskArr", orders);
+				$api.setStorage('adv', "busDriverDetails_header");
+				console.log("orders.length>>>" + JSON.stringify(orders))
+				if (!isEmptyObject(orders)) {
+					api.openWin({
+						name : 'busDriverDetails_header',
+						url : './busDriverDetails_header.html',
+						rect : {
+							x : 0,
+							y : 0,
+							w : 'auto',
+							h : 'auto'
+						},
+						bounces : false,
+						delay : 200
+					});
+				} else {
+					api.toast({
+						location : 'middle',
+						msg : '该商家没有订单'
+					});
+				}
+			} else {
+				api.toast({
+					location : 'middle',
+					msg : '该商家没有订单'
+				});
+			}
+		}
+
+		function isEmptyObject(obj) {
+			var name;
+			for (name in obj ) {
+				return false;
+			}
+			return true;
+		}
+
+		function getSiteOrders() {
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			$api.setStorage("adv", "siteOrders_header");
+			api.openWin({
+				name : 'siteOrders_header',
+				url : '../html/siteOrders_header.html',
+				rect : {
+					x : 0,
+					y : api.systemType == 'ios' ? 70 : 50,
+					w : 'auto',
+					h : 'auto'
+				},
+				bounces : false,
+				delay : 200
+			});
+		}
+	</script>
+</html>

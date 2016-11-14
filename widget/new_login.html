@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>短信登录</title>
+		<link rel="stylesheet" type="text/css" href="./css/api.css" />
+		<link rel="stylesheet" type="text/css" href="./css/common.css" />
+		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+				background-color: #f2f2f2;
+			}
+			.bg {
+				position: absolute;
+				top: -5%;
+				left: -5%;
+				width: 110%;
+				height: 110%;
+				filter: blur(6px);
+				-webkit-filter: blur(6px);
+			}
+			.divider {
+				height: 30%;
+			}
+			.item {
+				margin-left: 10%;
+				margin-right: 10%;
+				border-bottom: 1px solid #e0e0e0;
+				position: relative;
+				height: 60px;
+			}
+			input {
+				height: 60px;
+				width: 90%;
+				color: #fff;
+			}
+			input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+				color: #fff;
+			}
+			.btn {
+				margin: 3px 10%;
+			}
+			.btn {
+				background: #ee5f25;
+				height: 40px;
+				text-align: center;
+				line-height: 40px;
+				font-size: 18px;
+				margin-top: 20px;
+				border-radius: 20px;
+			}
+			.btn button {
+				color: #fff;
+			}
+			#sms {
+				width: 50%;
+			}
+			.smsbtn {
+				position: absolute;
+				right: 0;
+				top: 0;
+				height: 60px;
+				line-height: 60px;
+				text-align: -webkit-center;
+			}
+			#Submit {
+				padding: 5px;
+				height: 42px;
+				width: 100%;
+				border-radius: 5px;
+			}
+			.sumbitActive {
+				border: 1px solid #FF6633;
+				color: #ff6633;
+			}
+			.sumbitDisable {
+				border: 1px solid #e0e0e0;
+				color: #FFF;
+			}
+			.container {
+				position: absolute;
+				overflow: hidden;
+				height: 100%;
+				width: 100%;
+			}
+			.voice {
+				margin: 3px 10%;
+				background: #ee5f25;
+				height: 40px;
+				margin-top: 10px;
+				border-radius: 20px;
+				font-size: 18px;
+				color: #fff;
+			}
+			.voice span {
+				font-size: 18px;
+				color: #fff;
+				padding-left: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="hidden" id="ajpushId" value="" />
+		<div idid="logo" class="container" style="display:block;">
+			<img class="bg" src="./image/bg_002.png" />
+		</div>
+		<div id="form" style="position: fixed;height: 100%;width: 100%;display:block;">
+			<div id="" class="divider"></div>
+			<div class="item">
+				<input type="tel" placeholder="请填写手机号码" id="phone" value="" required />
+			</div>
+			<div class="item">
+				<input type="tel" placeholder="请填写验证码" id="sms" value="" required />
+				<div class="smsbtn"  onclick="clickSumbit(1)">
+					<button disable="true" class="sumbitActive" id="Submit">
+						获取验证码
+					</button>
+				</div>
+			</div>
+			<div class="voice" onclick="clickSumbit(2)">
+				<img style="width: 30px;height: 30px;margin-top: 5px;padding-left:15px;float: left;" src="./image/voice.png" />
+				<span id="smsVoice" style="text-align: -webkit-center;height:40px;line-height: 40px;float: left;">点击获取语音验证码</span>
+			</div>
+			<div class="btn" onclick="checkInputLegality()">
+				<button type="submit">
+					验证并登录
+				</button>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="./script/api.js"></script>
+	<script type="text/javascript" src="./script/av.min.js"></script>
+	<script type="text/javascript" src="./script/AV_common.js"></script>
+	<script type="text/javascript" src="./script/dbSearch.js"></script>
+	<script type="text/javascript" src="./script/ajpush.js"></script>
+	<script type="text/javascript" src="./script/common.js"></script>
+	<script type="text/javascript" src="./script/underscore-min.js"></script>
+	<script>
+		var keybackNum = 0;
+		apiready = function() {
+			api.removeLaunchView();
+			window.user = new AV.User();
+			// 监听keyback键
+			api.addEventListener({
+				name : 'keyback'
+			}, function(ret, err) {
+				if (keybackNum) {
+					api.closeWidget({
+						silent : true
+					});
+				} else {
+					keybackNum += 1;
+					api.toast({
+						msg : '再按一次退出开饭吧送餐',
+						duration : 2000,
+						location : 'bottom'
+					});
+					setTimeout(function() {
+						keybackNum = 0;
+					}, 3000);
+				}
+			}); 
+		}
+		// 检查输入合法性
+		var checkInputLegality = function() {
+			// 注册信息表单
+			var registry = {
+				code : document.getElementById('sms'),
+				phone : document.getElementById('phone'),
+			}
+			// 检查输入合法性
+			if (registry.phone.value && registry.code.value) {
+				// 如果是注册，属性里其他属性将作为新用户的属性保存，如果是登录，这些属性将覆盖服务端的属性。如果不提供 username，默认为手机号码。
+				api.showProgress({
+					title : '加载中...',
+					modal : false
+				});
+				if (registry.phone.value === '18600000000') {
+					AV.User.logIn(registry.phone.value, registry.code.value, {
+						success : function(user) {
+							//注册或者登录成功
+							afterRegister(user);
+						},
+						error : function(user, error) {
+							api.hideProgress();
+							//失败
+							api.toast({
+								msg : '无效的密码'
+							});
+						}
+					});
+				} else {
+					user.signUpOrlogInWithMobilePhone({
+						mobilePhoneNumber : registry.phone.value,
+						smsCode : registry.code.value
+					}, {
+						success : function(user) {
+							// 检查DeliverMan中是否存在登陆的用户信息
+							checkDeliverManSataus(user).then(function(ret) {
+								if (ret) {
+									// 用户已经注册,直接获取相关信息,区域,名称等...
+									goOrderListPage(ret);
+								} else {
+									// 注册用户
+									saveUser(phone.value).then(function(retsult) {
+										goOrderListPage(retsult);
+									}).catch(function(error) {
+										if (error.code == "214") {
+											api.toast({
+												msg : '手机号码已经被注册',
+												location : 'middle'
+											});
+											api.hideProgress();
+										}
+									});
+								}
+							});
+						},
+						error : function(error) {
+							api.hideProgress();
+							//失败
+							api.toast({
+								msg : '无效的短信验证码',
+								duration : 1000,
+								location : 'middle'
+							});
+						}
+					});
+				}
+			} else {
+				api.hideProgress();
+				api.toast({
+					msg : '请填入完整的信息',
+					duration : 2000,
+					location : 'middle'
+				});
+			}
+		}
+		// 检查电话号码合法性
+		function checkMobile(tel, type) {
+			var length = tel.length;
+			var smsType = {
+				"1" : "sms",
+				"2" : "voice"
+			};
+			if (length == 0) {
+				api.toast({
+					msg : "手机号码不能为空",
+					duration : 1000,
+					location : 'middle'
+				});
+			} else {
+				regu = /^[1][0-9]{10}$/;
+				var re = new RegExp(regu);
+				if (re.test(tel)) {
+					if (type == 1) {
+						var btn = document.getElementById("Submit");
+						sms.init(btn);
+					} else {
+						console.log(type)
+						var smsVoice = document.getElementById("smsVoice");
+						smsVoice.innerHTML = "电话已拨打,请注意接听";
+					}
+					AV.Cloud.requestSmsCode({
+						"mobilePhoneNumber" : tel,
+						"smsType" : smsType[type.toString()]
+					}).then(function() {
+						console.log("发送成功");
+					}).catch(function(error) {
+						//						console.error("error:::" + JSON.stringify(error));
+						var smsVoice = document.getElementById("smsVoice");
+						smsVoice.innerHTML = "点击获取语音验证码";
+					});
+				} else {
+					api.toast({
+						msg : "手机号码格式不正确请重新输入",
+						duration : 1000,
+						location : 'middle'
+					});
+				}
+			}
+		}
+
+		var sms = {
+			node : null,
+			count : 60,
+			start : function() {
+				if (this.count > 0) {
+					this.node.innerHTML = this.count-- + 's重新获取';
+					var _this = this;
+					setTimeout(function() {
+						_this.start();
+					}, 1000);
+				} else {
+					this.node.className = "sumbitActive";
+					this.node.removeAttribute("disabled");
+					this.node.innerHTML = "再次获取";
+					this.count = 60;
+				}
+			},
+			// 初始化
+			init : function(node) {
+				this.node = node;
+				this.node.className = "sumbitDisable";
+				this.node.setAttribute("disabled", true);
+				this.start();
+			}
+		}
+		function clickSumbit(type) {
+			var tel = document.getElementById('phone').value;
+			checkMobile(tel, type);
+		}
+
+		function initializeUserInfo(user) {
+			// save latest login username to ls
+			var userInfo = $api.getStorage('userInfo');
+			if (userInfo) {
+				$api.rmStorage('userInfo');
+			}
+			userInfo = {
+				userName : AV.User.current().get("username"),
+				userMobile : AV.User.current().get("mobilePhoneNumber")
+			}
+			$api.setStorage('userInfo', userInfo);
+			updateDeliveryManInfo(user);
+		}
+
+		function updateDeliveryManInfo(user) {
+			console.log("user>>>" + JSON.stringify(user))
+			var query = new AV.Query(DeliveryMan);
+			query.include('cafeCar');
+			query.equalTo('owner', user);
+			query.exists("cafeCar");
+			query.first().then(function(manObj) {
+				console.log("manObj" + JSON.stringify(manObj))
+				if (!_.isEmpty(manObj)) {
+					$api.setStorage("useName", manObj.get("username"));
+					$api.setStorage("cafecarId", manObj.cafeCar().id);
+					goOrderListPage();
+				} else {
+					api.hideProgress();
+					api.toast({
+						location : 'middle',
+						duration : 3000,
+						msg : '该用户暂未分配餐车'
+					});
+				}
+			}).catch(function(error) {
+				api.hideProgress();
+				errorAlert(error);
+			});
+		}
+
+		function goOrderListPage(retsult) {
+			api.hideProgress();
+			api.openSlidLayout({
+				type : 'left',
+				leftEdge : 60,
+				fixedPane : {
+					name : 'homeFixed',
+					url : './html/homeFixed.html'
+				},
+				slidPane : {
+					name : 'homeSlide',
+					url : './html/homeSlide.html'
+				}
+			}, function(ret, err) {
+			});
+			// 锁住左滑
+			//			api.lockSlidPane();
+			api.closeToWin({
+				name : 'slidLayout',
+				animation : {
+					type : 'fade',
+					subType : 'from_bottom',
+					duration : 0
+				}
+			});
+		}
+	</script>
+</html>

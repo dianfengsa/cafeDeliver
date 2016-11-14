@@ -1,0 +1,155 @@
+html{
+    background-color: #FFFFFF;
+}
+body{
+height: 100%;
+}
+footer{
+    height: 5rem;
+    background-color: #FFFFFF;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    z-index: 3;
+}
+
+.footer-box{
+    border-top:#c9c9c9 solid 0.1rem ;
+}
+
+footer p{
+    font-size: 1rem;
+}
+
+
+footer .footer-text p{
+    color: #000000;
+    font-size: 1.4rem;
+    text-align: center;
+
+}
+
+footer .footer-text img{
+    height: 2.5rem;
+}
+
+
+footer .active span p{
+
+    color: #0379fd;
+
+}
+
+footer div{
+    position: relative;
+}
+
+footer i{
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    display: inline-block;
+    height: 1.2rem;
+    width: 1.2rem;
+    background-color: #FF0000;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    color: #FFFFFF;
+    border-radius: 1.2rem;
+    -webkit-border-radius:1.2rem ;
+    font-style: normal;
+}
+/*用户信息和背景*/
+.user-logo{
+    margin: 4rem 0 2rem 0;
+    text-align: center;
+    line-height: 10rem;
+    height: 12rem;
+    width: 12rem;
+    border:#ff6600 solid 0.3rem;
+    border-radius: 100%;
+    background-color: #FFF;
+}
+.user-info-web-bg{
+    background: url("../image/info_no_bg_01.jpg")center center no-repeat;
+    background-size: cover;
+    border-bottom: #FF6600 solid 0.1rem;
+}
+.user-info-web-bg li{
+    line-height: 3rem;
+    font-size: 1.5rem;
+
+}
+.user-info-web{
+    position:absolute;
+    background-color: #ffffff;
+}
+.user-info-web-box{
+    margin: 4rem 0 1rem 0;
+    font-size: 1.8rem;
+}
+.user-logo-img{
+    margin:  25% 0 0 25%;
+    line-height: 6rem;
+    height: 6rem;
+    width: 6rem;
+    background: url("../image/info_no.png")center center no-repeat;
+    background-size: cover;
+}
+.user-info-web-box ul .bt{
+    color: #a0a0a0;
+}
+.user-info-web-box ul{
+    line-height: 3rem;
+}
+.user-out{
+     text-align: center;
+ }
+.user-out .user-out-button {
+    color: #FFFFFF;
+    height: 3rem;
+    font-size: 1.6rem;
+    background-color: #ff6600;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    border-radius: 0.5rem; ;
+    width: 80%;
+    border: none;
+}
+.buff{
+    color: #FF6600;
+    vertical-align: middle;
+}
+/*开关按钮*/
+#div1{
+    top: 0.5rem;
+    width: 3rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+    position: relative;
+}
+#div2{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 1.5rem;
+    -webkit-border-radius: 1.5rem;
+    position: absolute;
+    background: white;
+}
+.open1{
+    background: #ff6803;
+}
+.open2{
+    border: 0.3rem solid #ff6803;
+    right: 0.01rem;
+}
+.close1{
+    background:#FFFFFF;
+    border: 0.3rem solid #c9c9c9;
+    border-left: transparent;
+}
+.close2{
+    left: 0;
+    top: -0.25rem;
+    border: 0.3rem solid #c9c9c9;
+}

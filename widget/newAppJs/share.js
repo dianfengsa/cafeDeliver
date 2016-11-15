@@ -5,6 +5,13 @@ $(document).ready(function() {
 
 //底部栏跳转
     $(".footer-box").on("touchend", "#footer-1", function () {
+        api.showProgress({
+            style: 'default',
+            animationType: 'fade',
+            title: '努力加载中...',
+            text: '先喝杯茶...',
+            modal: true
+        });
         api.openWin({
             name: 'orderDelive.html',
             url: '../newAppHtml/orderDelive.html',
@@ -19,10 +26,18 @@ $(document).ready(function() {
             },
             delay: 0
         });
+        api.hideProgress();
+
         $("#footer-new1").hide();//点击后隐藏新消息图标
     });
     $(".footer-box").on("touchend", "#footer-2", function () {
-
+        api.showProgress({
+            style: 'default',
+            animationType: 'fade',
+            title: '努力加载中...',
+            text: '先喝杯茶...',
+            modal: true
+        });
         api.openWin({
             name: 'orderRequest',
             url: '../newAppHtml/orderRequest.html',
@@ -37,11 +52,18 @@ $(document).ready(function() {
             },
             delay: 0
         });
+        api.hideProgress();
 
         $("#footer-new1").hide();//点击后隐藏新消息图标
     });
     $(".footer-box").on("touchend", "#footer-3", function () {
-        window.location.href = "orderSearch.html";
+        api.showProgress({
+            style: 'default',
+            animationType: 'fade',
+            title: '努力加载中...',
+            text: '先喝杯茶...',
+            modal: true
+        });
         api.openWin({
             name: 'orderSearch',
             url: '../newAppHtml/orderSearch.html',
@@ -56,10 +78,18 @@ $(document).ready(function() {
             },
             delay: 0
         });
+        api.hideProgress();
+
         $("#footer-new1").hide();//点击后隐藏新消息图标
     });
     $(".footer-box").on("touchend", "#footer-4", function () {
-
+        api.showProgress({
+            style: 'default',
+            animationType: 'fade',
+            title: '努力加载中...',
+            text: '先喝杯茶...',
+            modal: true
+        });
         api.openWin({
             name: 'orderDeliveInfo',
             url: '../newAppHtml/orderDeliveInfo.html',
@@ -74,6 +104,8 @@ $(document).ready(function() {
             },
             delay: 0
         });
+        api.hideProgress();
+
         $("#footer-new1").hide();//点击后隐藏新消息图标
     });
 

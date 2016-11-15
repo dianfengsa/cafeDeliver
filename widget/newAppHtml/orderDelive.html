@@ -4,7 +4,7 @@
 		<meta name="content-type" content="text/html" charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" >
 		<meta name="format-detection" content="telephone=no">
 		<link href="../css/web_css.css" rel="stylesheet">
 		<!--页面样式-->
@@ -369,8 +369,81 @@
 						</div>
 					</div>
 				</div>
-				<div class="flex-item-24 flex-center notform flex-bottom">
-					暂无更多订单···
+				<div class="user-box flex-item-23 ">
+					<div class="user-info-top flex-item-24 ">
+						<div class="user-info-text">
+							<p>
+								客户电话：15915251578
+							</p>
+							<p class="fr orderNumber" >
+								编号：2354
+							</p>
+						</div>
+					</div>
+					<div class="user-info-body flex-row flex-item-24 flex-center">
+						<div class="user-info-add  flex-row flex-item-24 flex-center">
+							<ul class="user-info-add-text flex-item-23 flex-center">
+								<li class="clearfix order-cancel">
+									<div class="cancel-img"></div><span class="">订单已取消</span>
+								</li>
+								<li class="clearfix">
+									<div class="destination">
+										送
+									</div><span class="add-destination">荷花田旗舰餐厅-珠海市吉大景园路景山路1号</span>
+								</li>
+								<li class="clearfix">
+									<div class="source">
+										取
+									</div><span class="add-source">珠海市香洲区吉大钰海环球金融中心5楼312室腾飞科技有限公司</span>
+								</li>
+							</ul>
+							<ul class="user-info-other flex-item-23 flex-center">
+								<li class="">
+									<p class="ddbz">
+										订单备注:订单定尽快送达
+									</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="user-box flex-item-23 ">
+					<div class="user-info-top flex-item-24 ">
+						<div class="user-info-text">
+							<p>
+								客户电话：15915251578
+							</p>
+							<p class="fr orderNumber" >
+								编号：2354
+							</p>
+						</div>
+					</div>
+					<div class="user-info-body flex-row flex-item-24 flex-center">
+						<div class="user-info-add  flex-row flex-item-24 flex-center">
+							<ul class="user-info-add-text flex-item-23 flex-center">
+								<li class="clearfix order-cancel">
+									<div class="cancel-img"></div><span class="">订单已取消</span>
+								</li>
+								<li class="clearfix">
+									<div class="destination">
+										送
+									</div><span class="add-destination">荷花田旗舰餐厅-珠海市吉大景园路景山路1号</span>
+								</li>
+								<li class="clearfix">
+									<div class="source">
+										取
+									</div><span class="add-source">珠海市香洲区吉大钰海环球金融中心5楼312室腾飞科技有限公司</span>
+								</li>
+							</ul>
+							<ul class="user-info-other flex-item-23 flex-center">
+								<li class="">
+									<p class="ddbz">
+										订单备注:订单定尽快送达
+									</p>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -417,7 +490,7 @@
 	var pageParam;
 	apiready = function() {
 		pageParam = api.pageParam.deliverMan;
-		console.log("pageParam>>>>>>" + JSON.stringify(pageParam))
+		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
 		if (pageParam.cafeCar) {
 			//有送餐区域,加载数据
 			loadOrders(pageParam.cafeCar);
@@ -428,94 +501,36 @@
 				duration : 3000
 			});
 		}
-		var UIListView = api.require('UIListView');
-		UIListView.open({
-			rect : {
-				x : 0,
-				y : 20,
-				w : api.winWidth,
-				h : api.frameHeight
-			},
-			data : [{
-				uid : '1001',
-				imgPath : 'widget://res/img/apicloud.png',
-				title : '配送员1号',
-				subTitle : '吉大区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://res/img/apicloud.png',
-				title : '配送员2号',
-				subTitle : '香洲区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://res/img/apicloud.png',
-				title : '配送员三号',
-				subTitle : '斗门区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://res/img/apicloud.png',
-				title : '配送员4号',
-				subTitle : '南屏区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://res/img/apicloud.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}],
-			rightBtns : [{
-				bgColor : '#388e8e',
-				activeBgColor : '',
-				width : 70,
-				title : '按钮',
-				titleSize : 12,
-				titleColor : '#fff',
-				icon : '',
-				iconWidth : 20
-			}],
-			styles : {
-				borderColor : '#FFFFFF',
-				item : {
-					bgColor : '#FFFFFF',
-					activeBgColor : '#F5F5F5',
-					height : 70,
-					imgWidth : 40,
-					imgHeight : 40,
-					imgCorner : 4,
-					placeholderImg : '',
-					titleSize : 12.0,
-					titleColor : '#000',
-					subTitleSize : 12.0,
-					subTitleColor : '#000',
-					remarkColor : '#000',
-					remarkSize : 16,
-					remarkIconWidth : 30
-				}
-			},
-			fixedOn : api.frameName
-		}, function(ret, err) {
-			if (ret) {
-			} else {
-				alert(JSON.stringify(err));
-			}
-		});
-		UIListView.hide();
 		$(".m-content").on("click", ".dispatch", function() {//dispatch按钮(立即接单)
-			UIListView.show();
+			$(".mask").fadeIn(200);
+			$("body").addClass("ban-scroll");
+			api.openFrame({
+				name : 'deliveSelect',
+				url : './deliveSelect.html',
+				rect : {
+					x : 0,
+					y : 0,
+					w : 'auto',
+					h : 'auto'
+				},
+				pageParam : {
+					name : 'test'
+				},
+				bounces : false,
+				bgColor : 'rgba(0,0,0,0)',
+				vScrollBarEnabled : true,
+				hScrollBarEnabled : true,
+				animation : {
+					type : "push", //动画类型（详见动画类型常量）
+					subType : "from_top", //动画子类型（详见动画子类型常量）
+					duration : 200 //动画过渡时间，默认300毫秒
+				}
+			});
 		});
 		api.addEventListener({
 			name : 'scrolltobottom',
 			extra : {
-				threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+				threshold : 0//设置距离底部多少距离时触发，默认值为0，数字类型
 			}
 		}, function(ret, err) {
 			api.toast({
@@ -527,9 +542,13 @@
 		api.addEventListener({
 			name : 'keyback'
 		}, function(ret, err) {
-			UIListView.hide();
+			$(".mask").fadeOut(200);
+			$("body").removeClass("ban-scroll");
+			api.closeFrame({
+				name : 'deliveSelect'
+			});
 		});
-	}
+	}; 
 	//获取申请退款的数目
 	function loadOrders(carId) {
 		//调用野狗,实时获取数据
@@ -555,9 +574,9 @@
 			});
 			finisheddArr = _.filter(newOrderArr, function(val, key) {
 				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
-			});
+			}); 
 			console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr))
-			console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr))
+			console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr)) 
 			console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr))
 		});
 	}

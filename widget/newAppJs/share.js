@@ -1,8 +1,7 @@
 /**
  * Created by binza on 2016/11/10.
  */
-$(document).ready(function() {
-
+$(document).ready(function() { 
 //底部栏跳转
     $(".footer-box").on("touchend", "#footer-1", function () {
         api.showProgress({

@@ -1,43 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
-<head>
-    <meta charset="UTF-8">
-    <meta name="content-type" content="text/html" charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" >
-    <meta name="format-detection" content="telephone=no">
-
-    <title>配送员选择</title>
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/deliveSelect.css">
-</head>
-<body>
-
-        <div class="delive-box">
-            <div class="delive-top"></div>
-            <div class="delive-list">
-                <ul class="delive-list-data" id="delive-list-data">
-                    <li class="clearfix"><div class="delive-info fl"><p class="delive-name">李力立</p><p class="delive-area">配送区域：香洲</p></div></li>
-                    <li class="clearfix"><div class="delive-info fl"><p class="delive-name">李力立</p><p class="delive-area">配送区域：香洲</p></div></li>
-                    <li class="clearfix"><div class="delive-info fl"><p class="delive-name">李力立</p><p class="delive-area">配送区域：香洲</p></div></li>
-                    <li class="clearfix"><div class="delive-info fl"><p class="delive-name">李力立</p><p class="delive-area">配送区域：香洲</p></div></li>
-                    <li class="clearfix"><div class="delive-info fl"><p class="delive-name">李力立</p><p class="delive-area">配送区域：香洲</p></div></li>
-                    <li class="clearfix"><div class="delive-info fl"><p class="delive-name">李力立</p><p class="delive-area">配送区域：香洲</p></div></li>
-                    <li class="clearfix"><div class="delive-info fl"><p class="delive-name">李力立</p><p class="delive-area">配送区域：香洲</p></div></li>
-                    <li class="clearfix"><div class="delive-info fl"><p class="delive-name">李力立</p><p class="delive-area">配送区域：香洲</p></div></li>
-                    <li class="clearfix"><div class="delive-info fl"><p class="delive-name">李力立</p><p class="delive-area">配送区域：香洲</p></div></li>
-                    <li class="clearfix"><div class="delive-info fl"><p class="delive-name">李力立</p><p class="delive-area">配送区域：香洲</p></div></li>
-                  </ul>
-            </div>
-
-
-        </div>
-
-
-</body>
-=======
 	<head>
 		<meta charset="UTF-8">
 		<meta name="content-type" content="text/html" charset="utf-8">
@@ -158,7 +120,6 @@
 			</div>
 		</div>
 	</body>
->>>>>>> f1a184e141dbe870ef9f3445d06f36eb29913045
 </html>
 <script src="../newAppJs/jquery.min.js"></script>
 <script src="../newAppJs/jquery.touchSwipe.min.js"></script>
@@ -170,7 +131,7 @@
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
 <script>
-<<<<<<< HEAD
+
     var pageParam;
     apiready = function() {
        pageParam = api.pageParam.deliverMan;
@@ -187,10 +148,6 @@
         }
 
         //为每个li添加点击事件
-
-        $(".delive-list-data").on("click","li",function () {
-            alert("1111");
-        });
 
 
         api.addEventListener({
@@ -239,51 +196,5 @@
             console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr))
         });
     }
-=======
-	apiready = function() {
-		api.addEventListener({
-			name : 'scrolltobottom',
-			extra : {
-				threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
-			}
-		}, function(ret, err) {
-			api.toast({
-				msg : '暂无更多数据...',
-				duration : 2000,
-				location : 'bottom'
-			});
-		});
-	};
-	//获取申请退款的数目
-	function loadOrders(carId) {
-		//调用野狗,实时获取数据
-		var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
-		var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [];
-		ref.limitToFirst(100).on("value", function(datasnapshot) {
-			var snap = _.groupBy(datasnapshot.val(), function(val) {
-				val.deliverMark = val.deliverMark ? val.deliverMark : "0";
-				return val.deliverMark;
-			});
-			var ordersByMark1 = _.sortBy(snap[1], function(val) {
-				return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
-			});
-			var ordersByMark0 = _.sortBy(snap[0], function(val) {
-				return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
-			});
-			var newOrderArr = ordersByMark1.concat(ordersByMark0);
-			waitingArr = _.filter(newOrderArr, function(val, key) {
-				return val.status == "等待接单";
-			});
-			deliverArr = _.filter(newOrderArr, function(val, key) {
-				return val.status == "配送中" && val.deliveryMan == uName;
-			});
-			finisheddArr = _.filter(newOrderArr, function(val, key) {
-				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
-			});
-			console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr));
-			console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr));
-			console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr))
-		});
-	}
->>>>>>> f1a184e141dbe870ef9f3445d06f36eb29913045
+
 </script>

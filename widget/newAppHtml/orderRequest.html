@@ -321,6 +321,37 @@
     <script src="../newAppJs/share.js"></script>
     <script>
         apiready = function() {
+
+            var keybackNum = 0;
+            api.addEventListener({
+                name : 'keyback'
+            }, function(ret, err) {
+                /*  var keyBackStatus = $(".mask").css("display"); //如果页面上有遮罩显示则不执行退出程序
+                 if(keyBackStatus === "block" ){
+                 $(".mask").fadeOut(200);
+                 $("body").removeClass("ban-scroll");
+                 api.closeFrame({
+                 name : 'deliveSelect'
+                 });
+                 keybackNum = 0;
+                 }
+                 else{*/
+                if( keybackNum >= 2 ){
+                    api.closeWidget({
+                        silent : true
+                    })
+                }
+                else{
+                    keybackNum++;
+                    api.toast({
+                        msg:"再按一次返回键退出程序。",
+                        location:"middle"
+                    });
+                    setTimeout(function ()
+                    {keybackNum = 0;},3000)
+                }
+            });
+            //  });
         }
     </script>
 </html>

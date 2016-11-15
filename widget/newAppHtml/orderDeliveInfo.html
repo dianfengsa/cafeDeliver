@@ -86,7 +86,7 @@
 
 
             <footer class="footer-box flex-item-24 flex-middle flex-column">
-                <div class="flex-item-6 footer-text" id="footer-1"><span><img src="../image/calendar.png" /><p>配送订单</p></span><i id="footer-new1">1</i></div>
+                <div class="flex-item-6 footer-text" id="footer-1"><span><img src="../image/calendar.png" /><p>外卖订单</p></span><i id="footer-new1">1</i></div>
                 <div class="flex-item-6 footer-text" id="footer-2"><span><img src="../image/process.png" /><p>配送请求</p></span></div>
                 <div class="flex-item-6 footer-text" id="footer-3"><span><img src="../image/Viewlist.png" /><p>订单管理</p></span></div>
                 <div class="flex-item-6 footer-text active" id="footer-4" onclick="location='#'"><span><img src="../image/account_active.png" /><p>我的信息</p></span></div>
@@ -97,7 +97,41 @@
             <script src="../newAppJs/orderDeliveInfo.js"></script>
             <script src="../newAppJs/share.js"></script>
 
+            <script>
+                apiready = function() {
 
+                    var keybackNum = 0;
+                    api.addEventListener({
+                        name : 'keyback'
+                    }, function(ret, err) {
+                      /*  var keyBackStatus = $(".mask").css("display"); //如果页面上有遮罩显示则不执行退出程序
+                        if(keyBackStatus === "block" ){
+                            $(".mask").fadeOut(200);
+                            $("body").removeClass("ban-scroll");
+                            api.closeFrame({
+                                name : 'deliveSelect'
+                            });
+                            keybackNum = 0;
+                        }
+                        else{*/
+                            if( keybackNum >= 2 ){
+                                api.closeWidget({
+                                    silent : true
+                                })
+                            }
+                            else{
+                                keybackNum++;
+                                api.toast({
+                                    msg:"再按一次返回键退出程序。",
+                                    location:"middle"
+                                });
+                                setTimeout(function ()
+                                {keybackNum = 0;},3000)
+                            }
+                        });
+                  //  });
+                }
+            </script>
 
         </body>
 </html>

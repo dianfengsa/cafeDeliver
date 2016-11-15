@@ -37,100 +37,6 @@
 		<!--顶部导航栏!-->
 		<div class="mask flex-item-24"></div>
 		<!--弹窗事件的遮罩-->
-		<div class="reset-shop flex-item-22 flex-column flex-center" style="display: none">
-			<div class="off"><img src="../image/wrong.png" >
-			</div>
-			<div class="flex-item-24 flex-center flex-column" id="transportPersonnel">
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						22222222222
-					</p>
-					<p>
-						33333333
-					</p>
-				</div>
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						12312312312312
-					</p>
-					<p>
-						66666666666666
-					</p>
-				</div>
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						1222222222223
-					</p>
-					<p>
-						55555555555
-					</p>
-				</div>
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						1222222222223
-					</p>
-					<p>
-						55555555555
-					</p>
-				</div>
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						1222222222223
-					</p>
-					<p>
-						55555555555
-					</p>
-				</div>
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						1222222222223
-					</p>
-					<p>
-						55555555555
-					</p>
-				</div>
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						1222222222223
-					</p>
-					<p>
-						55555555555
-					</p>
-				</div>
-			</div>
-		</div>
-		<!--选择配送员窗口-->
-		<div class="refund" id="refund">
-			<p>
-				是否同意退款？
-			</p>
-			<div class="clearfix refund-box">
-				<button type="button" value="同意退款" id="refund-yes">
-					同意退款
-				</button>
-				<button type="button" value="拒绝退款" id="refund-no">
-					拒绝退款
-				</button>
-				<button type="button" value="取消" id="refund-cancel">
-					取消
-				</button>
-			</div>
-		</div>
-		<!--退单确认窗口-->
-		<div class="refund" id="sure">
-			<!--确认配送员-->
-			<p>
-				是否选择该配送员？
-			</p>
-			<div class="clearfix refund-box">
-				<button type="button" value="确定" id="sure-yes">
-					确定
-				</button>
-				<button type="button" value="返回" id="sure-no">
-					返回
-				</button>
-			</div>
-		</div>
 		<div class="m-content flex-item-24 flex-row flex-center " id="m-content">
 			<!--订单模版渲染区域-->
 			<div class="m-container-1 flex-item-24 flex-column flex-center" id="waitingOrder"></div>
@@ -368,6 +274,9 @@
 				duration : 3000
 			});
 		}
+		$(".m-header").on("click", ".refresh", function() {
+			window.location.reload();
+		});
 		$(".m-content").on("click", ".dispatch", function() {//dispatch按钮(立即接单)
 			$(".mask").fadeIn(200);
 			$("body").addClass("ban-scroll");
@@ -406,14 +315,44 @@
 				location : 'bottom'
 			});
 		});
-		api.addEventListener({
-			name : 'keyback'
-		}, function(ret, err) {
+
+		$("body").on("click", ".mask", function() {
 			$(".mask").fadeOut(200);
 			$("body").removeClass("ban-scroll");
 			api.closeFrame({
 				name : 'deliveSelect'
 			});
+		});
+
+		var keybackNum = 0;
+		api.addEventListener({
+			name : 'keyback'
+		}, function(ret, err) {
+			var keyBackStatus = $(".mask").css("display"); //如果页面上有遮罩显示则不执行退出程序
+			if(keyBackStatus === "block" ){
+				$(".mask").fadeOut(200);
+				$("body").removeClass("ban-scroll");
+				api.closeFrame({
+					name : 'deliveSelect'
+				});
+				keybackNum = 0;
+			}
+			else{
+			if( keybackNum >= 2 ){
+				api.closeWidget({
+					silent : true
+					})
+				}
+			else{
+			keybackNum++;
+				api.toast({
+					msg:"再按一次返回键退出程序。",
+					location:"middle"
+					});
+				setTimeout(function ()
+				{keybackNum = 0;},3000)
+				}
+			}
 		});
 	};
 	//获取申请退款的数目

@@ -488,8 +488,8 @@
 <script>
 	var pageParam;
 	apiready = function() {
-	pageParam = api.pageParam.deliverMan;
-		console.log("pageParam>>>>>>" + JSON.stringify(pageParam))
+			pageParam = api.pageParam.deliverMan;
+		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
 		if (pageParam.cafeCar) {
 			//有送餐区域,加载数据
 			loadOrders(pageParam.cafeCar);
@@ -501,213 +501,58 @@
 			});
 		}
 
-		var UIListView = api.require('UIListView');
-		UIListView.open({
-			rect : {
-				x : 0,
-				y : 25,
-				w : api.winWidth,
-				h : api.frameHeight
-			},
-			data : [{
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员1号',
-				subTitle : '吉大区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员2号',
-				subTitle : '香洲区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员三号',
-				subTitle : '斗门区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员4号',
-				subTitle : '南屏区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}, {
-				uid : '1001',
-				imgPath : 'widget://image/clock.png',
-				title : '配送员5号',
-				subTitle : '横琴区域',
-				remark : '备注',
-				icon : ''
-			}],
-			rightBtns : [{
-				bgColor : '#388e8e',
-				activeBgColor : '',
-				width : 70,
-				title : '按钮',
-				titleSize : 12,
-				titleColor : '#fff',
-				icon : '',
-				iconWidth : 20
-			}],
-			styles : {
-				borderColor : '#FFFFFF',
-				item : {
-					bgColor : '#FFFFFF',
-					activeBgColor : '#F5F5F5',
-					height : 70,
-					imgWidth : 40,
-					imgHeight : 40,
-					imgCorner : 4,
-					placeholderImg : '',
-					titleSize : 12.0,
-					titleColor : '#000',
-					subTitleSize : 12.0,
-					subTitleColor : '#000',
-					remarkColor : '#000',
-					remarkSize : 16,
-					remarkIconWidth : 30
-				}
-			},
-			fixedOn : api.frameName
-		}, function(ret, err) {
-			if (ret) {
-			} else {
-				alert(JSON.stringify(err));
-			}
-		});
-		UIListView.hide();
 		$(".m-content").on("click", ".dispatch", function() {//dispatch按钮(立即接单)
-			api.showProgress({
-				style: 'default',
-				animationType: 'fade',
-				title: '努力加载中...',
-				text: '先喝杯茶...',
-				modal: true
-			});
-			api.openWin({
-				name: 'orderDelive.html',
-				url: '../newAppHtml/deliveSelect.html',
-				opaque: true, // 页面不透明
-				bounces: false, // 不允许页面弹动，ripple
-				vScrollBarEnabled: false,
-				slidBackEnabled: false,
-				animation: {
-					type: "fade", //动画类型（详见动画类型常量）
-					subType: "from_right", //动画子类型（详见动画子类型常量）
-					duration: 300 //动画过渡时间，默认300毫秒
+			$(".mask").fadeIn(200);
+			$("body").addClass("ban-scroll");
+			api.openFrame({
+				name: 'deliveSelect',
+				url: './deliveSelect.html',
+				rect: {
+					x: 0,
+					y: 0,
+					w: 'auto',
+					h: 'auto'
+
 				},
-				delay: 0
+				pageParam: {
+					name: 'test'
+				},
+				bounces: false,
+				bgColor: 'rgba(0,0,0,0)',
+				vScrollBarEnabled: true,
+				hScrollBarEnabled: true,
+				animation:{
+					type:"push",                //动画类型（详见动画类型常量）
+					subType:"from_top",       //动画子类型（详见动画子类型常量）
+					duration:200                //动画过渡时间，默认300毫秒
+				}
 			});
-			api.hideProgress();
+
 		});
 		api.addEventListener({
-			name : 'scrolltobottom',
+			name :'scrolltobottom',
 			extra : {
-				threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+				threshold : 0//设置距离底部多少距离时触发，默认值为0，数字类型
 			}
 		}, function(ret, err) {
 			api.toast({
-				msg : '暂无更多数据...',
-				duration : 2000,
-				location : 'bottom'
+				msg :'暂无更多数据...',
+				duration :2000,
+				location :'bottom'
 			});
 		});
+
 		api.addEventListener({
-			name : 'keyback'
+			name: 'keyback'
 		}, function(ret, err) {
-			UIListView.hide();
+
+			$(".mask").fadeOut(200);
+			$("body").removeClass("ban-scroll");
+			api.closeFrame({
+				name: 'deliveSelect'
+			});
 		});
-	}
+	};
 	//获取申请退款的数目
 	function loadOrders(carId) {
 		//调用野狗,实时获取数据
@@ -734,8 +579,8 @@
 			finisheddArr = _.filter(newOrderArr, function(val, key) {
 				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
 			});
-			console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr))
-			console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr))
+			console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr));
+			console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr));
 			console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr))
 		});
 	}

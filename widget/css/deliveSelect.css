@@ -11,3 +11,51 @@ nav{
     position: fixed;
     width: 100%;
 }
+
+body{
+
+}
+
+.delive-box{
+border: #00a0df solid 2px;
+    border-radius: 4px;
+    background-color: #e5e5e5;
+    height: 40rem;
+    width: 80%;
+    margin: 7rem auto 0 auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.delive-box .delive-list ul{
+
+}
+
+.delive-box .delive-list li{
+ margin: 1rem 1rem 1rem 1rem;
+    border-left: #00a0df solid 8px;
+background-color: #FFFFFF;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px; ;
+}
+.delive-box .delive-list li .portrait{
+    padding: 0.5rem;
+    width: 4rem;
+}
+
+.delive-name{
+    font-size: 1.8rem;
+    margin: 0.8rem 0 0 0;
+}
+.delive-phone{
+    font-size: 1.2rem;
+}
+
+.delive-area{
+    text-align: right;
+    float: right;
+    line-height: 5rem;
+    font-size: 1.6rem;
+    margin: 0 2rem 0 0;
+}

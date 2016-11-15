@@ -12,8 +12,29 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/deliveSelect.css">
 </head>
-<body style="background-color:#FFFFFF">
-        <nav class="nav"><span>选择配送员</span></nav>
+<body>
+
+        <div class="delive-box">
+            <div class="delive-top"></div>
+            <div class="delive-list">
+                <ul class="delive-list-data" id="delive-list-data">
+                    <li class="clearfix"><img src="../image/clock.png" alt="" class="portrait fl"><div class="fl"><p class="delive-name">李力立</p><p class="delive-phone">1313131313131</p></div><span class="delive-area">香洲</span></li>
+                    <li class="clearfix"><img src="../image/clock.png" alt="" class="portrait fl"><div class="fl"><p class="delive-name">李力立</p><p class="delive-phone">1313131313131</p></div><span class="delive-area">香洲</span></li>
+                    <li class="clearfix"><img src="../image/clock.png" alt="" class="portrait fl"><div class="fl"><p class="delive-name">李力立</p><p class="delive-phone">1313131313131</p></div><span class="delive-area">香洲</span></li>
+                    <li class="clearfix"><img src="../image/clock.png" alt="" class="portrait fl"><div class="fl"><p class="delive-name">李力立</p><p class="delive-phone">1313131313131</p></div><span class="delive-area">香洲</span></li>
+                    <li class="clearfix"><img src="../image/clock.png" alt="" class="portrait fl"><div class="fl"><p class="delive-name">李力立</p><p class="delive-phone">1313131313131</p></div><span class="delive-area">香洲</span></li>
+                    <li class="clearfix"><img src="../image/clock.png" alt="" class="portrait fl"><div class="fl"><p class="delive-name">李力立</p><p class="delive-phone">1313131313131</p></div><span class="delive-area">香洲</span></li>
+                    <li class="clearfix"><img src="../image/clock.png" alt="" class="portrait fl"><div class="fl"><p class="delive-name">李力立</p><p class="delive-phone">1313131313131</p></div><span class="delive-area">香洲</span></li>
+                    <li class="clearfix"><img src="../image/clock.png" alt="" class="portrait fl"><div class="fl"><p class="delive-name">李力立</p><p class="delive-phone">1313131313131</p></div><span class="delive-area">香洲</span></li>
+                    <li class="clearfix"><img src="../image/clock.png" alt="" class="portrait fl"><div class="fl"><p class="delive-name">李力立</p><p class="delive-phone">1313131313131</p></div><span class="delive-area">香洲</span></li>
+                    <li class="clearfix"><img src="../image/clock.png" alt="" class="portrait fl"><div class="fl"><p class="delive-name">李力立</p><p class="delive-phone">1313131313131</p></div><span class="delive-area">香洲</span></li>
+                    <li class="clearfix"><img src="../image/clock.png" alt="" class="portrait fl"><div class="fl"><p class="delive-name">李力立</p><p class="delive-phone">1313131313131</p></div><span class="delive-area">香洲</span></li>
+                    <li class="clearfix"><img src="../image/clock.png" alt="" class="portrait fl"><div class="fl"><p class="delive-name">李力立</p><p class="delive-phone">1313131313131</p></div><span class="delive-area">香洲</span></li>
+                </ul>
+            </div>
+
+
+        </div>
 </body>
 </html>
 <script src="../newAppJs/jquery.min.js"></script>
@@ -28,8 +49,8 @@
 <script>
     var pageParam;
     apiready = function() {
-        pageParam = api.pageParam.deliverMan;
-        console.log("pageParam>>>>>>" + JSON.stringify(pageParam))
+       pageParam = api.pageParam.deliverMan;
+        console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
         if (pageParam.cafeCar) {
             //有送餐区域,加载数据
             loadOrders(pageParam.cafeCar);
@@ -40,172 +61,6 @@
                 duration : 3000
             });
         }
-
-
-        var UIListView = api.require('UIListView');
-        UIListView.open({
-            rect : {
-                x : 0,
-                y : 60,
-                w : api.winWidth,
-                h : api.frameHeight
-            },
-            data : [{
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员1号',
-                subTitle : '吉大区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员2号',
-                subTitle : '香洲区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员三号',
-                subTitle : '斗门区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员4号',
-                subTitle : '南屏区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }, {
-                uid : '1001',
-                imgPath : 'widget://image/clock.png',
-                title : '配送员5号',
-                subTitle : '横琴区域',
-                remark : '备注',
-                icon : ''
-            }],
-            rightBtns : [{
-                bgColor : '#388e8e',
-                activeBgColor : '',
-                width : 70,
-                title : '按钮',
-                titleSize : 12,
-                titleColor : '#fff',
-                icon : '',
-                iconWidth : 20
-            }],
-            styles : {
-                borderColor : '#FFFFFF',
-                item : {
-                    bgColor : '#FFFFFF',
-                    activeBgColor : '#F5F5F5',
-                    height : 70,
-                    imgWidth : 40,
-                    imgHeight : 40,
-                    imgCorner : 4,
-                    placeholderImg : '',
-                    titleSize : 12.0,
-                    titleColor : '#000',
-                    subTitleSize : 12.0,
-                    subTitleColor : '#000',
-                    remarkColor : '#000',
-                    remarkSize : 16,
-                    remarkIconWidth : 30
-                }
-            },
-            fixedOn : api.frameName
-        }, function(ret, err) {
-            if (ret) {
-            } else {
-                alert(JSON.stringify(err));
-            }
-        });
         api.addEventListener({
             name : 'scrolltobottom',
             extra : {
@@ -218,7 +73,9 @@
                 location : 'bottom'
             });
         });
-    }
+
+
+    };
     //获取申请退款的数目
     function loadOrders(carId) {
         //调用野狗,实时获取数据
@@ -245,8 +102,8 @@
             finisheddArr = _.filter(newOrderArr, function(val, key) {
                 return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
             });
-            console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr))
-            console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr))
+            console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr));
+            console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr));
             console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr))
         });
     }

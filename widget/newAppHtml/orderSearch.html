@@ -1,76 +1,79 @@
 <!DOCTYPE HTML>
-
 <html>
-    <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no">
-        <meta name="content-type" content="text/html" charset="utf-8">
-        <link href="../css/web_css.css" rel="stylesheet">
-        <link href="../css/reset.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/flex-layout.css">
-        <link rel="stylesheet" href="../css/layout.css">
-        <link rel="stylesheet" href="../css/index.css">
-
-
-        <title>订单管理</title>
-
-    </head>
-        <body>
-        <div class="top">
-            <header class="m-header flex-column flex-middle flex-item-24">
-                <div class="flex-item-17">
-                <input type="text" class="search-box" name="search" value="订单编号/手机号/用户名" onFocus="this.value=''; style.color='#000000'">
-                </div>
-                <div class="flex-item-7 search-data"><input type="date" name="user_date" class="data-box" value="2016-10-26" step="30"/></div>
-            </header>
-        </div>
-        <footer class="footer-box flex-item-24 flex-middle flex-column">
-            <div class="flex-item-6 footer-text" id="footer-1"><span><img src="../image/calendar.png" /><p>外卖订单</p></span><i id="footer-new1">1</i></div>
-            <div class="flex-item-6 footer-text" id="footer-2"><span><img src="../image/process.png" /><p>配送请求</p></span></div>
-            <div class="flex-item-6 footer-text   active" id="footer-3"><span><img src="../image/Viewlist_active.png" /><p>订单管理</p></span></div>
-            <div class="flex-item-6 footer-text" id="footer-4"><span><img src="../image/account.png" /><p>我的信息</p></span></div>
-        </footer>
-
-
-        <script src="../newAppJs/jquery.min.js"></script>
-        <script src="../newAppJs/api.js"></script>
-        <script src="../newAppJs/share.js"></script>
-        </body>
-    <script>
-        apiready = function() {
-
-            var keybackNum = 0;
-            api.addEventListener({
-                name : 'keyback'
-            }, function(ret, err) {
-                /*  var keyBackStatus = $(".mask").css("display"); //如果页面上有遮罩显示则不执行退出程序
-                 if(keyBackStatus === "block" ){
-                 $(".mask").fadeOut(200);
-                 $("body").removeClass("ban-scroll");
-                 api.closeFrame({
-                 name : 'deliveSelect'
-                 });
-                 keybackNum = 0;
-                 }
-                 else{*/
-                if( keybackNum >= 2 ){
-                    api.closeWidget({
-                        silent : true
-                    })
-                }
-                else{
-                    keybackNum++;
-                    api.toast({
-                        msg:"再按一次返回键退出程序。",
-                        location:"middle"
-                    });
-                    setTimeout(function ()
-                    {keybackNum = 0;},3000)
-                }
-            });
-            //  });
-        }
-    </script>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="content-type" content="text/html" charset="utf-8">
+		<link href="../css/web_css.css" rel="stylesheet">
+		<link href="../css/reset.css" rel="stylesheet">
+		<link rel="stylesheet" href="../css/flex-layout.css">
+		<link rel="stylesheet" href="../css/layout.css">
+		<link rel="stylesheet" href="../css/index.css">
+		<title>订单管理</title>
+	</head>
+	<body>
+		<div class="top">
+			<header class="m-header flex-column flex-middle flex-item-24">
+				<div class="flex-item-17">
+					<input type="text" class="search-box" name="search" value="订单编号/手机号/用户名" onFocus="this.value=''; style.color='#000000'">
+				</div>
+				<div class="flex-item-7 search-data">
+					<input type="date" name="user_date" class="data-box" value="2016-10-26" step="30"/>
+				</div>
+			</header>
+		</div>
+		<footer class="footer-box flex-item-24 flex-middle flex-column">
+			<div class="flex-item-6 footer-text" id="footer-1">
+				<span><img src="../image/calendar.png" />
+					<p>
+						外卖订单
+					</p></span>
+            </div>
+			<div class="flex-item-6 footer-text" id="footer-2">
+				<span><img src="../image/process.png" />
+					<p>
+						配送请求
+					</p></span>
+			</div>
+			<div class="flex-item-6 footer-text   active" id="footer-3">
+				<span><img src="../image/Viewlist_active.png" />
+					<p>
+						订单管理
+					</p></span>
+			</div>
+			<div class="flex-item-6 footer-text" id="footer-4">
+				<span><img src="../image/account.png" />
+					<p>
+						我的信息
+					</p></span>
+			</div>
+		</footer>
+		<script src="../newAppJs/jquery.min.js"></script>
+		<script src="../newAppJs/api.js"></script>
+		<script src="../newAppJs/share.js"></script>
+		<script>
+			var pageParam;
+			apiready = function() {
+				pageParam = api.pageParam;
+				//外卖订单
+				$(".footer-box").on("touchend", "#footer-1", function() {
+					openOrderDelive(pageParam);
+				});
+				//配送请求
+				$(".footer-box").on("touchend", "#footer-2", function() {
+					openOrderRequest(pageParam);
+				});
+				//订单搜索
+				$(".footer-box").on("touchend", "#footer-3", function() {
+					openOrderSearch(pageParam);
+				});
+				//配送员信息
+				$(".footer-box").on("touchend", "#footer-4", function() {
+					openOrderDeliveInfo(pageParam);
+				});
+			}
+		</script>
+	</body>
 </html>

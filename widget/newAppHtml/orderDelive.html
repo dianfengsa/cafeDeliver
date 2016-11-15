@@ -30,13 +30,31 @@
 					<span>配送中</span><i id="nav-new2" class="nav-new"></i>
 				</div>
 				<div class="flex-item-8 nav-text " id="nav-3">
-					<span>已完成</span><i id="nav-new3" class="nav-new"></i>
+					<span>已完成</span><!--<i id="nav-new3" class="nav-new"></i>-->
 				</div>
 			</nav>
 		</div>
 		<!--顶部导航栏!-->
 		<div class="mask flex-item-24"></div>
 		<!--弹窗事件的遮罩-->
+
+		<!--选择配送员窗口-->
+		<div class="refund" id="refund">
+			<p>
+				是否同意退款？
+			</p>
+			<div class="clearfix refund-box">
+				<button type="button" value="同意退款" id="refund-yes">
+					同意退款
+				</button>
+				<button type="button" value="拒绝退款" id="refund-no">
+					拒绝退款
+				</button>
+				<button type="button" value="取消" id="refund-cancel">
+					取消
+				</button>
+			</div>
+		</div>
 		<div class="m-content flex-item-24 flex-row flex-center " id="m-content">
 			<!--订单模版渲染区域-->
 			<div class="m-container-1 flex-item-24 flex-column flex-center" id="waitingOrder"></div>
@@ -51,10 +69,10 @@
 			<div class="user-info-top flex-item-24 ">
 			<div class="user-info-text">
 			<p>
-			客户电话：15915251578
+			客户电话：{{=value.mobile}}
 			</p>
 			<p class="fr orderNumber" >
-			编号：6552}
+			编号：{{=value.tasks[0].number}}
 			</p>
 			</div>
 			</div>
@@ -62,23 +80,23 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">30分钟预达</span><span class="money"><i>&#165</i> 50.00</span>
+			<div class="clock"></div><span class="clock-text">30分钟预达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
 			送
-			</div><span class="add-destination">荷花田旗舰餐厅-珠海市吉大景园路景山路1号</span>
+			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="source">
 			取
-			</div><span class="add-source">珠海市香洲区吉大钰海环球金融中心5楼312室腾飞科技有限公司融中心5楼312室腾飞科技有限公司融中心5楼312室腾飞科技有限公司</span>
+			</div><span class="add-source">{{=value.deliverAddress}}</span>
 			</li>
 			</ul>
 			<ul class="user-info-other flex-item-23 flex-center">
 			<li class="">
 			<p class="ddbz">
-			订单备注:清仔规定时间送达
+			订单备注:{{=value.mark}}
 			</p>
 			</li>
 			</ul>
@@ -99,10 +117,10 @@
 			<div class="user-info-top flex-item-24 ">
 			<div class="user-info-text">
 			<p>
-			客户电话：15915251578
+			客户电话：{{=value.mobile}}
 			</p>
 			<p class="fr orderNumber" >
-			编号：2554
+			编号：{{=value.tasks[0].number}}
 			</p>
 			</div>
 			</div>
@@ -110,23 +128,23 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">30分钟预达</span><span class="money"><i>&#165</i> 55.00</span>
+			<div class="clock"></div><span class="clock-text">30分钟预达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
 			送
-			</div><span class="add-destination">荷花田旗舰餐厅-珠海市吉大景园路景山路1号</span>
+			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="source">
 			取
-			</div><span class="add-source">珠海市香洲区吉大钰海环球金融中心5楼312室腾飞科技有限公司</span>
+			</div><span class="add-source">{{=value.deliverAddress}}</span>
 			</li>
 			</ul>
 			<ul class="user-info-other flex-item-23 flex-center">
 			<li class="businessInfo">
 			<p class="ddbz">
-			订单备注:请尽快送达
+			订单备注:{{=value.mark}}
 			</p><i class="i-2"></i>
 			</li>
 			</ul>
@@ -135,13 +153,13 @@
 			<div class="user-info-other-box flex-item-24 flex-row " style="display:none">
 			<div class="user-info-text flex-item-24">
 			<p>
-			商家电话:15915251578
+			商家电话:{{=value.tasks[0].restaurantPhone}}
 			</p>
 			</div>
 			<div class="user-info-other flex-item-23 flex-center">
 			<ul class="">
 			<li>
-			<span>支付方式:支付宝支付</span><span class="fr">状态:配送中</span>
+			<span>支付方式:{{=value.payType}}</span><span class="fr">状态:{{=value.status}}</span>
 			</li>
 			</ul>
 			</div>
@@ -153,9 +171,11 @@
 			<th>单价</th>
 			</tr>
 			<tr class="td">
-			<td>梅菜扣肉</td>
-			<td>×1</td>
-			<td>22/元</td>
+			{{~value.cart:cValue:cIndex}}
+			<td>{{=cValue.menuName}}</td>
+			<td>×{{=cValue.amount}}</td>
+			<td>{{=cValue.price}}/元</td>
+			{{~}}
 			</tr>
 			</table>
 			</div>
@@ -182,34 +202,44 @@
 			<div class="user-info-top flex-item-24 ">
 			<div class="user-info-text">
 			<p>
-			客户电话：15915251578
+			客户电话：{{=value.mobile}}
 			</p>
 			<p class="fr orderNumber" >
-			编号：2354
+			编号：{{=value.tasks[0].number}}
 			</p>
 			</div>
 			</div>
 			<div class="user-info-body flex-row flex-item-24 flex-center">
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
+			{{?value.status=="已收货"}}
 			<li class="clearfix order-complete">
-			<div class="complete-img"></div><span class="">订单已完成</span>
+			<div class="complete-img"></div><span class="order-complete">{{=value.status}}</span>
 			</li>
+			{{??value.status=="已拒单"}}
+			<li class="clearfix order-complete">
+			<div class="cancel-img"></div><span class="order-refund">{{=value.status}}</span>
+			</li>
+			{{??}}
+			<li class="clearfix order-complete">
+			<div class="cancel-img"></div><span class="order-refund">{{=value.status}}</span>
+			</li>
+			{{?}}
 			<li class="clearfix">
 			<div class="destination">
 			送
-			</div><span class="add-destination">荷花田旗舰餐厅-珠海市吉大景园路景山路1号</span>
+			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="source">
 			取
-			</div><span class="add-source">珠海市香洲区吉大钰海环球金融中心5楼312室腾飞科技有限公司</span>
+			</div><span class="add-source">{{=value.deliverAddress}}</span>
 			</li>
 			</ul>
 			<ul class="user-info-other flex-item-23 flex-center">
 			<li class="">
 			<p class="ddbz">
-			订单备注:订单定尽快送达
+			订单备注:{{=value.mark}}
 			</p>
 			</li>
 			</ul>
@@ -224,7 +254,7 @@
 				<span><img src="../image/calendar_active.png" />
 					<p>
 						外卖订单
-					</p></span><i id="footer-new1">1</i>
+					</p></span><i id="footer-new1"></i>
 			</div>
 			<div class="flex-item-6 footer-text" id="footer-2">
 				<span><img src="../image/process.png" />
@@ -255,14 +285,14 @@
 <script src="../newAppJs/wilddog.js" ></script>
 <script src="../newAppJs/jquery.min.js"></script>
 <script src="../newAppJs/jquery.touchSwipe.min.js"></script>
-<script src="../newAppJs/jquery.rotate.min.js"></script> 
+<script src="../newAppJs/jquery.rotate.min.js"></script>
 <script src="../newAppJs/share.js"></script>
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
 <script>
 	var pageParam;
 	apiready = function() {
-		pageParam = api.pageParam.deliverMan;
+		pageParam = api.pageParam;
 		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
 		if (pageParam.cafeCar) {
 			//有送餐区域,加载数据
@@ -323,7 +353,6 @@
 				name : 'deliveSelect'
 			});
 		});
-
 		var keybackNum = 0;
 		api.addEventListener({
 			name : 'keyback'
@@ -354,36 +383,72 @@
 				}
 			}
 		});
-	};
+
+		//外卖订单
+		$(".footer-box").on("touchend", "#footer-1", function() {
+			openOrderDelive(pageParam);
+		});
+		//配送请求
+		$(".footer-box").on("touchend", "#footer-2", function() {
+			openOrderRequest(pageParam);
+		});
+		//订单搜索
+		$(".footer-box").on("touchend", "#footer-3", function() {
+			openOrderSearch(pageParam);
+		});
+		//配送员信息
+		$(".footer-box").on("touchend", "#footer-4", function() {
+			openOrderDeliveInfo(pageParam);
+
+		});
+
 	//获取申请退款的数目
 	function loadOrders(carId) {
 		//调用野狗,实时获取数据
 		var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
 		var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [];
-		ref.limitToFirst(100).on("value", function(datasnapshot) {
-			var snap = _.groupBy(datasnapshot.val(), function(val) {
+		ref.limitToFirst(100).on("value", function (datasnapshot) {
+			var snap = _.groupBy(datasnapshot.val(), function (val) {
 				val.deliverMark = val.deliverMark ? val.deliverMark : "0";
 				return val.deliverMark;
 			});
-			var ordersByMark1 = _.sortBy(snap[1], function(val) {
+			var ordersByMark1 = _.sortBy(snap[1], function (val) {
 				return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
 			});
-			var ordersByMark0 = _.sortBy(snap[0], function(val) {
+			var ordersByMark0 = _.sortBy(snap[0], function (val) {
 				return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
 			});
 			var newOrderArr = ordersByMark1.concat(ordersByMark0);
-			waitingArr = _.filter(newOrderArr, function(val, key) {
+			waitingArr = _.filter(newOrderArr, function (val, key) {
 				return val.status == "等待接单";
 			});
-			deliverArr = _.filter(newOrderArr, function(val, key) {
+			deliverArr = _.filter(newOrderArr, function (val, key) {
 				return val.status == "配送中";
 			});
-			finisheddArr = _.filter(newOrderArr, function(val, key) {
+			finisheddArr = _.filter(newOrderArr, function (val, key) {
 				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
 			});
-			console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr))
-			console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr))
-			console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr))
+			console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr));
+			console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr));
+			console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr));
+			if (waitingArr.length > 0) {
+				$("#nav-new1").text(waitingArr.length);
+				var waiting_template = document.getElementById('waiting_template').innerHTML;
+				document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(waitingArr);
+			}
+			if (deliverArr.length > 0) {
+				$("#nav-new2").text(deliverArr.length);
+				document.getElementById('nav-new2').style.display = "block";
+				var deliver_template = document.getElementById('deliver_template').innerHTML;
+				document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(deliverArr);
+			} else {
+				document.getElementById('nav-new2').style.display = "none";
+			}
+			if (finisheddArr.length > 0) {
+				var finishedd_template = document.getElementById('finishedd_template').innerHTML;
+				document.getElementById('finishedOrder').innerHTML = doT.template(finishedd_template)(finisheddArr);
+			}
+			$("#footer-new1").text(waitingArr.length + deliverArr.length);
 		});
-	}
+	}}
 </script>

@@ -131,8 +131,8 @@
 		</div>
 	</body>
 	<script type="text/javascript" src="./newAppJs/api.js"></script>
-	<script type="text/javascript" src="./newAppJs/av.js"></script> 
-	<script type="text/javascript" src="./newAppJs/dbSearch.js"></script> 
+	<script type="text/javascript" src="./newAppJs/av.js"></script>
+	<script type="text/javascript" src="./newAppJs/dbSearch.js"></script>
 	<script type="text/javascript" src="./newAppJs/common.js"></script>
 	<script type="text/javascript" src="./newAppJs/underscore-min.js"></script>
 	<script>
@@ -196,11 +196,11 @@
 					}, {
 						success : function(user) {
 							// 检查DeliverMan中是否存在登陆的用户信息
-							checkDeliverManSataus(user).then(function(ret) {
-								if (ret) {
+							checkDeliverManSataus(user).then(function(ret) { 
+								if (!_.isEmpty(ret)) { 
 									// 用户已经注册,直接获取相关信息,区域,名称等...
 									goOrderListPage(ret);
-								} else {
+								} else { 
 									// 注册用户
 									saveUser(phone.value).then(function(retsult) {
 										goOrderListPage(retsult);

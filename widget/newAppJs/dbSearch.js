@@ -44,8 +44,7 @@ function saveUser(phone) {
 	queryUser.equalTo("mobilePhoneNumber", phone);
 	return queryUser.first().then(function(ret) {
 		//存在user,直接更新user到deliver表中
-		if (ret) {
-			console.log("user>>>" + JSON.stringify(user))
+		if (ret) { 
 			var deliver = new deliveryManObj();
 			deliver.set('name', "捷易飞哥");
 			deliver.set('mobilePhoneNumber', phone);
@@ -56,8 +55,7 @@ function saveUser(phone) {
 			var user = new userObj();
 			user.set('username', "捷易速送");
 			user.set('mobilePhoneNumber', phone);
-			return user.save().then(function(user) {
-				console.log("user>>>>" + JSON.stringify(user))
+			return user.save().then(function(user) { 
 				var deliver = new deliveryManObj();
 				deliver.set('name', "捷易飞哥");
 				deliver.set('mobilePhoneNumber', phone);

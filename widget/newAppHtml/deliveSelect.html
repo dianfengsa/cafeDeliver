@@ -19,7 +19,7 @@
 					<li class="clearfix">
 						<div class="delive-info fl">
 							<p class="delive-name">
-								李力立
+								李力立111111111
 							</p>
 							<p class="delive-area">
 								配送区域：香洲
@@ -131,8 +131,12 @@
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
 <script>
+
+</script>
+<script>
 	var pageParam;
 	apiready = function() {
+
 		//为每个li添加点击事件
 		api.addEventListener({
 			name : 'scrolltobottom',
@@ -146,5 +150,10 @@
 				location : 'bottom'
 			});
 		});
-	}; 
+	};
+
+	$(".delive-list-data").on("touchend","li",function () {   //配送员窗口关闭按钮
+		alert("1231")
+	});
+
 </script>

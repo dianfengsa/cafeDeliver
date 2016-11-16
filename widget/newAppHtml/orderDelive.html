@@ -250,38 +250,7 @@
 			{{~}}
 			{{?}}
 		</script>
-		<footer class="footer-box flex-item-24 flex-middle flex-column flex-between">
-			<div class="flex-item-4 footer-text  active" id="footer-1">
-				<span><img src="../image/calendar_active.png" />
-					<p>
-						外卖订单
-					</p></span><i id="footer-new1"></i>
-			</div>
-			<div class="flex-item-4 footer-text" id="footer-2">
-				<span><img src="../image/process.png" />
-					<p>
-						配送请求
-					</p></span>
-			</div>
-			<div class="flex-item-4 footer-text" id="footer-3">
-				<span><img src="../image/Viewlist.png" />
-					<p>
-						公交配送
-					</p></span>
-			</div>
-			<div class="flex-item-4 footer-text" id="footer-4">
-				<span><img src="../image/account.png" />
-					<p>
-						我的信息
-					</p></span>
-			</div>
-			<div class="flex-item-4 footer-text" id="footer-5">
-				<span><img src="../image/process.png" />
-					<p>
-						堂食餐点
-					</p></span>
-			</div>
-		</footer>
+
 		<!--底部固定栏-->
 	</body>
 </html>
@@ -302,6 +271,29 @@
 	var pageParam;
 	apiready = function() {
 		pageParam = api.pageParam;
+		var winHeight = api.winHeight;
+		api.openFrame({
+			name: 'footer',
+			url: '../newAppHtml/footer.html',
+			rect: {
+				x: 0,
+				y: winHeight - 50 ,
+				w: "auto",
+				h: 50
+			},
+			opaque: true, // 页面不透明
+			bounces: false, // 不允许页面弹动，ripple
+			vScrollBarEnabled: false,
+			slidBackEnabled: false,
+			pageParam: pageParam,
+			/*	animation: {
+			 type: "movein", //动画类型（详见动画类型常量）
+			 subType: "from_right", //动画子类型（详见动画子类型常量）
+			 curve: "ease_out",
+			 duration: 200 //动画过渡时间，默认300毫秒
+			 },*/
+			delay: 0
+		});
 		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
 		if (pageParam.cafeCar) {
 			//有送餐区域,加载数据
@@ -325,7 +317,7 @@
 				url : './deliveSelect.html',
 				rect : {
 					x : 0,
-					y : 0,
+					y : 50,
 					w : 'auto',
 					h : 'auto'
 				},
@@ -392,23 +384,8 @@
 				}
 			}
 		});
-		pageParam = api.pageParam;
-		//外卖订单
-		$(".footer-box").on("touchend", "#footer-1", function() {
-			openOrderDelive(pageParam);
-		});
-		//配送请求
-		$(".footer-box").on("touchend", "#footer-2", function() {
-			openOrderRequest(pageParam);
-		});
-		//订单搜索
-		$(".footer-box").on("touchend", "#footer-3", function() {
-			openOrderSearch(pageParam);
-		});
-		//配送员信息
-		$(".footer-box").on("touchend", "#footer-4", function() {
-			openOrderDeliveInfo(pageParam);
-		});
+
+
 
 	//获取申请退款的数目
 	function loadOrders(carId) {

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" style="background: none">
+<head>
+    <meta name="content-type" content="text/html" charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" >
+    <meta name="format-detection" content="telephone=no">
+    <link href="../css/web_css.css" rel="stylesheet">
+    <!--页面样式-->
+    <link href="../css/reset.css" rel="stylesheet">
+    <!--重置样式-->
+    <link rel="stylesheet" href="../css/flex-layout.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <title>底部栏</title>
+</head>
+<body style="background: none">
+<footer class="footer-box flex-item-24 flex-middle flex-column">
+    <div class="flex-item-6 footer-text  active" id="footer-1">
+				<span><img src="../image/calendar_active.png" />
+					<p>
+						外卖订单
+					</p></span><i id="footer-new1"></i>
+    </div>
+    <div class="flex-item-6 footer-text" id="footer-2">
+				<span><img src="../image/process.png" />
+					<p>
+						配送请求
+					</p></span>
+    </div>
+    <div class="flex-item-6 footer-text" id="footer-3">
+				<span><img src="../image/Viewlist.png" />
+					<p>
+						公交配送
+					</p></span>
+    </div>
+    <div class="flex-item-6 footer-text" id="footer-4">
+				<span><img src="../image/account.png" />
+					<p>
+						我的信息
+					</p></span>
+    </div>
+    <div class="flex-item-6 footer-text" id="footer-5">
+				<span><img src="../image/process.png" />
+					<p>
+						堂食餐点
+					</p></span>
+    </div>
+</footer>
+</body>
+</html>
+<script src="../newAppJs/api.js"></script>
+<script src="../newAppJs/av.js" ></script>
+<script src="../newAppJs/dbSearch.js" ></script>
+<script src="../newAppJs/doT.min.js"></script>
+<script src="../newAppJs/wilddog.js" ></script>
+<script src="../newAppJs/jquery.min.js"></script>
+<script src="../newAppJs/share.js"></script>
+<script src="../newAppJs/orderDelive.js"></script>
+<script src="../newAppJs/underscore-min.js"></script>
+<script>
+
+    var pageParam;
+    apiready = function() {
+
+        pageParam = api.pageParam;
+        //外卖订单
+        $(".footer-box").on("touchend", "#footer-1", function() {
+            openOrderDelive(pageParam);
+        });
+        //配送请求
+        $(".footer-box").on("touchend", "#footer-2", function() {
+            openOrderRequest(pageParam);
+        });
+        //订单搜索
+        $(".footer-box").on("touchend", "#footer-3", function() {
+            openOrderSearch(pageParam);
+        });
+        //配送员信息
+        $(".footer-box").on("touchend", "#footer-4", function() {
+            openOrderDeliveInfo(pageParam);
+        });
+    };
+</script>

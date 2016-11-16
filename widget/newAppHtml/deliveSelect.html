@@ -134,19 +134,8 @@
 
     var pageParam;
     apiready = function() {
-       pageParam = api.pageParam.deliverMan;
-        console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
-        if (pageParam.cafeCar) {
-            //有送餐区域,加载数据
-            loadOrders(pageParam.cafeCar);
-        } else {
-            api.toast({
-                msg : '你还未分配送餐区域,请联系管理员!',
-                location : "middle",
-                duration : 3000
-            });
-        }
 
+  
         //为每个li添加点击事件
 
 

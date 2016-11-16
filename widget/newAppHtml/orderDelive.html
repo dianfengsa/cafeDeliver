@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="../css/layout.css">
 		<link rel="stylesheet" href="../css/index.css">
 		<title>配送订单</title>
+
 	</head>
 	<body>
 		<div class="top">
@@ -27,7 +28,7 @@
 					<span>待接单</span><i id="nav-new1" class="nav-new"></i>
 				</div>
 				<div class="flex-item-8 nav-text" id="nav-2">
-					<span>配送中</span><i id="nav-new2" class="nav-new"></i>
+					<span>配送中</span><i id="nav-new2" class="nav-new">12</i>
 				</div>
 				<div class="flex-item-8 nav-text " id="nav-3">
 					<span>已完成</span><!--<i id="nav-new3" class="nav-new"></i>-->
@@ -249,29 +250,35 @@
 			{{~}}
 			{{?}}
 		</script>
-		<footer class="footer-box flex-item-24 flex-middle flex-column">
-			<div class="flex-item-6 footer-text  active" id="footer-1">
+		<footer class="footer-box flex-item-24 flex-middle flex-column flex-between">
+			<div class="flex-item-4 footer-text  active" id="footer-1">
 				<span><img src="../image/calendar_active.png" />
 					<p>
 						外卖订单
 					</p></span><i id="footer-new1"></i>
 			</div>
-			<div class="flex-item-6 footer-text" id="footer-2">
+			<div class="flex-item-4 footer-text" id="footer-2">
 				<span><img src="../image/process.png" />
 					<p>
 						配送请求
 					</p></span>
 			</div>
-			<div class="flex-item-6 footer-text" id="footer-3">
+			<div class="flex-item-4 footer-text" id="footer-3">
 				<span><img src="../image/Viewlist.png" />
 					<p>
 						公交配送
 					</p></span>
 			</div>
-			<div class="flex-item-6 footer-text" id="footer-4">
+			<div class="flex-item-4 footer-text" id="footer-4">
 				<span><img src="../image/account.png" />
 					<p>
 						我的信息
+					</p></span>
+			</div>
+			<div class="flex-item-4 footer-text" id="footer-5">
+				<span><img src="../image/process.png" />
+					<p>
+						堂食餐点
 					</p></span>
 			</div>
 		</footer>
@@ -286,6 +293,7 @@
 <script src="../newAppJs/jquery.min.js"></script>
 <script src="../newAppJs/jquery.touchSwipe.min.js"></script>
 <script src="../newAppJs/jquery.rotate.min.js"></script>
+<script src="../newAppJs/iscroll.js"></script>
 <script src="../newAppJs/share.js"></script>
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
@@ -384,7 +392,7 @@
 				}
 			}
 		});
-
+		pageParam = api.pageParam;
 		//外卖订单
 		$(".footer-box").on("touchend", "#footer-1", function() {
 			openOrderDelive(pageParam);
@@ -400,7 +408,6 @@
 		//配送员信息
 		$(".footer-box").on("touchend", "#footer-4", function() {
 			openOrderDeliveInfo(pageParam);
-
 		});
 
 	//获取申请退款的数目

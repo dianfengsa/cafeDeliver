@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="../css/layout.css">
 		<link rel="stylesheet" href="../css/index.css">
 		<title>订单管理</title>
+
 	</head>
 	<body>
 		<div class="top">
@@ -24,38 +25,47 @@
 				</div>
 			</header>
 		</div>
-		<footer class="footer-box flex-item-24 flex-middle flex-column">
-			<div class="flex-item-6 footer-text" id="footer-1">
-				<span><img src="../image/calendar.png" />
+		<footer class="footer-box flex-item-24 flex-middle flex-column flex-between">
+			<div class="flex-item-4 footer-text  active" id="footer-1">
+				<span><img src="../image/calendar_active.png" />
 					<p>
 						外卖订单
-					</p></span>
-            </div>
-			<div class="flex-item-6 footer-text" id="footer-2">
+					</p></span><i id="footer-new1"></i>
+			</div>
+			<div class="flex-item-4 footer-text" id="footer-2">
 				<span><img src="../image/process.png" />
 					<p>
 						配送请求
 					</p></span>
 			</div>
-			<div class="flex-item-6 footer-text   active" id="footer-3">
-				<span><img src="../image/Viewlist_active.png" />
+			<div class="flex-item-4 footer-text" id="footer-3">
+				<span><img src="../image/Viewlist.png" />
 					<p>
 						公交配送
 					</p></span>
 			</div>
-			<div class="flex-item-6 footer-text" id="footer-4">
+			<div class="flex-item-4 footer-text" id="footer-4">
 				<span><img src="../image/account.png" />
 					<p>
 						我的信息
 					</p></span>
 			</div>
+			<div class="flex-item-4 footer-text" id="footer-5">
+				<span><img src="../image/process.png" />
+					<p>
+						堂食餐点
+					</p></span>
+			</div>
 		</footer>
 		<script src="../newAppJs/jquery.min.js"></script>
+		<script src="../newAppJs/iscroll.js"></script>
 		<script src="../newAppJs/api.js"></script>
 		<script src="../newAppJs/share.js"></script>
 		<script>
 			var pageParam;
 			apiready = function() {
+
+
 				pageParam = api.pageParam;
 				//外卖订单
 				$(".footer-box").on("touchend", "#footer-1", function() {

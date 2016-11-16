@@ -3,21 +3,31 @@
  */
 
 
+
+
+
 //打开外卖订单页面
 function openOrderDelive(pageParam) {
 	console.log("openOrderDelive>>>pageParam>>>>>>" + JSON.stringify(pageParam))
 	api.openFrame({
 		name : 'orderDelive',
 		url : '../newAppHtml/orderDelive.html',
+		rect: {
+			x: 0,
+			y: 0,
+			w: "auto",
+			h: "auto"
+		},
 		opaque : true, // 页面不透明
 		bounces : false, // 不允许页面弹动，ripple
 		vScrollBarEnabled : false,
 		slidBackEnabled : false,
 		pageParam : pageParam,
 		animation : {
-			type : "fade", //动画类型（详见动画类型常量）
+			type : "movein", //动画类型（详见动画类型常量）
 			subType : "from_right", //动画子类型（详见动画子类型常量）
-			duration : 300 //动画过渡时间，默认300毫秒
+			curve:"ease_out",
+			duration : 200 //动画过渡时间，默认300毫秒
 		},
 		delay : 0
 	});
@@ -31,15 +41,22 @@ function openOrderRequest(pageParam) {
 	api.openFrame({
 		name : 'orderRequest',
 		url : '../newAppHtml/orderRequest.html',
+		rect: {
+			x: 0,
+			y: 0,
+			w: "auto",
+			h: "auto"
+		},
 		opaque : true, // 页面不透明
 		bounces : false, // 不允许页面弹动，ripple
 		vScrollBarEnabled : false,
 		slidBackEnabled : false,
 		pageParam : pageParam,
 		animation : {
-			type : "fade", //动画类型（详见动画类型常量）
+			type : "movein", //动画类型（详见动画类型常量）
 			subType : "from_right", //动画子类型（详见动画子类型常量）
-			duration : 300 //动画过渡时间，默认300毫秒
+			curve:"ease_out",
+			duration : 200 //动画过渡时间，默认300毫秒
 		},
 		delay : 0
 	});
@@ -52,15 +69,22 @@ function openOrderSearch(pageParam) {
 	api.openFrame({
 		name : 'orderSearch',
 		url : '../newAppHtml/orderSearch.html',
+		rect: {
+			x: 0,
+			y: 0,
+			w: "auto",
+			h: "auto"
+		},
 		opaque : true, // 页面不透明
 		bounces : false, // 不允许页面弹动，ripple
 		vScrollBarEnabled : false,
 		slidBackEnabled : false,
 		pageParam : pageParam,
 		animation : {
-			type : "fade", //动画类型（详见动画类型常量）
+			type : "movein", //动画类型（详见动画类型常量）
 			subType : "from_right", //动画子类型（详见动画子类型常量）
-			duration : 300 //动画过渡时间，默认300毫秒
+			curve:"ease_out",
+			duration : 200 //动画过渡时间，默认300毫秒
 		},
 		delay : 0
 	});
@@ -73,15 +97,22 @@ function openOrderDeliveInfo(pageParam) {
 	api.openFrame({
 		name : 'orderDelive',
 		url : '../newAppHtml/orderDeliveInfo.html',
+		rect: {
+			x: 0,
+			y: 0,
+			w: "auto",
+			h: "auto"
+		},
 		opaque : true, // 页面不透明
 		bounces : false, // 不允许页面弹动，ripple
 		vScrollBarEnabled : false,
 		slidBackEnabled : false,
 		pageParam : pageParam,
 		animation : {
-			type : "fade", //动画类型（详见动画类型常量）
+			type : "movein", //动画类型（详见动画类型常量）
 			subType : "from_right", //动画子类型（详见动画子类型常量）
-			duration : 300 //动画过渡时间，默认300毫秒
+			curve:"ease_out",
+			duration : 200 //动画过渡时间，默认300毫秒
 		},
 		delay : 0
 	});

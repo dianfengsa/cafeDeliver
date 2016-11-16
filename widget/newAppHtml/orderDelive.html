@@ -93,7 +93,7 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">30分钟预达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
@@ -297,6 +297,7 @@
 <script src="../newAppJs/doT.min.js"></script>
 <script src="../newAppJs/wilddog.js" ></script>
 <script src="../newAppJs/jquery.min.js"></script>
+<script src="../newAppJs/date.format.js"></script>
 <script src="../newAppJs/jquery.touchSwipe.min.js"></script>
 <script src="../newAppJs/jquery.rotate.min.js"></script>
 <script src="../newAppJs/share.js"></script>
@@ -316,6 +317,7 @@
 				location : "middle",
 				duration : 3000
 			});
+			return;
 		}
 		$(".m-content").on("click", ".dispatch", function() {//dispatch按钮(立即接单)
 			$(".mask").fadeIn(200);
@@ -329,9 +331,7 @@
 					w : 'auto',
 					h : 'auto'
 				},
-				pageParam : {
-					name : 'test'
-				},
+				pageParam : pageParam.cafeCar,
 				bounces : false,
 				bgColor : 'rgba(0,0,0,0)',
 				vScrollBarEnabled : true,
@@ -427,6 +427,9 @@
 				var finishedd_template = document.getElementById('finishedd_template').innerHTML;
 				document.getElementById('finishedOrder').innerHTML = doT.template(finishedd_template)(finisheddArr);
 			}
+			$api.setStorage("wartNum", waitingArr.length);
+			$api.setStorage("deliveNum", deliverArr.length);
+			var num = $api.getStorage("wartNum") + $api.getStorage("deliveNum");
 			$("#footer-new1").text(waitingArr.length + deliverArr.length);
 		});
 	}

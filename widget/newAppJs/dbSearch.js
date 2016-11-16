@@ -36,7 +36,10 @@ function checkDeliverManSataus(user) {
 		errorAlert(error);
 	});
 }
+//根据区域id获取这个区域的配送员信息
+function getDeliverManByArea(id){
 
+}
 //注册用户进user
 function saveUser(phone) {
 	//看user表是否存在这个user

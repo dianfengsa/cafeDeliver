@@ -14,123 +14,30 @@
 		<link rel="stylesheet" href="../css/layout.css">
 		<link rel="stylesheet" href="../css/index.css">
 		<title>配送请求</title>
+
 	</head>
 	<body>
-		<div class="top">
-			<header class="m-header flex-column flex-middle flex-item-24">
-				<p class="header-text flex-item-24 flex-center">
-					<i class="back"></i>配送请求<i class="refresh"></i>
-				</p>
-			</header>
-			<nav class="nav-box flex-item-24 flex-around flex-column">
-				<div class="flex-item-8 nav-text active" id="nav-1">
-					<span>待接单</span><i id="nav-new1" class="nav-new">1</i>
-				</div>
-				<div class="flex-item-8 nav-text" id="nav-2">
-					<span>配送中</span><i id="nav-new2" class="nav-new">1</i>
-				</div>
-				<div class="flex-item-8 nav-text " id="nav-3">
-					<span>已完成</span><i id="nav-new3" class="nav-new">1</i>
-				</div>
-			</nav>
-		</div>
+    <div class="top">
+        <header class="m-header flex-column flex-middle flex-item-24">
+            <p class="header-text flex-item-24 flex-center">
+                <i class="back"></i>配送订单<i class="refresh"></i>
+            </p>
+        </header>
+        <nav class="nav-box flex-item-24 flex-around flex-column">
+            <div class="flex-item-8 nav-text active" id="nav-1">
+                <span>待接单</span><i id="nav-new1" class="nav-new"></i>
+            </div>
+            <div class="flex-item-8 nav-text" id="nav-2">
+                <span>配送中</span><i id="nav-new2" class="nav-new"></i>
+            </div>
+            <div class="flex-item-8 nav-text " id="nav-3">
+                <span>已完成</span>
+            </div>
+        </nav>
+    </div>
 		<!--顶部导航栏!-->
 		<div class="mask flex-item-24"></div>
 		<!--弹窗事件的遮罩-->
-		<div class="reset-shop flex-item-22 flex-column flex-center" style="display: none">
-			<div class="off"><img src="../image/wrong.png" >
-			</div>
-			<div class="flex-item-24 flex-center flex-column" id="transportPersonnel">
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						22222222222
-					</p>
-					<p>
-						33333333
-					</p>
-				</div>
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						12312312312312
-					</p>
-					<p>
-						66666666666666
-					</p>
-				</div>
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						1222222222223
-					</p>
-					<p>
-						55555555555
-					</p>
-				</div>
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						1222222222223
-					</p>
-					<p>
-						55555555555
-					</p>
-				</div>
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						1222222222223
-					</p>
-					<p>
-						55555555555
-					</p>
-				</div>
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						1222222222223
-					</p>
-					<p>
-						55555555555
-					</p>
-				</div>
-				<div class="reset-shop-text flex-item-23 flex-center">
-					<p>
-						1222222222223
-					</p>
-					<p>
-						55555555555
-					</p>
-				</div>
-			</div>
-		</div>
-		<!--选择配送员窗口-->
-		<div class="refund" id="refund">
-			<p>
-				是否同意退款？
-			</p>
-			<div class="clearfix refund-box">
-				<button type="button" value="同意退款" id="refund-yes">
-					同意退款
-				</button>
-				<button type="button" value="拒绝退款" id="refund-no">
-					拒绝退款
-				</button>
-				<button type="button" value="取消" id="refund-cancel">
-					取消
-				</button>
-			</div>
-		</div>
-		<!--退单确认窗口-->
-		<div class="refund" id="sure">
-			<!--确认配送员-->
-			<p>
-				是否选择该配送员？
-			</p>
-			<div class="clearfix refund-box">
-				<button type="button" value="确定" id="sure-yes">
-					确定
-				</button>
-				<button type="button" value="返回" id="sure-no">
-					返回
-				</button>
-			</div>
-		</div>
 		<div class="m-content flex-item-24 flex-row flex-center " id="m-content">
 			<!--订单模版渲染区域-->
 			<div class="m-container-1 flex-item-24 flex-column flex-center" id="waitingOrder">
@@ -304,37 +211,44 @@
 				</div>
 			</div>
 		</div>
-		<footer class="footer-box flex-item-24 flex-middle flex-column">
-			<div class="flex-item-6 footer-text" id="footer-1">
-				<span><img src="../image/calendar.png" />
+	<footer class="footer-box flex-item-24 flex-middle flex-column flex-between">
+		<div class="flex-item-4 footer-text  active" id="footer-1">
+				<span><img src="../image/calendar_active.png" />
 					<p>
 						外卖订单
-					</p></span><i id="footer-new1">1</i>
-			</div>
-			<div class="flex-item-6 footer-text active" id="footer-2">
-				<span><img src="../image/process_active.png" />
+					</p></span><i id="footer-new1"></i>
+		</div>
+		<div class="flex-item-4 footer-text" id="footer-2">
+				<span><img src="../image/process.png" />
 					<p>
 						配送请求
 					</p></span>
-			</div>
-			<div class="flex-item-6 footer-text" id="footer-3">
+		</div>
+		<div class="flex-item-4 footer-text" id="footer-3">
 				<span><img src="../image/Viewlist.png" />
 					<p>
-						订单管理
+						公交配送
 					</p></span>
-			</div>
-			<div class="flex-item-6 footer-text" id="footer-4">
+		</div>
+		<div class="flex-item-4 footer-text" id="footer-4">
 				<span><img src="../image/account.png" />
 					<p>
 						我的信息
 					</p></span>
-			</div>
-		</footer>
+		</div>
+		<div class="flex-item-4 footer-text" id="footer-5">
+				<span><img src="../image/process.png" />
+					<p>
+						堂食餐点
+					</p></span>
+		</div>
+	</footer>
 		<!--底部固定栏-->
 	</body>
 	<script src="../newAppJs/jquery.min.js"></script>
 	<script src="../newAppJs/jquery.touchSwipe.min.js"></script>
 	<script src="../newAppJs/jquery.rotate.min.js"></script>
+	<script src="../newAppJs/iscroll.js"></script>
 	<script src="../newAppJs/api.js"></script>
 	<script src="../newAppJs/doT.min.js"></script>
 	<!--模版配置脚本-->

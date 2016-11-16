@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="../css/layout.css">
 		<link rel="stylesheet" href="../css/index.css">
 		<title>配送订单</title>
+
 	</head>
 	<body>
 		<div class="top">
@@ -27,7 +28,7 @@
 					<span>待接单</span><i id="nav-new1" class="nav-new"></i>
 				</div>
 				<div class="flex-item-8 nav-text" id="nav-2">
-					<span>配送中</span><i id="nav-new2" class="nav-new"></i>
+					<span>配送中</span><i id="nav-new2" class="nav-new">12</i>
 				</div>
 				<div class="flex-item-8 nav-text " id="nav-3">
 					<span>已完成</span><!--<i id="nav-new3" class="nav-new"></i>-->
@@ -36,6 +37,8 @@
 		</div>
 		<!--顶部导航栏!-->
 		<div class="mask flex-item-24"></div>
+		<!--弹窗事件的遮罩-->
+
 		<!--选择配送员窗口-->
 		<div class="refund" id="refund">
 			<p>
@@ -50,21 +53,6 @@
 				</button>
 				<button type="button" value="取消" id="refund-cancel">
 					取消
-				</button>
-			</div>
-		</div>
-		<!--退单确认窗口-->
-		<div class="refund" id="sure">
-			<!--确认配送员-->
-			<p>
-				是否选择该配送员？
-			</p>
-			<div class="clearfix refund-box">
-				<button type="button" value="确定" id="sure-yes">
-					确定
-				</button>
-				<button type="button" value="返回" id="sure-no">
-					返回
 				</button>
 			</div>
 		</div>
@@ -262,29 +250,35 @@
 			{{~}}
 			{{?}}
 		</script>
-		<footer class="footer-box flex-item-24 flex-middle flex-column">
-			<div class="flex-item-6 footer-text  active" id="footer-1">
+		<footer class="footer-box flex-item-24 flex-middle flex-column flex-between">
+			<div class="flex-item-4 footer-text  active" id="footer-1">
 				<span><img src="../image/calendar_active.png" />
 					<p>
 						外卖订单
 					</p></span><i id="footer-new1"></i>
 			</div>
-			<div class="flex-item-6 footer-text" id="footer-2">
+			<div class="flex-item-4 footer-text" id="footer-2">
 				<span><img src="../image/process.png" />
 					<p>
 						配送请求
 					</p></span>
 			</div>
-			<div class="flex-item-6 footer-text" id="footer-3">
+			<div class="flex-item-4 footer-text" id="footer-3">
 				<span><img src="../image/Viewlist.png" />
 					<p>
-						订单管理
+						公交配送
 					</p></span>
 			</div>
-			<div class="flex-item-6 footer-text" id="footer-4">
+			<div class="flex-item-4 footer-text" id="footer-4">
 				<span><img src="../image/account.png" />
 					<p>
 						我的信息
+					</p></span>
+			</div>
+			<div class="flex-item-4 footer-text" id="footer-5">
+				<span><img src="../image/process.png" />
+					<p>
+						堂食餐点
 					</p></span>
 			</div>
 		</footer>
@@ -300,6 +294,7 @@
 <script src="../newAppJs/date.format.js"></script>
 <script src="../newAppJs/jquery.touchSwipe.min.js"></script>
 <script src="../newAppJs/jquery.rotate.min.js"></script>
+<script src="../newAppJs/iscroll.js"></script>
 <script src="../newAppJs/share.js"></script>
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
@@ -319,6 +314,9 @@
 			});
 			return;
 		}
+		$(".m-header").on("click", ".refresh", function() {
+			window.location.reload();
+		});
 		$(".m-content").on("click", ".dispatch", function() {//dispatch按钮(立即接单)
 			$(".mask").fadeIn(200);
 			$("body").addClass("ban-scroll");
@@ -355,15 +353,46 @@
 				location : 'bottom'
 			});
 		});
-		api.addEventListener({
-			name : 'keyback'
-		}, function(ret, err) {
+
+		$("body").on("click", ".mask", function() {
 			$(".mask").fadeOut(200);
 			$("body").removeClass("ban-scroll");
 			api.closeFrame({
 				name : 'deliveSelect'
 			});
 		});
+		var keybackNum = 0;
+		api.addEventListener({
+			name : 'keyback'
+		}, function(ret, err) {
+			var keyBackStatus = $(".mask").css("display"); //如果页面上有遮罩显示则不执行退出程序
+			if(keyBackStatus === "block" ){
+				$(".mask").fadeOut(200);
+				$("body").removeClass("ban-scroll");
+				api.closeFrame({
+					name : 'deliveSelect'
+				});
+				keybackNum = 0;
+			}
+			else{
+
+			if( keybackNum >= 2 ){
+				api.closeWidget({
+					silent : true
+					})
+				}
+			else{
+			keybackNum++;
+				api.toast({
+					msg:"再按一次返回键退出程序。",
+					location:"middle"
+					});
+				setTimeout(function ()
+				{keybackNum = 0;},3000)
+				}
+			}
+		});
+		pageParam = api.pageParam;
 		//外卖订单
 		$(".footer-box").on("touchend", "#footer-1", function() {
 			openOrderDelive(pageParam);
@@ -380,36 +409,36 @@
 		$(".footer-box").on("touchend", "#footer-4", function() {
 			openOrderDeliveInfo(pageParam);
 		});
-	};
+
 	//获取申请退款的数目
 	function loadOrders(carId) {
 		//调用野狗,实时获取数据
 		var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
 		var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [];
-		ref.limitToFirst(100).on("value", function(datasnapshot) {
-			var snap = _.groupBy(datasnapshot.val(), function(val) {
+		ref.limitToFirst(100).on("value", function (datasnapshot) {
+			var snap = _.groupBy(datasnapshot.val(), function (val) {
 				val.deliverMark = val.deliverMark ? val.deliverMark : "0";
 				return val.deliverMark;
 			});
-			var ordersByMark1 = _.sortBy(snap[1], function(val) {
+			var ordersByMark1 = _.sortBy(snap[1], function (val) {
 				return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
 			});
-			var ordersByMark0 = _.sortBy(snap[0], function(val) {
+			var ordersByMark0 = _.sortBy(snap[0], function (val) {
 				return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
 			});
 			var newOrderArr = ordersByMark1.concat(ordersByMark0);
-			waitingArr = _.filter(newOrderArr, function(val, key) {
+			waitingArr = _.filter(newOrderArr, function (val, key) {
 				return val.status == "等待接单";
 			});
-			deliverArr = _.filter(newOrderArr, function(val, key) {
+			deliverArr = _.filter(newOrderArr, function (val, key) {
 				return val.status == "配送中";
 			});
-			finisheddArr = _.filter(newOrderArr, function(val, key) {
+			finisheddArr = _.filter(newOrderArr, function (val, key) {
 				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
 			});
-			console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr))
-			console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr))
-			console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr))
+			console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr));
+			console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr));
+			console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr));
 			if (waitingArr.length > 0) {
 				$("#nav-new1").text(waitingArr.length);
 				var waiting_template = document.getElementById('waiting_template').innerHTML;
@@ -432,5 +461,5 @@
 			var num = $api.getStorage("wartNum") + $api.getStorage("deliveNum");
 			$("#footer-new1").text(waitingArr.length + deliverArr.length);
 		});
-	}
+	}}
 </script>

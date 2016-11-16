@@ -5,6 +5,8 @@
 
 
 $(document).ready(function(){
+
+
     function slide(page) {//滑动事件
         var slideWidth = window.innerWidth;
         var scrollLeft = $("#m-content").scrollLeft();

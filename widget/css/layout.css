@@ -70,8 +70,8 @@ br {
 }
 
 .m-content {
+
 	height: 100%;
-	width: 100%;
 	position: absolute;
 	overflow: hidden;
 }
@@ -82,26 +82,25 @@ br {
 
 .m-container-1{
 
-	width: 100%;
-
-	padding: 11rem 0 6rem 0;
+	padding: 11rem 0 7rem 0;
 	position: relative;
-	overflow:auto
+	overflow-y:scroll ;
+	overflow-x: hidden;
 }
 .m-container-2{
-	width: 100%;
 
-	padding: 11rem 0 6rem 0;
+	padding: 11rem 0 7rem 0;
 	position: relative;
-	overflow:auto
+	overflow-y:scroll ;
+	overflow-x: hidden;
 }
 
 .m-container-3{
-	width: 100%;
 
-	padding: 11rem 0 6rem 0;
+	padding: 11rem 0 7rem 0;
 	position: relative;
-	overflow:auto
+	overflow-y:scroll ;
+	overflow-x: hidden;
 }
 
 

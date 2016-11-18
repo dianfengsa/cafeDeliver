@@ -22,6 +22,7 @@
 				checkDeliverManSataus(user).then(function(ret) {
 					///如果存在这个deliverMan,就直接登录订单页面
 					console.log("ret>>>" + JSON.stringify(ret))
+					$api.setStorage("deliverMan", ret);
 					if (!_.isEmpty(ret)) {
 						api.openWin({
 							name : 'orderDelive',
@@ -29,7 +30,7 @@
 							opaque : true, // 页面不透明
 							bounces : false, // 不允许页面弹动，ripple
 							vScrollBarEnabled : false,
-							pageParam : ret ,
+							pageParam : ret,
 							slidBackEnabled : false,
 							animation : {
 								type : "fade", //动画类型（详见动画类型常量）

@@ -52,10 +52,15 @@ background-color: #FFFFFF;
     font-size: 1.2rem;
 }
 
+<<<<<<< HEAD
 .delive-area{
 
     font-size: 1.2rem;
 
+=======
+.delive-area{ 
+    font-size: 1.2rem; 
+>>>>>>> 04ed1dc0e38d0d9cfc8d1b94f9fd8bd27f03d952
 }
 
 .delive-info{

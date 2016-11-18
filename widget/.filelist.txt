@@ -15,6 +15,7 @@
 /A6972705759463/html/homeSlide.html
 /A6972705759463/image/icon/remind.png
 /A6972705759463/css/layout.css
+/A6972705759463/image/order-cancel.png
 /A6972705759463/image/car/inventory.png
 /A6972705759463/html/businessHours.html
 /A6972705759463/css/common.css
@@ -59,6 +60,8 @@
 /A6972705759463/image/car/home.png
 /A6972705759463/html/onDuty.html
 /A6972705759463/script/ajpush.js
+/A6972705759463/newAppHtml/deliveSelect.html
+/A6972705759463/css/deliveSelect.css
 /A6972705759463/image/search.png
 /A6972705759463/image/info_no_03.png
 /A6972705759463/html/inventoryManage.html
@@ -92,8 +95,8 @@
 /A6972705759463/image/deliver/start_light.png
 /A6972705759463/html/bmap/bmap_mark_frm.htm
 /A6972705759463/script/timeago.js
-/A6972705759463/image/ic_back_u.png
 /A6972705759463/newAppJs/model.js
+/A6972705759463/image/ic_back_u.png
 /A6972705759463/image/info_off_bg_01.png
 /A6972705759463/script/common.js
 /A6972705759463/html/homeFixed.html
@@ -102,6 +105,7 @@
 /A6972705759463/image/mark_red.png
 /A6972705759463/image/car/area.png
 /A6972705759463/html/cartInventoryList.html
+/A6972705759463/image/order-complete.png
 /A6972705759463/image/wrong.png
 /A6972705759463/css/web_css.css
 /A6972705759463/image/deliver/man.png
@@ -118,6 +122,7 @@
 /A6972705759463/image/detail_grouponicon.png
 /A6972705759463/script/zepto.min.js
 /A6972705759463/image/deliver/arrowLeft.png
+/A6972705759463/newAppJs/iscroll.js
 /A6972705759463/image/car/area_gray.png
 /A6972705759463/image/icon/plus.png
 /A6972705759463/image/callPhone.png
@@ -125,6 +130,7 @@
 /A6972705759463/image/transportation.png
 /A6972705759463/script/underscore-min.js
 /A6972705759463/newAppJs/av.js
+/A6972705759463/newAppJs/wilddog.js
 /A6972705759463/html/busMode_body.html
 /A6972705759463/css/amazeui.datatables.min.css
 /A6972705759463/image/Category_active.png
@@ -158,8 +164,10 @@
 /A6972705759463/css/homeFixed.css
 /A6972705759463/css/flex-layout.less
 /A6972705759463/image/detail_couponicon.png
+/A6972705759463/newAppHtml/footer.html
 /A6972705759463/image/header_icon/icon_back_u.png
 /A6972705759463/image/deliver/home.png
+/A6972705759463/newAppJs/date.format.js
 /A6972705759463/image/my.png
 /A6972705759463/image/api_1.png
 /A6972705759463/image/deliver/clock.png
@@ -185,11 +193,11 @@
 /A6972705759463/image/deliver/arrow_right.png
 /A6972705759463/script/api.js
 /A6972705759463/image/q_circle.png
-/A6972705759463/res/finishOrder.mp3
 /A6972705759463/css/orderForm_3.css
+/A6972705759463/res/finishOrder.mp3
 /A6972705759463/css/flex-layout.css
-/A6972705759463/newAppJs/orderForm_2.js
 /A6972705759463/html/busDriverDetails_header.html
+/A6972705759463/newAppJs/orderForm_2.js
 /A6972705759463/image/ajax-loader.gif
 /A6972705759463/res/pika.mp3
 /A6972705759463/image/icon/plus_gray.png
@@ -210,6 +218,7 @@
 /A6972705759463/image/info_off_bg.png
 /A6972705759463/html/carInfo.html
 /A6972705759463/image/deliver/arrowRight.png
+/A6972705759463/newAppJs/share.js
 /A6972705759463/css/carInfo.css
 /A6972705759463/image/car/arrowUp.png
 /A6972705759463/html/siteOrders_header.html
@@ -228,6 +237,7 @@
 /A6972705759463/image/icon/priored.png
 /A6972705759463/css/orderList_simple.css
 /A6972705759463/newAppJs/jquery.rotate.min.js
+/A6972705759463/error/error.html
 /A6972705759463/html/displayQRCode.html
 /A6972705759463/image/s.png
 /A6972705759463/image/car/icon_edit.png

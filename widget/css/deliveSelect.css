@@ -52,11 +52,8 @@ background-color: #FFFFFF;
     font-size: 1.2rem;
 }
 
-.delive-area{
-    text-align: right;
-    float: right;
-    font-size: 1.2rem;
-
+.delive-area{ 
+    font-size: 1.2rem; 
 }
 
 .delive-info{

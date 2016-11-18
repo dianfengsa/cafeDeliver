@@ -32,10 +32,10 @@
 					</ul>
 					<ul class="clearfix">
 						<li  class="fl">
-							员工姓名：<span>李四</span>
+							员工姓名：<span id="dName"></span>
 						</li>
 						<li class="fr">
-							职称：<span>司机</span>
+							职称：<span>送餐员</span>
 						</li>
 					</ul>
 				</div>
@@ -55,7 +55,7 @@
 							配送地点：
 						</li>
 						<li class="fl ">
-							<span>吉大景园路1号315室</span>
+							<span id="deliverDd">吉大景园路1号315室</span>
 						</li>
 					</ul>
 					<ul class="clearfix">
@@ -63,7 +63,7 @@
 							区域号码：
 						</li>
 						<li class="fl">
-							<span>15555555555</span>
+							<span id="deliverPhone"></span>
 						</li>
 					</ul>
 				</div>
@@ -115,9 +115,12 @@
 <script>
 	var pageParam;
 	apiready = function() {
-
-
 		pageParam = api.pageParam;
+		var deliverManInfo = $api.getStorage("deliverMan");
+		console.log("deliverManInfo>>>>" + JSON.stringify(deliverManInfo))
+		$("#dName").text(deliverManInfo.name);
+		$("#deliverPhone").text(deliverManInfo.phone);
+		$("#deliverDd").text(deliverManInfo.area);
 		//外卖订单
 		$(".footer-box").on("touchend", "#footer-1", function() {
 			openOrderDelive(pageParam);

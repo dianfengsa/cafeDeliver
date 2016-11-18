@@ -11,6 +11,8 @@ AV.init({
 
 var userObj = AV.Object.extend("_User");
 var deliveryManObj = AV.Object.extend('deliveryMan');
+var cafeCarObj = AV.Object.extend('cafeCar');
+var orderObj = AV.Object.extend('order');
 //判断此用户是否已经分配了送餐区域
 function checkDeliverManSataus(user) {
 	var query = new AV.Query(deliveryManObj);
@@ -18,7 +20,10 @@ function checkDeliverManSataus(user) {
 	var userPoniter = AV.Object.createWithoutData("_User", user.id);
 	query.equalTo("owner", userPoniter);
 	query.include("_User");
-	return query.first().then(function(manObj) {
+	return query.first().then(function(deliver) {
+		deliver.set("status", "在岗");
+		return deliver.save();
+	}).then(function(manObj) {
 		if (manObj) {
 			delverObj = {
 				id : manObj.id,
@@ -29,17 +34,47 @@ function checkDeliverManSataus(user) {
 				cafeCar : manObj.get("cafeCar") ? manObj.get("cafeCar").id : "",
 				owner : manObj.get("owner").id
 			};
-		} 
-		console.log("delverObj>>>>>>" + JSON.stringify(delverObj))
+		}
 		return delverObj;
 	}).catch(function(error) {
 		errorAlert(error);
 	});
 }
-//根据区域id获取这个区域的配送员信息
-function getDeliverManByArea(id){
 
+//根据区域id获取这个区域的配送员信息
+function getDeliverManByArea(carId, isOwner) {
+	var manArr = [];
+	var queryCafeCar = new AV.Query(cafeCarObj);
+	return queryCafeCar.get(carId).then(function(carObj) {
+		var queryMan = new AV.Query(deliveryManObj);
+		queryMan.equalTo("cafeCar", carObj);
+		queryMan.equalTo("status", "在岗");
+		return queryMan.find();
+	}).then(function(mans) {
+		console.log("mans>>>>>>" + JSON.stringify(mans))
+		var isMe = 0;
+		for (var i = 0; i < mans.length; i++) { 
+			if (mans[i].id == isOwner) {
+				isMe = 1;
+			}
+			var manObj = {
+				manId : mans[i].id,
+				manName : mans[i].get('name'),
+				manPhone : mans[i].get('mobilePhoneNumber'),
+				manStatus : mans[i].get('status'),
+				manArea : mans[i].get('area'),
+				manCafeCar : mans[i].get('cafeCar').id,
+				isMe : isMe
+			};
+			manArr.push(manObj);
+		}
+		console.log("manArr>>>" + JSON.stringify(manArr))
+		return manArr;
+	}).catch(function(error) {
+		console.log("error>>>" + JSON.stringify(error))
+	});
 }
+
 //注册用户进user
 function saveUser(phone) {
 	//看user表是否存在这个user
@@ -47,7 +82,7 @@ function saveUser(phone) {
 	queryUser.equalTo("mobilePhoneNumber", phone);
 	return queryUser.first().then(function(ret) {
 		//存在user,直接更新user到deliver表中
-		if (ret) { 
+		if (ret) {
 			var deliver = new deliveryManObj();
 			deliver.set('name', "捷易飞哥");
 			deliver.set('mobilePhoneNumber', phone);
@@ -58,7 +93,7 @@ function saveUser(phone) {
 			var user = new userObj();
 			user.set('username', "捷易速送");
 			user.set('mobilePhoneNumber', phone);
-			return user.save().then(function(user) { 
+			return user.save().then(function(user) {
 				var deliver = new deliveryManObj();
 				deliver.set('name', "捷易飞哥");
 				deliver.set('mobilePhoneNumber', phone);

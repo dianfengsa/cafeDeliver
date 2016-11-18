@@ -14,7 +14,6 @@
 		<link rel="stylesheet" href="../css/layout.css">
 		<link rel="stylesheet" href="../css/index.css">
 		<title>配送订单</title>
-
 	</head>
 	<body>
 		<div class="top">
@@ -38,7 +37,6 @@
 		<!--顶部导航栏!-->
 		<div class="mask flex-item-24"></div>
 		<!--弹窗事件的遮罩-->
-
 		<!--选择配送员窗口-->
 		<div class="refund" id="refund">
 			<p>
@@ -81,6 +79,11 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
+			<div>
+			下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}
+			</div>
+			</li>
+			<li>
 			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li class="clearfix">
@@ -102,7 +105,7 @@
 			</li>
 			</ul>
 			<span>
-			<input type="button" value="立即接单" class="dispatch">
+			<input type="button" value="立即接单" data-value="{{=value.orderid}}" class="dispatch">
 			</span>
 			</div>
 			</div>
@@ -129,7 +132,7 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">30分钟预达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
@@ -171,21 +174,21 @@
 			<th>数量</th>
 			<th>单价</th>
 			</tr>
-			<tr class="td">
 			{{~value.cart:cValue:cIndex}}
+			<tr class="td">
 			<td>{{=cValue.menuName}}</td>
 			<td>×{{=cValue.amount}}</td>
-			<td>{{=cValue.price}}/元</td>
-			{{~}}
+			<td>￥{{=cValue.price}}</td>
 			</tr>
+			{{~}}
 			</table>
 			</div>
 			<div class="user-info-other-button flex-item-24 flex-column">
 			<div class="flex-item-24 flex-between">
-			<button type="button" value="重新派单" class="dispatch2">
+			<button type="button" value="重新派单" class="dispatch2" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
 			重新派单
 			</button>
-			<button type="button" value="确认送达" class="dispatch3">
+			<button type="button" value="确认送达" class="dispatch3" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
 			确认送达
 			</button>
 			</div>
@@ -299,10 +302,10 @@
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
 <script>
-	var pageParam;
+	var pageParam, deliver;
 	apiready = function() {
 		pageParam = api.pageParam;
-		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
+		//		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
 		if (pageParam.cafeCar) {
 			//有送餐区域,加载数据
 			loadOrders(pageParam.cafeCar);
@@ -314,12 +317,14 @@
 			});
 			return;
 		}
+		deliver = $api.getStorage("deliverMan");
 		$(".m-header").on("click", ".refresh", function() {
 			window.location.reload();
 		});
 		$(".m-content").on("click", ".dispatch", function() {//dispatch按钮(立即接单)
 			$(".mask").fadeIn(200);
 			$("body").addClass("ban-scroll");
+			var orderId = $(this).attr("data-value");
 			api.openFrame({
 				name : 'deliveSelect',
 				url : './deliveSelect.html',
@@ -329,7 +334,10 @@
 					w : 'auto',
 					h : 'auto'
 				},
-				pageParam : pageParam.cafeCar,
+				pageParam : {
+					"cefeCar" : pageParam.cafeCar,
+					"orderId" : orderId
+				},
 				bounces : false,
 				bgColor : 'rgba(0,0,0,0)',
 				vScrollBarEnabled : true,
@@ -347,13 +355,14 @@
 				threshold : 0//设置距离底部多少距离时触发，默认值为0，数字类型
 			}
 		}, function(ret, err) {
+			var pageSize = pageSize + 1;
+			loadOrders(pageParam.cafeCar, pageSize);
 			api.toast({
 				msg : '暂无更多数据...',
 				duration : 2000,
 				location : 'bottom'
 			});
 		});
-
 		$("body").on("click", ".mask", function() {
 			$(".mask").fadeOut(200);
 			$("body").removeClass("ban-scroll");
@@ -365,34 +374,32 @@
 		api.addEventListener({
 			name : 'keyback'
 		}, function(ret, err) {
-			var keyBackStatus = $(".mask").css("display"); //如果页面上有遮罩显示则不执行退出程序
-			if(keyBackStatus === "block" ){
+			var keyBackStatus = $(".mask").css("display");
+			//如果页面上有遮罩显示则不执行退出程序
+			if (keyBackStatus === "block") {
 				$(".mask").fadeOut(200);
 				$("body").removeClass("ban-scroll");
 				api.closeFrame({
 					name : 'deliveSelect'
 				});
 				keybackNum = 0;
-			}
-			else{
-
-			if( keybackNum >= 2 ){
-				api.closeWidget({
-					silent : true
+			} else {
+				if (keybackNum >= 2) {
+					api.closeWidget({
+						silent : true
 					})
-				}
-			else{
-			keybackNum++;
-				api.toast({
-					msg:"再按一次返回键退出程序。",
-					location:"middle"
+				} else {
+					keybackNum++;
+					api.toast({
+						msg : "再按一次返回键退出程序。",
+						location : "middle"
 					});
-				setTimeout(function ()
-				{keybackNum = 0;},3000)
+					setTimeout(function() {
+						keybackNum = 0;
+					}, 3000)
 				}
 			}
 		});
-		pageParam = api.pageParam;
 		//外卖订单
 		$(".footer-box").on("touchend", "#footer-1", function() {
 			openOrderDelive(pageParam);
@@ -409,57 +416,136 @@
 		$(".footer-box").on("touchend", "#footer-4", function() {
 			openOrderDeliveInfo(pageParam);
 		});
-
-	//获取申请退款的数目
-	function loadOrders(carId) {
-		//调用野狗,实时获取数据
-		var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
-		var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [];
-		ref.limitToFirst(100).on("value", function (datasnapshot) {
-			var snap = _.groupBy(datasnapshot.val(), function (val) {
-				val.deliverMark = val.deliverMark ? val.deliverMark : "0";
-				return val.deliverMark;
-			});
-			var ordersByMark1 = _.sortBy(snap[1], function (val) {
-				return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
-			});
-			var ordersByMark0 = _.sortBy(snap[0], function (val) {
-				return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
-			});
-			var newOrderArr = ordersByMark1.concat(ordersByMark0);
-			waitingArr = _.filter(newOrderArr, function (val, key) {
-				return val.status == "等待接单";
-			});
-			deliverArr = _.filter(newOrderArr, function (val, key) {
-				return val.status == "配送中";
-			});
-			finisheddArr = _.filter(newOrderArr, function (val, key) {
-				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
-			});
-			console.log("waitingArr>>>>>>>" + JSON.stringify(waitingArr));
-			console.log("deliverArr>>>>>>>" + JSON.stringify(deliverArr));
-			console.log("finisheddArr>>>>>>>" + JSON.stringify(finisheddArr));
-			if (waitingArr.length > 0) {
-				$("#nav-new1").text(waitingArr.length);
-				var waiting_template = document.getElementById('waiting_template').innerHTML;
-				document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(waitingArr);
-			}
-			if (deliverArr.length > 0) {
-				$("#nav-new2").text(deliverArr.length);
-				document.getElementById('nav-new2').style.display = "block";
-				var deliver_template = document.getElementById('deliver_template').innerHTML;
-				document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(deliverArr);
-			} else {
-				document.getElementById('nav-new2').style.display = "none";
-			}
-			if (finisheddArr.length > 0) {
-				var finishedd_template = document.getElementById('finishedd_template').innerHTML;
-				document.getElementById('finishedOrder').innerHTML = doT.template(finishedd_template)(finisheddArr);
-			}
-			$api.setStorage("wartNum", waitingArr.length);
-			$api.setStorage("deliveNum", deliverArr.length);
-			var num = $api.getStorage("wartNum") + $api.getStorage("deliveNum");
-			$("#footer-new1").text(waitingArr.length + deliverArr.length);
+		$("#deliverOrder").on("touchend", ".dispatch3", function() {
+			var orderId = $(this).attr("data-value");
+			var customerId = $(this).attr("data-cust");
+			setDelivered(orderId, customerId);
 		});
-	}}
+		//重新派单
+		$("#deliverOrder").on("touchend", ".dispatch2", function() {
+			var orderId = $(this).attr("data-value");
+			api.openFrame({
+				name : 'deliveSelect',
+				url : './deliveSelect.html',
+				rect : {
+					x : 0,
+					y : 0,
+					w : 'auto',
+					h : 'auto'
+				},
+				pageParam : {
+					"cefeCar" : pageParam.cafeCar,
+					"orderId" : orderId
+				},
+				bounces : false,
+				bgColor : 'rgba(0,0,0,0)',
+				vScrollBarEnabled : true,
+				hScrollBarEnabled : true,
+				animation : {
+					type : "push", //动画类型（详见动画类型常量）
+					subType : "from_top", //动画子类型（详见动画子类型常量）
+					duration : 200 //动画过渡时间，默认300毫秒
+				}
+			});
+		});
+		//获取申请退款的数目
+		function loadOrders(carId, pageSize) {
+			api.showProgress({
+				title : '加载数据中...',
+				modal : true
+			}, 3000);
+			var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [], myOrderArr = [];
+			//调用野狗,实时获取数据
+			var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
+			ref.orderByKey().limitToFirst(100).on("value", function(datasnapshot) {
+				var snap = _.groupBy(datasnapshot.val(), function(val) {
+					val.deliverMark = val.deliverMark ? val.deliverMark : "0";
+					return val.deliverMark;
+				});
+				var ordersByMark1 = _.sortBy(snap[1], function(val) {
+					return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
+				});
+				var ordersByMark0 = _.sortBy(snap[0], function(val) {
+					return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
+				});
+				var newOrderArr = ordersByMark1.concat(ordersByMark0);
+				waitingArr = _.filter(newOrderArr, function(val, key) {
+					return val.status == "等待接单";
+				});
+				deliverArr = _.filter(newOrderArr, function(val, key) {
+					return val.status == "配送中";
+				});
+				finisheddArr = _.filter(newOrderArr, function(val, key) {
+					return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
+				});
+				console.log("<<<<<waitingArr>>>>>>>" + JSON.stringify(waitingArr));
+				console.log("<<<<<<deliverArr>>>>>>>" + JSON.stringify(deliverArr));
+				console.log("<<<<<<finisheddArr>>>>>>>" + JSON.stringify(finisheddArr));
+				if (waitingArr.length > 0) {
+					$("#nav-new1").text(waitingArr.length);
+					var waiting_template = document.getElementById('waiting_template').innerHTML;
+					document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(waitingArr);
+				}
+				if (deliverArr.length > 0) {
+					document.getElementById('nav-new2').style.display = "inline-block";
+					//找出配送员是自己的单,不能看其他人的顶单
+					for (var i = 0; i < deliverArr.length; i++) {
+						if (deliverArr[i].deliverObj.objectId == deliver.id) {
+							myOrderArr.push(deliverArr[i]);
+						}
+					}
+					$("#nav-new2").text(myOrderArr.length);
+					var deliver_template = document.getElementById('deliver_template').innerHTML;
+					document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
+				} else {
+					document.getElementById('nav-new2').style.display = "none";
+					var deliver_template = document.getElementById('deliver_template').innerHTML;
+					document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
+				}
+				if (finisheddArr.length > 0) {
+					var finishedd_template = document.getElementById('finishedd_template').innerHTML;
+					document.getElementById('finishedOrder').innerHTML = doT.template(finishedd_template)(finisheddArr);
+				}
+				api.hideProgress();
+				$api.setStorage("wartNum", waitingArr.length);
+				$api.setStorage("deliveNum", myOrderArr.length);
+				var num = $api.getStorage("wartNum") + $api.getStorage("deliveNum");
+				$("#footer-new1").text(waitingArr.length + myOrderArr.length);
+			});
+		}
+
+	}
+	//设置状态为已送达
+	function setDelivered(orderId, customerId) {
+		api.confirm({
+			title : '提示',
+			msg : '是否确认快餐已送达',
+			buttons : ['取消', '确定']
+		}, function(ret, err) {
+			if (ret.buttonIndex == 2) {
+				api.showProgress({
+					title : '提交数据中...',
+					modal : true
+				});
+				AV.Cloud.run('receiptTemp', {
+					"orderId" : orderId,
+					"userId" : customerId
+				}, {
+					success : function(orderSuccess) {
+						api.hideProgress();
+						reloadFrame();
+					},
+					error : function(error) {
+						console.log("error：" + JSON.stringify(error));
+						var msg = error.hasOwnProperty("msg") ? error.msg : JSON.stringify(error);
+						api.hideProgress();
+						api.alert({
+							title : '提示',
+							msg : msg
+						});
+					}
+				});
+			}
+		});
+	}
 </script>

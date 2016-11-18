@@ -30,23 +30,24 @@
 					</p></span>
     </div>
     <div class="flex-item-4 footer-text" id="footer-3">
-				<span><img src="../image/Viewlist.png" />
+				<span><img src="../image/dine.png" />
+					<p>
+						堂食餐点
+					</p></span>
+    </div>
+    <div class="flex-item-4 footer-text" id="footer-4">
+				<span><img src="../image/bus.png" />
 					<p>
 						公交配送
 					</p></span>
     </div>
-    <div class="flex-item-4 footer-text" id="footer-4">
+    <div class="flex-item-4 footer-text" id="footer-5">
 				<span><img src="../image/account.png" />
 					<p>
 						我的信息
 					</p></span>
     </div>
-    <div class="flex-item-4 footer-text" id="footer-5">
-				<span><img src="../image/process.png" />
-					<p>
-						堂食餐点
-					</p></span>
-    </div>
+
 </footer>
 </body>
 </html>
@@ -70,44 +71,44 @@
             openOrderDelive(pageParam);
             $("#footer-1").addClass("active").find("img").attr("src","../image/calendar_active.png");
             $("#footer-2").removeClass("active").find("img").attr("src","../image/process.png");
-            $("#footer-3").removeClass("active").find("img").attr("src","../image/Viewlist.png");
-            $("#footer-4").removeClass("active").find("img").attr("src","../image/account.png");
-            $("#footer-5").removeClass("active");
+            $("#footer-3").removeClass("active").find("img").attr("src","../image/dine.png");
+            $("#footer-4").removeClass("active").find("img").attr("src","../image/bus.png");
+            $("#footer-5").removeClass("active").find("img").attr("src","../image/account.png");
         });
         //配送请求
         $(".footer-box").on("touchend", "#footer-2", function() {
             openOrderRequest(pageParam);
             $("#footer-1").removeClass("active").find("img").attr("src","../image/calendar.png");
             $("#footer-2").addClass("active").find("img").attr("src","../image/process_active.png");
-            $("#footer-3").removeClass("active").find("img").attr("src","../image/Viewlist.png");
-            $("#footer-4").removeClass("active").find("img").attr("src","../image/account.png");
-            $("#footer-5").removeClass("active");
+            $("#footer-3").removeClass("active").find("img").attr("src","../image/dine.png");
+            $("#footer-4").removeClass("active").find("img").attr("src","../image/bus.png");
+            $("#footer-5").removeClass("active").find("img").attr("src","../image/account.png");
         });
         //订单搜索
         $(".footer-box").on("touchend", "#footer-3", function() {
-            openOrderSearch(pageParam);
+           openOrderDine(pageParam);
             $("#footer-1").removeClass("active").find("img").attr("src","../image/calendar.png");
             $("#footer-2").removeClass("active").find("img").attr("src","../image/process.png");
-            $("#footer-3").addClass("active").find("img").attr("src","../image/Viewlist_active.png");
-            $("#footer-4").removeClass("active").find("img").attr("src","../image/account.png");
-            $("#footer-5").removeClass("active");
+            $("#footer-3").addClass("active").find("img").attr("src","../image/dine_active.png");
+            $("#footer-4").removeClass("active").find("img").attr("src","../image/bus.png");
+            $("#footer-5").removeClass("active").find("img").attr("src","../image/account.png");
         });
         //配送员信息
         $(".footer-box").on("touchend", "#footer-4", function() {
+           openOrderSearch(pageParam);
+            $("#footer-1").removeClass("active").find("img").attr("src","../image/calendar.png");
+            $("#footer-2").removeClass("active").find("img").attr("src","../image/process.png");
+            $("#footer-3").removeClass("active").find("img").attr("src","../image/dine.png");
+            $("#footer-4").addClass("active").find("img").attr("src","../image/bus_active.png");
+            $("#footer-5").removeClass("active").find("img").attr("src","../image/account.png");
+        });
+        $(".footer-box").on("touchend", "#footer-5", function() {
             openOrderDeliveInfo(pageParam);
             $("#footer-1").removeClass("active").find("img").attr("src","../image/calendar.png");
             $("#footer-2").removeClass("active").find("img").attr("src","../image/process.png");
-            $("#footer-3").removeClass("active").find("img").attr("src","../image/Viewlist.png");
-            $("#footer-4").addClass("active").find("img").attr("src","../image/account_active.png");
-            $("#footer-5").removeClass("active");
-        });
-        $(".footer-box").on("touchend", "#footer-5", function() {
-            //暂无
-            $("#footer-1").removeClass("active").find("img").attr("src","../image/calendar.png");
-            $("#footer-2").removeClass("active").find("img").attr("src","../image/process.png");
-            $("#footer-3").removeClass("active").find("img").attr("src","../image/Viewlist.png");
-            $("#footer-4").removeClass("active").find("img").attr("src","../image/account.png");
-            $("#footer-5").addClass("active");
+            $("#footer-3").removeClass("active").find("img").attr("src","../image/dine.png");
+            $("#footer-4").removeClass("active").find("img").attr("src","../image/bus.png");
+            $("#footer-5").addClass("active").find("img").attr("src","../image/account_active.png");
         });
     };
 </script>

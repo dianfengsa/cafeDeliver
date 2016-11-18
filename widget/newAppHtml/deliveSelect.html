@@ -134,26 +134,5 @@
 
 </script>
 <script>
-	var pageParam;
-	apiready = function() {
-
-		//为每个li添加点击事件
-		api.addEventListener({
-			name : 'scrolltobottom',
-			extra : {
-				threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
-			}
-		}, function(ret, err) {
-			api.toast({
-				msg : '暂无更多数据...',
-				duration : 2000,
-				location : 'bottom'
-			});
-		});
-	};
-
-	$(".delive-list-data").on("touchend","li",function () {   //配送员窗口关闭按钮
-		alert("1231")
-	});
 
 </script>

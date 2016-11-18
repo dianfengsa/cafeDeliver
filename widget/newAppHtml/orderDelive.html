@@ -6,12 +6,15 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" >
 		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="x5-fullscreen" content="true">
 		<link href="../css/web_css.css" rel="stylesheet">
 		<!--页面样式-->
 		<link href="../css/reset.css" rel="stylesheet">
 		<!--重置样式-->
 		<link rel="stylesheet" href="../css/flex-layout.css">
 		<link rel="stylesheet" href="../css/layout.css">
+		<link rel="stylesheet" href="../css/dropload.css">
 		<link rel="stylesheet" href="../css/index.css">
 		<title>配送订单</title>
 
@@ -23,12 +26,12 @@
 					<i class="back"></i>配送订单<i class="refresh"></i>
 				</p>
 			</header>
-			<nav class="nav-box flex-item-24 flex-around flex-column">
+			<nav class="nav-box flex-item-24 flex-around flex-column" >
 				<div class="flex-item-8 nav-text active" id="nav-1">
 					<span>待接单</span><i id="nav-new1" class="nav-new"></i>
 				</div>
 				<div class="flex-item-8 nav-text" id="nav-2">
-					<span>配送中</span><i id="nav-new2" class="nav-new">12</i>
+					<span>配送中</span><i id="nav-new2" class="nav-new"></i>
 				</div>
 				<div class="flex-item-8 nav-text " id="nav-3">
 					<span>已完成</span><!--<i id="nav-new3" class="nav-new"></i>-->
@@ -39,28 +42,20 @@
 		<div class="mask flex-item-24"></div>
 		<!--弹窗事件的遮罩-->
 
-		<!--选择配送员窗口-->
-		<div class="refund" id="refund">
-			<p>
-				是否同意退款？
-			</p>
-			<div class="clearfix refund-box">
-				<button type="button" value="同意退款" id="refund-yes">
-					同意退款
-				</button>
-				<button type="button" value="拒绝退款" id="refund-no">
-					拒绝退款
-				</button>
-				<button type="button" value="取消" id="refund-cancel">
-					取消
-				</button>
-			</div>
-		</div>
 		<div class="m-content flex-item-24 flex-row flex-center " id="m-content">
 			<!--订单模版渲染区域-->
-			<div class="m-container-1 flex-item-24 flex-column flex-center" id="waitingOrder"></div>
-			<div class="m-container-2 flex-item-24 flex-column flex-center" id="deliverOrder"></div>
-			<div class="m-container-3 flex-item-24 flex-column flex-center" id="finishedOrder"></div>
+			<div class="m-container-1 flex-item-24 flex-column flex-center" id="waitingOrder">
+				<div class=" flex-item-24 flex-center notform flex-bottom" style="display: block">
+				</div>
+			</div>
+			<div class="m-container-2 flex-item-24 flex-column flex-center" id="deliverOrder">
+				<div class="flex-item-24 flex-center notform flex-bottom" style="display: block">
+				</div>
+			</div>
+			<div class="m-container-3 flex-item-24 flex-column flex-center" id="finishedOrder">
+				<div class="flex-item-24 flex-center notform flex-bottom" style="display: block">
+				</div>
+			</div>
 		</div>
 		<!--等待接单-->
 		<script type="text/template" charset="utf-8" id="waiting_template">
@@ -262,24 +257,27 @@
 <script src="../newAppJs/jquery.min.js"></script>
 <script src="../newAppJs/date.format.js"></script>
 <script src="../newAppJs/jquery.touchSwipe.min.js"></script>
-<script src="../newAppJs/jquery.rotate.min.js"></script>
 <script src="../newAppJs/iscroll.js"></script>
+<script src="../newAppJs/dropload.min.js"></script>
 <script src="../newAppJs/share.js"></script>
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
 <script>
+
 	var pageParam;
 	apiready = function() {
 		pageParam = api.pageParam;
+
+		//加载底部栏
 		var winHeight = api.winHeight;
 		api.openFrame({
 			name: 'footer',
 			url: '../newAppHtml/footer.html',
 			rect: {
 				x: 0,
-				y: winHeight - 50 ,
+				y: winHeight - 60 ,
 				w: "auto",
-				h: 50
+				h: 60
 			},
 			opaque: true, // 页面不透明
 			bounces: false, // 不允许页面弹动，ripple
@@ -294,6 +292,8 @@
 			 },*/
 			delay: 0
 		});
+
+
 		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
 		if (pageParam.cafeCar) {
 			//有送餐区域,加载数据
@@ -333,12 +333,14 @@
 				}
 			});
 		});
+
 		api.addEventListener({
 			name : 'scrolltobottom',
 			extra : {
 				threshold : 0//设置距离底部多少距离时触发，默认值为0，数字类型
 			}
 		}, function(ret, err) {
+
 			api.toast({
 				msg : '暂无更多数据...',
 				duration : 2000,
@@ -346,13 +348,6 @@
 			});
 		});
 
-		$("body").on("click", ".mask", function() {
-			$(".mask").fadeOut(200);
-			$("body").removeClass("ban-scroll");
-			api.closeFrame({
-				name : 'deliveSelect'
-			});
-		});
 		var keybackNum = 0;
 		api.addEventListener({
 			name : 'keyback'
@@ -368,26 +363,35 @@
 			}
 			else{
 
-			if( keybackNum >= 2 ){
-				api.closeWidget({
-					silent : true
+				if( keybackNum >= 2 ){
+					api.closeWidget({
+						silent : true
 					})
 				}
-			else{
-			keybackNum++;
-				api.toast({
-					msg:"再按一次返回键退出程序。",
-					location:"middle"
+				else{
+					keybackNum++;
+					api.toast({
+						msg:"再按一次返回键退出程序。",
+						location:"middle"
 					});
-				setTimeout(function ()
-				{keybackNum = 0;},3000)
+					setTimeout(function ()
+					{keybackNum = 0;},3000)
 				}
 			}
 		});
 
 
+		$(".mask").click(function() {
+			$(".mask").fadeOut(200);
+			$("body").removeClass("ban-scroll");
+			api.closeFrame({
+				name : 'deliveSelect'
+			});
+		});
 
-	//获取申请退款的数目
+
+
+		//获取申请退款的数目
 	function loadOrders(carId) {
 		//调用野狗,实时获取数据
 		var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
@@ -423,11 +427,12 @@
 			}
 			if (deliverArr.length > 0) {
 				$("#nav-new2").text(deliverArr.length);
-				document.getElementById('nav-new2').style.display = "block";
+				document.getElementById('nav-new2').style.display = "inline-block";
 				var deliver_template = document.getElementById('deliver_template').innerHTML;
 				document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(deliverArr);
 			} else {
 				document.getElementById('nav-new2').style.display = "none";
+
 			}
 			if (finisheddArr.length > 0) {
 				var finishedd_template = document.getElementById('finishedd_template').innerHTML;
@@ -438,5 +443,10 @@
 			var num = $api.getStorage("wartNum") + $api.getStorage("deliveNum");
 			$("#footer-new1").text(waitingArr.length + deliverArr.length);
 		});
-	}}
+	}};
+
+
+
+
+
 </script>

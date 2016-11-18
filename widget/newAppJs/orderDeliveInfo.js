@@ -34,7 +34,6 @@ $(document).ready(function() {
                 'color': '#ff6600'
             });
 
-
         }
         if (div1.className == "close1") {
             $(".user-logo-img").css({

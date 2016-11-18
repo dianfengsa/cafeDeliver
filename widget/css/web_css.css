@@ -260,6 +260,7 @@ footer i{
 
 }
 
+/*
 .destination{
     float: left;
     display: inline-block;
@@ -274,7 +275,20 @@ footer i{
     margin-right: 0.5rem;
     font-family: 微软雅黑;
 }
+*/
 
+.destination{
+    float: left;
+    display: inline-block;
+    background: url("../image/destination.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-right: 0.5rem;
+}
+/*
 .source{
     float: left;
     display: inline-block;
@@ -289,7 +303,20 @@ footer i{
     margin-right: 0.5rem;
     font-family: 微软雅黑;
 }
+*/
 
+.source {
+    display: inline-block;
+    float: left;
+    background: url("../image/source.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 2rem;
+    height: 1.6rem;
+    width: 1.6rem;
+    margin-right: 0.5rem;
+
+}
 .user-info-text{
     color: #FFFFFF;
     height: 3rem;
@@ -322,6 +349,28 @@ footer i{
 .user-info-add{
     padding-top: 0.3rem;
 }
+.order-time{
+    display: inline-block;
+
+    background: url("../image/ordertime.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 1.6rem;
+    height: 1.6rem;
+    width: 1.6rem;
+    margin-right: 0.5rem;
+
+}
+
+.order-time-text{
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #34495e;
+}
 
 .clock{
     display: inline-block;
@@ -329,16 +378,16 @@ footer i{
     background: url("../image/clock.png")center center no-repeat;
     background-size: cover;
     text-align: center;
-    line-height: 1.4rem;
-    height: 1.4rem;
-    width: 1.4rem;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
     margin-right: 0.5rem;
 }
 
 .clock-text{
-    width: 20rem;
+    width: 90%;
     font-size: 1.4rem;
-    line-height: 1.4rem;
+    line-height: 2rem;
     word-break: keep-all;
     white-space: nowrap;
     overflow: hidden;
@@ -424,6 +473,7 @@ width: 90%;
     height: 2rem;
 }
 .money{
+    line-height: 2rem;
     font-size: 1.6rem;
     float: right;
     color: #FF0000;
@@ -829,7 +879,7 @@ width: 90%;
 .notform{
     top: 13rem;
     position: absolute;
-    height: 20rem;
+    width: 50%;
     background: url("../image/noOrder.png")center center no-repeat;
     font-size: 2rem;
     text-align: center;

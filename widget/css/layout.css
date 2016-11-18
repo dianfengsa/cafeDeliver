@@ -40,9 +40,6 @@ br {
 	line-height: 2;
 }
 
-.m-container {
-	min-height: 100vh;
-}
 
 
 .m-header {
@@ -69,38 +66,35 @@ br {
 	color: #71B5DE;
 }
 
-.m-content {
 
+
+.m-content {
 	height: 100%;
+	width: 100%;
 	position: absolute;
 	overflow: hidden;
 }
-
-#scroller{
-
-}
-
 .m-container-1{
-
-	padding: 11rem 0 7rem 0;
+	width: 100%;
+	height: 100%;
+	padding: 11rem 0 6rem 0;
 	position: relative;
-	overflow-y:scroll ;
-	overflow-x: hidden;
+	overflow:auto
 }
 .m-container-2{
-
-	padding: 11rem 0 7rem 0;
+	width: 100%;
+	height: 100%;
+	padding: 11rem 0 6rem 0;
 	position: relative;
-	overflow-y:scroll ;
-	overflow-x: hidden;
+	overflow:auto
 }
 
 .m-container-3{
-
-	padding: 11rem 0 7rem 0;
+	width: 100%;
+	height: 100%;
+	padding: 11rem 0 6rem 0;
 	position: relative;
-	overflow-y:scroll ;
-	overflow-x: hidden;
+	overflow:auto
 }
 
 

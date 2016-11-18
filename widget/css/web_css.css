@@ -245,11 +245,14 @@ footer i{
 .user-box{
     margin-bottom: 2rem;
     border-radius: 0.5rem;
-    background-color: #FFFFFF;
 }
 .user-box:last-child{
     margin-bottom: 0;
 }
+.user-info-body{
+    background-color: #FFFFFF;
+}
+
 .user-info-top{
     background-color: #0894d2;
     -webkit-border-top-left-radius: 0.4rem;
@@ -825,6 +828,8 @@ width: 90%;
 }
 
 .notform{
+    top: 13rem;
+    position: absolute;
     height: 20rem;
     background: url("../image/noOrder.png")center center no-repeat;
     font-size: 2rem;

@@ -83,7 +83,7 @@ header .header-text{
 
 
 nav{
-    height: 3.5rem;
+    height: 4rem;
 
 
 }
@@ -103,7 +103,7 @@ nav .active{
 }
 nav span{
     display: inline-block;
-    height: 3.5rem;
+    height: 4rem;
     padding:  0 0.2rem 0 0.2rem;
 
 }
@@ -111,7 +111,7 @@ nav span{
 nav .active span{
     border-bottom: #ff6600 solid 0.2rem;
 }
-nav  i{
+nav  #nav-new1{
     position: absolute;
     display: inline-block;
     height: 1.6rem;
@@ -126,18 +126,47 @@ nav  i{
 
 }
 
+nav #nav-new2{
+     position: absolute;
+     display: inline-block;
+     height: 1.6rem;
+     width: 1.6rem;
+     background-color: #FF0000;
+     font-size: 1.2rem;
+     line-height: 1.6rem;
+     color: #FFFFFF;
+     border-radius: 1.6rem;
+     -webkit-border-radius: 1.6rem;
+     font-style: normal;
+
+ }
+
+nav .nav-new{
+    position: absolute;
+    display: inline-block;
+    height: 1.6rem;
+    width: 1.6rem;
+    background-color: #FF0000;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: #FFFFFF;
+    border-radius: 1.6rem;
+    -webkit-border-radius: 1.6rem;
+    font-style: normal;
+
+}
+
 
 nav .nav-text{
 
 
-    line-height: 3.5rem;
+    line-height: 4rem;
      font-size: 1.8rem;
      text-align: center;
-    cursor: pointer;
  }
 
 footer{
-    height: 5rem;
+    height: 6rem;
     background-color: #FFFFFF;
     text-align: center;
     position: fixed;
@@ -155,7 +184,7 @@ footer p{
 
 
 footer .footer-text p{
-    color: #000000;
+    color: #bfbfbf;
     font-size: 1.4rem;
     text-align: center;
 
@@ -168,7 +197,7 @@ footer .footer-text img{
 
 footer .active span p{
 
-    color: #0379fd;
+    color: #1296db;
 
 }
 
@@ -178,7 +207,7 @@ footer div{
 
 footer i{
     position: absolute;
-    right: 1rem;
+    right: 0;
     top: 0;
     display: inline-block;
     height: 1.6rem;
@@ -215,13 +244,15 @@ footer i{
 
 .user-box{
     margin-bottom: 2rem;
-
     border-radius: 0.5rem;
-    background-color: #FFFFFF;
 }
 .user-box:last-child{
     margin-bottom: 0;
 }
+.user-info-body{
+    background-color: #FFFFFF;
+}
+
 .user-info-top{
     background-color: #0894d2;
     -webkit-border-top-left-radius: 0.4rem;
@@ -229,36 +260,63 @@ footer i{
 
 }
 
+/*
 .destination{
     float: left;
     display: inline-block;
     font-size: 1.2rem;
     color: #FFFFFF;
     text-align: center;
-    line-height: 1.8rem;
-    height: 1.8rem;
-    width: 1.8rem;
+    line-height: 1.4rem;
+    height: 1.4rem;
+    width: 1.4rem;
     background-color: #088144;
     border-radius: 100%;
     margin-right: 0.5rem;
     font-family: 微软雅黑;
 }
+*/
 
+.destination{
+    float: left;
+    display: inline-block;
+    background: url("../image/destination.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-right: 0.5rem;
+}
+/*
 .source{
     float: left;
     display: inline-block;
     font-size: 1.2rem;
     color: #FFFFFF;
     text-align: center;
-    line-height: 1.8rem;
-    height: 1.8rem;
-    width: 1.8rem;
+    line-height: 1.4rem;
+    height: 1.4rem;
+    width: 1.4rem;
     background-color: #ff6803;
     border-radius: 100%;
     margin-right: 0.5rem;
     font-family: 微软雅黑;
 }
+*/
 
+.source {
+    display: inline-block;
+    float: left;
+    background: url("../image/source.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 2rem;
+    height: 1.6rem;
+    width: 1.6rem;
+    margin-right: 0.5rem;
+
+}
 .user-info-text{
     color: #FFFFFF;
     height: 3rem;
@@ -291,6 +349,28 @@ footer i{
 .user-info-add{
     padding-top: 0.3rem;
 }
+.order-time{
+    display: inline-block;
+
+    background: url("../image/ordertime.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 1.6rem;
+    height: 1.6rem;
+    width: 1.6rem;
+    margin-right: 0.5rem;
+
+}
+
+.order-time-text{
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #34495e;
+}
 
 .clock{
     display: inline-block;
@@ -299,15 +379,15 @@ footer i{
     background-size: cover;
     text-align: center;
     line-height: 2rem;
-    height: 2rem;
-    width: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
     margin-right: 0.5rem;
 }
 
 .clock-text{
-    width: 20rem;
+    width: 90%;
     font-size: 1.4rem;
-    line-height: 1.6rem;
+    line-height: 2rem;
     word-break: keep-all;
     white-space: nowrap;
     overflow: hidden;
@@ -393,6 +473,7 @@ width: 90%;
     height: 2rem;
 }
 .money{
+    line-height: 2rem;
     font-size: 1.6rem;
     float: right;
     color: #FF0000;
@@ -447,8 +528,7 @@ width: 90%;
 
 
 .user-info-other-box{
-
-
+    background-color: #FFFFFF;
     font-size: 1.8rem;
     color: #000000;
 
@@ -552,9 +632,9 @@ width: 90%;
     background: url("../image/order-complete.png")center center no-repeat;
     background-size: cover;
     text-align: center;
-    line-height: 1.8rem;
-    height: 1.8rem;
-    width: 1.8rem;
+    line-height: 1.4rem;
+    height: 1.4rem;
+    width: 1.4rem;
     margin-right: 0.5rem;
 }
 
@@ -563,9 +643,9 @@ width: 90%;
     background: url("../image/order-cancel.png")center center no-repeat;
     background-size: cover;
     text-align: center;
-    line-height:2rem;
-    height: 2rem;
-    width: 2rem;
+    line-height:1.6rem;
+    height: 1.6rem;
+    width: 1.6rem;
     margin-right: 0.5rem;
 }
 
@@ -797,10 +877,16 @@ width: 90%;
 }
 
 .notform{
+    top: 13rem;
+    position: absolute;
+    width: 50%;
+    background: url("../image/noOrder.png")center center no-repeat;
     font-size: 2rem;
     text-align: center;
-    padding: 2rem 0 0 0;
+    margin: 2rem 0 0 0;
 }
+
+
 
 .refund{
     top: 40%;
@@ -899,5 +985,9 @@ width: 90%;
     text-align: center;
     line-height: 4rem;
     font-size: 3rem;
+
+}
+
+.order-none{
 
 }

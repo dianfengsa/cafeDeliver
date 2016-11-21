@@ -13,16 +13,17 @@ nav{
 }
 
 body{
-
+ overflow: hidden;
 }
 
 .delive-box{
-border: #00a0df solid 2px;
+    width: 60%;
+    margin: 60px 0 0 0;
+    float: left;
+    border: #00a0df solid 2px;
     border-radius: 4px;
     background-color: #e5e5e5;
-    height: 40rem;
-    width: 80%;
-    margin: 7rem auto 0 auto;
+    height: 45rem;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -32,6 +33,7 @@ border: #00a0df solid 2px;
 }
 
 .delive-box .delive-list li{
+    padding: 0 0 0 0.5rem;
  margin: 1rem 1rem 1rem 1rem;
     border-left: #00a0df solid 8px;
 background-color: #FFFFFF;
@@ -50,10 +52,6 @@ background-color: #FFFFFF;
 }
 .delive-phone{
     font-size: 1.2rem;
-}
-
-.delive-area{ 
-    font-size: 1.2rem; 
 }
 
 .delive-info{

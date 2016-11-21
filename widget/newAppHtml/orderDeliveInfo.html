@@ -31,10 +31,10 @@
 						</li>
 					</ul>
 					<ul class="clearfix">
-						<li  class="fl">
+						<li>
 							员工姓名：<span id="dName"></span>
 						</li>
-						<li class="fr">
+						<li>
 							职称：<span>送餐员</span>
 						</li>
 					</ul>
@@ -68,44 +68,12 @@
 					</ul>
 				</div>
 			</div>
-			<div class="user-out flex-item-24 flex-center flex-between">
+			<div class="user-out flex-item-24 flex-center flex-between" id="btnLogOut">
 				<button type="button" value="退出登录" class="user-out-button">
 					退出登录
 				</button>
 			</div>
 		</div>
-		<footer class="footer-box flex-item-24 flex-middle flex-column flex-between">
-			<div class="flex-item-4 footer-text  active" id="footer-1">
-				<span><img src="../image/calendar_active.png" />
-					<p>
-						外卖订单
-					</p></span><i id="footer-new1"></i>
-			</div>
-			<div class="flex-item-4 footer-text" id="footer-2">
-				<span><img src="../image/process.png" />
-					<p>
-						配送请求
-					</p></span>
-			</div>
-			<div class="flex-item-4 footer-text" id="footer-3">
-				<span><img src="../image/Viewlist.png" />
-					<p>
-						公交配送
-					</p></span>
-			</div>
-			<div class="flex-item-4 footer-text" id="footer-4">
-				<span><img src="../image/account.png" />
-					<p>
-						我的信息
-					</p></span>
-			</div>
-			<div class="flex-item-4 footer-text" id="footer-5">
-				<span><img src="../image/process.png" />
-					<p>
-						堂食餐点
-					</p></span>
-			</div>
-		</footer>
 		<script src="../newAppJs/jquery.min.js"></script>
 		<script src="../newAppJs/api.js"></script>
 		<script src="../newAppJs/orderDeliveInfo.js"></script>
@@ -117,25 +85,33 @@
 	apiready = function() {
 		pageParam = api.pageParam;
 		var deliverManInfo = $api.getStorage("deliverMan");
-		console.log("deliverManInfo>>>>" + JSON.stringify(deliverManInfo))
+		console.log("deliverManInfo>>>>" + JSON.stringify(deliverManInfo));
 		$("#dName").text(deliverManInfo.name);
 		$("#deliverPhone").text(deliverManInfo.phone);
 		$("#deliverDd").text(deliverManInfo.area);
-		//外卖订单
-		$(".footer-box").on("touchend", "#footer-1", function() {
-			openOrderDelive(pageParam);
+		//重新派单
+		$("#btnLogOut").on("touchend", ".user-out-button", function() {
+			logOut();
 		});
-		//配送请求
-		$(".footer-box").on("touchend", "#footer-2", function() {
-			openOrderRequest(pageParam);
+	};
+	function logOut() {
+		api.confirm({
+			title : '提示',
+			msg : '确定注销登录？',
+			buttons : ['取消', '确定']
+		}, function(ret, err) {
+			if (ret.buttonIndex == 2) {
+				AV.User.logOut();
+				var currentUser = AV.User.current();
+				api.openWin({
+					name : 'login',
+					url : '../new_login.html',
+					opaque : true, // 页面不透明
+					bounces : false, // 不允许页面弹动
+					reload : true,
+					delay : 0
+				});
+			}
 		});
-		//订单搜索
-		$(".footer-box").on("touchend", "#footer-3", function() {
-			openOrderSearch(pageParam);
-		});
-		//配送员信息
-		$(".footer-box").on("touchend", "#footer-4", function() {
-			openOrderDeliveInfo(pageParam);
-		});
-	}; 
+	}
 </script>

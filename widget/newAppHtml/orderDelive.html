@@ -6,12 +6,15 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" >
 		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="x5-fullscreen" content="true">
 		<link href="../css/web_css.css" rel="stylesheet">
 		<!--页面样式-->
 		<link href="../css/reset.css" rel="stylesheet">
 		<!--重置样式-->
 		<link rel="stylesheet" href="../css/flex-layout.css">
 		<link rel="stylesheet" href="../css/layout.css">
+		<link rel="stylesheet" href="../css/dropload.css">
 		<link rel="stylesheet" href="../css/index.css">
 		<title>配送订单</title>
 	</head>
@@ -22,12 +25,12 @@
 					<i class="back"></i>配送订单<i class="refresh"></i>
 				</p>
 			</header>
-			<nav class="nav-box flex-item-24 flex-around flex-column">
+			<nav class="nav-box flex-item-24 flex-around flex-column" >
 				<div class="flex-item-8 nav-text active" id="nav-1">
 					<span>待接单</span><i id="nav-new1" class="nav-new"></i>
 				</div>
 				<div class="flex-item-8 nav-text" id="nav-2">
-					<span>配送中</span><i id="nav-new2" class="nav-new">12</i>
+					<span>配送中</span><i id="nav-new2" class="nav-new"></i>
 				</div>
 				<div class="flex-item-8 nav-text " id="nav-3">
 					<span>已完成</span><!--<i id="nav-new3" class="nav-new"></i>-->
@@ -37,28 +40,17 @@
 		<!--顶部导航栏!-->
 		<div class="mask flex-item-24"></div>
 		<!--弹窗事件的遮罩-->
-		<!--选择配送员窗口-->
-		<div class="refund" id="refund">
-			<p>
-				是否同意退款？
-			</p>
-			<div class="clearfix refund-box">
-				<button type="button" value="同意退款" id="refund-yes">
-					同意退款
-				</button>
-				<button type="button" value="拒绝退款" id="refund-no">
-					拒绝退款
-				</button>
-				<button type="button" value="取消" id="refund-cancel">
-					取消
-				</button>
-			</div>
-		</div>
 		<div class="m-content flex-item-24 flex-row flex-center " id="m-content">
 			<!--订单模版渲染区域-->
-			<div class="m-container-1 flex-item-24 flex-column flex-center" id="waitingOrder"></div>
-			<div class="m-container-2 flex-item-24 flex-column flex-center" id="deliverOrder"></div>
-			<div class="m-container-3 flex-item-24 flex-column flex-center" id="finishedOrder"></div>
+			<div class="m-container-1 flex-item-24 flex-column flex-center" id="waitingOrder">
+				<div class="notform flex-item-24 flex-center flex-bottom" style="display: block"></div>
+			</div>
+			<div class="m-container-2 flex-item-24 flex-column flex-center" id="deliverOrder">
+				<div class="notform flex-item-24 flex-center flex-bottom" style="display: block"></div>
+			</div>
+			<div class="m-container-3 flex-item-24 flex-column flex-center" id="finishedOrder">
+				<div class="notform flex-item-24 flex-center flex-bottom" style="display: block"></div>
+			</div>
 		</div>
 		<!--等待接单-->
 		<script type="text/template" charset="utf-8" id="waiting_template">
@@ -79,21 +71,17 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div>
-			下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}
-			</div>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span>
 			</li>
 			<li>
-			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
+			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
-			送
 			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="source">
-			取
 			</div><span class="add-source">{{=value.deliverAddress}}</span>
 			</li>
 			</ul>
@@ -253,38 +241,10 @@
 			{{~}}
 			{{?}}
 		</script>
-		<footer class="footer-box flex-item-24 flex-middle flex-column flex-between">
-			<div class="flex-item-4 footer-text  active" id="footer-1">
-				<span><img src="../image/calendar_active.png" />
-					<p>
-						外卖订单
-					</p></span><i id="footer-new1"></i>
-			</div>
-			<div class="flex-item-4 footer-text" id="footer-2">
-				<span><img src="../image/process.png" />
-					<p>
-						配送请求
-					</p></span>
-			</div>
-			<div class="flex-item-4 footer-text" id="footer-3">
-				<span><img src="../image/Viewlist.png" />
-					<p>
-						公交配送
-					</p></span>
-			</div>
-			<div class="flex-item-4 footer-text" id="footer-4">
-				<span><img src="../image/account.png" />
-					<p>
-						我的信息
-					</p></span>
-			</div>
-			<div class="flex-item-4 footer-text" id="footer-5">
-				<span><img src="../image/process.png" />
-					<p>
-						堂食餐点
-					</p></span>
-			</div>
-		</footer>
+		<!--没有订单时显示的部分-->
+		<script type="text/template" charset="utf-8" id="noneOrder_template">
+			<div class="flex-item-24 flex-center notform flex-bottom" style="display: block"></div>
+		</script>
 		<!--底部固定栏-->
 	</body>
 </html>
@@ -296,8 +256,8 @@
 <script src="../newAppJs/jquery.min.js"></script>
 <script src="../newAppJs/date.format.js"></script>
 <script src="../newAppJs/jquery.touchSwipe.min.js"></script>
-<script src="../newAppJs/jquery.rotate.min.js"></script>
 <script src="../newAppJs/iscroll.js"></script>
+<script src="../newAppJs/dropload.min.js"></script>
 <script src="../newAppJs/share.js"></script>
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
@@ -306,6 +266,33 @@
 	apiready = function() {
 		pageParam = api.pageParam;
 		//		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
+		var winHeight = api.winHeight;
+		//获取屏幕高度
+		var winWidth = api.winWidth;
+		//获取屏幕高度
+		//加载底部栏
+		api.openFrame({
+			name : 'footer',
+			url : '../newAppHtml/footer.html',
+			rect : {
+				x : 0,
+				y : winHeight - 60,
+				w : "auto",
+				h : 60
+			},
+			opaque : true, // 页面不透明
+			bounces : false, // 不允许页面弹动，ripple
+			vScrollBarEnabled : false,
+			slidBackEnabled : false,
+			pageParam : pageParam,
+			/*	animation: {
+			 type: "movein", //动画类型（详见动画类型常量）
+			 subType: "from_right", //动画子类型（详见动画子类型常量）
+			 curve: "ease_out",
+			 duration: 200 //动画过渡时间，默认300毫秒
+			 },*/
+			delay : 0
+		});
 		if (pageParam.cafeCar) {
 			//有送餐区域,加载数据
 			loadOrders(pageParam.cafeCar);
@@ -318,9 +305,6 @@
 			return;
 		}
 		deliver = $api.getStorage("deliverMan");
-		$(".m-header").on("click", ".refresh", function() {
-			window.location.reload();
-		});
 		$(".m-content").on("click", ".dispatch", function() {//dispatch按钮(立即接单)
 			$(".mask").fadeIn(200);
 			$("body").addClass("ban-scroll");
@@ -331,8 +315,12 @@
 				rect : {
 					x : 0,
 					y : 0,
-					w : 'auto',
-					h : 'auto'
+					w : "auto",
+					h : "auto",
+					marginLeft : 0, //相对父 window 左外边距的距离
+					marginTop : 0, //相对父 window 上外边距的距离
+					marginBottom : 0, //相对父 window 下外边距的距离
+					marginRight : 0 //相对父 window 右外边距的距离
 				},
 				pageParam : {
 					"cefeCar" : pageParam.cafeCar,
@@ -344,7 +332,7 @@
 				hScrollBarEnabled : true,
 				animation : {
 					type : "push", //动画类型（详见动画类型常量）
-					subType : "from_top", //动画子类型（详见动画子类型常量）
+					subType : "from_left", //动画子类型（详见动画子类型常量）
 					duration : 200 //动画过渡时间，默认300毫秒
 				}
 			});
@@ -361,13 +349,6 @@
 				msg : '暂无更多数据...',
 				duration : 2000,
 				location : 'bottom'
-			});
-		});
-		$("body").on("click", ".mask", function() {
-			$(".mask").fadeOut(200);
-			$("body").removeClass("ban-scroll");
-			api.closeFrame({
-				name : 'deliveSelect'
 			});
 		});
 		var keybackNum = 0;
@@ -400,21 +381,12 @@
 				}
 			}
 		});
-		//外卖订单
-		$(".footer-box").on("touchend", "#footer-1", function() {
-			openOrderDelive(pageParam);
-		});
-		//配送请求
-		$(".footer-box").on("touchend", "#footer-2", function() {
-			openOrderRequest(pageParam);
-		});
-		//订单搜索
-		$(".footer-box").on("touchend", "#footer-3", function() {
-			openOrderSearch(pageParam);
-		});
-		//配送员信息
-		$(".footer-box").on("touchend", "#footer-4", function() {
-			openOrderDeliveInfo(pageParam);
+		$(".mask").click(function() {
+			$(".mask").fadeOut(200);
+			$("body").removeClass("ban-scroll");
+			api.closeFrame({
+				name : 'deliveSelect'
+			});
 		});
 		$("#deliverOrder").on("touchend", ".dispatch3", function() {
 			var orderId = $(this).attr("data-value");
@@ -423,6 +395,8 @@
 		});
 		//重新派单
 		$("#deliverOrder").on("touchend", ".dispatch2", function() {
+			$(".mask").fadeIn(200);
+			$("body").addClass("ban-scroll");
 			var orderId = $(this).attr("data-value");
 			api.openFrame({
 				name : 'deliveSelect',
@@ -510,42 +484,43 @@
 				$api.setStorage("wartNum", waitingArr.length);
 				$api.setStorage("deliveNum", myOrderArr.length);
 				var num = $api.getStorage("wartNum") + $api.getStorage("deliveNum");
-				$("#footer-new1").text(waitingArr.length + myOrderArr.length);
+				$("#footer-new1").text(num);
 			});
 		}
 
-	}
-	//设置状态为已送达
-	function setDelivered(orderId, customerId) {
-		api.confirm({
-			title : '提示',
-			msg : '是否确认快餐已送达',
-			buttons : ['取消', '确定']
-		}, function(ret, err) {
-			if (ret.buttonIndex == 2) {
-				api.showProgress({
-					title : '提交数据中...',
-					modal : true
-				});
-				AV.Cloud.run('receiptTemp', {
-					"orderId" : orderId,
-					"userId" : customerId
-				}, {
-					success : function(orderSuccess) {
-						api.hideProgress();
-						reloadFrame();
-					},
-					error : function(error) {
-						console.log("error：" + JSON.stringify(error));
-						var msg = error.hasOwnProperty("msg") ? error.msg : JSON.stringify(error);
-						api.hideProgress();
-						api.alert({
-							title : '提示',
-							msg : msg
-						});
-					}
-				});
-			}
-		});
-	}
+		//设置状态为已送达
+		function setDelivered(orderId, customerId) {
+			api.confirm({
+				title : '提示',
+				msg : '是否确认快餐已送达',
+				buttons : ['取消', '确定']
+			}, function(ret, err) {
+				if (ret.buttonIndex == 2) {
+					api.showProgress({
+						title : '提交数据中...',
+						modal : true
+					});
+					AV.Cloud.run('receiptTemp', {
+						"orderId" : orderId,
+						"userId" : customerId
+					}, {
+						success : function(orderSuccess) {
+							api.hideProgress();
+							reloadFrame();
+						},
+						error : function(error) {
+							console.log("error：" + JSON.stringify(error));
+							var msg = error.hasOwnProperty("msg") ? error.msg : JSON.stringify(error);
+							api.hideProgress();
+							api.alert({
+								title : '提示',
+								msg : msg
+							});
+						}
+					});
+				}
+			});
+		}
+
+	}; 
 </script>

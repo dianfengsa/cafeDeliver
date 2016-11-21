@@ -7,7 +7,7 @@
 $(document).ready(function(){
 
 
-    function slide(page) {//滑动事件
+  /*  function slide(page) {//滑动事件
         var slideWidth = window.innerWidth;
         var scrollLeft = $(".m-content").scrollLeft();
         var slideWindow = $(".m-content");
@@ -21,6 +21,8 @@ $(document).ready(function(){
             slideWindow.animate({scrollLeft:slideWidth*2}, 200,"swing");
         }
     }
+
+    */
     function maskStaus(Staus) { //遮罩与锁定全局滚动
         if (Staus == 1){
             $(".mask").show();
@@ -37,24 +39,39 @@ $(document).ready(function(){
     }
      function nav(x) { //导航栏按钮——切换待接单页面
         if(x == 1 ){
+            $("#list-1").show();
+            $("#list-2").hide();
+            $("#list-3").hide();
+      /*      myScroll1.scrollTo(0,0,100);
+            myScroll2.scrollTo(0,0,100);
+            myScroll3.scrollTo(0,0,100);
+            */
             $("#nav-1").addClass("active");
             $("#nav-2").removeClass("active");
             $("#nav-3").removeClass("active");
             hideAll();
-            slide("1");
+        //    slide("1");
         }
         if(x == 2 ) {
+            $("#list-1").hide();
+            $("#list-2").show();
+            $("#list-3").hide();
+
          $("#nav-2").addClass("active");
          $("#nav-1").removeClass("active");
             $("#nav-3").removeClass("active");
             hideAll();
-            slide("2");
+          //  slide("2");
          }
         if(x == 3 ){
+            $("#list-1").hide();
+            $("#list-2").hide();
+            $("#list-3").show();
+
             $("#nav-3").addClass("active");
             $("#nav-1").removeClass("active");
             $("#nav-2").removeClass("active");
-            slide("3");
+         //   slide("3");
             hideAll();
         }
     }

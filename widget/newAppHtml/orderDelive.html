@@ -14,7 +14,6 @@
 		<!--重置样式-->
 		<link rel="stylesheet" href="../css/flex-layout.css">
 		<link rel="stylesheet" href="../css/layout.css">
-		<link rel="stylesheet" href="../css/dropload.css">
 		<link rel="stylesheet" href="../css/index.css">
 		<title>配送订单</title>
 	</head>
@@ -38,20 +37,18 @@
 			</nav>
 		</div>
 		<!--顶部导航栏!-->
-		<div class="mask flex-item-24"></div>
-		<!--弹窗事件的遮罩-->
-
-		<div class="m-content flex-item-24 flex-row flex-center " id="m-content">
+		<div class="m-content flex-item-24 flex-column flex-center " id="m-content">
 			<!--订单模版渲染区域-->
-			<div class="m-container-1 flex-item-24 flex-column flex-center" id="waitingOrder">
-				<div class="notform flex-item-24 flex-center flex-bottom" style="display: block"></div>
+			<div class="list flex-item-24 " id="list-1">
+				<div class="m-container-1 flex-item-24 flex-row flex-center" id="waitingOrder" ></div>
 			</div>
-			<div class="m-container-2 flex-item-24 flex-column flex-center" id="deliverOrder">
-				<div class="notform flex-item-24 flex-center flex-bottom" style="display: block"></div>
+			<div class="list flex-item-24  " id="list-2">
+				<div class="m-container-2 flex-item-24 flex-row flex-center" id="deliverOrder"></div>
 			</div>
-			<div class="m-container-3 flex-item-24 flex-column flex-center" id="finishedOrder">
-				<div class="notform flex-item-24 flex-center flex-bottom" style="display: block"></div>
+			<div class="list flex-item-24  " id="list-3">
+				<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" ></div>
 			</div>
+
 		</div>
 		<!--等待接单-->
 		<script type="text/template" charset="utf-8" id="waiting_template">
@@ -125,12 +122,10 @@
 			</li>
 			<li class="clearfix">
 			<div class="destination">
-			送
 			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="source">
-			取
 			</div><span class="add-source">{{=value.deliverAddress}}</span>
 			</li>
 			</ul>
@@ -173,7 +168,7 @@
 			</table>
 			</div>
 			<div class="user-info-other-button flex-item-24 flex-column">
-			<div class="flex-item-24 flex-between">
+			<div class="flex-item-24 flex-between flex-column">
 			<button type="button" value="重新派单" class="dispatch2" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
 			重新派单
 			</button>
@@ -220,12 +215,10 @@
 			{{?}}
 			<li class="clearfix">
 			<div class="destination">
-			送
 			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="source">
-			取
 			</div><span class="add-source">{{=value.deliverAddress}}</span>
 			</li>
 			</ul>
@@ -246,7 +239,8 @@
 		<script type="text/template" charset="utf-8" id="noneOrder_template">
 			<div class="flex-item-24 flex-center notform flex-bottom" style="display: block"></div>
 		</script>
-
+		<div class="mask flex-item-24"></div>
+		<!--弹窗事件的遮罩-->
 		<!--底部固定栏-->
 	</body>
 </html>
@@ -259,7 +253,6 @@
 <script src="../newAppJs/date.format.js"></script>
 <script src="../newAppJs/jquery.touchSwipe.min.js"></script>
 <script src="../newAppJs/iscroll.js"></script>
-<script src="../newAppJs/dropload.min.js"></script>
 <script src="../newAppJs/share.js"></script>
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
@@ -269,8 +262,6 @@
 	apiready = function() {
 		pageParam = api.pageParam;
 		//		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
-
-
 
 				var winHeight = api.winHeight; //获取屏幕高度
 		var winWidth = api.winWidth; //获取屏幕高度
@@ -405,14 +396,14 @@
 		});
 
 
-		$("#deliverOrder").on("touchend", ".dispatch3", function() {
+		$("#deliverOrder").on("click", ".dispatch3", function() {
 			var orderId = $(this).attr("data-value");
 			var customerId = $(this).attr("data-cust");
 			setDelivered(orderId, customerId);
 		});
 
 		//重新派单
-		$("#deliverOrder").on("touchend", ".dispatch2", function() {
+		$("#deliverOrder").on("click", ".dispatch2", function() {
 			$(".mask").fadeIn(200);
 			$("body").addClass("ban-scroll");
 			var orderId = $(this).attr("data-value");
@@ -421,9 +412,9 @@
 				url : './deliveSelect.html',
 				rect : {
 					x : 0,
-					y : 0,
-					w : 'auto',
-					h : 'auto'
+					y : 60,
+					w : winWidth - (winWidth * 0.42),
+					h : winHeight * 0.7
 				},
 				pageParam : {
 					"cefeCar" : pageParam.cafeCar,
@@ -504,10 +495,29 @@
 				$api.setStorage("deliveNum", myOrderArr.length);
 				var num = $api.getStorage("wartNum") + $api.getStorage("deliveNum");
 				$("#footer-new1").text(num);
+
+				//数据加载完成后再获取实际高度初始化iscroll
+				//获取高度后再初始化iscroll
+
+				var waitingOrderH = $("#waitingOrder").height();
+				var deliverOrderH = $("#deliverOrder").height();
+				var finishedOrderH = $("#finishedOrder").height();
+				console.log("waitingOrderH:" + waitingOrderH);
+				console.log("deliverOrderH:" + deliverOrderH);
+				console.log("finishedOrderH:" + finishedOrderH);
+				var myscroll1=new IScroll('#list-1');
+				var myscroll2=new IScroll('#list-2');
+				var myscroll3=new IScroll('#list-3');
 			});
 
 		}
+	/*	function loaded(){
+			setTimeout(function(){
 
+			},100 );
+		}
+		window.addEventListener("load",loaded,false);
+		*/
 
 	//设置状态为已送达
 	function setDelivered(orderId, customerId) {

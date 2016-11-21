@@ -14,27 +14,26 @@
 		<link rel="stylesheet" href="../css/layout.css">
 		<link rel="stylesheet" href="../css/index.css">
 		<title>配送请求</title>
-
 	</head>
 	<body>
-    <div class="top">
-        <header class="m-header flex-column flex-middle flex-item-24">
-            <p class="header-text flex-item-24 flex-center">
-                <i class="back"></i>配送订单<i class="refresh"></i>
-            </p>
-        </header>
-        <nav class="nav-box flex-item-24 flex-around flex-column">
-            <div class="flex-item-8 nav-text active" id="nav-1">
-                <span>待接单</span><i id="nav-new1" class="nav-new"></i>
-            </div>
-            <div class="flex-item-8 nav-text" id="nav-2">
-                <span>配送中</span><i id="nav-new2" class="nav-new"></i>
-            </div>
-            <div class="flex-item-8 nav-text " id="nav-3">
-                <span>已完成</span>
-            </div>
-        </nav>
-    </div>
+		<div class="top">
+			<header class="m-header flex-column flex-middle flex-item-24">
+				<p class="header-text flex-item-24 flex-center">
+					<i class="back"></i>配送订单<i class="refresh"></i>
+				</p>
+			</header>
+			<nav class="nav-box flex-item-24 flex-around flex-column">
+				<div class="flex-item-8 nav-text active" id="nav-1">
+					<span>待接单</span><i id="nav-new1" class="nav-new"></i>
+				</div>
+				<div class="flex-item-8 nav-text" id="nav-2">
+					<span>配送中</span><i id="nav-new2" class="nav-new"></i>
+				</div>
+				<div class="flex-item-8 nav-text " id="nav-3">
+					<span>已完成</span>
+				</div>
+			</nav>
+		</div>
 		<!--顶部导航栏!-->
 		<div class="mask flex-item-24"></div>
 		<!--弹窗事件的遮罩-->
@@ -211,38 +210,38 @@
 				</div>
 			</div>
 		</div>
-	<footer class="footer-box flex-item-24 flex-middle flex-column flex-between">
-		<div class="flex-item-4 footer-text  active" id="footer-1">
+		<footer class="footer-box flex-item-24 flex-middle flex-column flex-between">
+			<div class="flex-item-4 footer-text  active" id="footer-1">
 				<span><img src="../image/calendar_active.png" />
 					<p>
 						外卖订单
 					</p></span><i id="footer-new1"></i>
-		</div>
-		<div class="flex-item-4 footer-text" id="footer-2">
+			</div>
+			<div class="flex-item-4 footer-text" id="footer-2">
 				<span><img src="../image/process.png" />
 					<p>
 						配送请求
 					</p></span>
-		</div>
-		<div class="flex-item-4 footer-text" id="footer-3">
+			</div>
+			<div class="flex-item-4 footer-text" id="footer-3">
 				<span><img src="../image/Viewlist.png" />
 					<p>
 						公交配送
 					</p></span>
-		</div>
-		<div class="flex-item-4 footer-text" id="footer-4">
+			</div>
+			<div class="flex-item-4 footer-text" id="footer-4">
 				<span><img src="../image/account.png" />
 					<p>
 						我的信息
 					</p></span>
-		</div>
-		<div class="flex-item-4 footer-text" id="footer-5">
+			</div>
+			<div class="flex-item-4 footer-text" id="footer-5">
 				<span><img src="../image/process.png" />
 					<p>
 						堂食餐点
 					</p></span>
-		</div>
-	</footer>
+			</div>
+		</footer>
 		<!--底部固定栏-->
 	</body>
 	<script src="../newAppJs/jquery.min.js"></script>
@@ -253,12 +252,39 @@
 	<script src="../newAppJs/doT.min.js"></script>
 	<!--模版配置脚本-->
 	<script src="../newAppJs/orderDelive.js"></script>
+	<script src="../newAppJs/underscore-min.js"></script>
+	<script src="../newAppJs/wilddog.js" ></script>
 	<!--页面脚本-->
 	<script src="../newAppJs/share.js"></script>
 	<script>
 		var pageParam;
 		apiready = function() {
 			pageParam = api.pageParam;
+			console.log("pageParam>>>>" + JSON.stringify(pageParam))
+			if (pageParam) {
+				var ref = new Wilddog("https://kaifanba.wilddogio.com/deliveryOrderRef/" + pageParam.cafeCar);
+				var proArray = new Array();
+				var waitingArr = [], deliverArr = [], finishedArr = [];
+				ref.limitToFirst(100).on("value", function(datasnapshot) {
+					//状态为等待接单
+					waitingArr = _.filter(datasnapshot.val(), function(val, key) {
+						return val.status == "等待接单";
+					});
+					//					var templateWartting = document.getElementById('template_warttingOrder').innerHTML;
+					//					document.getElementById('warttingOrder').innerHTML = doT.template( templateWartting )(waitingArr);
+					//状态为配送中
+					deliverArr = _.filter(datasnapshot.val(), function(val, key) {
+						return val.status == "配送中";
+					});
+					//状态为已收货
+					finishedArr = _.filter(datasnapshot.val(), function(val, key) {
+						return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
+					});
+				});
+				console.log("配送请求》》waitingArr>>>" + JSON.stringify(waitingArr))
+				console.log("配送请求》》deliverArr>>>>" + JSON.stringify(deliverArr))
+				console.log("配送请求》》finishedArr>>>>" + JSON.stringify(finishedArr))
+			}
 			//外卖订单
 			$(".footer-box").on("touchend", "#footer-1", function() {
 				openOrderDelive(pageParam);

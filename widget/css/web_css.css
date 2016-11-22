@@ -207,7 +207,7 @@ footer div{
 
 footer i{
     position: absolute;
-    right: 0;
+    right: 2rem;
     top: 0;
     display: none;
     height: 1.6rem;
@@ -306,14 +306,14 @@ footer i{
 */
 
 .source {
-    display: inline-block;
     float: left;
+    display: inline-block;
     background: url("../image/source.png")center center no-repeat;
     background-size: cover;
     text-align: center;
     line-height: 2rem;
-    height: 1.6rem;
-    width: 1.6rem;
+    height: 1.8rem;
+    width: 1.8rem;
     margin-right: 0.5rem;
 
 }
@@ -355,9 +355,9 @@ footer i{
     background: url("../image/ordertime.png")center center no-repeat;
     background-size: cover;
     text-align: center;
-    line-height: 1.6rem;
-    height: 1.6rem;
-    width: 1.6rem;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
     margin-right: 0.5rem;
 
 }
@@ -374,7 +374,7 @@ footer i{
 
 .clock{
     display: inline-block;
-    font-size: 1.2rem;
+
     background: url("../image/clock.png")center center no-repeat;
     background-size: cover;
     text-align: center;
@@ -385,14 +385,13 @@ footer i{
 }
 
 .clock-text{
-    width: 90%;
     font-size: 1.4rem;
-    line-height: 2rem;
+    line-height: 1.6rem;
     word-break: keep-all;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #f9b665;
+    color: #ffb93c;
 }
 
 .user-info-other .ddbz{
@@ -612,20 +611,35 @@ width: 90%;
 }
 
 .order-complete{
-    line-height: 1.6rem;
+
     color: #77ea4c;
+
     font-size: 1.4rem;
+    line-height: 1.6rem;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .order-refund{
-    line-height: 1.6rem;
     color: #ef4a45;
     font-size: 1.4rem;
+    line-height: 1.6rem;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .order-cancel{
     color: #ef4a45;
     font-size: 1.4rem;
+    line-height: 1.6rem;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .complete-img{
@@ -633,9 +647,9 @@ width: 90%;
     background: url("../image/order-complete.png")center center no-repeat;
     background-size: cover;
     text-align: center;
-    line-height: 1.4rem;
-    height: 1.4rem;
-    width: 1.4rem;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
     margin-right: 0.5rem;
 }
 
@@ -644,9 +658,9 @@ width: 90%;
     background: url("../image/order-cancel.png")center center no-repeat;
     background-size: cover;
     text-align: center;
-    line-height:1.6rem;
-    height: 1.6rem;
-    width: 1.6rem;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
     margin-right: 0.5rem;
 }
 
@@ -878,10 +892,9 @@ width: 90%;
 }
 
 .notform{
-    top: 13rem;
-    position: absolute;
-    width: 50%;
+    height: 20rem;
     background: url("../image/noOrder.png")center center no-repeat;
+
     font-size: 2rem;
     text-align: center;
     margin: 2rem 0 0 0;

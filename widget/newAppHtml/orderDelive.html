@@ -38,15 +38,22 @@
 		</div>
 		<!--顶部导航栏!-->
 		<div class="m-content flex-item-24 flex-column flex-center " id="m-content">
+
 			<!--订单模版渲染区域-->
 			<div class="list flex-item-24 " id="list-1">
-				<div class="m-container-1 flex-item-24 flex-row flex-center" id="waitingOrder" ></div>
+				<div class="m-container-1 flex-item-24 flex-row flex-center" id="waitingOrder" >
+					<div class="flex-item-24 flex-center notform " ></div>
+				</div>
 			</div>
 			<div class="list flex-item-24  " id="list-2">
-				<div class="m-container-2 flex-item-24 flex-row flex-center" id="deliverOrder"></div>
+				<div class="m-container-2 flex-item-24 flex-row flex-center" id="deliverOrder">
+					<div class="flex-item-24 flex-center notform " ></div>
+				</div>
 			</div>
 			<div class="list flex-item-24  " id="list-3">
-				<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" ></div>
+				<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" >
+					<div class="flex-item-24 flex-center notform " ></div>
+				</div>
 			</div>
 		</div>
 		<div class="mask flex-item-24"></div>
@@ -70,10 +77,10 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li>
-			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
+			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
@@ -139,7 +146,7 @@
 			</ul>
 			</div>
 			</div>
-			<div class="user-info-other-box flex-item-24 flex-row ">
+			<div class="user-info-other-box flex-item-24 flex-row " style="display: none">
 			<div class="user-info-text flex-item-24">
 			<p>
 			商家电话:{{=value.tasks[0].restaurantPhone}}
@@ -202,15 +209,15 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			{{?value.status=="已收货"}}
-			<li class="clearfix order-complete">
+			<li class="clearfix">
 			<div class="complete-img"></div><span class="order-complete">{{=value.status}}</span>
 			</li>
 			{{??value.status=="已拒单"}}
-			<li class="clearfix order-complete">
+			<li class="clearfix">
 			<div class="cancel-img"></div><span class="order-refund">{{=value.status}}</span>
 			</li>
 			{{??}}
-			<li class="clearfix order-complete">
+			<li class="clearfix">
 			<div class="cancel-img"></div><span class="order-refund">{{=value.status}}</span>
 			</li>
 			{{?}}
@@ -238,11 +245,8 @@
 		</script>
 		<!--没有订单时显示的部分-->
 		<script type="text/template" charset="utf-8" id="noneOrder_template">
-			<div class="flex-item-24 flex-center notform flex-bottom" style="display: block"></div>
+			<div class="flex-item-24 flex-center notform " ></div>
 		</script>
-
-
-
 		<!--底部固定栏-->
 	</body>
 </html>
@@ -259,13 +263,17 @@
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
 <script>
+	var myScroll1=new IScroll('#list-1');
+	var myScroll2=new IScroll('#list-2');
+	var myScroll3=new IScroll('#list-3');
 	var pageParam, deliver;
 	apiready = function() {
 		pageParam = api.pageParam;
 		//		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
-				var winHeight = api.winHeight; //获取屏幕高度
-				var winWidth = api.winWidth; //获取屏幕高度
-
+		var winHeight = api.winHeight;
+		//获取屏幕高度
+		var winWidth = api.winWidth;
+		//获取屏幕高度
 		//加载底部栏
 		api.openFrame({
 			name : 'footer',
@@ -386,13 +394,9 @@
 		});
 		$(".top").on("touchend", ".refresh", function() {
 			location.reload(true)
-			myScroll1.refresh();
-			myScroll2.refresh();
-			myScroll3.refresh();
+
 		});
-
 		$("#deliverOrder").on("touchend", ".dispatch3", function() {
-
 			var orderId = $(this).attr("data-value");
 			var customerId = $(this).attr("data-cust");
 			setDelivered(orderId, customerId);
@@ -459,95 +463,107 @@
 				console.log("<<<<<waitingArr>>>>>>>" + JSON.stringify(waitingArr));
 				console.log("<<<<<<deliverArr>>>>>>>" + JSON.stringify(deliverArr));
 				console.log("<<<<<<finisheddArr>>>>>>>" + JSON.stringify(finisheddArr));
+				var noneOrder_template = document.getElementById('noneOrder_template').innerHTML;  //无订单时显示
 				if (waitingArr.length > 0) {
 					$("#nav-new1").text(waitingArr.length);
+					document.getElementById('nav-new1').style.display = "inline-block";
 					var waiting_template = document.getElementById('waiting_template').innerHTML;
 					document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(waitingArr);
+
+
 				}
+				if (waitingArr.length = 0) {
+					console.log("<<<<<waitingArr>>>>>>>" + waitingArr.length);
+					document.getElementById('waitingOrder').innerHTML = doT.template(noneOrder_template)();
+				}
+
 				if (deliverArr.length > 0) {
-					document.getElementById('nav-new2').style.display = "inline-block";
 					//找出配送员是自己的单,不能看其他人的顶单
 					for (var i = 0; i < deliverArr.length; i++) {
 						if (deliverArr[i].deliverObj.objectId == deliver.id) {
 							myOrderArr.push(deliverArr[i]);
 						}
 					}
-					$("#nav-new2").text(myOrderArr.length);
-					var deliver_template = document.getElementById('deliver_template').innerHTML;
-					document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
-				} else {
-					document.getElementById('nav-new2').style.display = "none";
-					var deliver_template = document.getElementById('deliver_template').innerHTML;
-					document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
+					if (myOrderArr.length > 0) {
+						$("#nav-new2").text(myOrderArr.length);
+						document.getElementById('nav-new2').style.display = "inline-block";
+						var deliver_template = document.getElementById('deliver_template').innerHTML;
+						document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
+					}
+					else {
+						console.log("<<<<<<deliverArr>>>>>>>" + myOrderArr.length);
+						document.getElementById('deliverOrder').innerHTML = doT.template(noneOrder_template)();
+					}
+
 				}
 				if (finisheddArr.length > 0) {
 					var finishedd_template = document.getElementById('finishedd_template').innerHTML;
 					document.getElementById('finishedOrder').innerHTML = doT.template(finishedd_template)(finisheddArr);
 				}
+				if (finisheddArr.length = 0) {
+
+					console.log("<<<<<<finisheddArr>>>>>>>" + finisheddArr.length);
+					document.getElementById('finishedOrder').innerHTML = doT.template(noneOrder_template)();
+				}
+
 				api.hideProgress();
 				$api.setStorage("wartNum", waitingArr.length);
-				$api.setStorage("deliveNum", myOrderArr.length);
-				var num = $api.getStorage("wartNum") + $api.getStorage("deliveNum");
-				$("#footer-new1").text(num);
-
+				$api.setStorage("deliveNum", myOrderArr.length); 
 				//数据加载完成后再获取实际高度初始化iscroll
 				//获取高度后再初始化iscroll
+				$(".user-info-other-box").show();
+
 				var waitingOrderH = $("#waitingOrder").height();
 				var deliverOrderH = $("#deliverOrder").height();
 				var finishedOrderH = $("#finishedOrder").height();
 				console.log("waitingOrderH:" + waitingOrderH);
 				console.log("deliverOrderH:" + deliverOrderH);
 				console.log("finishedOrderH:" + finishedOrderH);
-				var myScroll1=new IScroll('#list-1');
-				var myScroll2=new IScroll('#list-2');
-				var myScroll3=new IScroll('#list-3');
+				myScroll1.refresh();
+				myScroll2.refresh();
+				myScroll3.refresh();
 
+
+				$(".user-info-other-box").hide();
 			});
-
 			//确认真实高度后再隐藏其他信息栏
 		}
 
-	//设置状态为已送达
-	function setDelivered(orderId, customerId) {
-		api.confirm({
-			title : '提示',
-			msg : '是否确认快餐已送达',
-			buttons : ['取消', '确定']
-		}, function(ret, err) {
-			if (ret.buttonIndex == 2) {
-				api.showProgress({
-					title : '提交数据中...',
-					modal : true
-				});
-				AV.Cloud.run('receiptTemp', {
-					"orderId" : orderId,
-					"userId" : customerId
-				}, {
-					success : function(orderSuccess) {
-						api.hideProgress();
-						reloadFrame();
-					},
-					error : function(error) {
-						console.log("error：" + JSON.stringify(error));
-						var msg = error.hasOwnProperty("msg") ? error.msg : JSON.stringify(error);
-						api.hideProgress();
-						api.alert({
-							title : '提示',
-							msg : msg
-						});
-					}
-				});
 
-			}
-		});
 
-		myScroll1.refresh();
-		myScroll2.refresh();
-		myScroll3.refresh();
-	}
+		//设置状态为已送达
+		function setDelivered(orderId, customerId) {
+			api.confirm({
+				title : '提示',
+				msg : '是否确认快餐已送达',
+				buttons : ['取消', '确定']
+			}, function(ret, err) {
+				if (ret.buttonIndex == 2) {
+					api.showProgress({
+						title : '提交数据中...',
+						modal : true
+					});
+					AV.Cloud.run('receiptTemp', {
+						"orderId" : orderId,
+						"userId" : customerId
+					}, {
+						success : function(orderSuccess) {
+							api.hideProgress();
+							location.reload();
+						},
+						error : function(error) {
+							console.log("error：" + JSON.stringify(error));
+							var msg = error.hasOwnProperty("msg") ? error.msg : JSON.stringify(error);
+							api.hideProgress();
+							api.alert({
+								title : '提示',
+								msg : msg
+							});
+						}
+					});
+				}
+			});
+		}
 
-	};
-
+	}; 
 </script>
-
-

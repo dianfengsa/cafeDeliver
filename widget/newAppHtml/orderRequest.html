@@ -181,7 +181,7 @@
 			{{?}}
 		</script>
 		<!--已完成的订单(已收货、已退款、已拒单)-->
-		<script type="text/template" charset="utf-8" id="finishedd_template">
+		<script type="text/template" charset="utf-8" id="finished_template">
 			{{?it&&it.length>0}}
 			{{~it:value:index}}
 			<div class="user-box flex-item-23 ">
@@ -257,31 +257,31 @@
 		var pageParam;
 		apiready = function() {
 			pageParam = api.pageParam;
-			console.log("pageParam>>>>" + JSON.stringify(pageParam))
+			console.log("pageParam>>>>" + JSON.stringify(pageParam));
 			if (pageParam) {
 				var ref = new Wilddog("https://kaifanba.wilddogio.com/deliveryOrderRef/" + pageParam.cafeCar);
 				var proArray = new Array();
 				var waitingArr = [], deliverArr = [], finishedArr = [];
 				ref.limitToFirst(100).on("value", function(datasnapshot) {
 					var snap = _.each(datasnapshot.val(), function(val, key) {
-						console.log("val>>>" + JSON.stringify(val))
+						console.log("val>>>" + JSON.stringify(val));
 						if (val.status == "等待接单") {
-							console.log("111>>>" + val.status)
+							console.log("111>>>" + val.status);
 							waitingArr.push(val);
-						};
+						}
 						if (val.status == "配送中") {
-							console.log("222>>>" + val.status)
+							console.log("222>>>" + val.status);
 							deliverArr.push(val);
-						};
+						}
 						if (val.status == "已收货" || val.status == "已拒单" || val.status == "已退款") {
-							console.log("333>>>" + val.status)
+							console.log("333>>>" + val.status);
 							finishedArr.push(val);
-						};
+						}
 						return waitingArr;
 					});
-					console.log("配送请求》》waitingArr>>>" + JSON.stringify(waitingArr))
-					console.log("配送请求》》deliverArr>>>>" + JSON.stringify(deliverArr))
-					console.log("配送请求》》finishedArr>>>>" + JSON.stringify(finishedArr))
+					console.log("配送请求》》waitingArr>>>" + JSON.stringify(waitingArr));
+					console.log("配送请求》》deliverArr>>>>" + JSON.stringify(deliverArr));
+					console.log("配送请求》》finishedArr>>>>" + JSON.stringify(finishedArr));
 					//状态为等待接单
 					var templateWartting = document.getElementById('waiting_template').innerHTML;
 					document.getElementById('waitingOrder').innerHTML = doT.template( templateWartting )(waitingArr);
@@ -289,21 +289,13 @@
 					var templateDeliver = document.getElementById('deliver_template').innerHTML;
 					document.getElementById('deliverOrder').innerHTML = doT.template( templateDeliver )(deliverArr);
 					//状态为已完成
-					var templateFinished = document.getElementById('finishedd_template').innerHTML;
+					var templateFinished = document.getElementById('finished_template').innerHTML;
 					document.getElementById('finishedOrder').innerHTML = doT.template( templateFinished )(finishedArr);
 
 
 					//数据加载完成后再获取实际高度初始化iscroll
 					//获取高度后再初始化iscroll
-					var waitingOrderH = $("#waitingOrder").height();
-					var deliverOrderH = $("#deliverOrder").height();
-					var finishedOrderH = $("#finishedOrder").height();
-					console.log("waitingOrderH:" + waitingOrderH);
-					console.log("deliverOrderH:" + deliverOrderH);
-					console.log("finishedOrderH:" + finishedOrderH);
-					var myscroll1=new IScroll('#list-1');
-					var myscroll2=new IScroll('#list-2');
-					var myscroll3=new IScroll('#list-3');
+
 				});
 			}
 			//外卖订单

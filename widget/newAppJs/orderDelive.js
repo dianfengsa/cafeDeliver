@@ -42,6 +42,7 @@ $(document).ready(function(){
             $("#list-1").show();
             $("#list-2").hide();
             $("#list-3").hide();
+            myScroll1.refresh()
       /*      myScroll1.scrollTo(0,0,100);
             myScroll2.scrollTo(0,0,100);
             myScroll3.scrollTo(0,0,100);
@@ -56,7 +57,9 @@ $(document).ready(function(){
             $("#list-1").hide();
             $("#list-2").show();
             $("#list-3").hide();
-
+            $('.user-info-other-box').show();
+            myScroll2.refresh();
+            $('.user-info-other-box').hide();
          $("#nav-2").addClass("active");
          $("#nav-1").removeClass("active");
             $("#nav-3").removeClass("active");
@@ -67,7 +70,7 @@ $(document).ready(function(){
             $("#list-1").hide();
             $("#list-2").hide();
             $("#list-3").show();
-
+            myScroll3.refresh();
             $("#nav-3").addClass("active");
             $("#nav-1").removeClass("active");
             $("#nav-2").removeClass("active");
@@ -108,7 +111,6 @@ $(document).ready(function(){
     });*/
     $(".m-content").on("touchend",".businessInfo",function () {    //点击后显示该订单的商家信息
       $(this).parents().siblings('.user-info-other-box').slideToggle(200);
-
     });
 
 

@@ -38,7 +38,6 @@
 		</div>
 		<!--顶部导航栏!-->
 		<div class="m-content flex-item-24 flex-column flex-center " id="m-content">
-
 			<div id = "scroller-pullDown">
 				<span id = "down-icon" class = "icon-double-angle-down pull-down-icon"></span>
 				<span id = "pullDown-msg" class = "pull-down-msg">下拉刷新</span>
@@ -249,9 +248,6 @@
 		<script type="text/template" charset="utf-8" id="noneOrder_template">
 			<div class="flex-item-24 flex-center notform flex-bottom" style="display: block"></div>
 		</script>
-
-
-
 		<!--底部固定栏-->
 	</body>
 </html>
@@ -272,9 +268,10 @@
 	apiready = function() {
 		pageParam = api.pageParam;
 		//		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
-				var winHeight = api.winHeight; //获取屏幕高度
-				var winWidth = api.winWidth; //获取屏幕高度
-
+		var winHeight = api.winHeight;
+		//获取屏幕高度
+		var winWidth = api.winWidth;
+		//获取屏幕高度
 		//加载底部栏
 		api.openFrame({
 			name : 'footer',
@@ -396,9 +393,7 @@
 		$(".top").on("click", ".refresh", function() {
 			location.reload(true)
 		});
-
 		$("#deliverOrder").on("touchend", ".dispatch3", function() {
-
 			var orderId = $(this).attr("data-value");
 			var customerId = $(this).attr("data-cust");
 			setDelivered(orderId, customerId);
@@ -467,16 +462,19 @@
 				console.log("<<<<<<finisheddArr>>>>>>>" + JSON.stringify(finisheddArr));
 				if (waitingArr.length > 0) {
 					$("#nav-new1").text(waitingArr.length);
+					document.getElementById('nav-new1').style.display = "inline-block";
 					var waiting_template = document.getElementById('waiting_template').innerHTML;
 					document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(waitingArr);
 				}
 				if (deliverArr.length > 0) {
-					document.getElementById('nav-new2').style.display = "inline-block";
 					//找出配送员是自己的单,不能看其他人的顶单
 					for (var i = 0; i < deliverArr.length; i++) {
 						if (deliverArr[i].deliverObj.objectId == deliver.id) {
 							myOrderArr.push(deliverArr[i]);
 						}
+					}
+					if (myOrderArr.length > 0) {
+						document.getElementById('nav-new2').style.display = "inline-block";
 					}
 					$("#nav-new2").text(myOrderArr.length);
 					var deliver_template = document.getElementById('deliver_template').innerHTML;
@@ -492,10 +490,7 @@
 				}
 				api.hideProgress();
 				$api.setStorage("wartNum", waitingArr.length);
-				$api.setStorage("deliveNum", myOrderArr.length);
-				var num = $api.getStorage("wartNum") + $api.getStorage("deliveNum");
-				$("#footer-new1").text(num);
-
+				$api.setStorage("deliveNum", myOrderArr.length); 
 				//数据加载完成后再获取实际高度初始化iscroll
 				//获取高度后再初始化iscroll
 				$('.user-info-other-box').show();
@@ -505,54 +500,46 @@
 				console.log("waitingOrderH:" + waitingOrderH);
 				console.log("deliverOrderH:" + deliverOrderH);
 				console.log("finishedOrderH:" + finishedOrderH);
-				var myscroll1=new IScroll('#list-1');
-				var myscroll2=new IScroll('#list-2');
-				var myscroll3=new IScroll('#list-3');
-
-
-
+				var myscroll1 = new IScroll('#list-1');
+				var myscroll2 = new IScroll('#list-2');
+				var myscroll3 = new IScroll('#list-3');
 			});
-
 			//确认真实高度后再隐藏其他信息栏
 		}
 
-	//设置状态为已送达
-	function setDelivered(orderId, customerId) {
-		api.confirm({
-			title : '提示',
-			msg : '是否确认快餐已送达',
-			buttons : ['取消', '确定']
-		}, function(ret, err) {
-			if (ret.buttonIndex == 2) {
-				api.showProgress({
-					title : '提交数据中...',
-					modal : true
-				});
-				AV.Cloud.run('receiptTemp', {
-					"orderId" : orderId,
-					"userId" : customerId
-				}, {
-					success : function(orderSuccess) {
-						api.hideProgress();
-						reloadFrame();
-					},
-					error : function(error) {
-						console.log("error：" + JSON.stringify(error));
-						var msg = error.hasOwnProperty("msg") ? error.msg : JSON.stringify(error);
-						api.hideProgress();
-						api.alert({
-							title : '提示',
-							msg : msg
-						});
-					}
-				});
+		//设置状态为已送达
+		function setDelivered(orderId, customerId) {
+			api.confirm({
+				title : '提示',
+				msg : '是否确认快餐已送达',
+				buttons : ['取消', '确定']
+			}, function(ret, err) {
+				if (ret.buttonIndex == 2) {
+					api.showProgress({
+						title : '提交数据中...',
+						modal : true
+					});
+					AV.Cloud.run('receiptTemp', {
+						"orderId" : orderId,
+						"userId" : customerId
+					}, {
+						success : function(orderSuccess) {
+							api.hideProgress();
+							reloadFrame();
+						},
+						error : function(error) {
+							console.log("error：" + JSON.stringify(error));
+							var msg = error.hasOwnProperty("msg") ? error.msg : JSON.stringify(error);
+							api.hideProgress();
+							api.alert({
+								title : '提示',
+								msg : msg
+							});
+						}
+					});
+				}
+			});
+		}
 
-			}
-		});
-	}
-
-	};
-
+	}; 
 </script>
-
-

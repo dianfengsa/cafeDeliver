@@ -48,8 +48,9 @@
 			<div class="list flex-item-24  " id="list-3">
 				<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" ></div>
 			</div>
-
 		</div>
+		<div class="mask flex-item-24"></div>
+		<!--弹窗事件的遮罩-->
 		<!--等待接单-->
 		<script type="text/template" charset="utf-8" id="waiting_template">
 			{{?it&&it.length>0}}
@@ -69,10 +70,10 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span>
 			</li>
 			<li>
-			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span>
+			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
@@ -138,7 +139,7 @@
 			</ul>
 			</div>
 			</div>
-			<div class="user-info-other-box flex-item-24 flex-row " style="display:none">
+			<div class="user-info-other-box flex-item-24 flex-row ">
 			<div class="user-info-text flex-item-24">
 			<p>
 			商家电话:{{=value.tasks[0].restaurantPhone}}
@@ -239,8 +240,9 @@
 		<script type="text/template" charset="utf-8" id="noneOrder_template">
 			<div class="flex-item-24 flex-center notform flex-bottom" style="display: block"></div>
 		</script>
-		<div class="mask flex-item-24"></div>
-		<!--弹窗事件的遮罩-->
+
+
+
 		<!--底部固定栏-->
 	</body>
 </html>
@@ -257,37 +259,36 @@
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
 <script>
-
 	var pageParam, deliver;
 	apiready = function() {
 		pageParam = api.pageParam;
 		//		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
-
 				var winHeight = api.winHeight; //获取屏幕高度
-		var winWidth = api.winWidth; //获取屏幕高度
+				var winWidth = api.winWidth; //获取屏幕高度
+
 		//加载底部栏
-				api.openFrame({
-					name: 'footer',
-					url: '../newAppHtml/footer.html',
-					rect: {
-						x: 0,
-						y: winHeight - 60 ,
-						w: "auto",
-						h: 60
-					},
-					opaque: true, // 页面不透明
-					bounces: false, // 不允许页面弹动，ripple
-					vScrollBarEnabled: false,
-					slidBackEnabled: false,
-					pageParam: pageParam,
-					/*	animation: {
-					 type: "movein", //动画类型（详见动画类型常量）
-					 subType: "from_right", //动画子类型（详见动画子类型常量）
-					 curve: "ease_out",
-					 duration: 200 //动画过渡时间，默认300毫秒
-					 },*/
-					delay: 0
-				});
+		api.openFrame({
+			name : 'footer',
+			url : '../newAppHtml/footer.html',
+			rect : {
+				x : 0,
+				y : winHeight - 60,
+				w : "auto",
+				h : 60
+			},
+			opaque : true, // 页面不透明
+			bounces : false, // 不允许页面弹动，ripple
+			vScrollBarEnabled : false,
+			slidBackEnabled : false,
+			pageParam : pageParam,
+			/*	animation: {
+			 type: "movein", //动画类型（详见动画类型常量）
+			 subType: "from_right", //动画子类型（详见动画子类型常量）
+			 curve: "ease_out",
+			 duration: 200 //动画过渡时间，默认300毫秒
+			 },*/
+			delay : 0
+		});
 		if (pageParam.cafeCar) {
 			//有送餐区域,加载数据
 			loadOrders(pageParam.cafeCar);
@@ -300,8 +301,6 @@
 			return;
 		}
 		deliver = $api.getStorage("deliverMan");
-
-
 		$(".m-content").on("click", ".dispatch", function() {//dispatch按钮(立即接单)
 			$(".mask").fadeIn(200);
 			$("body").addClass("ban-scroll");
@@ -314,13 +313,10 @@
 					y : 60,
 					w : winWidth - (winWidth * 0.4),
 					h : "auto",
-					marginLeft:0,    //相对父 window 左外边距的距离
-
-					marginTop:0,    //相对父 window 上外边距的距离
-
-					marginBottom:0,    //相对父 window 下外边距的距离
-
-					marginRight:0    //相对父 window 右外边距的距离
+					marginLeft : 0, //相对父 window 左外边距的距离
+					marginTop : 0, //相对父 window 上外边距的距离
+					marginBottom : 0, //相对父 window 下外边距的距离
+					marginRight : 0 //相对父 window 右外边距的距离
 				},
 				pageParam : {
 					"cefeCar" : pageParam.cafeCar,
@@ -337,24 +333,20 @@
 				}
 			});
 		});
-
 		api.addEventListener({
 			name : 'scrolltobottom',
 			extra : {
 				threshold : 0//设置距离底部多少距离时触发，默认值为0，数字类型
 			}
 		}, function(ret, err) {
-
 			var pageSize = pageSize + 1;
 			loadOrders(pageParam.cafeCar, pageSize);
-
 			api.toast({
 				msg : '暂无更多数据...',
 				duration : 2000,
 				location : 'bottom'
 			});
 		});
-
 		var keybackNum = 0;
 		api.addEventListener({
 			name : 'keyback'
@@ -368,22 +360,20 @@
 					name : 'deliveSelect'
 				});
 				keybackNum = 0;
-			}
-			else{
-
-				if( keybackNum >= 2 ){
+			} else {
+				if (keybackNum >= 2) {
 					api.closeWidget({
 						silent : true
 					})
-				}
-				else{
+				} else {
 					keybackNum++;
 					api.toast({
-						msg:"再按一次返回键退出程序。",
-						location:"middle"
+						msg : "再按一次返回键退出程序。",
+						location : "middle"
 					});
-					setTimeout(function ()
-					{keybackNum = 0;},3000)
+					setTimeout(function() {
+						keybackNum = 0;
+					}, 3000)
 				}
 			}
 		});
@@ -395,13 +385,12 @@
 			});
 		});
 
+		$("#deliverOrder").on("touchend", ".dispatch3", function() {
 
-		$("#deliverOrder").on("click", ".dispatch3", function() {
 			var orderId = $(this).attr("data-value");
 			var customerId = $(this).attr("data-cust");
 			setDelivered(orderId, customerId);
 		});
-
 		//重新派单
 		$("#deliverOrder").on("click", ".dispatch2", function() {
 			$(".mask").fadeIn(200);
@@ -429,7 +418,6 @@
 					subType : "from_top", //动画子类型（详见动画子类型常量）
 					duration : 200 //动画过渡时间，默认300毫秒
 				}
-
 			});
 		});
 		//获取申请退款的数目
@@ -498,7 +486,7 @@
 
 				//数据加载完成后再获取实际高度初始化iscroll
 				//获取高度后再初始化iscroll
-
+				$('.user-info-other-box').show();
 				var waitingOrderH = $("#waitingOrder").height();
 				var deliverOrderH = $("#deliverOrder").height();
 				var finishedOrderH = $("#finishedOrder").height();
@@ -508,16 +496,11 @@
 				var myscroll1=new IScroll('#list-1');
 				var myscroll2=new IScroll('#list-2');
 				var myscroll3=new IScroll('#list-3');
+
+				//确认真实高度后再隐藏其他信息栏
+
 			});
-
 		}
-	/*	function loaded(){
-			setTimeout(function(){
-
-			},100 );
-		}
-		window.addEventListener("load",loaded,false);
-		*/
 
 	//设置状态为已送达
 	function setDelivered(orderId, customerId) {
@@ -557,3 +540,5 @@
 	};
 
 </script>
+
+

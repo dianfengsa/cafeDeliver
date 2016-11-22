@@ -68,7 +68,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="user-out flex-item-24 flex-center flex-between">
+			<div class="user-out flex-item-24 flex-center flex-between" id="btnLogOut">
 				<button type="button" value="退出登录" class="user-out-button">
 					退出登录
 				</button>
@@ -83,16 +83,35 @@
 <script>
 	var pageParam;
 	apiready = function() {
-
-
 		pageParam = api.pageParam;
 		var deliverManInfo = $api.getStorage("deliverMan");
 		console.log("deliverManInfo>>>>" + JSON.stringify(deliverManInfo));
 		$("#dName").text(deliverManInfo.name);
 		$("#deliverPhone").text(deliverManInfo.phone);
 		$("#deliverDd").text(deliverManInfo.area);
-
-
-	}; 
-
+		//重新派单
+		$("#btnLogOut").on("touchend", ".user-out-button", function() {
+			logOut();
+		});
+	};
+	function logOut() {
+		api.confirm({
+			title : '提示',
+			msg : '确定注销登录？',
+			buttons : ['取消', '确定']
+		}, function(ret, err) {
+			if (ret.buttonIndex == 2) {
+				AV.User.logOut();
+				var currentUser = AV.User.current();
+				api.openWin({
+					name : 'login',
+					url : '../new_login.html',
+					opaque : true, // 页面不透明
+					bounces : false, // 不允许页面弹动
+					reload : true,
+					delay : 0
+				});
+			}
+		});
+	}
 </script>

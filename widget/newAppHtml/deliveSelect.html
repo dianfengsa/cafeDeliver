@@ -144,6 +144,31 @@
 				}, function(ret, err) {
 				});
 			});
+
+
+			function maskStaus(Staus) { //遮罩与锁定全局滚动
+				if (Staus == 1){
+					$(".mask").fadeIn(200);
+					$("body").removeClass("ban-scroll");
+				}
+				if (Staus == 0){
+					$(".mask").fadeOut(200);
+					$("body").removeClass("ban-scroll");
+				}
+			}
+			var jsfun = 'maskStaus(0);';
+			api.execScript({
+				name: 'orderDelive',
+				frameName: 'orderDelive',
+				script: jsfun
+			});
+
+			api.execScript({
+				name: 'orderDelive',
+				script: jsfun
+			});
+
+
 		}).catch(function(error) {
 			api.hideProgress();
 			console.log("error>>>" + JSON.stringify(error))

@@ -25,11 +25,11 @@ $(document).ready(function(){
     */
     function maskStaus(Staus) { //遮罩与锁定全局滚动
         if (Staus == 1){
-            $(".mask").show();
-            $("body").addClass("ban-scroll");
+            $(".mask").fadeIn(200);
+            $("body").removeClass("ban-scroll");
          }
         if (Staus == 0){
-            $(".mask").hide();
+            $(".mask").fadeOut(200);
             $("body").removeClass("ban-scroll");
          }
      }
@@ -108,7 +108,6 @@ $(document).ready(function(){
     });*/
     $(".m-content").on("touchend",".businessInfo",function () {    //点击后显示该订单的商家信息
       $(this).parents().siblings('.user-info-other-box').slideToggle(200);
-        $(this).parents().children(".i-2").toggleClass("rotate");
     });
 
 

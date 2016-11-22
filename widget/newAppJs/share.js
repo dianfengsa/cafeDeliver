@@ -36,8 +36,7 @@ var footerH = 60;
 	}
 
 //打开配送请求订单页面
-	function openOrderRequest(pageParam) {
-
+	function openOrderRequest(pageParam) { 
 		var winHeight = api.winHeight;
 		console.log("openOrderRequest>>>pageParam>>>>>>" + JSON.stringify(pageParam))
 		api.openFrame({

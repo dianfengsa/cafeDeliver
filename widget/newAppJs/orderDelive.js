@@ -108,6 +108,7 @@ $(document).ready(function(){
     });*/
     $(".m-content").on("touchend",".businessInfo",function () {    //点击后显示该订单的商家信息
       $(this).parents().siblings('.user-info-other-box').slideToggle(200);
+
     });
 
 

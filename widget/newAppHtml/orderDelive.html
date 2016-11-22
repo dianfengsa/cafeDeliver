@@ -38,11 +38,6 @@
 		</div>
 		<!--顶部导航栏!-->
 		<div class="m-content flex-item-24 flex-column flex-center " id="m-content">
-
-			<div id = "scroller-pullDown">
-				<span id = "down-icon" class = "icon-double-angle-down pull-down-icon"></span>
-				<span id = "pullDown-msg" class = "pull-down-msg">下拉刷新</span>
-			</div>
 			<!--订单模版渲染区域-->
 			<div class="list flex-item-24 " id="list-1">
 				<div class="m-container-1 flex-item-24 flex-row flex-center" id="waitingOrder" ></div>
@@ -52,10 +47,6 @@
 			</div>
 			<div class="list flex-item-24  " id="list-3">
 				<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" ></div>
-			</div>
-			<div id = "scroller-pullUp">
-				<span id = "up-icon" class = "icon-double-angle-up pull-up-icon"></span>
-				<span id = "pullUp-msg" class = "pull-up-msg">上拉刷新</span>
 			</div>
 		</div>
 		<div class="mask flex-item-24"></div>
@@ -393,8 +384,11 @@
 				name : 'deliveSelect'
 			});
 		});
-		$(".top").on("click", ".refresh", function() {
+		$(".top").on("touchend", ".refresh", function() {
 			location.reload(true)
+			myScroll1.refresh();
+			myScroll2.refresh();
+			myScroll3.refresh();
 		});
 
 		$("#deliverOrder").on("touchend", ".dispatch3", function() {
@@ -498,18 +492,15 @@
 
 				//数据加载完成后再获取实际高度初始化iscroll
 				//获取高度后再初始化iscroll
-				$('.user-info-other-box').show();
 				var waitingOrderH = $("#waitingOrder").height();
 				var deliverOrderH = $("#deliverOrder").height();
 				var finishedOrderH = $("#finishedOrder").height();
 				console.log("waitingOrderH:" + waitingOrderH);
 				console.log("deliverOrderH:" + deliverOrderH);
 				console.log("finishedOrderH:" + finishedOrderH);
-				var myscroll1=new IScroll('#list-1');
-				var myscroll2=new IScroll('#list-2');
-				var myscroll3=new IScroll('#list-3');
-
-
+				var myScroll1=new IScroll('#list-1');
+				var myScroll2=new IScroll('#list-2');
+				var myScroll3=new IScroll('#list-3');
 
 			});
 
@@ -549,6 +540,10 @@
 
 			}
 		});
+
+		myScroll1.refresh();
+		myScroll2.refresh();
+		myScroll3.refresh();
 	}
 
 	};

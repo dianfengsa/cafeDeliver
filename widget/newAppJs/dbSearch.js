@@ -35,6 +35,7 @@ function checkDeliverManSataus(user) {
 				owner : manObj.get("owner").id
 			};
 		}
+//		console.log("checkDeliverManSataus>>>" + JSON.stringify(delverObj))
 		return delverObj;
 	}).catch(function(error) {
 		errorAlert(error);
@@ -53,7 +54,8 @@ function getDeliverManByArea(carId, isOwner) {
 	}).then(function(mans) {
 		console.log("mans>>>>>>" + JSON.stringify(mans))
 		var isMe = 0;
-		for (var i = 0; i < mans.length; i++) { 
+		for (var i = 0; i < mans.length; i++) {
+//			console.log("mans[i].id == isOwner.>>>>>>" + mans[i].id + "------" + isOwner)
 			if (mans[i].id == isOwner) {
 				isMe = 1;
 			}
@@ -84,18 +86,18 @@ function saveUser(phone) {
 		//存在user,直接更新user到deliver表中
 		if (ret) {
 			var deliver = new deliveryManObj();
-			deliver.set('name', "捷易飞哥");
+			deliver.set('name', phone);
 			deliver.set('mobilePhoneNumber', phone);
 			deliver.set('owner', ret);
 			return deliver.save();
 		} else {
 			//不存在user,先保存user然后在关联deliverMan
 			var user = new userObj();
-			user.set('username', "捷易速送");
+			user.set('username', phone);
 			user.set('mobilePhoneNumber', phone);
 			return user.save().then(function(user) {
 				var deliver = new deliveryManObj();
-				deliver.set('name', "捷易飞哥");
+				deliver.set('name', phone);
 				deliver.set('mobilePhoneNumber', phone);
 				deliver.set('owner', user);
 				return deliver.save();

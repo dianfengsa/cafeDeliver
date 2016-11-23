@@ -40,13 +40,13 @@
 		<div class="m-content flex-item-24 flex-column flex-center " id="m-content">
 			<!--订单模版渲染区域-->
 			<div class="list flex-item-24 flex-column " id="list-1">
-			<div class="m-container-1 flex-item-24 flex-row flex-center" id="waitingOrder" ></div>
+				<div class="m-container-1 flex-item-24 flex-row flex-center" id="waitingOrder" ></div>
 			</div>
 			<div class="list flex-item-24 flex-column " id="list-2">
-			<div class="m-container-2 flex-item-24 flex-row flex-center" id="deliverOrder"></div>
+				<div class="m-container-2 flex-item-24 flex-row flex-center" id="deliverOrder"></div>
 			</div>
 			<div class="list flex-item-24 flex-column " id="list-3">
-			<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" ></div>
+				<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" ></div>
 			</div>
 		</div>
 		<!--等待接单-->
@@ -65,7 +65,7 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.createdAt,"dateTime",0)}}</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
+			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.createdAt,"dateTime",0)}}</span><span class="money"><i>&#165</i>{{=value.price}}</span>
 			</li>
 			<li>
 			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.deliveryTime,"isTime",0)}} 前送达</span>
@@ -81,13 +81,10 @@
 			</ul>
 			<ul class="user-info-other flex-item-23 flex-center">
 			<li class="">
-			<!--<p class="ddbz">
-			订单备注:{{=value.mark}}
-			</p>-->
 			</li>
 			</ul>
 			<span>
-			<input type="button" value="立即接单" data-value="{{=value.orderid}}" class="dispatch">
+			<input type="button" value="立即接单" data-value="{{=value.objectId}}" id="immediatelyOrder" class="dispatch">
 			</span>
 			</div>
 			</div>
@@ -105,16 +102,13 @@
 			<p>
 			客户电话：{{=value.customerPhone}}
 			</p>
-			<!--	<p class="fr orderNumber" >
-			编号：{{=value.tasks[0].number}}
-			</p>-->
 			</div>
 			</div>
 			<div class="user-info-body flex-row flex-item-24 flex-center">
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.createdAt,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.createdAt,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
@@ -127,13 +121,6 @@
 			</div><span class="add-source">{{=value.address}}</span>
 			</li>
 			</ul>
-			<!--<ul class="user-info-other flex-item-23 flex-center">
-			<li class="businessInfo">
-			<p class="ddbz">
-			订单备注:{{=value.mark}}
-			</p><i class="i-2"></i>
-			</li>
-			</ul>-->
 			</div>
 			</div>
 			<div class="user-info-other-box flex-item-24 flex-row " style="display:none">
@@ -145,32 +132,16 @@
 			<div class="user-info-other flex-item-23 flex-center">
 			<ul class="">
 			<li>
-			<!--<span>支付方式:{{=value.payType}}</span>--><span class="fr">状态:{{=value.status}}</span>
+			<span class="fr">状态:{{=value.status}}</span>
 			</li>
 			</ul>
 			</div>
-			<!--<div class="user-info-other-table flex-item-23 flex-center">
-			<table class="flex-item-24 ">
-			<tr class="th">
-			<th>菜名</th>
-			<th>数量</th>
-			<th>单价</th>
-			</tr>
-			{{~value.cart:cValue:cIndex}}
-			<tr class="td">
-			<td>{{=cValue.menuName}}</td>
-			<td>×{{=cValue.amount}}</td>
-			<td>￥{{=cValue.price}}</td>
-			</tr>
-			{{~}}
-			</table>
-			</div>-->
 			<div class="user-info-other-button flex-item-24 flex-column">
 			<div class="flex-item-24 flex-between">
-			<button type="button" value="重新派单" class="dispatch2" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
+			<button type="button" value="重新派单" class="dispatch2" data-value="{{=value.objectId}}" data-cust="{{=value.customerId}}">
 			重新派单
 			</button>
-			<button type="button" value="确认送达" class="dispatch3" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
+			<button type="button" value="确认送达" class="dispatch3" data-value="{{=value.objectId}}" data-cust="{{=value.customerId}}">
 			确认送达
 			</button>
 			</div>
@@ -190,9 +161,6 @@
 			<p>
 			客户电话：{{=value.customerPhone}}
 			</p>
-		<!--	<p class="fr orderNumber" >
-			编号：{{=value.tasks[0].number}}
-			</p>-->
 			</div>
 			</div>
 			<div class="user-info-body flex-row flex-item-24 flex-center">
@@ -224,9 +192,6 @@
 			</ul>
 			<ul class="user-info-other flex-item-23 flex-center">
 			<li class="">
-			<!--<p class="ddbz">
-			订单备注:{{=value.mark}}
-			</p>-->
 			</li>
 			</ul>
 			</div>
@@ -245,6 +210,7 @@
 	<script src="../newAppJs/jquery.touchSwipe.min.js"></script>
 	<script src="../newAppJs/jquery.rotate.min.js"></script>
 	<script src="../newAppJs/iscroll.js"></script>
+	<script src="../newAppJs/date.format.js"></script>
 	<script src="../newAppJs/api.js"></script>
 	<script src="../newAppJs/doT.min.js"></script>
 	<!--模版配置脚本-->
@@ -257,55 +223,46 @@
 		var pageParam;
 		apiready = function() {
 			pageParam = api.pageParam;
-			console.log("pageParam>>>>" + JSON.stringify(pageParam))
-			if (pageParam) {
-				var ref = new Wilddog("https://kaifanba.wilddogio.com/deliveryOrderRef/" + pageParam.cafeCar);
-				var proArray = new Array();
-				var waitingArr = [], deliverArr = [], finishedArr = [];
-				ref.limitToFirst(100).on("value", function(datasnapshot) {
-					var snap = _.each(datasnapshot.val(), function(val, key) {
-						console.log("val>>>" + JSON.stringify(val))
-						if (val.status == "等待接单") {
-							console.log("111>>>" + val.status)
-							waitingArr.push(val);
-						};
-						if (val.status == "配送中") {
-							console.log("222>>>" + val.status)
-							deliverArr.push(val);
-						};
-						if (val.status == "已收货" || val.status == "已拒单" || val.status == "已退款") {
-							console.log("333>>>" + val.status)
-							finishedArr.push(val);
-						};
-						return waitingArr;
-					});
-					console.log("配送请求》》waitingArr>>>" + JSON.stringify(waitingArr))
-					console.log("配送请求》》deliverArr>>>>" + JSON.stringify(deliverArr))
-					console.log("配送请求》》finishedArr>>>>" + JSON.stringify(finishedArr))
-					//状态为等待接单
-					var templateWartting = document.getElementById('waiting_template').innerHTML;
-					document.getElementById('waitingOrder').innerHTML = doT.template( templateWartting )(waitingArr);
-					//状态配送中
-					var templateDeliver = document.getElementById('deliver_template').innerHTML;
-					document.getElementById('deliverOrder').innerHTML = doT.template( templateDeliver )(deliverArr);
-					//状态为已完成
-					var templateFinished = document.getElementById('finishedd_template').innerHTML;
-					document.getElementById('finishedOrder').innerHTML = doT.template( templateFinished )(finishedArr);
-
-
-					//数据加载完成后再获取实际高度初始化iscroll
-					//获取高度后再初始化iscroll
-					var waitingOrderH = $("#waitingOrder").height();
-					var deliverOrderH = $("#deliverOrder").height();
-					var finishedOrderH = $("#finishedOrder").height();
-					console.log("waitingOrderH:" + waitingOrderH);
-					console.log("deliverOrderH:" + deliverOrderH);
-					console.log("finishedOrderH:" + finishedOrderH);
-					var myscroll1=new IScroll('#list-1');
-					var myscroll2=new IScroll('#list-2');
-					var myscroll3=new IScroll('#list-3');
-				});
+			var winHeight = api.winHeight;
+			//获取屏幕高度
+			var winWidth = api.winWidth;
+			var waitingArr = [], deliverArr = [], finishedArr = [];
+			waitingArr = $api.getStorage("requestWaiting");
+			deliverArr = $api.getStorage("requestDeliver");
+			finishedArr = $api.getStorage("requestFinished");
+			console.log("配送请求》》waitingArr>>>" + JSON.stringify(waitingArr))
+			console.log("配送请求》》deliverArr>>>>" + JSON.stringify(deliverArr))
+			console.log("配送请求》》finishedArr>>>>" + JSON.stringify(finishedArr))
+			if (waitingArr.length > 0) {
+				$("#nav-new1").text(waitingArr.length)
+				document.getElementById('nav-new1').style.display = "inline-block";
+				//状态为等待接单
+				var templateWartting = document.getElementById('waiting_template').innerHTML;
+				document.getElementById('waitingOrder').innerHTML = doT.template( templateWartting )(waitingArr);
 			}
+			//状态配送中
+			if (deliverArr.length > 0) {
+				$("#nav-new2").text(deliverArr.length)
+				document.getElementById('nav-new2').style.display = "inline-block";
+				var templateDeliver = document.getElementById('deliver_template').innerHTML;
+				document.getElementById('deliverOrder').innerHTML = doT.template( templateDeliver )(deliverArr);
+			}
+			//状态为已完成
+			if (finishedArr.length > 0) {
+				var templateFinished = document.getElementById('finishedd_template').innerHTML;
+				document.getElementById('finishedOrder').innerHTML = doT.template( templateFinished )(finishedArr);
+			}
+			//数据加载完成后再获取实际高度初始化iscroll
+			//获取高度后再初始化iscroll
+			var waitingOrderH = $("#waitingOrder").height();
+			var deliverOrderH = $("#deliverOrder").height();
+			var finishedOrderH = $("#finishedOrder").height();
+			console.log("waitingOrderH:" + waitingOrderH);
+			console.log("deliverOrderH:" + deliverOrderH);
+			console.log("finishedOrderH:" + finishedOrderH);
+			var myscroll1 = new IScroll('#list-1');
+			var myscroll2 = new IScroll('#list-2');
+			var myscroll3 = new IScroll('#list-3');
 			//外卖订单
 			$(".footer-box").on("touchend", "#footer-1", function() {
 				openOrderDelive(pageParam);
@@ -322,6 +279,43 @@
 			$(".footer-box").on("touchend", "#footer-4", function() {
 				openOrderDeliveInfo(pageParam);
 			});
+			console.log("pageParam>>>>>>>>" + JSON.stringify(pageParam))
+			$("#list-1").on("click", ".dispatch", function() {
+				var orderId = $(this).attr("data-value");
+				api.openFrame({
+					name : 'deliveSelect',
+					url : './deliveSelect.html',
+					rect : {
+						x : 0,
+						y : 60,
+						w : winWidth - (winWidth * 0.4),
+						h : "auto",
+						marginLeft : 0, //相对父 window 左外边距的距离
+						marginTop : 0, //相对父 window 上外边距的距离
+						marginBottom : 0, //相对父 window 下外边距的距离
+						marginRight : 0 //相对父 window 右外边距的距离
+					},
+					pageParam : {
+						"cefeCar" : pageParam.cafeCar,
+						"orderId" : orderId,
+						"orderType" : 2
+					},
+					bounces : false,
+					bgColor : 'rgba(0,0,0,0)',
+					vScrollBarEnabled : true,
+					hScrollBarEnabled : true,
+					animation : {
+						type : "push", //动画类型（详见动画类型常量）
+						subType : "from_left", //动画子类型（详见动画子类型常量）
+						duration : 200 //动画过渡时间，默认300毫秒
+					}
+				});
+			});
+		}
+		function setRequestStatusNum() {
+			var waitNum = $api.getStorage("requestWartNum");
+			var deliverNum = $api.getStorage("requestDeliveNum");
+			$("#nav-new1").text(waitNum)
+			$("#nav-new2").text(deliverNum)
 		}
 	</script>
-

@@ -14,10 +14,8 @@
 	<body>
 		<div class="delive-box">
 			<div class="delive-top"></div>
-
 			<div class="delive-list" >
 				<ul id="deliverInfo"></ul>
-
 			</div>
 		</div>
 		<script type="text/template" charset="utf-8" id="deliverInfo_template">
@@ -49,9 +47,7 @@
 <script src="../newAppJs/dbSearch.js"></script>
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
-
 <script>
-
 	var pageParam, manId, manName;
 	apiready = function() {
 		api.showProgress({
@@ -62,10 +58,10 @@
 		});
 		pageParam = api.pageParam;
 		console.log(">>>>>>>>>>>>" + JSON.stringify(pageParam))
-		var deliver=$api.getStorage("deliverMan");
-		console.log("deliver>>>>"+JSON.stringify(deliver.id))
+		var deliver = $api.getStorage("deliverMan");
+		console.log("deliver>>>>" + JSON.stringify(deliver.id))
 		if (!_.isEmpty(pageParam.cefeCar)) {
-			getDeliverManByArea(pageParam.cefeCar,deliver.id).then(function(mans) {
+			getDeliverManByArea(pageParam.cefeCar, deliver.id).then(function(mans) {
 				var deliverInfo_template = document.getElementById('deliverInfo_template').innerHTML;
 				document.getElementById('deliverInfo').innerHTML = doT.template(deliverInfo_template)(mans);
 			})
@@ -105,11 +101,48 @@
 			buttons : ['取消', '确定']
 		}, function(ret, err) {
 			if (ret.buttonIndex == 2) {
-				saveDeliveryMan(pageParam.orderId, manId);
+				if (pageParam.orderType == 1) {
+					saveDeliveryMan(pageParam.orderId, manId);
+				} else if (pageParam.orderType == 2) {
+					saveDeliveryMan2(pageParam.orderId, manId);
+				}
 			}
 		});
 	}
 
+	//请求配送的送餐员设置
+	function saveDeliveryMan2(orderId, manId) {
+		api.showProgress({
+			title : '正在派单...',
+			modal : true
+		});
+		var request = {
+			id : orderId,
+			man : manId,
+			status : 1
+		};
+		AV.Cloud.run("updateDeliveryOrderStatus", request).then(function(prior) {
+//			console.log("prior>>>" + JSON.stringify(prior))
+			api.hideProgress();
+			api.toast({
+				msg : '派单成功',
+				locaion : "middle"
+			});
+			setTimeout(function() {
+				goBack();
+			}, 1000);
+		}).catch(function(erroer) {
+			console.log("erroer>>>" + JSON.stringify(erroer))
+			api.toast({
+				msg : '派单失败,请联系管理员',
+				locaion : "middle"
+			});
+			api.hideProgress();
+			errorAlert(error);
+		});
+	}
+
+	//外卖订单的送餐员设置
 	function saveDeliveryMan(orderId, manId) {
 		api.showProgress({
 			title : '正在派单...',
@@ -118,13 +151,11 @@
 		var queryOrder = new AV.Query(orderObj);
 		var queryMan = new AV.Query(deliveryManObj);
 		queryOrder.get(orderId).then(function(order) {
-			console.log("order.cafeCar.id<<<<<<.<>>>>>>>>>>>>" + JSON.stringify(order.get("cafeCar").id))
 			var request = {
 				orderId : order.id,
 				carId : order.get("cafeCar").id,
 				deliveryManId : manId
 			};
-			console.log("request>>>>>>>>" + JSON.stringify(request))
 			AV.Cloud.run('assignDeliveryMan', request).then(function(order) {
 				api.hideProgress();
 				api.toast({
@@ -144,31 +175,6 @@
 				}, function(ret, err) {
 				});
 			});
-
-
-			function maskStaus(Staus) { //遮罩与锁定全局滚动
-				if (Staus == 1){
-					$(".mask").fadeIn(200);
-					$("body").removeClass("ban-scroll");
-				}
-				if (Staus == 0){
-					$(".mask").fadeOut(200);
-					$("body").removeClass("ban-scroll");
-				}
-			}
-			var jsfun = 'maskStaus(0);';
-			api.execScript({
-				name: 'orderDelive',
-				frameName: 'orderDelive',
-				script: jsfun
-			});
-
-			api.execScript({
-				name: 'orderDelive',
-				script: jsfun
-			});
-
-
 		}).catch(function(error) {
 			api.hideProgress();
 			console.log("error>>>" + JSON.stringify(error))
@@ -181,5 +187,4 @@
 			name : 'deliveSelect'
 		});
 	}
-
 </script>

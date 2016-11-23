@@ -27,7 +27,7 @@
 				<span><img src="../image/process.png" />
 					<p>
 						配送请求
-					</p></span>
+					</p></span><i id="footer-new2"></i>
 			</div>
 			<!-- <div class="flex-item-4 footer-text" id="footer-3">
 			<span><img src="../image/dine.png" />
@@ -108,10 +108,20 @@
 			$("#footer-4").removeClass("active").find("img").attr("src", "../image/bus.png");
 			$("#footer-5").addClass("active").find("img").attr("src", "../image/account_active.png");
 		});
+	};
+	function setOrderNum() {
 		var num = Number($api.getStorage("wartNum")) + Number($api.getStorage("deliveNum"));
 		if (num > 0) {
 			document.getElementById('footer-new1').style.display = "inline-block";
 			$("#footer-new1").text(num);
 		}
-	}; 
+	}
+
+	function setRequestOrderNum() {
+		var reNum = Number($api.getStorage("requestWartNum")) + Number($api.getStorage("requestDeliveNum"));
+		if (reNum > 0) {
+			document.getElementById('footer-new2').style.display = "inline-block";
+			$("#footer-new2").text(reNum);
+		}
+	}
 </script>

@@ -287,17 +287,12 @@
 			vScrollBarEnabled : false,
 			slidBackEnabled : false,
 			pageParam : pageParam,
-			/*	animation: {
-			 type: "movein", //动画类型（详见动画类型常量）
-			 subType: "from_right", //动画子类型（详见动画子类型常量）
-			 curve: "ease_out",
-			 duration: 200 //动画过渡时间，默认300毫秒
-			 },*/
 			delay : 0
 		});
 		if (pageParam.cafeCar) {
 			//有送餐区域,加载数据
 			loadOrders(pageParam.cafeCar);
+			loadDeliverOrders(pageParam.cafeCar);
 		} else {
 			api.toast({
 				msg : '你还未分配送餐区域,请联系管理员!',
@@ -326,7 +321,8 @@
 				},
 				pageParam : {
 					"cefeCar" : pageParam.cafeCar,
-					"orderId" : orderId
+					"orderId" : orderId,
+					"orderType" : 1
 				},
 				bounces : false,
 				bgColor : 'rgba(0,0,0,0)',
@@ -414,7 +410,8 @@
 				},
 				pageParam : {
 					"cefeCar" : pageParam.cafeCar,
-					"orderId" : orderId
+					"orderId" : orderId,
+					"orderType" : 1
 				},
 				bounces : false,
 				bgColor : 'rgba(0,0,0,0)',
@@ -427,119 +424,158 @@
 				}
 			});
 		});
-		//获取申请退款的数目
-		function loadOrders(carId, pageSize) {
-			api.showProgress({
-				title : '加载数据中...',
-				modal : true
-			}, 3000);
-			var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [], myOrderArr = [];
-			//调用野狗,实时获取数据
-			var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
-			ref.orderByKey().limitToFirst(100).on("value", function(datasnapshot) {
-				var snap = _.groupBy(datasnapshot.val(), function(val) {
-					val.deliverMark = val.deliverMark ? val.deliverMark : "0";
-					return val.deliverMark;
-				});
-				var ordersByMark1 = _.sortBy(snap[1], function(val) {
-					return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
-				});
-				var ordersByMark0 = _.sortBy(snap[0], function(val) {
-					return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
-				});
-				var newOrderArr = ordersByMark1.concat(ordersByMark0);
-				waitingArr = _.filter(newOrderArr, function(val, key) {
-					return val.status == "等待接单";
-				});
-				deliverArr = _.filter(newOrderArr, function(val, key) {
-					return val.status == "配送中";
-				});
-				finisheddArr = _.filter(newOrderArr, function(val, key) {
-					return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
-				});
-				console.log("<<<<<waitingArr>>>>>>>" + JSON.stringify(waitingArr));
-				console.log("<<<<<<deliverArr>>>>>>>" + JSON.stringify(deliverArr));
-				console.log("<<<<<<finisheddArr>>>>>>>" + JSON.stringify(finisheddArr));
-				if (waitingArr.length > 0) {
-					$("#nav-new1").text(waitingArr.length);
-					document.getElementById('nav-new1').style.display = "inline-block";
-					var waiting_template = document.getElementById('waiting_template').innerHTML;
-					document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(waitingArr);
-				}
-				if (deliverArr.length > 0) {
-					//找出配送员是自己的单,不能看其他人的顶单
-					for (var i = 0; i < deliverArr.length; i++) {
-						if (deliverArr[i].deliverObj.objectId == deliver.id) {
-							myOrderArr.push(deliverArr[i]);
-						}
-					}
-					if (myOrderArr.length > 0) {
-						document.getElementById('nav-new2').style.display = "inline-block";
-					}
-					$("#nav-new2").text(myOrderArr.length);
-					var deliver_template = document.getElementById('deliver_template').innerHTML;
-					document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
-				} else {
-					document.getElementById('nav-new2').style.display = "none";
-					var deliver_template = document.getElementById('deliver_template').innerHTML;
-					document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
-				}
-				if (finisheddArr.length > 0) {
-					var finishedd_template = document.getElementById('finishedd_template').innerHTML;
-					document.getElementById('finishedOrder').innerHTML = doT.template(finishedd_template)(finisheddArr);
-				}
-				api.hideProgress();
-				$api.setStorage("wartNum", waitingArr.length);
-				$api.setStorage("deliveNum", myOrderArr.length); 
-				//数据加载完成后再获取实际高度初始化iscroll
-				//获取高度后再初始化iscroll
-				$('.user-info-other-box').show();
-				var waitingOrderH = $("#waitingOrder").height();
-				var deliverOrderH = $("#deliverOrder").height();
-				var finishedOrderH = $("#finishedOrder").height();
-				console.log("waitingOrderH:" + waitingOrderH);
-				console.log("deliverOrderH:" + deliverOrderH);
-				console.log("finishedOrderH:" + finishedOrderH);
-				var myscroll1 = new IScroll('#list-1');
-				var myscroll2 = new IScroll('#list-2');
-				var myscroll3 = new IScroll('#list-3');
+	};
+	//获取申请退款的数目
+	function loadOrders(carId) {
+		api.showProgress({
+			title : '加载数据中...',
+			modal : true
+		}, 3000);
+		//调用野狗,实时获取数据
+		var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
+		var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [], myOrderArr = [];
+		ref.orderByKey().limitToFirst(100).on("value", function(datasnapshot) {
+			var snap = _.groupBy(datasnapshot.val(), function(val) {
+				val.deliverMark = val.deliverMark ? val.deliverMark : "0";
+				return val.deliverMark;
 			});
-			//确认真实高度后再隐藏其他信息栏
-		}
-
-		//设置状态为已送达
-		function setDelivered(orderId, customerId) {
-			api.confirm({
-				title : '提示',
-				msg : '是否确认快餐已送达',
-				buttons : ['取消', '确定']
-			}, function(ret, err) {
-				if (ret.buttonIndex == 2) {
-					api.showProgress({
-						title : '提交数据中...',
-						modal : true
-					});
-					AV.Cloud.run('receiptTemp', {
-						"orderId" : orderId,
-						"userId" : customerId
-					}, {
-						success : function(orderSuccess) {
-							api.hideProgress();
-							reloadFrame();
-						},
-						error : function(error) {
-							console.log("error：" + JSON.stringify(error));
-							var msg = error.hasOwnProperty("msg") ? error.msg : JSON.stringify(error);
-							api.hideProgress();
-							api.alert({
-								title : '提示',
-								msg : msg
-							});
-						}
-					});
-				}
+			var ordersByMark1 = _.sortBy(snap[1], function(val) {
+				return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
 			});
-		}
+			var ordersByMark0 = _.sortBy(snap[0], function(val) {
+				return val.presetTime ? new Date(val.presetTime).getTime() : new Date().getTime();
+			});
+			var newOrderArr = ordersByMark1.concat(ordersByMark0);
+			waitingArr = _.filter(newOrderArr, function(val, key) {
+				return val.status == "等待接单";
+			});
+			deliverArr = _.filter(newOrderArr, function(val, key) {
+				return val.status == "配送中";
+			});
+			finisheddArr = _.filter(newOrderArr, function(val, key) {
+				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
+			});
+			console.log("<<<<<waitingArr>>>>>>>" + JSON.stringify(waitingArr));
+			console.log("<<<<<<deliverArr>>>>>>>" + JSON.stringify(deliverArr));
+			console.log("<<<<<<finisheddArr>>>>>>>" + JSON.stringify(finisheddArr));
+			if (waitingArr.length > 0) {
+				$("#nav-new1").text(waitingArr.length);
+				document.getElementById('nav-new1').style.display = "inline-block";
+				var waiting_template = document.getElementById('waiting_template').innerHTML;
+				document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(waitingArr);
+			}
+			if (deliverArr.length > 0) {
+				//找出配送员是自己的单,不能看其他人的顶单
+				for (var i = 0; i < deliverArr.length; i++) {
+					if (deliverArr[i].deliverObj.objectId == deliver.id) {
+						myOrderArr.push(deliverArr[i]);
+					}
+				}
+				if (myOrderArr.length > 0) {
+					document.getElementById('nav-new2').style.display = "inline-block";
+				}
+				$("#nav-new2").text(myOrderArr.length);
+				var deliver_template = document.getElementById('deliver_template').innerHTML;
+				document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
+			} else {
+				document.getElementById('nav-new2').style.display = "none";
+				var deliver_template = document.getElementById('deliver_template').innerHTML;
+				document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
+			}
+			if (finisheddArr.length > 0) {
+				var finishedd_template = document.getElementById('finishedd_template').innerHTML;
+				document.getElementById('finishedOrder').innerHTML = doT.template(finishedd_template)(finisheddArr);
+			}
+			api.hideProgress();
+			$api.setStorage("wartNum", waitingArr.length);
+			$api.setStorage("deliveNum", myOrderArr.length);
+			console.log(waitingArr.length)
+			console.log(myOrderArr.length)
+			api.execScript({
+				frameName : 'footer',
+				script : 'setOrderNum();'
+			});
+			//数据加载完成后再获取实际高度初始化iscroll
+			//获取高度后再初始化iscroll
+			$('.user-info-other-box').show();
+			var waitingOrderH = $("#waitingOrder").height();
+			var deliverOrderH = $("#deliverOrder").height();
+			var finishedOrderH = $("#finishedOrder").height();
+			var myscroll1 = new IScroll('#list-1');
+			var myscroll2 = new IScroll('#list-2');
+			var myscroll3 = new IScroll('#list-3');
+		});
+		//确认真实高度后再隐藏其他信息栏
+	}
 
-	}; 
+	//获取配送请求订单
+	function loadDeliverOrders(carId) {
+		$api.rmStorage("requestWartNum");
+		$api.rmStorage("requestDeliveNum");
+		var ref = new Wilddog("https://kaifanba.wilddogio.com/deliveryOrderRef/" + carId);
+		ref.limitToFirst(100).on("value", function(datasnapshot) {
+			var reWaitingArr = [], reDeliverArr = [], reFinishedArr = [];
+			var snap = _.each(datasnapshot.val(), function(val, key) {
+				if (val.status == "等待接单") {
+					reWaitingArr.push(val);
+				};
+				if (val.status == "配送中") {
+					reDeliverArr.push(val);
+				};
+				if (val.status == "已收货" || val.status == "已拒单" || val.status == "已退款") {
+					reFinishedArr.push(val);
+				};
+				return reWaitingArr;
+			});
+			$api.setStorage("requestWartNum", reWaitingArr.length);
+			$api.setStorage("requestDeliveNum", reDeliverArr.length);
+			console.log(reWaitingArr.length)
+			console.log(reDeliverArr.length)
+			api.execScript({
+				frameName : 'footer',
+				script : 'setRequestOrderNum();'
+			});
+			api.execScript({
+				frameName : 'orderRequest',
+				script : 'setRequestStatusNum();'
+			});
+			$api.setStorage("requestWaiting", reWaitingArr);
+			$api.setStorage("requestDeliver", reDeliverArr);
+			$api.setStorage("requestFinished", reFinishedArr);
+		});
+	}
+
+	//设置状态为已送达
+	function setDelivered(orderId, customerId) {
+		api.confirm({
+			title : '提示',
+			msg : '是否确认快餐已送达',
+			buttons : ['取消', '确定']
+		}, function(ret, err) {
+			if (ret.buttonIndex == 2) {
+				api.showProgress({
+					title : '提交数据中...',
+					modal : true
+				});
+				AV.Cloud.run('receiptTemp', {
+					"orderId" : orderId,
+					"userId" : customerId
+				}, {
+					success : function(orderSuccess) {
+						api.hideProgress();
+						reloadFrame();
+					},
+					error : function(error) {
+						console.log("error：" + JSON.stringify(error));
+						var msg = error.hasOwnProperty("msg") ? error.msg : JSON.stringify(error);
+						api.hideProgress();
+						api.alert({
+							title : '提示',
+							msg : msg
+						});
+					}
+				});
+			}
+		});
+	}
 </script>

@@ -40,13 +40,19 @@
 		<div class="m-content flex-item-24 flex-column flex-center " id="m-content">
 			<!--订单模版渲染区域-->
 			<div class="list flex-item-24 flex-column " id="list-1">
-			<div class="m-container-1 flex-item-24 flex-row flex-center" id="waitingOrder" ></div>
+			<div class="m-container-1 flex-item-24 flex-row flex-center" id="waitingOrder" >
+                <div class="flex-item-24 flex-center notform " ></div>
+            </div>
 			</div>
 			<div class="list flex-item-24 flex-column " id="list-2">
-			<div class="m-container-2 flex-item-24 flex-row flex-center" id="deliverOrder"></div>
+			<div class="m-container-2 flex-item-24 flex-row flex-center" id="deliverOrder">
+                <div class="flex-item-24 flex-center notform " ></div>
+            </div>
 			</div>
 			<div class="list flex-item-24 flex-column " id="list-3">
-			<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" ></div>
+			<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" >
+                <div class="flex-item-24 flex-center notform " ></div>
+            </div>
 			</div>
 		</div>
 		<!--等待接单-->
@@ -254,6 +260,9 @@
 	<!--页面脚本-->
 	<script src="../newAppJs/share.js"></script>
 	<script>
+        var myScroll1=new IScroll('#list-1');
+        var myScroll2=new IScroll('#list-2');
+        var myScroll3=new IScroll('#list-3');
 		var pageParam;
 		apiready = function() {
 			pageParam = api.pageParam;
@@ -295,6 +304,21 @@
 
 					//数据加载完成后再获取实际高度初始化iscroll
 					//获取高度后再初始化iscroll
+
+                    $(".user-info-other-box").show();
+
+                    var waitingOrderH = $("#waitingOrder").height();
+                    var deliverOrderH = $("#deliverOrder").height();
+                    var finishedOrderH = $("#finishedOrder").height();
+                    console.log("waitingOrderH:" + waitingOrderH);
+                    console.log("deliverOrderH:" + deliverOrderH);
+                    console.log("finishedOrderH:" + finishedOrderH);
+                    myScroll1.refresh();
+                    myScroll2.refresh();
+                    myScroll3.refresh();
+
+
+                    $(".user-info-other-box").hide();
 
 				});
 			}

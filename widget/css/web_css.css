@@ -1,7 +1,9 @@
 .top{
     width: 100%;
-    position: fixed;
     z-index: 1;
+    top: 0;
+    left: 0;
+    position: absolute;
     padding-top:20px ;
     background-color: #0459c4;
 }
@@ -169,9 +171,9 @@ footer{
     height: 6rem;
     background-color: #FFFFFF;
     text-align: center;
-    position: fixed;
+    position: absolute;
     bottom: 0;
-    z-index: 3;
+    z-index: 2;
 }
 
 .footer-box{
@@ -1004,4 +1006,59 @@ width: 90%;
 
 .order-none{
 
+}
+
+.pullDown{
+    top:-60px;
+   position: absolute;
+}
+
+.pullDown-refresh{
+
+    text-align: center;
+    height: 3rem;
+    line-height: 3rem;
+}
+
+.pullDown span{
+    line-height: 3rem;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.pullDown-img{
+
+    height: 1.8rem;
+    width: 1.8rem;
+    display: inline-block;
+    background: url("../image/pullDown.png")center center no-repeat;
+    background-size: cover;
+}
+
+
+.pullUp{
+    bottom:-60px;
+    position: absolute;
+}
+
+.pullUp-refresh{
+
+    text-align: center;
+    height: 3rem;
+    line-height: 3rem;
+}
+
+.pullUp span{
+    line-height: 3rem;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.pullUp-img{
+
+    height: 1.8rem;
+    width: 1.8rem;
+    display: inline-block;
+    background: url("../image/pullUp.png")center center no-repeat;
+    background-size: cover;
 }

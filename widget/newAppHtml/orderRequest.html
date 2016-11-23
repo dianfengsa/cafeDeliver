@@ -37,8 +37,7 @@
 		<!--顶部导航栏!-->
 		<div class="mask flex-item-24"></div>
 		<!--弹窗事件的遮罩-->
-
-		<div class="m-content flex-item-24 flex-column " id="m-content">
+		<div class="m-content flex-item-24 flex-column" id="m-content">
 			<!--订单模版渲染区域-->
 			<div class="list flex-item-24 flex-center flex-row" id="list-1">
 				<div class="pullDown flex-item-24 flex-center">
@@ -62,7 +61,7 @@
 				</div>
 			</div>
 		</div>
-        <!--等待接单-->
+		<!--等待接单-->
 		<script type="text/template" charset="utf-8" id="waiting_template">
 			{{?it&&it.length>0}}
 			{{~it:value:index}}
@@ -78,10 +77,10 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.createdAt,"dateTime",0)}}</span><span class="money"><i>&#165</i>{{=value.price}}</span>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.deliveryTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
 			</li>
 			<li>
-			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.deliveryTime,"isTime",0)}} 前送达</span>
+			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.createdAt,"dateTime",0)}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
@@ -107,53 +106,53 @@
 		</script>
 		<!--进行中的订单-->
 		<script type="text/template" charset="utf-8" id="deliver_template">
-            {{?it&&it.length>0}}
-            {{~it:value:index}}
-            <div class="user-box flex-item-23 ">
-                <div class="user-info-top flex-item-24 ">
-                    <div class="user-info-text">
-                        <p>
-                            客户电话：{{=value.customerPhone}}
-                        </p>
-                    </div>
-                </div>
-                <div class="user-info-body flex-row flex-item-24 flex-center">
-                    <div class="user-info-add  flex-row flex-item-24 flex-center">
-                        <ul class="user-info-add-text flex-item-23 flex-center">
-                            <li>
-                                <div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.createdAt,"dateTime",0)}}</span><span class="money"><i>&#165</i>{{=value.price}}</span>
-                            </li>
-                            <li>
-                                <div class="clock"></div><span class="clock-text">{{=new Date().format(value.deliveryTime,"isTime",0)}} 前送达</span><div class="phone"></div>
-                            </li>
-                            <li class="clearfix">
-                                <div class="destination">
-                                </div><span class="add-destination">{{=value.kitchen.name}}—{{=value.kitchen.addressDetail}}</span>
-                            </li>
-                            <li class="clearfix">
-                                <div class="source">
-                                </div><span class="add-source">{{=value.address}}</span>
-                            </li>
-                        </ul>
-                        <ul class="user-info-other flex-item-23 flex-center">
-                            <li class="">
-                            </li>
-                        </ul>
-                        <div class="user-info-other-button flex-item-24 flex-column">
-                            <div class="flex-item-24 flex-between flex-column">
-                                <button type="button" value="重新派单" class="dispatch2" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
-                                    重新派单
-                                </button>
-                                <button type="button" value="确认送达" class="dispatch3" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
-                                    确认送达
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{~}}
-            {{?}}
+			{{?it&&it.length>0}}
+			{{~it:value:index}}
+			<div class="user-box flex-item-23 ">
+			<div class="user-info-top flex-item-24 ">
+			<div class="user-info-text">
+			<p>
+			客户电话：{{=value.customerPhone}}
+			</p>
+			</div>
+			</div>
+			<div class="user-info-body flex-row flex-item-24 flex-center">
+			<div class="user-info-add  flex-row flex-item-24 flex-center">
+			<ul class="user-info-add-text flex-item-23 flex-center">
+			<li>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.deliveryTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
+			</li>
+			<li>
+			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.createdAt,"dateTime",0)}}</span> <div class="phone"></div>
+			</li>
+			<li class="clearfix">
+			<div class="destination">
+			</div><span class="add-destination">{{=value.kitchen.name}}—{{=value.kitchen.addressDetail}}</span>
+			</li>
+			<li class="clearfix">
+			<div class="source">
+			</div><span class="add-source">{{=value.address}}</span>
+			</li>
+			</ul>
+			<ul class="user-info-other flex-item-23 flex-center">
+			<li class="">
+			</li>
+			</ul>
+			<div class="user-info-other-button flex-item-24 flex-column">
+			<div id="orderOperation" class="flex-item-24 flex-between flex-column">
+			<button class="dispatch2" data-value="{{=value.objectId}}" data-cust="{{=value.deliveryMan.objectId}}}}">
+			重新派单
+			</button>
+			<button class="dispatch3" data-value="{{=value.objectId}}" data-cust="{{=value.deliveryMan.objectId}}">
+			确认送达
+			</button>
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			{{~}}
+			{{?}}
 		</script>
 		<!--已完成的订单(已收货、已退款、已拒单)-->
 		<script type="text/template" charset="utf-8" id="finishedd_template">
@@ -184,7 +183,7 @@
 			</li>
 			{{?}}
 			<li class="clearfix">
-			<div class="destination">
+			<div class="destination"> 
 			</div><span class="add-destination">{{=value.kitchen.name}}—{{=value.kitchen.addressDetail}}</span>
 			</li>
 			<li class="clearfix">
@@ -214,6 +213,8 @@
 	<script src="../newAppJs/iscroll.js"></script>
 	<script src="../newAppJs/date.format.js"></script>
 	<script src="../newAppJs/api.js"></script>
+	<script src="../newAppJs/av.js" ></script>
+	<script src="../newAppJs/dbSearch.js" ></script>
 	<script src="../newAppJs/doT.min.js"></script>
 	<!--模版配置脚本-->
 	<script src="../newAppJs/orderDelive.js"></script>
@@ -229,6 +230,23 @@
 			//获取屏幕高度
 
 			var winWidth = api.winWidth;
+			//加载底部栏
+			api.openFrame({
+				name : 'footer',
+				url : '../newAppHtml/footer.html',
+				rect : {
+					x : 0,
+					y : winHeight - 60,
+					w : "auto",
+					h : 60
+				},
+				opaque : true, // 页面不透明
+				bounces : false, // 不允许页面弹动，ripple
+				vScrollBarEnabled : false,
+				slidBackEnabled : false,
+				pageParam : pageParam,
+				delay : 0
+			});
 			var waitingArr = [], deliverArr = [], finishedArr = [];
 			waitingArr = $api.getStorage("requestWaiting");
 			deliverArr = $api.getStorage("requestDeliver");
@@ -252,7 +270,7 @@
 			}
 			//状态为已完成
 			if (finishedArr.length > 0) {
-				var templateFinished = document.getElementById('finishedd_template').innerHTML;
+				var templateFinished = document.getElementById('finished_template').innerHTML;
 				document.getElementById('finishedOrder').innerHTML = doT.template( templateFinished )(finishedArr);
 			}
 			//数据加载完成后再获取实际高度初始化iscroll
@@ -263,7 +281,9 @@
 			console.log("waitingOrderH:" + waitingOrderH);
 			console.log("deliverOrderH:" + deliverOrderH);
 			console.log("finishedOrderH:" + finishedOrderH);
-            myScroll.refresh();
+
+			myScroll.refresh();
+
 			//外卖订单
 			$(".footer-box").on("touchend", "#footer-1", function() {
 				openOrderDelive(pageParam);
@@ -279,6 +299,40 @@
 			//配送员信息
 			$(".footer-box").on("touchend", "#footer-4", function() {
 				openOrderDeliveInfo(pageParam);
+			});
+			//重新派单事件
+			$("#deliverOrder").on("touchend", ".dispatch2", function() {
+				var orderId = $(this).attr("data-value");
+				api.openFrame({
+					name : 'deliveSelect',
+					url : './deliveSelect.html',
+					rect : {
+						x : 0,
+						y : 60,
+						w : winWidth - (winWidth * 0.42),
+						h : winHeight * 0.7
+					},
+					pageParam : {
+						"cefeCar" : pageParam.cafeCar,
+						"orderId" : orderId,
+						"orderType" : 2
+					},
+					bounces : false,
+					bgColor : 'rgba(0,0,0,0)',
+					vScrollBarEnabled : true,
+					hScrollBarEnabled : true,
+					animation : {
+						type : "push", //动画类型（详见动画类型常量）
+						subType : "from_top", //动画子类型（详见动画子类型常量）
+						duration : 200 //动画过渡时间，默认300毫秒
+					}
+				});
+			});
+			//确认送达事件
+			$("#deliverOrder").on("touchend", ".dispatch3", function() {
+				var orderId = $(this).attr("data-value");
+				var deliverId = $(this).attr("data-cust");
+				served(orderId, deliverId);
 			});
 			console.log("pageParam>>>>>>>>" + JSON.stringify(pageParam))
 			$("#list-1").on("click", ".dispatch", function() {
@@ -346,6 +400,44 @@
 					console.log("加载更多");
 					//刷新完成后重新获取高度
 					myScroll.refresh()
+				}
+			});
+		}
+
+		function served(orderId, customerId) {
+			console.log("orderId>>>" + orderId)
+			console.log("customerId>>>" + customerId)
+			api.confirm({
+				title : '提示',
+				msg : '是否确认快餐已送达?',
+				buttons : ['取消', '确定']
+			}, function(ret, err) {
+				if (ret.buttonIndex == 2) {
+					api.showProgress({
+						title : '提交数据中...',
+						modal : true
+					});
+					var request = {
+						id : orderId,
+						man : customerId,
+						status : 2
+					};
+					AV.Cloud.run("updateDeliveryOrderStatus", request).then(function(prior) {
+						console.log("prior>>>" + JSON.stringify(prior))
+						api.hideProgress();
+						api.toast({
+							msg : '确认成功',
+							locaion : "middle"
+						});
+					}).catch(function(erroer) {
+						console.log("erroer>>>" + JSON.stringify(erroer))
+						api.toast({
+							msg : '派单失败,请联系管理员',
+							locaion : "middle"
+						});
+						api.hideProgress();
+						errorAlert(error);
+					});
 				}
 			});
 		}

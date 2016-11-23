@@ -61,11 +61,30 @@
 <script src="../newAppJs/underscore-min.js"></script>
 <script>
 	var pageParam;
+
 	apiready = function() {
+		var winHeight = api.winHeight;
 		pageParam = api.pageParam;
 		//外卖订单
 		$(".footer-box").on("touchend", "#footer-1", function() {
 			openOrderDelive(pageParam);
+			api.openFrame({
+
+				name : 'footer',
+				url : '../newAppHtml/footer.html',
+				rect : {
+					x : 0,
+					y : winHeight - 60,
+					w : "auto",
+					h : 60
+				},
+				opaque : true, // 页面不透明
+				bounces : false, // 不允许页面弹动，ripple
+				vScrollBarEnabled : false,
+				slidBackEnabled : false,
+				pageParam : pageParam,
+				delay : 0
+			});
 			$("#footer-1").addClass("active").find("img").attr("src", "../image/calendar_active.png");
 			$("#footer-2").removeClass("active").find("img").attr("src", "../image/process.png");
 			$("#footer-3").removeClass("active").find("img").attr("src", "../image/dine.png");
@@ -75,6 +94,23 @@
 		//配送请求
 		$(".footer-box").on("touchend", "#footer-2", function() {
 			openOrderRequest(pageParam);
+			api.openFrame({
+
+				name : 'footer',
+				url : '../newAppHtml/footer.html',
+				rect : {
+					x : 0,
+					y : winHeight - 60,
+					w : "auto",
+					h : 60
+				},
+				opaque : true, // 页面不透明
+				bounces : false, // 不允许页面弹动，ripple
+				vScrollBarEnabled : false,
+				slidBackEnabled : false,
+				pageParam : pageParam,
+				delay : 0
+			});
 			$("#footer-1").removeClass("active").find("img").attr("src", "../image/calendar.png");
 			$("#footer-2").addClass("active").find("img").attr("src", "../image/process_active.png");
 			$("#footer-3").removeClass("active").find("img").attr("src", "../image/dine.png");

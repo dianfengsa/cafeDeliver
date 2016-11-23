@@ -37,21 +37,8 @@
 		<!--顶部导航栏!-->
 		<div class="mask flex-item-24"></div>
 		<!--弹窗事件的遮罩-->
-		<<<<<<< HEAD
-		<div class="m-content flex-item-24 flex-column flex-center " id="m-content">
-			<!--订单模版渲染区域-->
-			<div class="list flex-item-24 flex-column " id="list-1">
-				<div class="m-container-1 flex-item-24 flex-row flex-center" id="waitingOrder" ></div>
-			</div>
-			<div class="list flex-item-24 flex-column " id="list-2">
-				<div class="m-container-2 flex-item-24 flex-row flex-center" id="deliverOrder"></div>
-			</div>
-			<div class="list flex-item-24 flex-column " id="list-3">
-				<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" ></div>
-			</div>
-		</div>
-		=======
-		<div class="m-content flex-item-24 flex-column flex-center " id="m-content">
+
+		<div class="m-content flex-item-24 flex-column " id="m-content">
 			<!--订单模版渲染区域-->
 			<div class="list flex-item-24 flex-center flex-row" id="list-1">
 				<div class="pullDown flex-item-24 flex-center">
@@ -63,7 +50,7 @@
 					<div class="flex-item-24 flex-center notform " ></div>
 				</div>
 				<div class="m-container-2 flex-item-24 flex-row flex-center" id="deliverOrder" style="display: none" >
-					<div class="flex-item-24 flex-center notform " ></div>
+                    <div class="flex-item-24 flex-center notform " ></div>
 				</div>
 				<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" style="display: none"  >
 					<div class="flex-item-24 flex-center notform " ></div>
@@ -75,7 +62,7 @@
 				</div>
 			</div>
 		</div>
-		>>>>>>> 8166b71314ff7647f85abb55e5afa9bb434a6932 <!--等待接单-->
+        <!--等待接单-->
 		<script type="text/template" charset="utf-8" id="waiting_template">
 			{{?it&&it.length>0}}
 			{{~it:value:index}}
@@ -120,65 +107,56 @@
 		</script>
 		<!--进行中的订单-->
 		<script type="text/template" charset="utf-8" id="deliver_template">
-			{{?it&&it.length>0}}
-			{{~it:value:index}}
-			<div class="user-box flex-item-23 ">
-			<div class="user-info-top flex-item-24 ">
-			<div class="user-info-text">
-			<p>
-			客户电话：{{=value.customerPhone}}
-			</p>
-			</div>
-			</div>
-			<div class="user-info-body flex-row flex-item-24 flex-center">
-			<div class="user-info-add  flex-row flex-item-24 flex-center">
-			<ul class="user-info-add-text flex-item-23 flex-center">
-			<li>
-			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.createdAt,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
-			</li>
-			<li class="clearfix">
-			<div class="destination">
-			送
-			</div><span class="add-destination">{{=value.kitchen.name}}—{{=value.kitchen.addressDetail}}</span>
-			</li>
-			<li class="clearfix">
-			<div class="source">
-			取
-			</div><span class="add-source">{{=value.address}}</span>
-			</li>
-			</ul>
-			</div>
-			</div>
-			<div class="user-info-other-box flex-item-24 flex-row " style="display:none">
-			<div class="user-info-text flex-item-24">
-			<p>
-			商家电话:{{=value.kitchen.remittanceInfo.account}}
-			</p>
-			</div>
-			<div class="user-info-other flex-item-23 flex-center">
-			<ul class="">
-			<li>
-			<span class="fr">状态:{{=value.status}}</span>
-			</li>
-			</ul>
-			</div>
-			<div class="user-info-other-button flex-item-24 flex-column">
-			<div class="flex-item-24 flex-between">
-			<button type="button" value="重新派单" class="dispatch2" data-value="{{=value.objectId}}" data-cust="{{=value.customerId}}">
-			重新派单
-			</button>
-			<button type="button" value="确认送达" class="dispatch3" data-value="{{=value.objectId}}" data-cust="{{=value.customerId}}">
-			确认送达
-			</button>
-			</div>
-			</div>
-			</div>
-			</div>
-			{{~}}
-			{{?}}
+            {{?it&&it.length>0}}
+            {{~it:value:index}}
+            <div class="user-box flex-item-23 ">
+                <div class="user-info-top flex-item-24 ">
+                    <div class="user-info-text">
+                        <p>
+                            客户电话：{{=value.customerPhone}}
+                        </p>
+                    </div>
+                </div>
+                <div class="user-info-body flex-row flex-item-24 flex-center">
+                    <div class="user-info-add  flex-row flex-item-24 flex-center">
+                        <ul class="user-info-add-text flex-item-23 flex-center">
+                            <li>
+                                <div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.createdAt,"dateTime",0)}}</span><span class="money"><i>&#165</i>{{=value.price}}</span>
+                            </li>
+                            <li>
+                                <div class="clock"></div><span class="clock-text">{{=new Date().format(value.deliveryTime,"isTime",0)}} 前送达</span><div class="phone"></div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="destination">
+                                </div><span class="add-destination">{{=value.kitchen.name}}—{{=value.kitchen.addressDetail}}</span>
+                            </li>
+                            <li class="clearfix">
+                                <div class="source">
+                                </div><span class="add-source">{{=value.address}}</span>
+                            </li>
+                        </ul>
+                        <ul class="user-info-other flex-item-23 flex-center">
+                            <li class="">
+                            </li>
+                        </ul>
+                        <div class="user-info-other-button flex-item-24 flex-column">
+                            <div class="flex-item-24 flex-between flex-column">
+                                <button type="button" value="重新派单" class="dispatch2" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
+                                    重新派单
+                                </button>
+                                <button type="button" value="确认送达" class="dispatch3" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
+                                    确认送达
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{~}}
+            {{?}}
 		</script>
 		<!--已完成的订单(已收货、已退款、已拒单)-->
-		<script type="text/template" charset="utf-8" id="finished_template">
+		<script type="text/template" charset="utf-8" id="finishedd_template">
 			{{?it&&it.length>0}}
 			{{~it:value:index}}
 			<div class="user-box flex-item-23 ">
@@ -207,12 +185,10 @@
 			{{?}}
 			<li class="clearfix">
 			<div class="destination">
-			送
 			</div><span class="add-destination">{{=value.kitchen.name}}—{{=value.kitchen.addressDetail}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="source">
-			取
 			</div><span class="add-source">{{=value.address}}</span>
 			</li>
 			</ul>
@@ -251,6 +227,7 @@
 			pageParam = api.pageParam;
 			var winHeight = api.winHeight;
 			//获取屏幕高度
+
 			var winWidth = api.winWidth;
 			var waitingArr = [], deliverArr = [], finishedArr = [];
 			waitingArr = $api.getStorage("requestWaiting");
@@ -286,9 +263,7 @@
 			console.log("waitingOrderH:" + waitingOrderH);
 			console.log("deliverOrderH:" + deliverOrderH);
 			console.log("finishedOrderH:" + finishedOrderH);
-			var myscroll1 = new IScroll('#list-1');
-			var myscroll2 = new IScroll('#list-2');
-			var myscroll3 = new IScroll('#list-3');
+            myScroll.refresh();
 			//外卖订单
 			$(".footer-box").on("touchend", "#footer-1", function() {
 				openOrderDelive(pageParam);
@@ -338,6 +313,15 @@
 				});
 			});
 		}
+
+
+        $(".m-content").on("touchend",".phone",function () {    //快捷拨号
+
+            console.log("call")
+           // api.call({type: 'tel_prompt', number: phone});
+        });
+
+
 		function setRequestStatusNum() {
 			var waitNum = $api.getStorage("requestWartNum");
 			var deliverNum = $api.getStorage("requestDeliveNum");
@@ -346,10 +330,7 @@
 		}
 
 		function loaded() {
-			myScroll = new IScroll('#m-content', {
-				probeType : 3,
-				mouseWheel : true
-			});
+			myScroll = new IScroll('#m-content');
 			var upIcon = $("#up-icon"), downIcon = $("#down-icon");
 			myScroll.on("slideDown", function() {
 				if (this.y > 20) {

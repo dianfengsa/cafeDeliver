@@ -108,10 +108,7 @@ $(document).ready(function(){
     });
 
 */
-  /*  $(".m-content").on("click",".user-info-text",function () {    //快捷拨号
-        var phone = $(this).siblings("p").text();
-        api.call({type: 'tel_prompt', number: phone});
-    });*/
+
     $(".m-content").on("touchend",".businessInfo",function () {    //点击后显示该订单的商家信息
       $(this).parents().siblings('.user-info-other-box').slideToggle(200);
 

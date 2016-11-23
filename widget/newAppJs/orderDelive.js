@@ -39,9 +39,11 @@ $(document).ready(function(){
     }
      function nav(x) { //导航栏按钮——切换待接单页面
         if(x == 1 ){
-            $("#list-1").show();
-            $("#list-2").hide();
-            $("#list-3").hide();
+            $(".m-container-1").show();
+            $(".m-container-2").hide();
+            $(".m-container-3").hide();
+            myScroll.refresh();
+            myScroll.scrollTo(0, 0);
       /*      myScroll1.scrollTo(0,0,100);
             myScroll2.scrollTo(0,0,100);
             myScroll3.scrollTo(0,0,100);
@@ -53,10 +55,13 @@ $(document).ready(function(){
         //    slide("1");
         }
         if(x == 2 ) {
-            $("#list-1").hide();
-            $("#list-2").show();
-            $("#list-3").hide();
-
+            $(".m-container-1").hide();
+            $(".m-container-2").show();
+            $(".m-container-3").hide();
+            myScroll.refresh();
+            myScroll.scrollTo(0, 0);
+            $('.user-info-other-box').show();
+            $('.user-info-other-box').hide();
          $("#nav-2").addClass("active");
          $("#nav-1").removeClass("active");
             $("#nav-3").removeClass("active");
@@ -64,10 +69,11 @@ $(document).ready(function(){
           //  slide("2");
          }
         if(x == 3 ){
-            $("#list-1").hide();
-            $("#list-2").hide();
-            $("#list-3").show();
-
+            $(".m-container-1").hide();
+            $(".m-container-2").hide();
+            $(".m-container-3").show();
+            myScroll.refresh();
+            myScroll.scrollTo(0, 0);
             $("#nav-3").addClass("active");
             $("#nav-1").removeClass("active");
             $("#nav-2").removeClass("active");
@@ -108,10 +114,9 @@ $(document).ready(function(){
     });*/
     $(".m-content").on("touchend",".businessInfo",function () {    //点击后显示该订单的商家信息
       $(this).parents().siblings('.user-info-other-box').slideToggle(200);
+
     });
 
-
-    //dispatch3按钮(确认订单)
 
 
 });

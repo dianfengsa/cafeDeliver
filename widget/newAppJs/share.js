@@ -46,7 +46,7 @@ var footerH = 60;
 				x: 0,
 				y: 0,
 				w: "auto",
-				h: winHeight - footerH
+				h: winHeight
 			},
 			reload:false,
 			opaque: true, // 页面不透明

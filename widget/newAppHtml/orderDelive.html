@@ -37,7 +37,7 @@
 			</nav>
 		</div>
 		<!--顶部导航栏!-->
-		<div class="m-content flex-item-24 flex-column flex-center " id="m-content">
+		<div class="m-content flex-item-24 flex-column " id="m-content">
 			<!--订单模版渲染区域-->
 			<div class="list flex-item-24 flex-center flex-row" id="list-1">
 				<div class="pullDown flex-item-24 flex-center">
@@ -133,6 +133,9 @@
 			<li>
 			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
+			<li>
+			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
+			</li>
 			<li class="clearfix">
 			<div class="destination">
 			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span>
@@ -182,10 +185,10 @@
 			</div>
 			<div class="user-info-other-button flex-item-24 flex-column">
 			<div class="flex-item-24 flex-between flex-column">
-			<button type="button" value="重新派单" class="dispatch2" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
+			<button class="dispatch2" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
 			重新派单
 			</button>
-			<button type="button" value="确认送达" class="dispatch3" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
+			<button class="dispatch3" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
 			确认送达
 			</button>
 			</div>

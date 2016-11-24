@@ -379,6 +379,8 @@
 		function setRequestStatusNum() {
 			var waitNum = $api.getStorage("requestWartNum");
 			var deliverNum = $api.getStorage("requestDeliveNum");
+			console.log(waitNum)
+			console.log(deliverNum)
 			$("#nav-new1").text(waitNum)
 			$("#nav-new2").text(deliverNum)
 		}

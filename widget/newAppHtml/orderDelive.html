@@ -275,11 +275,9 @@
 	apiready = function() {
 		pageParam = api.pageParam;
 		//		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
-
 		//获取屏幕高度
 		var winHeight = api.winHeight;
 		var winWidth = api.winWidth;
-
 		//加载底部栏
 		api.openFrame({
 			name : 'footer',
@@ -297,8 +295,6 @@
 			pageParam : pageParam,
 			delay : 0
 		});
-
-
 		if (pageParam.cafeCar) {
 			//有送餐区域,加载数据
 			loadOrders(pageParam.cafeCar);
@@ -345,20 +341,7 @@
 				}
 			});
 		});
-		api.addEventListener({
-			name : 'scrolltobottom',
-			extra : {
-				threshold : 0//设置距离底部多少距离时触发，默认值为0，数字类型
-			}
-		}, function(ret, err) {
-			var pageSize = pageSize + 1;
-			loadOrders(pageParam.cafeCar, pageSize);
-			api.toast({
-				msg : '暂无更多数据...',
-				duration : 2000,
-				location : 'bottom'
-			});
-		});
+		
 		var keybackNum = 0;
 		api.addEventListener({
 			name : 'keyback'
@@ -465,9 +448,6 @@
 			finisheddArr = _.filter(newOrderArr, function(val, key) {
 				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
 			});
-			console.log("<<<<<waitingArr>>>>>>>" + JSON.stringify(waitingArr));
-			console.log("<<<<<<deliverArr>>>>>>>" + JSON.stringify(deliverArr));
-			console.log("<<<<<<finisheddArr>>>>>>>" + JSON.stringify(finisheddArr));
 			var noneOrder_template = document.getElementById('noneOrder_template').innerHTML;
 			//无订单时显示
 			if (waitingArr.length > 0) {
@@ -475,11 +455,9 @@
 				document.getElementById('nav-new1').style.display = "inline-block";
 				var waiting_template = document.getElementById('waiting_template').innerHTML;
 				document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(waitingArr);
-			}
-			if (waitingArr.length = 0) {
-				console.log("<<<<<waitingArr>>>>>>>" + waitingArr.length);
-				document.getElementById('waitingOrder').innerHTML = doT.template(noneOrder_template)();
-			}
+			}else{
+			document.getElementById('waitingOrder').innerHTML = doT.template(noneOrder_template)();
+			} 
 			if (deliverArr.length > 0) {
 				//找出配送员是自己的单,不能看其他人的顶单
 				for (var i = 0; i < deliverArr.length; i++) {
@@ -493,7 +471,6 @@
 					var deliver_template = document.getElementById('deliver_template').innerHTML;
 					document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
 				} else {
-					console.log("<<<<<<deliverArr>>>>>>>" + myOrderArr.length);
 					document.getElementById('deliverOrder').innerHTML = doT.template(noneOrder_template)();
 				}
 			} else {
@@ -504,17 +481,18 @@
 			if (finisheddArr.length > 0) {
 				var finishedd_template = document.getElementById('finishedd_template').innerHTML;
 				document.getElementById('finishedOrder').innerHTML = doT.template(finishedd_template)(finisheddArr);
+			} else {
+				document.getElementById('finishedOrder').innerHTML = doT.template(noneOrder_template)();
 			}
 			api.hideProgress();
 			$api.setStorage("wartNum", waitingArr.length);
 			$api.setStorage("deliveNum", myOrderArr.length);
+			console.log(waitingArr.length)
+			console.log(myOrderArr.length)
 			api.execScript({
 				frameName : 'footer',
 				script : 'setOrderNum();'
 			});
-			if (finisheddArr.length = 0) {
-				document.getElementById('finishedOrder').innerHTML = doT.template(noneOrder_template)();
-			}
 			api.hideProgress();
 			$api.setStorage("wartNum", waitingArr.length);
 			$api.setStorage("deliveNum", myOrderArr.length);
@@ -523,12 +501,8 @@
 			var waitingOrderH = $("#waitingOrder").height();
 			var deliverOrderH = $("#deliverOrder").height();
 			var finishedOrderH = $("#finishedOrder").height();
-			console.log("waitingOrderH:" + waitingOrderH);
-			console.log("deliverOrderH:" + deliverOrderH);
-			console.log("finishedOrderH:" + finishedOrderH);
 			myScroll.refresh();
 		});
-		//确认真实高度后再隐藏其他信息栏
 	}
 
 	//获取配送请求订单

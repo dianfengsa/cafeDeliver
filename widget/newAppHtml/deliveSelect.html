@@ -12,11 +12,16 @@
 		<link rel="stylesheet" href="../css/deliveSelect.css">
 	</head>
 	<body>
+	<div class="background-box">
 		<div class="delive-box">
-			<div class="delive-top"></div>
+				<div class="close" style="display: none"></div>
+			<div class="delive-top">
+
+			</div>
 			<div class="delive-list" >
 				<ul id="deliverInfo"></ul>
 			</div>
+		</div>
 		</div>
 		<script type="text/template" charset="utf-8" id="deliverInfo_template">
 			{{?it&&it.length>0}}
@@ -57,14 +62,14 @@
 			duration : 2000
 		});
 		pageParam = api.pageParam;
-		console.log(">>>>>>>>>>>>" + JSON.stringify(pageParam))
+		console.log(">>>>>>>>>>>>" + JSON.stringify(pageParam));
 		var deliver = $api.getStorage("deliverMan");
-		console.log("deliver>>>>" + JSON.stringify(deliver.id))
+		console.log("deliver>>>>" + JSON.stringify(deliver.id));
 		if (!_.isEmpty(pageParam.cefeCar)) {
 			getDeliverManByArea(pageParam.cefeCar, deliver.id).then(function(mans) {
 				var deliverInfo_template = document.getElementById('deliverInfo_template').innerHTML;
 				document.getElementById('deliverInfo').innerHTML = doT.template(deliverInfo_template)(mans);
-			})
+			});
 			api.hideProgress();
 		} else {
 			api.hideProgress();
@@ -187,4 +192,11 @@
 			name : 'deliveSelect'
 		});
 	}
+
+
+	$('body').on('click', '.background-box', function() {//点击详细信息保存值
+		api.closeFrame({
+			name : 'deliveSelect'
+		});
+	});
 </script>

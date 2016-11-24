@@ -339,19 +339,12 @@
 				}
 			});
 		});
+
+		var keybackNum = 0;
 		api.addEventListener({
 			name : 'keyback'
 		}, function(ret, err) {
-			var keyBackStatus = $(".mask").css("display");
-			//如果页面上有遮罩显示则不执行退出程序
-			if (keyBackStatus === "block") {
-				$(".mask").fadeOut(200);
-				$("body").removeClass("ban-scroll");
-				api.closeFrame({
-					name : 'deliveSelect'
-				});
-				keybackNum = 0;
-			} else {
+
 				if (keybackNum == 2) {
 					api.closeWidget({
 						silent : true
@@ -366,7 +359,6 @@
 						keybackNum = 0;
 					}, 3000)
 				}
-			}
 		});
 		$(".top").on("touchend", ".refresh", function() {
 			location.reload(true)

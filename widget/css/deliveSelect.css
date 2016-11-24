@@ -23,17 +23,22 @@ body{
     margin:  0 0;
 }
 .background-box{
-
+    z-index: 1;
+    position: absolute;
     background: rgba(0,0,0,0.3);
     bottom: 0;
     width: 100%;
     height: 100%;
-    padding: 6rem 0 0 0;
+
 }
 
 
 
 .delive-box{
+    text-align: center;
+    top: 5rem;
+    z-index: 2;
+   position: relative;
     width: 80%;
    margin:  auto  auto;
     border: #00a0df solid 2px;

@@ -308,22 +308,27 @@
 					url : './deliveSelect.html',
 					rect : {
 						x : 0,
-						y : 60,
-						w : winWidth - (winWidth * 0.42),
-						h : winHeight * 0.7
+						y : 0,
+						w : "auto",
+						h : "auto",
+						marginLeft : 0, //相对父 window 左外边距的距离
+						marginTop : 0, //相对父 window 上外边距的距离
+						marginBottom : 0, //相对父 window 下外边距的距离
+						marginRight : 0 //相对父 window 右外边距的距离
 					},
 					pageParam : {
 						"cefeCar" : pageParam.cafeCar,
 						"orderId" : orderId,
-						"orderType" : 2
+						"orderType" : 1
 					},
 					bounces : false,
 					bgColor : 'rgba(0,0,0,0)',
 					vScrollBarEnabled : true,
 					hScrollBarEnabled : true,
 					animation : {
-						type : "push", //动画类型（详见动画类型常量）
-						subType : "from_top", //动画子类型（详见动画子类型常量）
+						type : "fade", //动画类型（详见动画类型常量）
+						subType : "from_bottom", //动画子类型（详见动画子类型常量）
+						curve:"ease_out",
 						duration : 200 //动画过渡时间，默认300毫秒
 					}
 				});
@@ -342,8 +347,8 @@
 					url : './deliveSelect.html',
 					rect : {
 						x : 0,
-						y : 60,
-						w : winWidth - (winWidth * 0.4),
+						y : 0,
+						w : "auto",
 						h : "auto",
 						marginLeft : 0, //相对父 window 左外边距的距离
 						marginTop : 0, //相对父 window 上外边距的距离
@@ -353,15 +358,16 @@
 					pageParam : {
 						"cefeCar" : pageParam.cafeCar,
 						"orderId" : orderId,
-						"orderType" : 2
+						"orderType" : 1
 					},
 					bounces : false,
 					bgColor : 'rgba(0,0,0,0)',
 					vScrollBarEnabled : true,
 					hScrollBarEnabled : true,
 					animation : {
-						type : "push", //动画类型（详见动画类型常量）
-						subType : "from_left", //动画子类型（详见动画子类型常量）
+						type : "fade", //动画类型（详见动画类型常量）
+						subType : "from_bottom", //动画子类型（详见动画子类型常量）
+						curve:"ease_out",
 						duration : 200 //动画过渡时间，默认300毫秒
 					}
 				});

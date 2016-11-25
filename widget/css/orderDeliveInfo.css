@@ -86,7 +86,7 @@ footer i{
 }
 .user-info-web-box{
     margin: 4rem 0 1rem 0;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }
 .user-logo-img{
     margin:  25% 0 0 25%;
@@ -96,18 +96,21 @@ footer i{
     background: url("../image/info_no.png")center center no-repeat;
     background-size: cover;
 }
-.user-info-web-box ul .bt{
-    color: #a0a0a0;
+.user-info-web-box  .bt{
+    padding: 0 0 0 2rem;
+    color: #3d3d3d;
+    border-bottom: rgba(71, 71, 71, 0.2) solid 0.1rem;
 }
 .user-info-web-box ul{
     line-height: 3rem;
 }
 .user-out{
+    margin: 3rem 0 0 0;
      text-align: center;
  }
 .user-out .user-out-button {
     color: #FFFFFF;
-    height: 3rem;
+    height: 4rem;
     font-size: 1.6rem;
     background-color: #ff6600;
     -webkit-border-radius: 0.5rem;
@@ -118,17 +121,22 @@ footer i{
 }
 .buff{
     color: #FF6600;
-    vertical-align: middle;
+
 }
 /*开关按钮*/
+
 #div1{
-    top: 0.5rem;
+    margin: 0 0 0 10rem;
+    vertical-align: middle;
+    line-height: 3rem;
+    display: inline-block;
     width: 3rem;
     height: 1.5rem;
     border-radius: 1rem;
     position: relative;
 }
 #div2{
+    display: inline-block;
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 1.5rem;
@@ -152,4 +160,9 @@ footer i{
     left: 0;
     top: -0.25rem;
     border: 0.3rem solid #c9c9c9;
+}
+
+.list{
+    border-bottom: rgba(31, 31, 31, 0.18) solid 0.1rem;
+
 }

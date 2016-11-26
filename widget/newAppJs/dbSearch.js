@@ -37,7 +37,7 @@ function checkDeliverManSataus(user) {
 				owner : manObj.get("owner").id
 			};
 		}
-//		console.log("checkDeliverManSataus>>>" + JSON.stringify(delverObj))
+		//		console.log("checkDeliverManSataus>>>" + JSON.stringify(delverObj))
 		return delverObj;
 	}).catch(function(error) {
 		errorAlert(error);
@@ -57,7 +57,7 @@ function getDeliverManByArea(carId, isOwner) {
 		console.log("mans>>>>>>" + JSON.stringify(mans))
 		var isMe = 0;
 		for (var i = 0; i < mans.length; i++) {
-//			console.log("mans[i].id == isOwner.>>>>>>" + mans[i].id + "------" + isOwner)
+			//			console.log("mans[i].id == isOwner.>>>>>>" + mans[i].id + "------" + isOwner)
 			if (mans[i].id == isOwner) {
 				isMe = 1;
 			}
@@ -115,5 +115,23 @@ function saveUser(phone) {
 	}).catch(function(error) {
 		console.log("error>>>" + JSON.stringify(error))
 	});
+}
 
+//修改订餐員状态,在岗或者休息
+function setDeliverManStatus(deliverManId, status) {
+	var queryMan = new AV.Query(deliveryManObj);
+	var st = "";
+	if (status == 0) {
+		st = "休息";
+	} else {
+		st = "在岗";
+	}
+	return queryMan.get(deliverManId).then(function(man) {
+		man.set('status', st);
+		return man.save();
+	}).then(function(manobj) {
+		return manobj.id;
+	}).catch(function(error) {
+		console.log("error>>>" + JSON.stringify(error))
+	});
 }

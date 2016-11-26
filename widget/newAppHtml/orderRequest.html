@@ -19,7 +19,7 @@
 		<div class="top">
 			<header class="m-header flex-column flex-middle flex-item-24">
 				<p class="header-text flex-item-24 flex-center">
-					<i class="back"></i>配送请求<i class="refresh"></i>
+					<i class="back"></i>配送请求
 				</p>
 			</header>
 			<nav class="nav-box flex-item-24 flex-around flex-column" >
@@ -40,11 +40,7 @@
 		<div class="m-content flex-item-24 flex-column" id="m-content">
 			<!--订单模版渲染区域-->
 			<div class="list flex-item-24 flex-center flex-row" id="list-1">
-				<div class="pullDown flex-item-24 flex-center">
-					<div class="pullDown-refresh">
-						<i class="pullDown-img"></i><span>刷新订单列表</span>
-					</div>
-				</div>
+				<!--<div class="pullDown flex-item-24 flex-center"><div class="pullDown-refresh"><i class="pullDown-img"></i><span>刷新订单列表</span></div></div>-->
 				<div class="m-container-1 flex-item-24 flex-row flex-center" id="waitingOrder">
 					<div class="flex-item-24 flex-center notform " ></div>
 				</div>
@@ -54,11 +50,7 @@
 				<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" style="display: none"  >
 					<div class="flex-item-24 flex-center notform " ></div>
 				</div>
-				<div class="pullUp flex-item-24 flex-center">
-					<div class="pullUp-refresh">
-						<i class="pullUp-img"></i><span>加载更多订单</span>
-					</div>
-				</div>
+				<!--<div class="pullUp flex-item-24 flex-center"><div class="pullUp-refresh"><i class="pullUp-img"></i><span>加载更多订单</span></div></div>-->
 			</div>
 		</div>
 		<!--等待接单-->
@@ -77,10 +69,10 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.deliveryTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
+			<div class="clock"></div><span class="clock-text">{{=value.deliveryTime}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
 			</li>
 			<li>
-			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.createdAt,"dateTime",0)}}</span>
+			<div class="order-time"></div><span class="order-time-text">下单时间:{{=value.createdAt}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
@@ -262,7 +254,7 @@
 			}
 			//状态配送中
 			if (deliverArr.length > 0) {
-				$("#nav-new2").text(deliverArr.length)
+				$("#nav-new2").text(deliverArr.length);
 				document.getElementById('nav-new2').style.display = "inline-block";
 				var templateDeliver = document.getElementById('deliver_template').innerHTML;
 				document.getElementById('deliverOrder').innerHTML = doT.template( templateDeliver )(deliverArr);
@@ -316,7 +308,7 @@
 					pageParam : {
 						"cefeCar" : pageParam.cafeCar,
 						"orderId" : orderId,
-						"orderType" : 1
+						"orderType" : 2
 					},
 					bounces : false,
 					bgColor : 'rgba(0,0,0,0)',
@@ -390,15 +382,16 @@
 			myScroll = new IScroll('#m-content');
 			var upIcon = $("#up-icon"), downIcon = $("#down-icon");
 			myScroll.on("slideDown", function() {
-				if (this.y > 20) {
+				if (this.y > 40) {
 					//刷新整个页面或者刷新订单数据
+					location.reload(true)
 					console.log("刷新");
 					//刷新完成后重新获取高度
 					myScroll.refresh()
 				}
 			});
 			myScroll.on("slideUp", function() {
-				if (this.maxScrollY - this.y > 20) {
+				if (this.maxScrollY - this.y > 40) {
 					//加载更多
 					console.log("加载更多");
 					//刷新完成后重新获取高度
@@ -442,6 +435,10 @@
 						errorAlert(error);
 					});
 				}
+			});
+			$(".refresh").click(function() {
+				console.log("11111")
+				location.reload(true)
 			});
 		}
 	</script>

@@ -88,7 +88,7 @@
 		pageParam = api.pageParam;
 		var deliverManInfo = $api.getStorage("deliverMan");
 		console.log("deliverManInfo>>>>" + JSON.stringify(deliverManInfo));
-		$("#dName").text(deliverManInfo.name);
+		$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 		$("#deliverPhone").text(deliverManInfo.phone);
 		$("#deliverDd").text(deliverManInfo.area);
 		//重新派单

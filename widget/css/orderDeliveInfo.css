@@ -71,8 +71,9 @@ footer i{
     background-color: #FFF;
 }
 .user-info-web-bg{
-    background: url("../image/info_no_bg_01.jpg")center center no-repeat;
-    background-size: cover;
+background-color: #00a0df;
+    height: 18rem;
+    width: 100%;
     border-bottom: #FF6600 solid 0.1rem;
 }
 .user-info-web-bg li{

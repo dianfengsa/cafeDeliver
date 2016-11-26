@@ -20,6 +20,7 @@ function checkDeliverManSataus(user) {
 	var userPoniter = AV.Object.createWithoutData("_User", user.id);
 	query.equalTo("owner", userPoniter);
 	query.include("_User");
+	query.include("cafeCar");
 	return query.first().then(function(deliver) {
 		deliver.set("status", "在岗");
 		return deliver.save();
@@ -32,6 +33,7 @@ function checkDeliverManSataus(user) {
 				status : manObj.get("status"),
 				area : manObj.get("area"),
 				cafeCar : manObj.get("cafeCar") ? manObj.get("cafeCar").id : "",
+				cafeCarName : manObj.get("cafeCar") ? manObj.get("cafeCar").get("name") : "暂无区域",
 				owner : manObj.get("owner").id
 			};
 		}

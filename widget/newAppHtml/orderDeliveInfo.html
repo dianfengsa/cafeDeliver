@@ -16,18 +16,30 @@
 	<body>
 		<div class="user-info-web flex-item-24 flex-row">
 			<div class="user-info-web-bg flex-item-24 flex-center flex-row">
-				<div class="myInfoList"><div class="avatar"><img src="../image/textava.png" alt=""></div><span class="Name" id="dName"></span><i class="phone-img"></i><span class="phone" id="deliverPhone"></span></div>
+				<div class="myInfoList">
+					<div class="avatar"><img src="../image/textava.png" alt="">
+					</div><span class="Name" id="dName"></span><i class="phone-img"></i><span class="phone" id="deliverPhone"></span>
+				</div>
 			</div>
 			<div class="user-info-web-box flex-item-24 flex-center flex-row">
 				<div class="flex-item-24 flex-row clearfix ">
 					<ul class="clearfix bt">
-						<li  class=""><i class="list-icon icon-1"></i><span>我的状态</span><span class="list-right">在岗<div id="div1" class="open1"><div id="div2" class="open2"></div></div></span></li>
+						<li  class="">
+							<i class="list-icon icon-1"></i><span>我的状态</span><span class="list-right" id="deliverSta">在岗
+								<div id="div1" class="open1">
+									<div id="div2" class="open2"></div>
+								</div></span>
+						</li>
 					</ul>
 					<ul class="clearfix bt">
-						<li  class=""><i class="list-icon icon-2"></i>我的区域</span></li>
+						<li  class="">
+							<i class="list-icon icon-2"></i>我的区域</span>
+						</li>
 					</ul>
 					<ul class="clearfix bt">
-						<li  class=""><span class="list-right-1" id="deliverDd"></span></li>
+						<li  class="">
+							<span class="list-right-1" id="deliverDd"></span>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -35,34 +47,24 @@
 				<button type="button" value="退出登录" class="user-out-button">
 					退出登录
 				</button>
+				</d
 			</div>
-		</div>
-		<script src="../newAppJs/jquery.min.js"></script>
-		<script src="../newAppJs/api.js"></script>
-		<script src="../newAppJs/share.js"></script>
+			<script src="../newAppJs/jquery.min.js"></script>
+			<script src="../newAppJs/api.js"></script>
+			<script src="../newAppJs/av.js"></script>
+			<script src="../newAppJs/share.js"></script>
+			<script src="../newAppJs/dbSearch.js"></script>
 	</body>
 </html>
 <script>
-	$(".user-info-web").on('touchend','#div1',function () {
-		touchOff();
-		touchNo();
-	});
-	//切换配送员状态
-	var touchOff = function() {
-		div1.className = (div1.className == "close1") ? "open1" : "close1";
-	};
-	var touchNo = function() {
-		div2.className = (div2.className == "close2") ? "open2" : "close2";
-	};
 	/*我的信息页面按钮*/
-
-	var pageParam;
+	var pageParam, deliverManInfo;
 	apiready = function() {
 		//状态按钮
 		var div2 = document.getElementById("div2");
 		var div1 = document.getElementById("div1");
 		pageParam = api.pageParam;
-		var deliverManInfo = $api.getStorage("deliverMan");
+		deliverManInfo = $api.getStorage("deliverMan");
 		console.log("deliverManInfo>>>>" + JSON.stringify(deliverManInfo));
 		$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 		$("#deliverPhone").text(deliverManInfo.phone);
@@ -70,8 +72,35 @@
 		//退出登录
 		$("#btnLogOut").on("touchend", ".user-out-button", function() {
 			logOut();
-		}); 
-
+		});
+		//打电话
+		$(".user-info-web-bg").on("touchend", "#deliverPhone", function() {
+			var cPhone = $("#deliverPhone").text();
+			api.call({
+				type : 'tel_prompt',
+				number : cPhone
+			});
+		});
+		$(".user-info-web").on('touchend', '#div1', function() {
+			touchOff();
+			touchNo();
+			setDeliverManStatus(deliverManInfo.id, 0).then(function(ret) {
+				console.log(JSON.stringify(ret))
+				api.toast({
+					msg : '送餐员下线成功',
+					location : 'middle',
+					duration : 2000
+				});
+				$("#deliverSta").text("休息");
+			});
+		});
+	};
+	//切换配送员状态
+	var touchOff = function() {
+		div1.className = (div1.className == "close1") ? "open1" : "close1";
+	};
+	var touchNo = function() {
+		div2.className = (div2.className == "close2") ? "open2" : "close2";
 	};
 	function logOut() {
 		api.confirm({

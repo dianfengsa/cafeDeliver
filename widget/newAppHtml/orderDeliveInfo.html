@@ -16,21 +16,15 @@
 	<body>
 		<div class="user-info-web flex-item-24 flex-row">
 			<div class="user-info-web-bg flex-item-24 flex-center flex-row">
-
+				<div class="myInfoList"><div class="avatar"><img src="../image/textava.png" alt=""></div><span class="Name">李力立</span><span class="phone"><i class="phone-img"></i>1231232131</span></div>
 			</div>
 			<div class="user-info-web-box flex-item-24 flex-center flex-row">
-				<div class="flex-item-20 flex-row clearfix ">
+				<div class="flex-item-24 flex-row clearfix ">
 					<ul class="clearfix bt">
-						<li  class="">员工姓名：<span>xxxx</span><span class="fr">职称：</span></li>
+						<li  class=""><i class="list-icon icon-1"></i><span>我的状态</span><span class="list-right">在岗<div id="div1" class="open1"><div id="div2" class="open2"></div></div></span></li>
 					</ul>
 					<ul class="clearfix bt">
-						<li  class="">配送区域：<span>外伶仃岛测试区域</span></li>
-					</ul>
-					<ul class="clearfix bt">
-						<li  class="">区域号码：<span id="deliverPhone"></span></li>
-					</ul>
-					<ul class="clearfix bt">
-						<li  class="">配送员状态：<span id=""><div id="div1" class="open1"><div id="div2" class="open2"></div></div></span></li>
+						<li  class=""><i class="list-icon icon-2"></i>我的区域<span class="list-right">吉大、香洲</span></li>
 					</ul>
 				</div>
 			</div>
@@ -46,6 +40,19 @@
 	</body>
 </html>
 <script>
+	$(".user-info-web").on('touchend','#div1',function () {
+		touchOff();
+		touchNo();
+	});
+	//切换配送员状态
+	var touchOff = function() {
+		div1.className = (div1.className == "close1") ? "open1" : "close1";
+	};
+	var touchNo = function() {
+		div2.className = (div2.className == "close2") ? "open2" : "close2";
+	};
+	/*我的信息页面按钮*/
+
 	var pageParam;
 	apiready = function() {
 		//状态按钮
@@ -61,55 +68,7 @@
 		$("#btnLogOut").on("touchend", ".user-out-button", function() {
 			logOut();
 		}); 
-		$(".user-info-web").on('touchend','#div2',function () { 
-			touchOff();
-			touchNo();
-			touchStatus();
-		});
-		//切换配送员状态
-		var touchOff = function() {
-			div1.className = (div1.className == "close1") ? "open1" : "close1";
-		};
-		var touchNo = function() {
-			div2.className = (div2.className == "close2") ? "open2" : "close2";
-		};
-		var touchStatus = function() {
-			if (div1.className == "open1") {
-				$(".user-logo-img").css({
-					"background" : 'url("../image/info_no.png")center center no-repeat',
-					'background-size' : 'auto 100%'
-				});
-				$(".user-logo").css({
-					'border' : '#ff6600 solid 0.3rem'
-				});
-				$(".user-info-web-bg").css({
-					"background" : 'url("../image/info_no_bg.jpg")center center no-repeat',
-					'background-size' : '100% 100%',
-					'border-bottom' : '#ff6600 solid 0.1rem'
-				});
-				$(".buff").css({
-					'color' : '#ff6600'
-				});
-			}
-			if (div1.className == "close1") {
-				$(".user-logo-img").css({
-					"background" : 'url("../image/info_off.png")center center no-repeat',
-					'background-size' : 'auto 100%'
-				});
-				$(".user-logo").css({
-					'border' : '#c9c9c9 solid 0.3rem'
-				});
-				$(".user-info-web-bg").css({
-					'background' : 'url("../image/info_off_bg.png")center center no-repeat',
-					'background-size' : '100% 100%',
-					'border-bottom' : '#c9c9c9 solid 0.1rem'
-				});
-				$(".buff").css({
-					'color' : '#818181'
-				});
-			}
-		};
-		/*我的信息页面按钮*/
+
 	};
 	function logOut() {
 		api.confirm({

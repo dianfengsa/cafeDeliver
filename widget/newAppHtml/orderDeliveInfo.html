@@ -19,52 +19,20 @@
 				<div class="user-logo flex-center">
 					<div class=" user-logo-img" id="user-logo-img"></div>
 				</div>
-				<div class="flex-item-14 flex-row  clearfix">
-					<ul class="clearfix">
-						<li class="fl buff">
-							配送员状态
-						</li>
-						<li class="fr buff ">
-							<div id="div1" class="open1">
-								<div id="div2" class="open2"></div>
-							</div>
-						</li>
-					</ul>
-					<ul class="clearfix">
-						<li>
-							员工姓名：<span id="dName"></span>
-						</li>
-						<li>
-							职称：<span>送餐员</span>
-						</li>
-					</ul>
-				</div>
 			</div>
 			<div class="user-info-web-box flex-item-24 flex-center flex-row">
-				<div class="flex-item-18 flex-row  clearfix">
-					<ul class="clearfix">
-						<li  class="fl bt">
-							配送区域：
-						</li>
-						<li class="fl ">
-							<span>外伶仃岛测试区域</span>
-						</li>
+				<div class="flex-item-20 flex-row clearfix ">
+					<ul class="clearfix bt">
+						<li  class="">员工姓名：<span>xxxx</span><span class="fr">职称：</span></li>
 					</ul>
-					<ul class="clearfix">
-						<li  class="fl bt">
-							配送地点：
-						</li>
-						<li class="fl ">
-							<span id="deliverDd">吉大景园路1号315室</span>
-						</li>
+					<ul class="clearfix bt">
+						<li  class="">配送区域：<span>外伶仃岛测试区域</span></li>
 					</ul>
-					<ul class="clearfix">
-						<li  class="fl bt">
-							区域号码：
-						</li>
-						<li class="fl">
-							<span id="deliverPhone"></span>
-						</li>
+					<ul class="clearfix bt">
+						<li  class="">区域号码：<span id="deliverPhone"></span></li>
+					</ul>
+					<ul class="clearfix bt">
+						<li  class="">配送员状态：<span id=""><div id="div1" class="open1"><div id="div2" class="open2"></div></div></span></li>
 					</ul>
 				</div>
 			</div>
@@ -91,11 +59,11 @@
 		$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 		$("#deliverPhone").text(deliverManInfo.phone);
 		$("#deliverDd").text(deliverManInfo.area);
-		//重新派单
+		//退出登录
 		$("#btnLogOut").on("touchend", ".user-out-button", function() {
 			logOut();
-		});
-		$("#div2").click(function() {
+		}); 
+		$(".user-info-web").on('touchend','#div2',function () { 
 			touchOff();
 			touchNo();
 			touchStatus();

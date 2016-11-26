@@ -45,7 +45,7 @@
 					<div class="flex-item-24 flex-center notform " ></div>
 				</div>
 				<div class="m-container-2 flex-item-24 flex-row flex-center" id="deliverOrder" style="display: none" >
-                    <div class="flex-item-24 flex-center notform " ></div>
+					<div class="flex-item-24 flex-center notform " ></div>
 				</div>
 				<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" style="display: none"  >
 					<div class="flex-item-24 flex-center notform " ></div>
@@ -115,7 +115,7 @@
 			<div class="clock"></div><span class="clock-text">{{=value.deliveryTime}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
 			</li>
 			<li>
-			<div class="order-time"></div><span class="order-time-text">下单时间:{{=value.createdAt}}</span> <div class="phone"></div>
+			<div class="order-time"></div><span class="order-time-text">下单时间:{{=value.createdAt}}</span> <div class="phone" data-value="{{=value.customerPhone}}"></div>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
@@ -175,7 +175,7 @@
 			</li>
 			{{?}}
 			<li class="clearfix">
-			<div class="destination"> 
+			<div class="destination">
 			</div><span class="add-destination">{{=value.kitchen.name}}—{{=value.kitchen.addressDetail}}</span>
 			</li>
 			<li class="clearfix">
@@ -220,7 +220,6 @@
 			pageParam = api.pageParam;
 			var winHeight = api.winHeight;
 			//获取屏幕高度
-
 			var winWidth = api.winWidth;
 			//加载底部栏
 			api.openFrame({
@@ -273,9 +272,7 @@
 			console.log("waitingOrderH:" + waitingOrderH);
 			console.log("deliverOrderH:" + deliverOrderH);
 			console.log("finishedOrderH:" + finishedOrderH);
-
 			myScroll.refresh();
-
 			//外卖订单
 			$(".footer-box").on("touchend", "#footer-1", function() {
 				openOrderDelive(pageParam);
@@ -311,7 +308,7 @@
 					pageParam : {
 						"cefeCar" : pageParam.cafeCar,
 						"orderId" : orderId,
-						"orderType" : 1
+						"orderType" : 2
 					},
 					bounces : false,
 					bgColor : 'rgba(0,0,0,0)',
@@ -320,7 +317,7 @@
 					animation : {
 						type : "fade", //动画类型（详见动画类型常量）
 						subType : "from_bottom", //动画子类型（详见动画子类型常量）
-						curve:"ease_out",
+						curve : "ease_out",
 						duration : 200 //动画过渡时间，默认300毫秒
 					}
 				});
@@ -359,21 +356,19 @@
 					animation : {
 						type : "fade", //动画类型（详见动画类型常量）
 						subType : "from_bottom", //动画子类型（详见动画子类型常量）
-						curve:"ease_out",
+						curve : "ease_out",
 						duration : 200 //动画过渡时间，默认300毫秒
 					}
 				});
 			});
 		}
-
-
-        $(".m-content").on("touchend",".phone",function () {    //快捷拨号
-
-            console.log("call")
-           // api.call({type: 'tel_prompt', number: phone});
-        });
-
-
+		$(".m-content").on("touchend", ".phone", function() {//快捷拨号
+			var cPhone = $(this).attr("data-value");
+			api.call({
+				type : 'tel_prompt',
+				number : cPhone
+			});
+		});
 		function setRequestStatusNum() {
 			var waitNum = $api.getStorage("requestWartNum");
 			var deliverNum = $api.getStorage("requestDeliveNum");
@@ -441,8 +436,7 @@
 					});
 				}
 			});
-
-			$(".refresh").click( function() {
+			$(".refresh").click(function() {
 				console.log("11111")
 				location.reload(true)
 			});

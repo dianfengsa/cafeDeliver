@@ -198,13 +198,13 @@
 							// 检查DeliverMan中是否存在登陆的用户信息
 							checkDeliverManSataus(user).then(function(ret) {
 								if (!_.isEmpty(ret)) {
-									console.log(1)
+									$api.setStorage("deliverMan", ret);
 									// 用户已经注册,直接获取相关信息,区域,名称等...
 									goOrderListPage(ret);
 								} else {
-									console.log(2)
 									// 注册用户
 									saveUser(phone.value).then(function(retsult) {
+										$api.setStorage("deliverMan", ret);
 										goOrderListPage(retsult);
 									}).catch(function(error) {
 										if (error.code == "214") {

@@ -16,7 +16,7 @@
 	<body>
 		<div class="user-info-web flex-item-24 flex-row">
 			<div class="user-info-web-bg flex-item-24 flex-center flex-row">
-				<div class="myInfoList"><div class="avatar"><img src="../image/textava.png" alt=""></div><span class="Name">李力立</span><span class="phone"><i class="phone-img"></i>1231232131</span></div>
+				<div class="myInfoList"><div class="avatar"><img src="../image/textava.png" alt=""></div><span class="Name" id="dName"></span><span class="phone" id="deliverPhone"><i class="phone-img"></i></span></div>
 			</div>
 			<div class="user-info-web-box flex-item-24 flex-center flex-row">
 				<div class="flex-item-24 flex-row clearfix ">
@@ -24,7 +24,7 @@
 						<li  class=""><i class="list-icon icon-1"></i><span>我的状态</span><span class="list-right">在岗<div id="div1" class="open1"><div id="div2" class="open2"></div></div></span></li>
 					</ul>
 					<ul class="clearfix bt">
-						<li  class=""><i class="list-icon icon-2"></i>我的区域<span class="list-right">吉大、香洲</span></li>
+						<li  class=""><i class="list-icon icon-2"></i>我的区域<span class="list-right" id="deliverDd"></span></li>
 					</ul>
 				</div>
 			</div>
@@ -63,7 +63,7 @@
 		console.log("deliverManInfo>>>>" + JSON.stringify(deliverManInfo));
 		$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 		$("#deliverPhone").text(deliverManInfo.phone);
-		$("#deliverDd").text(deliverManInfo.area);
+		$("#deliverDd").text(deliverManInfo.cafeCarName);
 		//退出登录
 		$("#btnLogOut").on("touchend", ".user-out-button", function() {
 			logOut();

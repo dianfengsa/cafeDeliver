@@ -1,5 +1,5 @@
 html{
-
+height: 100%;
 }
 @font-face {
 
@@ -100,7 +100,7 @@ background-color: #2fc2ec;
 }
 
 .myInfoList .avatar{
-    display:inline-block;width:8rem; height:8rem; border-radius:50%; overflow:hidden;
+    display:inline-block;width:8rem; height:8rem; border-radius:50%; overflow:hidden;float: left;
 }
 
 .myInfoList .avatar img{
@@ -108,18 +108,25 @@ height: 100%;
 }
 
 .myInfoList .Name{
+    position: relative;
+    bottom: -1.5rem;
+    float: left;
     font-size: 2rem;
     color: #FFFFFF;
     margin:  0 0 0 2rem;
-    line-height: 8rem;
-
+    line-height: 4rem;
+    width: 20rem;
 }
 
 .myInfoList .phone{
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #FFFFFF;
 }
-
+.myInfoList .phone-info{
+    float: left;
+    display: inline-block;
+    width: 20rem;
+}
 .myInfoList  i{
     margin: 0 0 0 2rem;
     position: relative;
@@ -197,7 +204,8 @@ background: url("../image/pen.png")center center no-repeat;
 
 
 .user-out{
-    position: fixed;
+    z-index: 2;
+    position: absolute;
     bottom: 2rem;
      text-align: center;
  }

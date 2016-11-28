@@ -235,9 +235,7 @@ footer i{
     margin-bottom: 0;
 }
 
-.user-box:last-child{
-    margin-bottom: 0;
-}
+
 
 .money i {
     font-style: normal;
@@ -249,7 +247,7 @@ footer i{
     border-radius: 0.5rem;
 }
 .user-box:last-child{
-    margin-bottom: 0;
+   margin-bottom: 6rem;
 }
 .user-info-body{
     background-color: #FFFFFF;
@@ -534,9 +532,7 @@ width: 90%;
     display: none;
 
 }
-.user-info-other-table{
 
-}
 
 .th th{
     background-color: #eeeeee;
@@ -548,11 +544,30 @@ width: 90%;
 
 }
 
+.tr{
+    position: absolute;
+}
+
+.td .amount{
+    position: relative;
+    text-align: center;
+
+
+}
+
 .td td{
+
     font-size: 1.4rem;
-    padding: 0.1rem 0;
+  margin: 0.2rem 0;
     color:#7f7f7f;
 }
+
+.dishes{
+ text-align: left;
+    padding-left: 2rem;
+}
+
+
 
 
 

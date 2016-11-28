@@ -18,7 +18,7 @@
 			<div class="user-info-web-bg flex-item-24 flex-center flex-row">
 				<div class="myInfoList">
 					<div class="avatar"><img src="../image/textava.png" alt=""></div>
-					<span class="Name" id="dName">11111111111</span>
+					<span class="Name" id="dName"></span>
 				</div>
 			</div>
 			<div class="user-info-web-box flex-item-24 flex-center flex-row">
@@ -149,5 +149,30 @@
 				}
 			});
 		}
+		
+		
+		function change() {
+			var original = $("#dName").text();
+			var value = prompt('输入新昵称：（请不要超过4个汉字,并且是中文）', original);
+			var reg = /^[\u4e00-\u9fa5]+$/;
+
+			console.log(original);
+
+			if (reg.test(value) && value.length <= 8) {
+
+				$("#dName").text(value);
+				alert("更改昵称成功");
+
+			}
+			else if (value == null) {
+
+			}
+			else {
+				alert('昵称不符合格式');
+			}
+		}
+		$(".user-info-web-bg").on("touchend", "#dName", function () {
+			change();
+		});
 	}
 </script>

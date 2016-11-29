@@ -266,7 +266,7 @@
 			});
 			//重新派单事件
 			$("#deliverOrder").on("touchend", ".dispatch2", function() {
-			console.log(2)
+			console.log(2);
 				var orderId = $(this).attr("data-value");
 				api.openFrame({
 					name : 'deliveSelect',
@@ -304,9 +304,10 @@
 				var deliverId = $(this).attr("data-cust");
 				served(orderId, deliverId);
 			});
-			console.log("pageParam>>>>>>>>" + JSON.stringify(pageParam))
-			$("#list-1").on("click", ".dispatch", function() {
-			console.log(1)
+			console.log("pageParam>>>>>>>>" + JSON.stringify(pageParam));
+			//立即接单
+			$("#m-content").on("click", ".dispatch", function() {
+			console.log(1);
 				var orderId = $(this).attr("data-value");
 				api.openFrame({
 					name : 'deliveSelect',
@@ -324,7 +325,7 @@
 					pageParam : {
 						"cefeCar" : pageParam.cafeCar,
 						"orderId" : orderId,
-						"orderType" : 1
+						"orderType" : 2
 					},
 					bounces : false,
 					bgColor : 'rgba(0,0,0,0)',
@@ -338,7 +339,7 @@
 					}
 				});
 			});
-		}
+		};
 		$(".m-content").on("touchend", ".phone", function() {//快捷拨号
 			var cPhone = $(this).attr("data-value");
 			api.call({

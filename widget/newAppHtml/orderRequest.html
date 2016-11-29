@@ -306,7 +306,7 @@
 			});
 			console.log("pageParam>>>>>>>>" + JSON.stringify(pageParam))
 			$("#list-1").on("click", ".dispatch", function() {
-			console.log(1)
+			console.log(2)
 				var orderId = $(this).attr("data-value");
 				api.openFrame({
 					name : 'deliveSelect',
@@ -324,7 +324,7 @@
 					pageParam : {
 						"cefeCar" : pageParam.cafeCar,
 						"orderId" : orderId,
-						"orderType" : 1
+						"orderType" : 2
 					},
 					bounces : false,
 					bgColor : 'rgba(0,0,0,0)',

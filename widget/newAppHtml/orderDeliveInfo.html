@@ -183,22 +183,40 @@
 			var originalT = document.getElementById("dName").innerHTML;
 			console.log(originalT);
 			var reg = /^[\u4e00-\u9fa5]+$/;
-			if(reg.test(originalT) && originalT.length <= 8){
+			var containSpecial = /^[^@\/\'\\\"#$%&\^\*]+$/;
+			if(!containSpecial.test(originalT.text)){
+				alert('昵称不允许出现特殊符号');
+				original.css("background","none");
+				original.attr("contentEditable", false);
+				original.css("color","#FFFFFF");
+				return
+			}
 
+			if(!containSpecial.test(originalT.text) == false && originalT.length >= 4  ){
 				alert("更改昵称成功");
+				original.css("background","none");
+				original.attr("contentEditable", false);
+				original.css("color","#FFFFFF");
+				return
 			}
 			else if (original.text == null) {
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
-				alert('昵称不符合格式（最多4汉字8位字符）');
+				alert('昵称不符合格式（最少2汉字或4位数字,只允许数字、中文）');
+				original.css("background","none");
+				original.attr("contentEditable", false);
+				original.css("color","#FFFFFF");
+				return
 
 			} else {
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
-				alert('昵称不符合格式（最多4汉字8位字符）');
+				alert('昵称不符合格式（最少2汉字或4位数字,只允许数字、中文）');
+				original.css("background","none");
+				original.attr("contentEditable", false);
+				original.css("color","#FFFFFF");
+				return
 			}
 
-			original.css("background","none");
-			original.attr("contentEditable", false);
-			original.css("color","#FFFFFF");
+
 
 
 		});

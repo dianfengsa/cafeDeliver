@@ -112,12 +112,27 @@ height: 100%;
 }
 
 .myInfoList .Name{
+position: relative;
     margin: auto auto;
-    min-width: 3rem;
+    width: 16rem;
     text-align: center;
  display: inline-block;
     font-size: 2rem;
     color: #FFFFFF;
+
+}
+
+#clear-text{
+    top: 0.2rem;
+    right: 0.2rem;
+position: absolute;
+    margin: 0;
+    display: none;
+    background: url("../image/clear.png")center center no-repeat;
+    height: 2.5rem;
+    width: 2.5rem;
+    background-size: cover;
+    z-index: 2;
 
 }
 

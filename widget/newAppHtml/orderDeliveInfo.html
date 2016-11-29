@@ -16,11 +16,13 @@
 	<body>
 		<div class="user-info-web flex-item-24 flex-row">
 			<div class="user-info-web-bg flex-item-24 flex-center flex-row">
-
 				<div class="myInfoList">
-					<div class="avatar"><img src="../image/textava.png" alt=""></div>
+					<div class="avatar"><img src="../image/textava.png" alt="">
+					</div>
 					<span class="Name" id="dName">11111111111</span>
-					<div class="phone-info"><i class="phone-img"></i><span class="phone" id="deliverPhone">11111111111</span></div>
+					<div class="phone-info">
+						<i class="phone-img"></i><span class="phone" id="deliverPhone">11111111111</span>
+					</div>
 				</div>
 			</div>
 			<div class="user-info-web-box flex-item-24 flex-center flex-row">
@@ -46,16 +48,16 @@
 				</div>
 			</div>
 		</div>
-			<div class="user-out flex-item-24 flex-center flex-between" id="btnLogOut">
-				<button type="button" value="退出登录" class="user-out-button">
-					退出登录
-				</button>
-			</div>
-			<script src="../newAppJs/jquery.min.js"></script>
-			<script src="../newAppJs/api.js"></script>
-			<script src="../newAppJs/av.js"></script>
-			<script src="../newAppJs/share.js"></script>
-			<script src="../newAppJs/dbSearch.js"></script>
+		<div class="user-out flex-item-24 flex-center flex-between" id="btnLogOut">
+			<button type="button" value="退出登录" class="user-out-button">
+				退出登录
+			</button>
+		</div>
+		<script src="../newAppJs/jquery.min.js"></script>
+		<script src="../newAppJs/api.js"></script>
+		<script src="../newAppJs/av.js"></script>
+		<script src="../newAppJs/share.js"></script>
+		<script src="../newAppJs/dbSearch.js"></script>
 	</body>
 </html>
 <script>
@@ -72,79 +74,71 @@
 		$("#deliverPhone").text(deliverManInfo.phone);
 		$("#deliverDd").text(deliverManInfo.cafeCarName);
 		//退出登录
-		$("#btnLogOut").on("touchend", ".user-out-button", function () {
+		$("#btnLogOut").on("touchend", ".user-out-button", function() {
 			logOut();
 		});
 		//打电话
-		$(".user-info-web-bg").on("touchend", "#deliverPhone", function () {
+		$(".user-info-web-bg").on("touchend", "#deliverPhone", function() {
 			var cPhone = $("#deliverPhone").text();
 			api.call({
-				type: 'tel_prompt',
-				number: cPhone
+				type : 'tel_prompt',
+				number : cPhone
 			});
 		});
-
-		var touchOff = function () {
+		var touchOff = function() {
 			div1.className = (div1.className == "close1") ? "open1" : "close1";
 		};
-		var touchNo = function () {
+		var touchNo = function() {
 			div2.className = (div2.className == "close2") ? "open2" : "close2";
 		};
-
 		var status = 0;
-		$(".user-info-web").on('touchend', '#div1', function () {
+		$(".user-info-web").on('touchend', '#div1', function() {
 			touchOff();
 			touchNo();
 			if (status == 0) {
-				console.log("0");
-				setDeliverManStatus(deliverManInfo.id, 0).then(function (ret) {
-					console.log(JSON.stringify(ret));
+				setDeliverManStatus(deliverManInfo.id, 0).then(function(ret) {
 					api.toast({
-						msg: '送餐员下线成功',
-						location: 'middle',
-						duration: 2000
+						msg : '送餐员下线成功',
+						location : 'middle',
+						duration : 2000
 					});
 					$("#deliverSta").text("休息");
-					status = 1 ;
+					status = 1;
 				});
 			}
 			if (status == 1) {
-				console.log("1");
-				setDeliverManStatus(deliverManInfo.id, 1).then(function (ret) {
-					console.log(JSON.stringify(ret));
+				setDeliverManStatus(deliverManInfo.id, 1).then(function(ret) {
 					api.toast({
-						msg: '送餐员上线成功',
-						location: 'middle',
-						duration: 2000
+						msg : '送餐员上线成功',
+						location : 'middle',
+						duration : 2000
 					});
 					$("#deliverSta").text("在岗");
-
-						status = 0;
+					status = 0;
 				});
 			}
-
 		});
 		//切换配送员状态
-
 		function logOut() {
 			api.confirm({
-				title: '提示',
-				msg: '确定注销登录？',
-				buttons: ['取消', '确定']
-			}, function (ret, err) {
+				title : '提示',
+				msg : '确定注销登录？',
+				buttons : ['取消', '确定']
+			}, function(ret, err) {
 				if (ret.buttonIndex == 2) {
 					AV.User.logOut();
 					var currentUser = AV.User.current();
 					api.openWin({
-						name: 'login',
-						url: '../new_login.html',
-						opaque: true, // 页面不透明
-						bounces: false, // 不允许页面弹动
-						reload: true,
-						delay: 0
+						name : 'login',
+						url : '../new_login.html',
+						opaque : true, // 页面不透明
+						bounces : false, // 不允许页面弹动
+						reload : true,
+						delay : 0
 					});
 				}
 			});
 		}
+
 	}
 </script>

@@ -151,7 +151,7 @@
 			modal : true
 		});
 		console.log(".............." + orderId + "    " + manId)
-		var queryOrder = new AV.Query(deliveryOrderObj);
+		var queryOrder = new AV.Query(orderObj);
 		var queryMan = new AV.Query(deliveryManObj);
 		queryOrder.get(orderId).then(function(order) {
 			console.log("......order........" + JSON.stringify(order))

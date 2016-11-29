@@ -19,7 +19,7 @@
 				<div class="myInfoList">
 					<div class="avatar"><img src="../image/textava.png" alt="">
 					</div>
-					<span class="Name" id="dName"></span>
+					<span class="Name" id="dName" ></span>
 				</div>
 			</div>
 			<div class="user-info-web-box flex-item-24 flex-center flex-row">
@@ -142,7 +142,7 @@
 			});
 		}
 
-		function change() {
+	/*	function change() {
 			var original = $("#dName").text();
 			var value = prompt('输入新昵称：（请不要超过4个汉字,并且是中文）', original);
 			var reg = /^[\u4e00-\u9fa5]+$/;
@@ -157,9 +157,64 @@
 			}
 		}
 
+*/
+
+	/*	function blur() {			//失去焦点时
+			var original = $("#dName");
+			original.attr("contentEditable", false);
+
+			var reg = /^[\u4e00-\u9fa5]+$/;
+
+			if (reg.test(original.text) && value.length <= 8) {
+			//	$("#dName").text(value);
+				//调用更改昵称函数
+				alert("更改昵称成功");
+			} else if (value == null) {
+				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
+			} else {
+				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
+				alert('昵称不符合格式');
+			}
+		}
+*/
+
+		$("#dName").blur(function(){
+			var original = $("#dName");
+			var originalT = document.getElementById("dName").innerHTML;
+			console.log(originalT);
+			var reg = /^[\u4e00-\u9fa5]+$/;
+			if(reg.test(originalT) && originalT.length <= 8){
+
+				alert("更改昵称成功");
+			}
+			else if (original.text == null) {
+				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
+				alert('昵称不符合格式（最多4汉字8位字符）');
+
+			} else {
+				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
+				alert('昵称不符合格式（最多4汉字8位字符）');
+			}
+
+			original.css("background","none");
+			original.attr("contentEditable", false);
+			original.css("color","#FFFFFF");
+
+
+		});
+
+
+		function active() {		//获得焦点时
+			var original = $("#dName");
+			original.attr("contentEditable", true);
+			original.css("background-color", "#FFFFFF");
+			original.css("color","#000000");
+		}
 
 		$(".user-info-web-bg").on("touchend", "#dName", function() {
-			change();
+			// change();
+			active()
 		});
+
 	}
 </script>

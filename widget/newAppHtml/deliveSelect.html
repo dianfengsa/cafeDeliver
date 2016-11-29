@@ -132,6 +132,7 @@
 			setTimeout(function() {
 				goBack();
 			}, 1000);
+
 		}).catch(function(erroer) {
 			console.log("erroer>>>" + JSON.stringify(erroer))
 			api.toast({
@@ -150,7 +151,7 @@
 			modal : true
 		});
 		console.log(".............." + orderId + "    " + manId)
-		var queryOrder = new AV.Query(deliveryOrderObj);
+		var queryOrder = new AV.Query(orderObj);
 		var queryMan = new AV.Query(deliveryManObj);
 		queryOrder.get(orderId).then(function(order) {
 			console.log("......order........" + JSON.stringify(order))
@@ -170,6 +171,7 @@
 				setTimeout(function() {
 					goBack();
 				}, 1000);
+
 			}).catch(function(error) {
 				api.hideProgress();
 				api.alert({

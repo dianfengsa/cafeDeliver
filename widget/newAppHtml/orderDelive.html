@@ -125,7 +125,7 @@
 			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li>
-			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
+			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span> <div class="phone" data-value="{{=value.customerPhone}}"></div>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
@@ -392,14 +392,7 @@
 				}
 			});
 		});
-		$(".m-content").on("touchend", ".businessInfo", function() {//点击后显示该订单的商家信息
-			var businessInfo = $(this).parents().siblings('.user-info-other-box');
-			$(".user-info-other-box:not(businessInfo)").slideUp();
-			if (businessInfo.css("display") == "none") {
-				businessInfo.slideToggle(200);
-			} else {
-			}
-		});
+
 	};
 	//获取申请退款的数目
 	function loadOrders(carId, pageSize) {
@@ -458,7 +451,7 @@
 				}
 			} else {
 				document.getElementById('nav-new2').style.display = "none";
-				var deliver_template = document.getElementById('deliver_template').innerHTML;
+
 			}
 			if (finisheddArr.length > 0) {
 				var finishedd_template = document.getElementById('finishedd_template').innerHTML;
@@ -471,9 +464,12 @@
 			console.log("myOrderArr.........." + JSON.stringify(myOrderArr))
 			console.log("finisheddArr.........." + JSON.stringify(finisheddArr))
 			$api.setStorage("wartNum", waitingArr.length);
+			document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
 			$api.setStorage("deliveNum", myOrderArr.length);
+
 			console.log(waitingArr.length)
 			console.log(myOrderArr.length)
+
 			api.execScript({
 				frameName : 'footer',
 				script : 'setOrderNum();'
@@ -566,6 +562,7 @@
 		});
 	}
 
+
 	function loaded() {//已闲置，作为增加页面弹性滚动
 		myScroll = new IScroll('#m-content');
 		myScroll.on("slideDown", function() {
@@ -584,5 +581,7 @@
 				myScroll.refresh()
 			}
 		});
+
 	}
+
 </script>

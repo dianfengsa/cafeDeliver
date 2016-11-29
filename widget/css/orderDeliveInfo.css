@@ -93,14 +93,15 @@ background-color: #2fc2ec;
     margin:  0 0 1rem 0;
 }
 .myInfoList{
-    left: 5%;
-    top: 40%;
-   position: relative;
+    padding: 4rem 0 0 0;
+    text-align: center;
     width: 100%;
 }
 
 .myInfoList .avatar{
-    display:inline-block;width:8rem; height:8rem; border-radius:50%; overflow:hidden;float: left;
+    margin: 0 0 0.5rem 0;
+    display: inline-block;
+    width:8rem; height:8rem; border-radius:50%; overflow:hidden;
 }
 
 .myInfoList .avatar img{
@@ -108,14 +109,11 @@ height: 100%;
 }
 
 .myInfoList .Name{
-    position: relative;
-    bottom: -1.5rem;
-    float: left;
+    text-align: center;
+ display: block;
     font-size: 2rem;
     color: #FFFFFF;
-    margin:  0 0 0 2rem;
-    line-height: 4rem;
-    width: 50%;
+
 }
 
 .myInfoList .phone{
@@ -200,6 +198,10 @@ background: url("../image/pen.png")center center no-repeat;
 
 .icon-2{
     background: url("../image/area.png")center center no-repeat;
+}
+
+.icon-3{
+    background: url("../image/phone2.png")center center no-repeat;
 }
 
 

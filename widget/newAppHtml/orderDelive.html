@@ -160,16 +160,16 @@
 			</div>
 			<div class="user-info-other-table flex-item-23 flex-center">
 			<table class="flex-item-24 ">
-			<tr class="th">
-			<th>菜名</th>
-			<th>数量</th>
-			<th>单价</th>
+			<tr class="th flex-item-24 ">
+			<th class="flex-item-14">菜名</th>
+			<th class="flex-item-5">数量</th>
+			<th class="flex-item-5">单价</th>
 			</tr>
 			{{~value.cart:cValue:cIndex}}
-			<tr class="td">
-			<td>{{=cValue.menuName}}</td>
-			<td>×{{=cValue.amount}}</td>
-			<td>￥{{=cValue.price}}</td>
+			<tr class="td flex-item-24">
+			<td class="flex-item-14 dishes">{{=cValue.menuName}}</td>
+			<td class="flex-item-5 amount">×{{=cValue.amount}}</td>
+			<td class="flex-item-5">￥{{=cValue.price}}</td>
 			</tr>
 			{{~}}
 			</table>
@@ -392,6 +392,19 @@
 				}
 			});
 		});
+
+		$(".m-content").on("touchend",".businessInfo",function () {    //点击后显示该订单的商家信息
+			var businessInfo =  $(this).parents().siblings('.user-info-other-box');
+			$(".user-info-other-box:not(businessInfo)").slideUp();
+			if(businessInfo.css("display") == "none" ){
+				businessInfo.slideToggle(200);
+			}
+
+			else {
+
+			}
+
+		});
 	};
 	//获取申请退款的数目
 	function loadOrders(carId, pageSize) {
@@ -556,7 +569,7 @@
 		});
 	}
 
-	function loaded() {
+	function loaded() {				//已闲置，作为增加页面弹性滚动
 		myScroll = new IScroll('#m-content');
 		myScroll.on("slideDown", function() {
 			if (this.y > 40) {

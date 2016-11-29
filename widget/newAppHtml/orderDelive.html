@@ -392,18 +392,13 @@
 				}
 			});
 		});
-
-		$(".m-content").on("touchend",".businessInfo",function () {    //点击后显示该订单的商家信息
-			var businessInfo =  $(this).parents().siblings('.user-info-other-box');
+		$(".m-content").on("touchend", ".businessInfo", function() {//点击后显示该订单的商家信息
+			var businessInfo = $(this).parents().siblings('.user-info-other-box');
 			$(".user-info-other-box:not(businessInfo)").slideUp();
-			if(businessInfo.css("display") == "none" ){
+			if (businessInfo.css("display") == "none") {
 				businessInfo.slideToggle(200);
+			} else {
 			}
-
-			else {
-
-			}
-
 		});
 	};
 	//获取申请退款的数目
@@ -519,8 +514,6 @@
 			console.log("配送请求》》》》finisheddArr.........." + JSON.stringify(reFinishedArr))
 			$api.setStorage("requestWartNum", reWaitingArr.length);
 			$api.setStorage("requestDeliveNum", reDeliverArr.length);
-			console.log(reWaitingArr.length);
-			console.log(reDeliverArr.length);
 			api.execScript({
 				frameName : 'footer',
 				script : 'setRequestOrderNum();'
@@ -528,6 +521,10 @@
 			api.execScript({
 				frameName : 'orderRequest',
 				script : 'setRequestStatusNum();'
+			});
+			api.execScript({
+				frameName : 'orderRequest',
+				script : 'getDeliverRequestInfo();'
 			});
 			$api.setStorage("requestWaiting", reWaitingArr);
 			$api.setStorage("requestDeliver", reDeliverArr);
@@ -569,7 +566,7 @@
 		});
 	}
 
-	function loaded() {				//已闲置，作为增加页面弹性滚动
+	function loaded() {//已闲置，作为增加页面弹性滚动
 		myScroll = new IScroll('#m-content');
 		myScroll.on("slideDown", function() {
 			if (this.y > 40) {

@@ -238,32 +238,7 @@
 				pageParam : pageParam,
 				delay : 0
 			});
-			var waitingArr = [], deliverArr = [], finishedArr = [];
-			waitingArr = $api.getStorage("requestWaiting");
-			deliverArr = $api.getStorage("requestDeliver");
-			finishedArr = $api.getStorage("requestFinished");
-			console.log("配送请求》》waitingArr>>>" + JSON.stringify(waitingArr))
-			console.log("配送请求》》deliverArr>>>>" + JSON.stringify(deliverArr))
-			console.log("配送请求》》finishedArr>>>>" + JSON.stringify(finishedArr))
-			if (waitingArr.length > 0) {
-				$("#nav-new1").text(waitingArr.length)
-				document.getElementById('nav-new1').style.display = "inline-block";
-				//状态为等待接单
-				var templateWartting = document.getElementById('waiting_template').innerHTML;
-				document.getElementById('waitingOrder').innerHTML = doT.template( templateWartting )(waitingArr);
-			}
-			//状态配送中
-			if (deliverArr.length > 0) {
-				$("#nav-new2").text(deliverArr.length);
-				document.getElementById('nav-new2').style.display = "inline-block";
-				var templateDeliver = document.getElementById('deliver_template').innerHTML;
-				document.getElementById('deliverOrder').innerHTML = doT.template( templateDeliver )(deliverArr);
-			}
-			//状态为已完成
-			if (finishedArr.length > 0) {
-				var templateFinished = document.getElementById('finished_template').innerHTML;
-				document.getElementById('finishedOrder').innerHTML = doT.template( templateFinished )(finishedArr);
-			}
+			getDeliverRequestInfo();
 			//数据加载完成后再获取实际高度初始化iscroll
 			//获取高度后再初始化iscroll
 			var waitingOrderH = $("#waitingOrder").height();
@@ -369,6 +344,33 @@
 				number : cPhone
 			});
 		});
+		///绑定配送请求订单的数据
+		function getDeliverRequestInfo() {
+			var waitingArr = [], deliverArr = [], finishedArr = [];
+			waitingArr = $api.getStorage("requestWaiting");
+			deliverArr = $api.getStorage("requestDeliver");
+			finishedArr = $api.getStorage("requestFinished");
+			if (waitingArr.length > 0) {
+				$("#nav-new1").text(waitingArr.length)
+				document.getElementById('nav-new1').style.display = "inline-block";
+				//状态为等待接单
+				var templateWartting = document.getElementById('waiting_template').innerHTML;
+				document.getElementById('waitingOrder').innerHTML = doT.template( templateWartting )(waitingArr);
+			}
+			//状态配送中
+			if (deliverArr.length > 0) {
+				$("#nav-new2").text(deliverArr.length);
+				document.getElementById('nav-new2').style.display = "inline-block";
+				var templateDeliver = document.getElementById('deliver_template').innerHTML;
+				document.getElementById('deliverOrder').innerHTML = doT.template( templateDeliver )(deliverArr);
+			}
+			//状态为已完成
+			if (finishedArr.length > 0) {
+				var templateFinished = document.getElementById('finished_template').innerHTML;
+				document.getElementById('finishedOrder').innerHTML = doT.template( templateFinished )(finishedArr);
+			}
+		}
+
 		function setRequestStatusNum() {
 			var waitNum = $api.getStorage("requestWartNum");
 			var deliverNum = $api.getStorage("requestDeliveNum");

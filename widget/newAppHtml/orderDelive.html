@@ -400,10 +400,10 @@
 			title : '加载数据中...',
 			modal : true
 		}, 3000);
-		var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [], myOrderArr = [];
 		//调用野狗,实时获取数据
 		var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
 		ref.orderByKey().limitToFirst(100).on("value", function(datasnapshot) {
+			var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [], myOrderArr = [];
 			var snap = _.groupBy(datasnapshot.val(), function(val) {
 				val.deliverMark = val.deliverMark ? val.deliverMark : "0";
 				return val.deliverMark;
@@ -460,6 +460,9 @@
 				document.getElementById('finishedOrder').innerHTML = doT.template(noneOrder_template)();
 			}
 			api.hideProgress();
+			console.log("waitingArr.........." + JSON.stringify(waitingArr))
+			console.log("myOrderArr.........." + JSON.stringify(myOrderArr))
+			console.log("finisheddArr.........." + JSON.stringify(finisheddArr))
 			$api.setStorage("wartNum", waitingArr.length);
 			document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
 			$api.setStorage("deliveNum", myOrderArr.length);
@@ -478,7 +481,7 @@
 			//获取高度后再初始化iscroll
 			var waitingOrderH = $("#waitingOrder").height();
 			var deliverOrderH = $("#deliverOrder").height();
-			var finishedOrderH = $("#finishedOrder").height(); 
+			var finishedOrderH = $("#finishedOrder").height();
 			myScroll.refresh();
 		});
 	}
@@ -502,10 +505,11 @@
 				}
 				return reWaitingArr;
 			});
+			console.log("配送请求》》》》waitingArr.........." + JSON.stringify(reWaitingArr))
+			console.log("配送请求》》》》myOrderArr.........." + JSON.stringify(reDeliverArr))
+			console.log("配送请求》》》》finisheddArr.........." + JSON.stringify(reFinishedArr))
 			$api.setStorage("requestWartNum", reWaitingArr.length);
 			$api.setStorage("requestDeliveNum", reDeliverArr.length);
-			console.log(reWaitingArr.length);
-			console.log(reDeliverArr.length);
 			api.execScript({
 				frameName : 'footer',
 				script : 'setRequestOrderNum();'
@@ -513,6 +517,10 @@
 			api.execScript({
 				frameName : 'orderRequest',
 				script : 'setRequestStatusNum();'
+			});
+			api.execScript({
+				frameName : 'orderRequest',
+				script : 'getDeliverRequestInfo();'
 			});
 			$api.setStorage("requestWaiting", reWaitingArr);
 			$api.setStorage("requestDeliver", reDeliverArr);
@@ -555,8 +563,7 @@
 	}
 
 
-
-	function loaded() {				//已闲置，作为增加页面弹性滚动
+	function loaded() {//已闲置，作为增加页面弹性滚动
 		myScroll = new IScroll('#m-content');
 		myScroll.on("slideDown", function() {
 			if (this.y > 40) {

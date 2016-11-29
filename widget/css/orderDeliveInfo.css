@@ -93,24 +93,29 @@ background-color: #2fc2ec;
     margin:  0 0 1rem 0;
 }
 .myInfoList{
-    padding: 4rem 0 0 0;
     text-align: center;
+    padding: 4rem 0 0 0;
+
     width: 100%;
 }
 
 .myInfoList .avatar{
-    margin: 0 0 0.5rem 0;
-    display: inline-block;
+    text-align: center;
+    margin: auto auto;
+    display: block;
     width:8rem; height:8rem; border-radius:50%; overflow:hidden;
 }
 
 .myInfoList .avatar img{
+    text-align: center;
 height: 100%;
 }
 
 .myInfoList .Name{
+    margin: auto auto;
+    min-width: 3rem;
     text-align: center;
- display: block;
+ display: inline-block;
     font-size: 2rem;
     color: #FFFFFF;
 
@@ -172,13 +177,13 @@ height: 100%;
 .user-info-web-box  .bt .list-right{
     float: right;
     margin:  0 2rem 0 0;
-    color: #cbcbcb;
+    color: #6d6d6d;
 }
 
 .user-info-web-box  .bt .list-right-1{
 
     margin:  0 0 0 3rem;
-    color: #cbcbcb;
+    color: #6d6d6d;
 }
 
 .user-info-web-box  .bt .list-icon{

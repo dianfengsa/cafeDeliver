@@ -266,6 +266,7 @@
 			});
 			//重新派单事件
 			$("#deliverOrder").on("touchend", ".dispatch2", function() {
+			console.log(2)
 				var orderId = $(this).attr("data-value");
 				api.openFrame({
 					name : 'deliveSelect',
@@ -305,6 +306,7 @@
 			});
 			console.log("pageParam>>>>>>>>" + JSON.stringify(pageParam))
 			$("#list-1").on("click", ".dispatch", function() {
+			console.log(1)
 				var orderId = $(this).attr("data-value");
 				api.openFrame({
 					name : 'deliveSelect',

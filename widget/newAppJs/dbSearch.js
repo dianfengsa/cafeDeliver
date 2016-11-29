@@ -11,6 +11,7 @@ AV.init({
 
 var userObj = AV.Object.extend("_User");
 var deliveryManObj = AV.Object.extend('deliveryMan');
+var deliveryOrderObj = AV.Object.extend('deliveryOrder');
 var cafeCarObj = AV.Object.extend('cafeCar');
 var orderObj = AV.Object.extend('order');
 //判断此用户是否已经分配了送餐区域
@@ -53,8 +54,7 @@ function getDeliverManByArea(carId, isOwner) {
 		queryMan.equalTo("cafeCar", carObj);
 		queryMan.equalTo("status", "在岗");
 		return queryMan.find();
-	}).then(function(mans) {
-		console.log("mans>>>>>>" + JSON.stringify(mans))
+	}).then(function(mans) { 
 		var isMe = 0;
 		for (var i = 0; i < mans.length; i++) {
 			//			console.log("mans[i].id == isOwner.>>>>>>" + mans[i].id + "------" + isOwner)
@@ -71,8 +71,7 @@ function getDeliverManByArea(carId, isOwner) {
 				isMe : isMe
 			};
 			manArr.push(manObj);
-		}
-		console.log("manArr>>>" + JSON.stringify(manArr))
+		} 
 		return manArr;
 	}).catch(function(error) {
 		console.log("error>>>" + JSON.stringify(error))

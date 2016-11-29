@@ -246,8 +246,8 @@ footer i{
     margin-bottom: 2rem;
     border-radius: 0.5rem;
 }
-.user-box:last-child{
-   margin-bottom: 6rem;
+#deliverOrder .user-box:last-child{
+   margin-bottom: 50rem;
 }
 .user-info-body{
     background-color: #FFFFFF;

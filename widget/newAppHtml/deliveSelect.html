@@ -136,6 +136,7 @@
 			setTimeout(function() {
 				goBack();
 			}, 1000);
+
 		}).catch(function(erroer) {
 			console.log("erroer>>>" + JSON.stringify(erroer))
 			api.toast({
@@ -171,6 +172,7 @@
 				setTimeout(function() {
 					goBack();
 				}, 1000);
+
 			}).catch(function(error) {
 				api.hideProgress();
 				api.alert({

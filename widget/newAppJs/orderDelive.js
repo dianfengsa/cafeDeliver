@@ -110,6 +110,21 @@ $(document).ready(function(){
 */
 
 
+    $(".m-content").on("touchend",".businessInfo",function () {    //点击后显示该订单的商家信息
+        var businessInfo =  $(this).parents().siblings('.user-info-other-box');
+        $(".user-info-other-box:not(businessInfo)").slideUp();
+
+        if(businessInfo.css("display") == "none" ){
+            businessInfo.slideToggle(200);
+
+
+        }
+
+        else {
+
+        }
+
+    });
 
 
 

@@ -124,6 +124,7 @@ height: 100%;
  position: relative;
 }
 #dName{
+    -webkit-user-select:text;
     position: relative;
     margin: auto auto;
     width: 16rem;
@@ -179,14 +180,7 @@ position: absolute;
 .user-info-web-box{
     font-size: 1.6rem;
 }
-.user-logo-img{
-    margin:  25% 0 0 25%;
-    line-height: 6rem;
-    height: 6rem;
-    width: 6rem;
-    background: url("../image/info_no.png")center center no-repeat;
-    background-size: cover;
-}
+
 .user-info-web-box  .bt{
 
 
@@ -291,7 +285,7 @@ background: url("../image/pen.png")center center no-repeat;
     border-left: transparent;
 }
 .close2{
-    left: 0rem;
+    left: 0;
     top: -0.3rem;
     border: 0.3rem solid #c9c9c9;
 }

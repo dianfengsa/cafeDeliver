@@ -392,7 +392,13 @@
 				}
 			});
 		});
-
+		$("#m-content").on("touchend", ".phone", function() {//快捷拨号
+			var cPhone = $(this).attr("data-value");
+			api.call({
+				type : 'tel_prompt',
+				number : cPhone
+			});
+		});
 	};
 	//获取申请退款的数目
 	function loadOrders(carId, pageSize) {

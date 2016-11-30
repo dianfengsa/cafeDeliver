@@ -260,23 +260,6 @@ footer i{
 
 }
 
-/*
-.destination{
-    float: left;
-    display: inline-block;
-    font-size: 1.2rem;
-    color: #FFFFFF;
-    text-align: center;
-    line-height: 1.4rem;
-    height: 1.4rem;
-    width: 1.4rem;
-    background-color: #088144;
-    border-radius: 100%;
-    margin-right: 0.5rem;
-    font-family: 微软雅黑;
-}
-*/
-
 .destination{
     float: left;
     display: inline-block;
@@ -288,23 +271,6 @@ footer i{
     width: 1.8rem;
     margin-right: 0.5rem;
 }
-/*
-.source{
-    float: left;
-    display: inline-block;
-    font-size: 1.2rem;
-    color: #FFFFFF;
-    text-align: center;
-    line-height: 1.4rem;
-    height: 1.4rem;
-    width: 1.4rem;
-    background-color: #ff6803;
-    border-radius: 100%;
-    margin-right: 0.5rem;
-    font-family: 微软雅黑;
-}
-*/
-
 .source {
     float: left;
     display: inline-block;
@@ -478,8 +444,6 @@ width: 90%;
     color: #FF0000;
 }
 
-
-
 .phone{
     float: right;
     display: inline-block;
@@ -497,34 +461,14 @@ width: 90%;
     float: right;
     display: inline-block;
     position: relative;
-    height: 3rem;
-    width: 3rem;
+    top: 0.3rem;
+    height: 2.2rem;
+    width: 2.2rem;
+    line-height: 2.2rem;
     background: url("../image/jt.png") center no-repeat;
+    background-size: cover;
 
 }
-.rotate{
-    animation: myfirst .1s;
-    animation-fill-mode: forwards;
-    animation-timing-function:ease;
-}
-
-@keyframes myfirst
-{
-    from {transform:rotate(0deg); scale(0.6)}
-    to {transform:rotate(180deg); scale(0.6)}
-}
-
-@-webkit-keyframes myfirst
-{
-    from {transform:rotate(0deg);}
-    to {transform:rotate(180deg);}
-}
-
-
-
-
-
-
 .user-info-other-box{
     background-color: #FFFFFF;
     font-size: 1.8rem;
@@ -532,8 +476,6 @@ width: 90%;
     display: none;
 
 }
-
-
 .th th{
     background-color: #eeeeee;
     color: #000000;
@@ -543,53 +485,32 @@ width: 90%;
     padding: 0.4rem 0;
 
 }
-
 .tr{
     position: absolute;
 }
-
 .td .amount{
     position: relative;
     text-align: center;
-
-
 }
-
 .td td{
-
     font-size: 1.4rem;
   margin: 0.2rem 0;
     color:#7f7f7f;
 }
-
 .dishes{
  text-align: left;
     padding-left: 2rem;
 }
-
-
-
-
-
-
-
 .user-info-other-table {
-
     text-align: center;
     font-size: 1.4rem;
     color: #c9c9c9;
 }
-
-
-
 .user-info-other-button{
     padding: 0 2rem;
     font-size: 1.6rem;
     text-align: center;
 }
-
-
-
 .user-info-other-button .dispatch2{
     margin: 1rem 0 1rem 0;
     height: 3rem;
@@ -601,7 +522,6 @@ width: 90%;
     color: #ff182c;
     font-size: 1.6rem;
 }
-
 .user-info-other-button .dispatch3{
     font-size: 1.6rem;
     margin: 1rem 0 1rem 0;
@@ -614,7 +534,6 @@ width: 90%;
     -webkit-border-radius: 0.2rem;
 }
 .user-info-add span .dispatch{
-
    height: 3rem;
     width: 16rem;
     font-size: 1.6rem;
@@ -625,11 +544,8 @@ width: 90%;
     border: none;
     margin:  0 0 1rem 0;
 }
-
 .order-complete{
-
     color: #77ea4c;
-
     font-size: 1.4rem;
     line-height: 1.6rem;
     word-break: keep-all;
@@ -637,7 +553,6 @@ width: 90%;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .order-refund{
     color: #ef4a45;
     font-size: 1.4rem;
@@ -657,7 +572,6 @@ width: 90%;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .complete-img{
     display: inline-block;
     background: url("../image/order-complete.png")center center no-repeat;
@@ -668,7 +582,6 @@ width: 90%;
     width: 1.8rem;
     margin-right: 0.5rem;
 }
-
 .cancel-img{
     display: inline-block;
     background: url("../image/order-cancel.png")center center no-repeat;
@@ -679,11 +592,6 @@ width: 90%;
     width: 1.8rem;
     margin-right: 0.5rem;
 }
-
-
-
-
-
 .dispatch4{
     height: 3rem;
     width: 8rem;
@@ -694,7 +602,6 @@ width: 90%;
     -webkit-border-radius: 0.5rem;
     border: none;
 }
-
 .dispatch5{
     height: 3rem;
     width: 8rem;
@@ -719,188 +626,10 @@ width: 90%;
     background-color: #60c684;
     color: #ffffff;
 }
-
- .reset-shop{
-     top:15%;
-     left: 5%;
-     height: 75%;
-     background-color: #FFF;
-     border: #000000 solid 0.2rem;
-     padding: 2rem 0 0 0 ;
-    position: fixed;
-    margin-bottom: 10rem;
-     overflow:scroll;
-        z-index: 5;
-
- }
-
- .off{
-   color: #000000;
-     position: fixed;
-     right: 4rem;
-     font-size: 4rem;
- }
-
- .off img {
-     height: 3rem;
- }
-
-
-
- .reset-shop-text{
-     padding: 0 0 1rem 2rem;
-     font-size: 1.6rem;
-     line-height: 3rem;
-     border-bottom: #CCC solid 0.1rem;
-
-     cursor: pointer;
- }
-
-
-.user-logo{
-    margin: 4rem 0 2rem 0;
-    text-align: center;
-    line-height: 10rem;
-    height: 12rem;
-    width: 12rem;
-    border:#ff6600 solid 0.3rem;
-    border-radius: 100%;
-    background-color: #FFF;
-}
-
-
-.user-info-web-bg{
-    background: url("../image/info_no_bg_01.jpg")center center no-repeat;
-    background-size: cover;
-    border-bottom: #FF6600 solid 0.1rem;
-}
-
-
-
 .user-info-web-bg li{
     line-height: 3rem;
     font-size: 1.5rem;
 
-}
-
-/*开关按钮*/
-#div1{
-    top: 0.5rem;
-    width: 3rem;
-    height: 1.5rem;
-    border-radius: 1rem;
-    position: relative;
-}
-#div2{
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 1.5rem;
-    -webkit-border-radius: 1.5rem;
-    position: absolute;
-    background: white;
-
-}
-.open1{
-    background: #ff6803;
-}
-.open2{
-    border: 0.3rem solid #ff6803;
-    right: 0.01rem;
-}
-
-.close1{
-    background:#FFFFFF;
-    border: 0.3rem solid #c9c9c9;
-    border-left: transparent;
-}
-.close2{
-    left: 0;
-    top: -0.25rem;
-    border: 0.3rem solid #c9c9c9;
-}
-
-
-.user-info-web{
-    position:absolute;
-
-    background-color: #ffffff;
-    padding-bottom: 10rem;
-
-}
-
-.user-info-web-box{
-    margin-top: 4rem;
-    font-size: 1.8rem;
-}
-
-
-.user-logo-img{
-    margin:  25% 0 0 25%;
-    line-height: 6rem;
-    height: 6rem;
-    width: 6rem;
-    background: url("../image/info_no.png")center center no-repeat;
-    background-size: cover;
-}
-
-.user-info-web-box ul .bt{
-
-    color: #a0a0a0;
-}
-
-.user-info-web-box ul{
-    line-height: 3rem;
-}
-
-#shop-yes{
-    margin: 0 0 1rem 0;
-    font-size: 2rem;
-    border: none;
-    border-radius: 5rem;
-}
-
-#shop-no{
-    margin: 0 0 1rem 0;
-    font-size: 2rem;
-    border: none;
-    border-radius: 5rem;
-    -webkit-border-radius: 5rem;
-}
-
-.mask{
-    height: 100%;
-    width: 100%;
-    background-color: #000000;
-    position: fixed;
-    opacity: 0.4;
-    z-index: 2;
-    display: none;
-}
-
-.user-out{
-
-}
-
-.user-out .user-out-button{
-
-}
-
-
-.user-out{
-     text-align: center;
- }
-
-.user-out .user-out-button {
-    color: #FFFFFF;
-    height: 3rem;
-    margin:  2rem 0 0 0;
-    font-size: 1.6rem;
-    background-color: #ff6600;
-    -webkit-border-radius: 0.5rem;
-    -moz-border-radius: 0.5rem;
-    border-radius: 0.5rem; ;
-    width: 80%;
-    border: none;
 }
 .buff{
     color: #FF6600;
@@ -915,9 +644,6 @@ width: 90%;
     text-align: center;
     margin: 2rem 0 0 0;
 }
-
-
-
 .refund{
     top: 40%;
     left: 10%;
@@ -928,9 +654,6 @@ width: 90%;
     border: #000000 solid 0.1rem;
     background-color: #FFFFFF;
 }
-
-
-
 .refund p {
     font-size: 2rem;
     text-align: center;
@@ -964,62 +687,6 @@ width: 90%;
 .refund button:active{
     color: #FFFFFF;
     background: #00a0df;
-}
-
-/*状态封条*/
-.seal-box{
-
-    text-align: center;
-
-}
-
-
-.seal-achieve{
-    margin: 14% 16%;
-    color: #7AD548;
-    position: absolute;
-    height: 4rem;
-    width: 20rem;
-    border: #72df56 solid 0.3rem;
-    border-radius:1rem ;
-    text-align: center;
-}
-
-.seal-return{
-    margin: 14% 16%;
-    position: absolute;
-    color: #dfa24f;
-    height: 4rem;
-    width: 20rem;
-    border: #dfa24f solid 0.3rem;
-    border-radius:1rem ;
-    text-align: center;
-
-}
-
-.seal{
-    margin: 14% 16%;
-    position: absolute;
-    color: #df4a5b;
-    height: 4rem;
-    width: 20rem;
-
-    border: #df4a5b solid 0.3rem;
-    border-radius:1rem ;
-    text-align: center;
-
-}
-
-
-.seal-box span{
-    text-align: center;
-    line-height: 4rem;
-    font-size: 3rem;
-
-}
-
-.order-none{
-
 }
 
 .pullDown{

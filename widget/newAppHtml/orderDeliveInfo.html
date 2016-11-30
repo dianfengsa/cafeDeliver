@@ -19,7 +19,7 @@
 				<div class="myInfoList">
 					<div class="avatar"><img src="../image/textava.png" alt="">
 					</div>
-					<span class="Name" id="dName" ></span>
+					<span class="Name" ><span id="dName">1111111111111</span></span>
 				</div>
 			</div>
 			<div class="user-info-web-box flex-item-24 flex-center flex-row">
@@ -178,55 +178,53 @@
 		}
 */
 
+
 		$("#dName").blur(function(){
 			var original = $("#dName");
 			var originalT = document.getElementById("dName").innerHTML;
 			console.log(originalT);
 			var reg = /^[\u4e00-\u9fa5]+$/;
-			var containSpecial = /^[^@\/\'\\\"#$%&\^\*]+$/;
-			if(!containSpecial.test(originalT.text)){
-				alert('昵称不允许出现特殊符号');
-				original.css("background","none");
-				original.attr("contentEditable", false);
-				original.css("color","#FFFFFF");
-				return
-			}
+			var containSpecial = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im;
 
-			if(!containSpecial.test(originalT.text) == false && originalT.length >= 4  ){
-				alert("更改昵称成功");
-				original.css("background","none");
-				original.attr("contentEditable", false);
-				original.css("color","#FFFFFF");
-				return
-			}
-			else if (original.text == null) {
+			if (originalT == "") {
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
-				alert('昵称不符合格式（最少2汉字或4位数字,只允许数字、中文）');
-				original.css("background","none");
-				original.attr("contentEditable", false);
-				original.css("color","#FFFFFF");
-				return
+				alert('昵称不能为空（最少2汉字或4位数字,只允许数字、中文）');
 
-			} else {
+			}
+			else if(containSpecial.test(originalT)){
+
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
-				alert('昵称不符合格式（最少2汉字或4位数字,只允许数字、中文）');
-				original.css("background","none");
-				original.attr("contentEditable", false);
-				original.css("color","#FFFFFF");
-				return
+				alert('昵称不允许出现特殊符号（最少2汉字或4位数字,只允许数字、中文）');
 			}
 
+			else if(originalT.length < 2   ){
+				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
+				alert("昵称长度过短（最少2汉字");
 
+			}
+
+			else {
+
+				alert('成功');
+
+
+			}
+
+			original.css("background","none");
+			original.attr("contentEditable", false);
+			original.css("color","#FFFFFF");
 
 
 		});
 
 
 		function active() {		//获得焦点时
+			document.getElementById("dName").innerHTML = "";
 			var original = $("#dName");
 			original.attr("contentEditable", true);
 			original.css("background-color", "#FFFFFF");
 			original.css("color","#000000");
+			$("#clear-text").css("display","inline-block")
 		}
 
 		$(".user-info-web-bg").on("touchend", "#dName", function() {

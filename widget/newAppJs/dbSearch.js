@@ -54,7 +54,7 @@ function getDeliverManByArea(carId, isOwner) {
 		queryMan.equalTo("cafeCar", carObj);
 		queryMan.equalTo("status", "在岗");
 		return queryMan.find();
-	}).then(function(mans) { 
+	}).then(function(mans) {
 		var isMe = 0;
 		for (var i = 0; i < mans.length; i++) {
 			//			console.log("mans[i].id == isOwner.>>>>>>" + mans[i].id + "------" + isOwner)
@@ -71,7 +71,7 @@ function getDeliverManByArea(carId, isOwner) {
 				isMe : isMe
 			};
 			manArr.push(manObj);
-		} 
+		}
 		return manArr;
 	}).catch(function(error) {
 		console.log("error>>>" + JSON.stringify(error))
@@ -133,4 +133,18 @@ function setDeliverManStatus(deliverManId, status) {
 	}).catch(function(error) {
 		console.log("error>>>" + JSON.stringify(error))
 	});
+}
+
+//修改送餐员名称
+function updateDeliverManName(manId, updateName) {
+	console.log(manId + "__" + updateName)
+	var queryMan = new AV.Query(deliveryManObj);
+	return queryMan.get(manId).then(function(man) {
+		man.set("name", updateName);
+		return man.save();
+	}).then(function(manobj) {
+		return manobj;
+	}).catch(function(error) {
+		console.log("error>>>" + JSON.stringify(error))
+	})
 }

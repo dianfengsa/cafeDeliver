@@ -108,12 +108,11 @@
 			{{?it&&it.length>0}}
 			{{~it:value:index}}
 			<div class="user-box flex-item-23 ">
-			<div class="user-info-top flex-item-24 " data-value ="{{=value.mobile}}">
+			<div class="user-info-top flex-item-24 "  data-value ="{{=value.mobile}}">
 			<div class="user-info-text">
 			<p>
 			客户电话：{{=value.mobile}}
 			</p>
-
 			<p class="fr orderNumber" >
 			编号：{{=value.tasks[0].number}}
 			</p>
@@ -148,6 +147,7 @@
 			</div>
 			<div class="user-info-other-box flex-item-24 flex-row " style="display: none">
 			<div class="user-info-text flex-item-24 user-info-text-store">
+			<div class="user-info-text flex-item-24 user-info-text-store"  data-value ="{{=value.tasks[0].restaurantPhone}}">
 			<p>商家电话:{{=value.tasks[0].restaurantPhone}}</p>
 			</div>
 			<div class="user-info-other flex-item-23 flex-center">
@@ -181,6 +181,7 @@
 			<button class="dispatch3" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
 			确认送达
 			</button>
+			</div>
 			</div>
 			</div>
 			</div>
@@ -391,14 +392,6 @@
 				}
 			});
 		});
-	/*	$("#m-content").on("touchend", ".phone", function() {//快捷拨号
-			var cPhone = $(this).attr("data-value");
-			api.call({
-				type : 'tel_prompt',
-				number : cPhone
-			});
-		});
-*/
 	$("#m-content").on("touchend", ".store", function() {//快捷拨号(给商家拨打)
 			console.log("call商家");
 			var cPhone = $(this).attr("data-value");
@@ -414,7 +407,6 @@
 				type : 'tel_prompt',
 				number : cPhone
 			});
-
 		});
 	};
 	//获取申请退款的数目
@@ -489,18 +481,14 @@
 			console.log("myOrderArr.........." + JSON.stringify(myOrderArr))
 			console.log("finisheddArr.........." + JSON.stringify(finisheddArr))
 			$api.setStorage("wartNum", waitingArr.length);
-		//	document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
 			$api.setStorage("deliveNum", myOrderArr.length);
 			console.log(waitingArr.length)
 			console.log(myOrderArr.length)
-
 			api.execScript({
 				frameName : 'footer',
 				script : 'setOrderNum();'
 			});
 			api.hideProgress();
-			$api.setStorage("wartNum", waitingArr.length);
-			$api.setStorage("deliveNum", myOrderArr.length);
 			//数据加载完成后再获取实际高度初始化iscroll
 			//获取高度后再初始化iscroll
 			var waitingOrderH = $("#waitingOrder").height();
@@ -586,7 +574,6 @@
 		});
 	}
 
-
 	function loaded() {//已闲置，作为增加页面弹性滚动
 		myScroll = new IScroll('#m-content');
 		myScroll.on("slideDown", function() {
@@ -605,7 +592,5 @@
 				myScroll.refresh()
 			}
 		});
-
 	}
-
 </script>

@@ -107,7 +107,7 @@
 			<p>
 			客户电话：{{=value.customerPhone}}
 			</p>
-				<div class="phone-white"></div>
+			<div class="phone-white"></div>
 			</div>
 			</div>
 			<div class="user-info-body flex-row flex-item-24 flex-center">
@@ -128,8 +128,7 @@
 			</div><span class="add-source">{{=value.address}}</span>
 			</li>
 			</ul>
-			<ul class="user-info-other flex-item-23 flex-center">
-			</ul>
+			<ul class="user-info-other flex-item-23 flex-center"></ul>
 			<div class="user-info-other-button flex-item-24 flex-column">
 			<div id="orderOperation" class="flex-item-24 flex-between flex-column">
 			<button class="dispatch2" data-value="{{=value.objectId}}" data-cust="{{=value.deliveryMan.objectId}}}}">
@@ -264,7 +263,7 @@
 			});
 			//重新派单事件
 			$("#deliverOrder").on("touchend", ".dispatch2", function() {
-			console.log(2);
+				console.log(2);
 				var orderId = $(this).attr("data-value");
 				api.openFrame({
 					name : 'deliveSelect',
@@ -301,11 +300,11 @@
 				var orderId = $(this).attr("data-value");
 				var deliverId = $(this).attr("data-cust");
 				served(orderId, deliverId);
-			}); 
+			});
 			console.log("pageParam>>>>>>>>" + JSON.stringify(pageParam));
 			//立即接单
 			$("#m-content").on("click", ".dispatch", function() {
-			console.log(1); 
+				console.log(1);
 				var orderId = $(this).attr("data-value");
 				api.openFrame({
 					name : 'deliveSelect',
@@ -345,7 +344,6 @@
 				number : cPhone
 			});
 		});
-
 		$("#m-content").on("touchend", ".store", function() {//快捷拨号(给商家拨打)
 			console.log("call商家");
 			var cPhone = $(this).attr("data-value");
@@ -354,7 +352,6 @@
 				number : cPhone
 			});
 		});
-
 		///绑定配送请求订单的数据
 		function getDeliverRequestInfo() {
 			var waitingArr = [], deliverArr = [], finishedArr = [];

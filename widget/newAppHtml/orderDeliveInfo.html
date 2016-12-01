@@ -19,7 +19,7 @@
 				<div class="myInfoList">
 					<div class="avatar"><img src="../image/textava.png" alt="">
 					</div>
-					<span class="Name" ><span id="dName">1111111111111</span></span>
+					<span class="Name" ><span id="dName"></span></span>
 				</div>
 			</div>
 			<div class="user-info-web-box flex-item-24 flex-center flex-row">
@@ -129,7 +129,7 @@
 			if (originalT == "") {
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 				api.toast({
-					msg : '昵称不允许出现特殊符号(最少2汉字或4位数字,只允许数字、中文)',
+					msg : '昵称不能为空',
 					location : "middle",
 					duration : 2000
 				});
@@ -148,7 +148,15 @@
 					duration : 2000
 				});
 			} else {
-				alert('成功');
+				updateDeliverManName(deliverManInfo.id, originalT).then(function(man) {
+					if (man) {
+						api.toast({
+							msg : '修改成功',
+							location : "middle",
+							duration : 2000
+						});
+					}
+				});
 			}
 			original.css("background", "none");
 			original.attr("contentEditable", false);

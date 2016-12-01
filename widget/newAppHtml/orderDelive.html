@@ -394,7 +394,6 @@
 		});
 		$("#m-content").on("touchend", ".phone", function() {//快捷拨号
 			var cPhone = $(this).attr("data-value");
-
 			api.call({
 				type : 'tel_prompt',
 				number : cPhone
@@ -465,6 +464,7 @@
 			if (finisheddArr.length > 0) {
 				var finishedd_template = document.getElementById('finishedd_template').innerHTML;
 				document.getElementById('finishedOrder').innerHTML = doT.template(finishedd_template)(finisheddArr);
+				myScroll.refresh()
 			} else {
 				document.getElementById('finishedOrder').innerHTML = doT.template(noneOrder_template)();
 			}
@@ -518,7 +518,6 @@
 			console.log("配送请求》》》》finisheddArr.........." + JSON.stringify(reFinishedArr))
 			$api.setStorage("requestWartNum", reWaitingArr.length);
 			$api.setStorage("requestDeliveNum", reDeliverArr.length);
-
 			api.execScript({
 				frameName : 'footer',
 				script : 'setRequestOrderNum();'

@@ -145,7 +145,6 @@
 		});
 	};
 	function setOrderNum() {
-
 		var num = Number($api.getStorage("wartNum")) + Number($api.getStorage("deliveNum"));
 		if (num > 0) {
 			document.getElementById('footer-new1').style.display = "inline-block";
@@ -154,7 +153,6 @@
 	}
 
 	function setRequestOrderNum() {
-
 		var reNum = Number($api.getStorage("requestWartNum")) + Number($api.getStorage("requestDeliveNum"));
 		if (reNum > 0) {
 			document.getElementById('footer-new2').style.display = "inline-block";

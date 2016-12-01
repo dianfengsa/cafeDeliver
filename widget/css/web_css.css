@@ -387,7 +387,7 @@ footer i{
  margin: 1rem 0;
 }
 .user-info-add-text li .add-destination,.add-source{
-width: 90%;
+width: 80%;
     display: block;
     float: left;
     font-size: 1.4rem;
@@ -447,13 +447,13 @@ width: 90%;
 .phone{
     float: right;
     display: inline-block;
-    text-align: center;
-    line-height: 3rem;
-    height: 3rem;
-    width: 3rem;
-    margin-right: 0.5rem;
     background: url("../image/phone.png")center center no-repeat;
     background-size: cover;
+    text-align: center;
+    line-height: 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-right: 0.5rem;
 }
 
 .phone-white{

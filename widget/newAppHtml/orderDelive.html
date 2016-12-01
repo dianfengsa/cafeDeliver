@@ -59,7 +59,7 @@
 			{{?it&&it.length>0}}
 			{{~it:value:index}}
 			<div class="user-box flex-item-23 ">
-			<div class="user-info-top flex-item-24 ">
+			<div class="user-info-top flex-item-24 " data-value ="{{=value.mobile}}">
 			<div class="user-info-text">
 			<p>
 			客户电话：{{=value.mobile}}
@@ -78,9 +78,9 @@
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
-			<li class="clearfix">
+			<li class="clearfix store"  data-value ="{{=value.tasks[0].restaurantPhone}}">
 			<div class="destination">
-			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span>
+			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span><div class="phone"></div>
 			</li>
 			<li class="clearfix">
 			<div class="source">
@@ -108,7 +108,7 @@
 			{{?it&&it.length>0}}
 			{{~it:value:index}}
 			<div class="user-box flex-item-23 ">
-			<div class="user-info-top flex-item-24 ">
+			<div class="user-info-top flex-item-24 " data-value ="{{=value.mobile}}">
 			<div class="user-info-text">
 			<p>
 			客户电话：{{=value.mobile}}
@@ -117,7 +117,6 @@
 			<p class="fr orderNumber" >
 			编号：{{=value.tasks[0].number}}
 			</p>
-				<div class="phone-white"></div>
 			</div>
 			</div>
 			<div class="user-info-body flex-row flex-item-24 flex-center">
@@ -129,9 +128,9 @@
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
-			<li class="clearfix">
+			<li class="clearfix store"   data-value ="{{=value.tasks[0].restaurantPhone}}">
 			<div class="destination">
-			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span>
+			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span><div class="phone"></div>
 			</li>
 			<li class="clearfix">
 			<div class="source">
@@ -149,7 +148,7 @@
 			</div>
 			<div class="user-info-other-box flex-item-24 flex-row " style="display: none">
 			<div class="user-info-text flex-item-24 user-info-text-store">
-			<p>商家电话:{{=value.tasks[0].restaurantPhone}}1111111111111111111</p>
+			<p>商家电话:{{=value.tasks[0].restaurantPhone}}</p>
 			</div>
 			<div class="user-info-other flex-item-23 flex-center">
 			<ul class="">
@@ -400,7 +399,7 @@
 			});
 		});
 */
-	$("#deliverOrder").on("touchend", ".user-info-text-store", function() {//快捷拨号(给商家拨打)
+	$("#m-content").on("touchend", ".store", function() {//快捷拨号(给商家拨打)
 			console.log("call商家");
 			var cPhone = $(this).attr("data-value");
 			api.call({
@@ -408,7 +407,7 @@
 				number : cPhone
 			});
 	});
-		$("#deliverOrder").on("touchend", ".user-info-top", function() {//快捷拨号(给客户拨打)
+		$("#m-content").on("touchend", ".user-info-top", function() {//快捷拨号(给客户拨打)
 			console.log("call客户");
 			var cPhone = $(this).attr("data-value");
 			api.call({

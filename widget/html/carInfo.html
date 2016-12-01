@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>区域信息</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/carInfo.css" />
+	</head>
+	<body>
+		<div class="topBack">
+			<img class="bg" src="../image/bg_003.png" alt="" />
+		</div>
+		<div class="header" id="header">
+			<div class="backIcon" onclick="goBack();"><img src="../image/deliver/icon_back.png" alt="" />
+			</div>
+			<div class="title">
+				<span>区域信息</span>
+			</div>
+		</div>
+		<div class="middleInfo">
+			<div class="h10"></div>
+			<div class="carInfo">
+				<div class="carImg" style="" id="carImg">
+					<span id="none"></span>
+				</div>
+				<div class="contact">
+					<div class="carName">
+						<span id="carName">暂无</span>
+					</div>
+					<div class="mobile">
+						电话：<span id="telNum">暂无</span>
+					</div>
+				</div>
+				<div class="mobileImg" onclick="makePhoneCall();">
+					<img src="../image/deliver/phone.png" alt="" />
+				</div>
+			</div>
+			<div class="h10"></div>
+			<div class="h1"></div>
+			<div class="item">
+				<div class="itemName">
+					<span>区域状态</span>
+				</div>
+				<div class="content">
+					<span id="status">暂无</span>
+				</div>
+			</div>
+			<div class="h1"></div>
+			<div class="item">
+				<div class="itemName">
+					<span>营业范围</span>
+				</div>
+				<div class="content">
+					<span id="radius">暂无</span>
+				</div>
+			</div>
+			<div class="h1"></div>
+			<div class="item2">
+				<div class="itemName">
+					<span>区域地点</span>
+				</div>
+				<div class="content2">
+					<span id="parkingAddress">暂无</span>
+				</div>
+			</div>
+			<div class="h1"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/av.min.js"></script>
+	<script type="text/javascript" src="../script/AV_common.js"></script>
+	<script type="text/javascript" src="../script/common.js"></script>
+	<script>
+		apiready = function() {
+			api.addEventListener({
+				name : 'keyback'
+			}, function(ret, err) {
+				goBack();
+			});
+			updateCafeCarInfo();
+		}
+		function updateCafeCarInfo() {
+			window.header = $api.byId('header');
+			$api.fixStatusBar(header);
+			var query = new AV.Query(DeliveryMan);
+			query.include('cafeCar');
+			query.equalTo('owner', AV.User.current());
+			query.first().then(function(manInfo) {
+				var carInfo = manInfo.cafeCar();
+				if (carInfo != 'undefined') {
+					document.getElementById('none').inneHTML = '';
+					document.getElementById('carImg').style.backgroundImage = 'url(../image/cust.png)';
+					document.getElementById('carName').innerHTML = carInfo.name();
+					document.getElementById('telNum').innerHTML = carInfo.mobile();
+					document.getElementById('status').innerHTML = carInfo.status();
+					document.getElementById('parkingAddress').innerHTML = carInfo.parkingAddress();
+					if (carInfo.radius > 1000) {
+						var radius = accDiv(carInfo.radius(), 1000);
+						document.getElementById('radius').innerHTML = radius + ' km';
+					} else {
+						document.getElementById('radius').innerHTML = carInfo.radius() + ' m';
+					}
+				} else if (carInfo == 'undefined') {
+					api.toast({
+						msg : '当前用户尚未在该区域注册',
+						location : 'bottom',
+						duration : 2000
+					});
+					document.getElementById('none').innerHTML = '无';
+					document.getElementById('carImg').style.backgroundImage = '';
+				}
+			});
+		}
+
+		function makePhoneCall() {
+			var telNum = document.getElementById('telNum').innerHTML;
+			if (telNum) {
+				api.call({
+					type : 'tel_prompt',
+					number : telNum
+				});
+			}
+		}
+
+		function goBack() {
+			api.closeWin({
+			});
+		}
+	</script>
+</html>

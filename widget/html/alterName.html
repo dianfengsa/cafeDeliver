@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>更改名字</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alterName.css" />
+	</head>
+	<body>
+		<div class="topBack">
+			<img class="bg" src="../image/bg_003.png" alt="" />
+		</div>
+		<div class="header" id="header">
+			<div class="backIcon" onclick="goBack();"><img src="../image/deliver/icon_back.png" alt="" />
+			</div>
+			<div class="title">
+				<span>更改名字</span>
+			</div>
+			<div class="saveBtn" id="saveBtn">
+				<span>保 存</span>
+			</div>
+		</div>
+		<div class="middleInfo">
+			<div class="h10"></div>
+			<div class="h10"></div>
+			<div class="h1"></div>
+			<div class="item">
+				<div class="itemName">
+					<span>姓名</span>
+				</div>
+				<div class="content">
+					<input type="text" id="name" value="" onchange="setSaveBtnActive();">
+					</input>
+				</div>
+			</div>
+			<div class="h1"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/av.min.js"></script>
+	<script type="text/javascript" src="../script/AV_common.js"></script>
+	<script type="text/javascript" src="../script/common.js"></script>
+	<script>
+		apiready = function() {
+			api.addEventListener({
+				name : 'keyback'
+			}, function(ret, err) {
+				goBack();
+			});
+			updateDeliveryManName();
+		}
+		function updateDeliveryManName() {
+			window.header = $api.byId('header');
+			$api.fixStatusBar(header);
+			var query = new AV.Query(DeliveryMan);
+			query.equalTo('owner', AV.User.current());
+			query.first().then(function(manInfo) {
+				document.getElementById('name').value = manInfo.name();
+			});
+		}
+
+		function setSaveBtnActive() {
+			document.getElementById('saveBtn').className = 'saveBtn-active';
+			document.getElementById('saveBtn').setAttribute('onclick', 'alterName();');
+		}
+
+		function alterName() {
+			api.showProgress({
+				title : '配送员姓名更新中...',
+				modal : false
+			});
+			var name = document.getElementById('name').value;
+			var query = new AV.Query(DeliveryMan);
+			query.equalTo('owner', AV.User.current());
+			query.first().then(function(manObj) {
+				if (manObj) {
+					manObj.set('name', name);
+					manObj.save().then(function(manObj) {
+						$api.setStorage('manInfo', manObj);
+						api.hideProgress();
+						updateHomeFixed();
+						goBack();
+					}).catch(function(error) {
+						api.hideProgress();
+						errorAlert(error);
+					});
+				} else if (!manObj) {
+					api.hideProgress();
+					api.toast({
+						msg : '当前登录无效，请重新登录',
+						location : 'middle',
+						duration : 2000
+					});
+					setTimeout(function() {
+						AV.User.logOut();
+						api.openWin({
+							name : 'login',
+							url : '../new_login.html',
+							opaque : true, // 页面不透明
+							bounces : false, // 不允许页面弹动
+							reload : true,
+							delay : 0
+						});
+					}, 2000);
+				}
+			}).catch(function(error) {
+				api.hideProgress();
+				errorAlert(error);
+			});
+		}
+
+		function goBack() {
+			api.closeWin({
+			});
+		}
+
+		function updateHomeFixed() {
+			api.execScript({
+				name : 'homeFixed',
+				script : 'updateDeliveryManInfo();'
+			});
+		}
+	</script>
+</html>

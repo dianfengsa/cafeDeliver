@@ -1,0 +1,189 @@
+body {
+	background: #EFEFEF;
+}
+.h1 {
+	height: 1px;
+	background: rgba(0, 0, 0, 0.6);
+}
+.h10 {
+	height: 20px;
+}
+.topBack {
+	position: absolute;
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+}
+.bg {
+	position: absolute;
+	top: -5%;
+	left: -5%;
+	width: 110%;
+	height: 110%;
+	filter: blur(6px);
+	-webkit-filter: blur(6px);
+}
+/*.header {
+ height: 7%;
+ width: auto;
+ padding: 2%;
+ background: #FF7220;
+ display: -webkit-box;
+ display: -webkit-flex;
+ display: flex;
+ -webkit-box-orient: horizontal;
+ -webkit-flex-flow: row;
+ flex-flow: row;
+ }*/
+.backIcon {
+	position: absolute;
+}
+.backIcon img {
+	height: 32px;
+	width: 32px;
+}
+.title {
+	width: 50%;
+	text-align: center;
+	line-height: 33px;
+	position: absolute;
+	left: 20%;
+}
+.title span {
+	font-size: 22px;
+	font-weight: bold;
+	color: #fff;
+}
+.stockbtn {
+	position: relative;
+	left: 78%;
+	/*margin-top:-2%;*/
+}
+#stockbtn {
+	height: 40px;
+	width: 80px;
+	border: 1px solid #dedede;
+	-moz-border-radius: 5px; /* Gecko browsers */
+	-webkit-border-radius: 5px; /* Webkit browsers */
+	border-radius: 5px; /* W3C syntax */
+	background-color: #EE0000;
+	color: white;
+	font-size: 18px;
+	line-height: 40px;
+	text-align: center;
+}
+/*.topInfo {
+ width: auto;
+ padding: 2%;
+ background: #FFFFF0;
+ }*/
+.totalMoney {
+	height: 26px;
+	line-height: 26px;
+	margin-left: 4%;
+	font-weight: bold;
+	color: #666666;
+}
+.totalMoney span {
+	/*margin-left: 6%;
+	 font-weight: bold;*/
+	color: #EE0000;
+}
+
+.blank {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	/*border: 1px solid fuchsia;*/
+}
+.optionH1 {
+	height: 1px;
+	/*background-color: #8E8C8C;*/
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+.options {
+	width: 40%;
+	background-color: #FF7220;
+	-webkit-box-shadow: 1px 1px 3px #292929;
+	-moz-box-shadow: 1px 1px 3px #292929;
+	box-shadow: 1px 1px 3px #292929;
+	padding: 2%;
+	margin-left: 50%;
+	position: absolute;
+	z-index: 999;
+	top: 6%;
+	border: 1px solid #FF7220;
+}
+.optionItem {
+	height: 26px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-flex-flow: row;
+	flex-flow: row;
+	border: 1px solid #EEEEEE;
+}
+.optionIcon {
+	padding-left: 6px;
+	padding-right: 6px;
+}
+.optionIcon img {
+	height: 20px;
+	width: 20px;
+	margin-top: 4px;
+	margin-bottom: 1px;
+}
+.action {
+	line-height: 30px;
+	padding-left: 6px;
+	text-align: left;
+}
+.action span {
+	font-size: 16px;
+	color: #fff;
+}
+.spanSty {
+	float: left;
+	width: 25%;
+	height: 35px;
+	text-align: center;
+	font-size: 17px;
+	
+}
+.spanSty1 {
+	text-align: -webkit-center;
+	width: 100%;
+	margin: 0 auto;font-weight: bold;
+/*	background-color: rgba(0, 13, 255, 0.65);
+	
+	color: white;*/
+}
+.spanSty1 em {
+	font-weight: bold;
+/*	color: white;*/
+}
+.spanEm {
+	font-size: 9px;
+}
+.timeSlot {
+	height: 50px;
+	/*padding-top: 7px;
+	width: 100%;*/
+	text-align: center;
+	background-color: #fff;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+.divBg {
+	width: 100%;
+	height: 36px;
+	background-color: #fff;
+	margin-top: 5px;
+}
+.lang {
+	padding-top: 9px;
+}

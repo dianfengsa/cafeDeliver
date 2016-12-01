@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" style="background: none">
+	<head>
+		<meta name="content-type" content="text/html" charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" >
+		<meta name="format-detection" content="telephone=no">
+		<link href="../css/web_css.css" rel="stylesheet">
+		<!--页面样式-->
+		<link href="../css/reset.css" rel="stylesheet">
+		<!--重置样式-->
+		<link rel="stylesheet" href="../css/flex-layout.css">
+		<link rel="stylesheet" href="../css/layout.css">
+		<link rel="stylesheet" href="../css/index.css">
+		<title>底部栏</title>
+	</head>
+	<body style="background: none">
+		<footer class="footer-box flex-item-24 flex-middle flex-column flex-between">
+			<div class="flex-item-7 footer-text  active" id="footer-1">
+				<span><img src="../image/calendar_active.png" />
+					<p>
+						外卖订单
+					</p></span><i id="footer-new1"></i>
+			</div>
+			<div class="flex-item-7 footer-text" id="footer-2">
+				<span><img src="../image/process.png" />
+					<p>
+						配送请求
+					</p></span><i id="footer-new2"></i>
+			</div>
+			<!-- <div class="flex-item-4 footer-text" id="footer-3">
+			<span><img src="../image/dine.png" />
+			<p>
+			堂食餐点
+			</p></span>
+			</div>
+			<div class="flex-item-4 footer-text" id="footer-4">
+			<span><img src="../image/bus.png" />
+			<p>
+			公交配送
+			</p></span>
+			</div>-->
+			<div class="flex-item-7 footer-text" id="footer-5">
+				<span><img src="../image/account.png" />
+					<p>
+						我的信息
+					</p></span>
+			</div>
+		</footer>
+	</body>
+</html>
+<script src="../newAppJs/api.js"></script>
+<script src="../newAppJs/av.js" ></script>
+<script src="../newAppJs/dbSearch.js" ></script>
+<script src="../newAppJs/doT.min.js"></script>
+<script src="../newAppJs/wilddog.js" ></script>
+<script src="../newAppJs/jquery.min.js"></script>
+<script src="../newAppJs/share.js"></script>
+<script src="../newAppJs/orderDelive.js"></script>
+<script src="../newAppJs/underscore-min.js"></script>
+<script>
+	var pageParam;
+
+	apiready = function() {
+		var winHeight = api.winHeight;
+		pageParam = api.pageParam;
+		//外卖订单
+		$(".footer-box").on("touchend", "#footer-1", function() {
+			openOrderDelive(pageParam);
+			api.openFrame({
+
+				name : 'footer',
+				url : '../newAppHtml/footer.html',
+				rect : {
+					x : 0,
+					y : winHeight - 60,
+					w : "auto",
+					h : 60
+				},
+				opaque : true, // 页面不透明
+				bounces : false, // 不允许页面弹动，ripple
+				vScrollBarEnabled : false,
+				slidBackEnabled : false,
+				pageParam : pageParam,
+				delay : 0
+			});
+			$("#footer-1").addClass("active").find("img").attr("src", "../image/calendar_active.png");
+			$("#footer-2").removeClass("active").find("img").attr("src", "../image/process.png");
+			$("#footer-3").removeClass("active").find("img").attr("src", "../image/dine.png");
+			$("#footer-4").removeClass("active").find("img").attr("src", "../image/bus.png");
+			$("#footer-5").removeClass("active").find("img").attr("src", "../image/account.png");
+		});
+		//配送请求
+		$(".footer-box").on("touchend", "#footer-2", function() {
+			openOrderRequest(pageParam);
+			api.openFrame({ 
+				name : 'footer',
+				url : '../newAppHtml/footer.html',
+				rect : {
+					x : 0,
+					y : winHeight - 60,
+					w : "auto",
+					h : 60
+				},
+				opaque : true, // 页面不透明
+				bounces : false, // 不允许页面弹动，ripple
+				vScrollBarEnabled : false,
+				slidBackEnabled : false,
+				pageParam : pageParam,
+				delay : 0
+			});
+			$("#footer-1").removeClass("active").find("img").attr("src", "../image/calendar.png");
+			$("#footer-2").addClass("active").find("img").attr("src", "../image/process_active.png");
+			$("#footer-3").removeClass("active").find("img").attr("src", "../image/dine.png");
+			$("#footer-4").removeClass("active").find("img").attr("src", "../image/bus.png");
+			$("#footer-5").removeClass("active").find("img").attr("src", "../image/account.png");
+		});
+		//堂食配送
+		$(".footer-box").on("touchend", "#footer-3", function() {
+			openOrderDine(pageParam);
+			$("#footer-1").removeClass("active").find("img").attr("src", "../image/calendar.png");
+			$("#footer-2").removeClass("active").find("img").attr("src", "../image/process.png");
+			$("#footer-3").addClass("active").find("img").attr("src", "../image/dine_active.png");
+			$("#footer-4").removeClass("active").find("img").attr("src", "../image/bus.png");
+			$("#footer-5").removeClass("active").find("img").attr("src", "../image/account.png");
+		});
+		//公交配送
+		$(".footer-box").on("touchend", "#footer-4", function() {
+			openOrderSearch(pageParam);
+			$("#footer-1").removeClass("active").find("img").attr("src", "../image/calendar.png");
+			$("#footer-2").removeClass("active").find("img").attr("src", "../image/process.png");
+			$("#footer-3").removeClass("active").find("img").attr("src", "../image/dine.png");
+			$("#footer-4").addClass("active").find("img").attr("src", "../image/bus_active.png");
+			$("#footer-5").removeClass("active").find("img").attr("src", "../image/account.png");
+		});
+		//我的信息
+		$(".footer-box").on("touchend", "#footer-5", function() {
+			openOrderDeliveInfo(pageParam);
+			$("#footer-1").removeClass("active").find("img").attr("src", "../image/calendar.png");
+			$("#footer-2").removeClass("active").find("img").attr("src", "../image/process.png");
+			$("#footer-3").removeClass("active").find("img").attr("src", "../image/dine.png");
+			$("#footer-4").removeClass("active").find("img").attr("src", "../image/bus.png");
+			$("#footer-5").addClass("active").find("img").attr("src", "../image/account_active.png");
+		});
+	};
+	function setOrderNum() {
+
+		var num = Number($api.getStorage("wartNum")) + Number($api.getStorage("deliveNum"));
+		if (num > 0) {
+			document.getElementById('footer-new1').style.display = "inline-block";
+			$("#footer-new1").text(num);
+		}
+	}
+
+	function setRequestOrderNum() {
+
+		var reNum = Number($api.getStorage("requestWartNum")) + Number($api.getStorage("requestDeliveNum"));
+		if (reNum > 0) {
+			document.getElementById('footer-new2').style.display = "inline-block";
+			$("#footer-new2").text(reNum);
+		}
+	}
+</script>

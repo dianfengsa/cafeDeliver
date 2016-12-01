@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="format-detection" content="telephone=no"/>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>左侧导航内容</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/homeFixed.css" />
+	</head>
+	<body>
+		<div class="navigator">
+			<div class="topNav" onclick="openNewWin('onDuty');">
+				<div class="status" id="statusDiv">
+					<span id="status">休</span>
+				</div>
+				<div class="arrow"><img src="../image/deliver/arrow_right.png" alt="" />
+				</div>
+			</div>
+			<div class="h1"></div>
+			<div class="navItem" onclick="api.closeSlidPane();">
+				<div class="icon"><img src="../image/deliver/order.png" alt="" />
+				</div>
+				<div class="itemName">
+					<span>配送订单</span>
+				</div>
+				<div class="arrow"><img src="../image/deliver/arrow_right.png" alt="" />
+				</div>
+			</div>
+			<div class="h1"></div>
+			<div class="navItem" onclick="openNewWin('manInfo');">
+				<div class="icon"><img src="../image/deliver/man.png" alt="" />
+				</div>
+				<div class="itemName">
+					<span>配送员信息</span>
+				</div>
+				<div class="arrow"><img src="../image/deliver/arrow_right.png" alt="" />
+				</div>
+			</div>
+			<div class="h1"></div>
+			<div class="navItem" onclick="openInventoryWin('剩余管理');" style="display: none;">
+				<div class="icon"><img src="../image/deliver/cart.png" alt="" />
+				</div>
+				<div class="itemName">
+					<span>剩余管理</span>
+				</div>
+				<div class="arrow"><img src="../image/deliver/arrow_right.png" alt="" />
+				</div>
+			</div>
+			<div class="h1"></div>
+			<div class="navItem" onclick="openNewWin('busMode_header');">
+				<div class="icon"><img src="../image/deliver/clock.png" alt="" />
+				</div>
+				<div class="itemName">
+					<span>公交模式</span>
+				</div>
+				<div class="arrow"><img src="../image/deliver/arrow_right.png" alt="" />
+				</div>
+			</div>
+			<div class="h1"></div>
+			<div class="navItem" onclick="openNewWin('Distribution_header');">
+				<div class="icon"><img src="../image/deliver/clock.png" alt="" />
+				</div>
+				<div class="itemName">
+					<span>配送请求</span>
+					<em id="psNum" hidden style="display:none;text-align: -webkit-center;background-color: red;width: 20px;height: 20px;border-radius: 10px;color: white;font-weight: bold;line-height: 20px;font-size: 14px;">0</em>
+				</div>
+				<div class="arrow"><img src="../image/deliver/arrow_right.png" alt="" />
+				</div>
+			</div>
+			<div class="h1"></div>
+			<div class="navItem" onclick="openNewWin('merchant_SettlementHeader');">
+				<div class="icon"><img src="../image/deliver/clock.png" alt="" />
+				</div>
+				<div class="itemName">
+					<span>商家结算统计</span>
+				</div>
+				<div class="arrow"><img src="../image/deliver/arrow_right.png" alt="" />
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/av.min.js"></script>
+	<script type="text/javascript" src="../script/AV_common.js"></script>
+	<script type="text/javascript" src="../script/common.js"></script>
+	<script>
+		apiready = function() {
+			api.addEventListener({
+				name : 'keyback'
+			}, function(ret, err) {
+				api.closeSlidPane();
+			});
+			api.addEventListener({
+				name : 'swipeleft'
+			}, function(ret, err) {
+				api.closeSlidPane();
+			});
+			updateDeliveryManInfo();
+			var map = api.require('bMap');
+			map.getLocation({
+				accuracy : '100m',
+				autoStop : true,
+				filter : 1
+			}, function(ret, err) {
+				if (ret.status) {
+					$api.setStorage("location", ret);
+				} else {
+					console.log(err.code);
+				}
+			});
+		}
+		function updateDeliveryManInfo() {
+			var query = new AV.Query(DeliveryMan);
+			query.include('cafeCar');
+			query.equalTo('owner', AV.User.current());
+			query.first().then(function(manInfo) {
+				console.log("manInfo>>>>" + JSON.stringify(manInfo))
+				var carInfo = manInfo.cafeCar();
+				if ( typeof (manInfo) != 'undefined' && carInfo) {
+					$api.setStorage("cafecarId", manInfo.cafeCar().id);
+					if (manInfo.status() == '休息') {
+						document.getElementById('status').innerHTML = '休';
+						document.getElementById('statusDiv').className = 'status';
+						//						api.execScript({
+						//							name : 'homeSlide',
+						//							script : 'alarmStop();'
+						//						});
+					} else if (manInfo.status() == '在岗') {
+						document.getElementById('status').innerHTML = '送';
+						document.getElementById('statusDiv').className = 'status-active';
+					}
+					//营业时段设置
+					//					console.log(manInfo.cafeCar().owner().id);
+					//					console.log(AV.User.current().id);
+					//					if (manInfo.cafeCar() && manInfo.cafeCar().owner().id == AV.User.current().id) {
+					//						document.getElementById('businessHoursSet').style.display = 'flex';
+					//					}
+				} else {
+					api.toast({
+						msg : '暂无分配配送区域,请联系管理员',
+						duration : 1000,
+						location : 'middle'
+					});
+				}
+			});
+		}
+
+		function openNewWin(type) {
+			api.openWin({
+				name : type,
+				url : './' + type + '.html',
+				rect : {
+					x : 0,
+					y : 0,
+					w : 'auto',
+					h : 'auto'
+				},
+				reload : true,
+				opaque : true,
+				bounces : false,
+				delay : 0
+			});
+		}
+
+		//地图定位
+		function openbMapWin(type) {
+			$api.setStorage("adv", type);
+			$api.setStorage("panorama", type);
+			console.log(api.systemType)
+			api.openWin({
+				name : type,
+				url : './' + type + '.html',
+				rect : {
+					x : 0,
+					y : 0,
+					w : 'auto',
+					h : 'auto'
+				},
+				pageParam : {
+					type : type
+				},
+				reload : true,
+				opaque : true,
+				bounces : false,
+				delay : 0
+			});
+		}
+
+		//货存管理
+		function openInventoryWin(type) {
+			api.openWin({
+				name : 'myInventory',
+				url : './myInventory.html',
+				rect : {
+					x : 0,
+					y : 0,
+					w : 'auto',
+					h : 'auto'
+				},
+				pageParam : {
+					type : type
+				},
+				reload : true,
+				opaque : true,
+				bounces : false,
+				delay : 0
+			});
+		}
+
+		function psNumShow(num) {
+			console.log("num>>>>>>>>>" + num)
+			if (num > 0) {
+				alertSound();
+			}
+			if (num == 0) {
+				document.getElementById('psNum').style.display = "none";
+			} else {
+				document.getElementById('psNum').innerHTML = num;
+				document.getElementById('psNum').style.display = "";
+			}
+		}
+
+		function alertSound() {
+			api.startPlay({
+				path : 'widget://res/finishOrder.mp3'
+			}, function() {
+			});
+		}
+	</script>
+</html>

@@ -1,0 +1,745 @@
+.top{
+    width: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding-top:20px ;
+    background-color: #0459c4;
+}
+
+.hr_05{
+background-color: #FFFFFF;
+}
+
+body{
+
+height: 100%;
+}
+
+header{
+    height: 4rem;
+    background-color: #0459c4;
+
+}
+
+header .header-text{
+    text-align: center;
+    font-size: 2.2rem;
+    color: #FFFFFF;
+
+}
+
+.back{
+    position: absolute;
+    left: 1rem;
+    display: inline-block;
+    height: 3rem;
+    width: 3rem;
+    background: url("../image/back.png")left center no-repeat;
+    background-size: cover;
+}
+
+.refresh{
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+    display: inline-block;
+    line-height: 3rem;
+    height: 2rem;
+    width: 2rem;
+    background: url("../image/refresh.png")left center no-repeat;
+    background-size: cover;
+}
+
+.search-box {
+    font-size: 1.8rem;
+    padding: 0 0.5rem 0 3rem;
+    color: #c9c9c9;
+    height: 2.5rem;
+    width: 100%;
+    border: none;
+    background: url("../image/search.png") 3% center no-repeat;
+
+    background-size:2rem 2rem;
+
+}
+
+.search-data{
+    font-weight: bold;
+    color: #000000;
+    line-height: 2.5rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0 0 0 0.2rem;
+}
+
+.data-box{
+    border: none;
+    width: 100%;
+    height: 2.5rem;
+    background: url("../image/data.png") 95% center no-repeat;
+    background-size:2rem 2rem;
+}
+
+
+
+nav{
+    height: 4rem;
+
+
+}
+
+.nav-box{
+color: #a0a0a0;
+    background-color: #ffffff;
+
+
+}
+
+nav .active{
+
+    color:#ff6600 ;
+
+
+}
+nav span{
+    display: inline-block;
+    height: 4rem;
+    padding:  0 0.2rem 0 0.2rem;
+
+}
+
+nav .active span{
+    border-bottom: #ff6600 solid 0.2rem;
+}
+nav  #nav-new1{
+    position: absolute;
+    display: none;
+    height: 1.6rem;
+    width: 1.6rem;
+    background-color: #FF0000;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: #FFFFFF;
+    border-radius: 1.6rem;
+   -webkit-border-radius: 1.6rem;
+    font-style: normal;
+
+}
+
+nav #nav-new2{
+     position: absolute;
+     display: none;
+     height: 1.6rem;
+     width: 1.6rem;
+     background-color: #FF0000;
+     font-size: 1.2rem;
+     line-height: 1.6rem;
+     color: #FFFFFF;
+     border-radius: 1.6rem;
+     -webkit-border-radius: 1.6rem;
+     font-style: normal;
+
+ }
+
+nav .nav-new{
+    position: absolute;
+    display: none;
+    height: 1.6rem;
+    width: 1.6rem;
+    background-color: #FF0000;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: #FFFFFF;
+    border-radius: 1.6rem;
+    -webkit-border-radius: 1.6rem;
+    font-style: normal;
+
+}
+
+
+nav .nav-text{
+
+
+    line-height: 4rem;
+     font-size: 1.8rem;
+     text-align: center;
+ }
+
+footer{
+    height: 6rem;
+    background-color: #FFFFFF;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+}
+
+.footer-box{
+border-top:#c9c9c9 solid 0.1rem ;
+}
+
+footer p{
+    font-size: 1rem;
+}
+
+
+footer .footer-text p{
+    color: #bfbfbf;
+    font-size: 1.4rem;
+    text-align: center;
+
+}
+
+footer .footer-text img{
+    height: 2.5rem;
+}
+
+
+footer .active span p{
+
+    color: #1296db;
+
+}
+
+footer div{
+    position: relative;
+}
+
+footer i{
+    position: absolute;
+    right: 2rem;
+    top: 0;
+    display: none;
+    height: 1.6rem;
+    width: 1.6rem;
+    background-color: #FF0000;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: #FFFFFF;
+    border-radius: 1.6rem;
+    -webkit-border-radius:1.6rem ;
+    font-style: normal;
+}
+.ban-scroll{
+    overflow:hidden
+}
+
+.test{
+
+    background-color: #007BC5;
+}
+
+.test:last-child{
+    margin-bottom: 0;
+}
+
+
+
+.money i {
+    font-style: normal;
+    font-weight: bold;
+}
+
+.user-box{
+    margin-bottom: 2rem;
+    border-radius: 0.5rem;
+}
+#deliverOrder .user-box:last-child{
+   margin-bottom: 50rem;
+}
+.user-info-body{
+    background-color: #FFFFFF;
+}
+
+.user-info-top{
+    background-color: #0894d2;
+    -webkit-border-top-left-radius: 0.4rem;
+    -webkit-border-top-right-radius: 0.4rem;
+
+}
+
+.destination{
+    float: left;
+    display: inline-block;
+    background: url("../image/destination.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-right: 0.5rem;
+}
+.source {
+    float: left;
+    display: inline-block;
+    background: url("../image/source.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-right: 0.5rem;
+
+}
+.user-info-text{
+    color: #FFFFFF;
+    height: 3rem;
+    padding:0 1.5rem ;
+
+    border-bottom:#c9c9c9 solid 0.1rem ;
+}
+
+
+.user-info-other-box .user-info-text{
+    color: #FFFFFF;
+    background-color: #04b7f1;
+    font-size: 1.6rem;
+    line-height: 3rem;
+
+}
+
+.user-info-other-box ul{
+    line-height: 4rem;
+}
+
+.user-info-top p{
+    margin: 0;
+    line-height: 3rem;
+    display: inline-block;
+    font-size: 1.6rem;
+
+}
+
+.user-info-add{
+    padding-top: 0.3rem;
+}
+.order-time{
+    display: inline-block;
+
+    background: url("../image/ordertime.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-right: 0.5rem;
+
+}
+
+.order-time-text{
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #34495e;
+}
+
+.clock{
+    display: inline-block;
+
+    background: url("../image/clock.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-right: 0.5rem;
+}
+
+.clock-text{
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ffb93c;
+}
+
+.user-info-other .ddbz{
+    font-size: 1.3rem;
+}
+
+.user-info-add-text{
+
+    border-bottom:#dfdfdf solid 1px ;
+}
+
+.user-info-add-text ul li img{
+   text-align: center;
+    transform:rotate(180deg);
+}
+
+.user-info-add-text ul{
+    display: inline-block;
+    word-break:break-all; /*支持IE，chrome，FF不支持*/
+    word-wrap:break-word;/*支持IE，chrome，FF*/
+    margin-left: 1.5rem;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    font-size: 1.2rem;
+}
+.user-info-add-text li{
+ margin: 1rem 0;
+}
+.user-info-add-text li .add-destination,.add-source{
+width: 90%;
+    display: block;
+    float: left;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+
+}
+
+
+.user-info-add-text img{
+    margin-right: 0.5rem;
+}
+
+.user-info-other{
+    line-height: 32px;
+    padding:0.3rem 0 0 0;
+    font-size: 1.2rem;
+}
+
+.user-info-add-text li,.user-info-other li{
+    margin-left: 1.5rem;
+    margin-right: 1rem;
+}
+.user-info-add-text li{
+    margin-bottom: 0.5rem; ;
+}
+
+
+.user-info-other .ul-1{
+    height: 3rem;
+    line-height: 3rem;
+}
+
+.user-info-other li span{
+    margin: 0 1rem 0 0;
+    font-size: 1.6rem;
+}
+
+.user-info-other p{
+    font-size: 1.2rem;
+    margin-right: 1.2rem;
+    display: inline;
+    color:#626262 ;
+
+}
+
+.user-info-add-text img{
+    height: 2rem;
+}
+.money{
+    line-height: 2rem;
+    font-size: 1.6rem;
+    float: right;
+    color: #FF0000;
+}
+
+.phone{
+    float: right;
+    display: inline-block;
+    text-align: center;
+    line-height: 3rem;
+    height: 3rem;
+    width: 3rem;
+    margin-right: 0.5rem;
+    background: url("../image/phone.png")center center no-repeat;
+    background-size: cover;
+}
+
+.user-info-other .i-2{
+
+    float: right;
+    display: inline-block;
+    position: relative;
+    top: 0.3rem;
+    height: 2.2rem;
+    width: 2.2rem;
+    line-height: 2.2rem;
+    background: url("../image/jt.png") center no-repeat;
+    background-size: cover;
+
+}
+.user-info-other-box{
+    background-color: #FFFFFF;
+    font-size: 1.8rem;
+    color: #000000;
+    display: none;
+
+}
+.th th{
+    background-color: #eeeeee;
+    color: #000000;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: normal;
+    padding: 0.4rem 0;
+
+}
+.tr{
+    position: absolute;
+}
+.td .amount{
+    position: relative;
+    text-align: center;
+}
+.td td{
+    font-size: 1.4rem;
+  margin: 0.2rem 0;
+    color:#7f7f7f;
+}
+.dishes{
+ text-align: left;
+    padding-left: 2rem;
+}
+.user-info-other-table {
+    text-align: center;
+    font-size: 1.4rem;
+    color: #c9c9c9;
+}
+.user-info-other-button{
+    padding: 0 2rem;
+    font-size: 1.6rem;
+    text-align: center;
+}
+.user-info-other-button .dispatch2{
+    margin: 1rem 0 1rem 0;
+    height: 3rem;
+    border: #ff182c solid 0.1rem;
+    width: 12rem;
+    background: none;
+    border-radius: 0.2rem;
+    -webkit-border-radius: 0.2rem;
+    color: #ff182c;
+    font-size: 1.6rem;
+}
+.user-info-other-button .dispatch3{
+    font-size: 1.6rem;
+    margin: 1rem 0 1rem 0;
+    height: 3rem;
+    background: none;
+    border: #f3854a solid 0.1rem;
+    width: 12rem;
+    color: #f3854a;
+    border-radius: 0.2rem;
+    -webkit-border-radius: 0.2rem;
+}
+.user-info-add span .dispatch{
+   height: 3rem;
+    width: 16rem;
+    font-size: 1.6rem;
+    color: #ffffff;
+    background-color: #5abfdf;
+    border-radius: 0.2rem;
+    -webkit-border-radius: 0.2rem;
+    border: none;
+    margin:  0 0 1rem 0;
+}
+.order-complete{
+    color: #77ea4c;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.order-refund{
+    color: #ef4a45;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.order-cancel{
+    color: #ef4a45;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.complete-img{
+    display: inline-block;
+    background: url("../image/order-complete.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-right: 0.5rem;
+}
+.cancel-img{
+    display: inline-block;
+    background: url("../image/order-cancel.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-right: 0.5rem;
+}
+.dispatch4{
+    height: 3rem;
+    width: 8rem;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #666666;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    border: none;
+}
+.dispatch5{
+    height: 3rem;
+    width: 8rem;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #60c684;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    border: none;
+}
+
+
+
+
+.dispatch3{
+    margin: 1rem 0 1rem 0;
+    height: 3rem;
+    border: none;
+    width: 10rem;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    background-color: #60c684;
+    color: #ffffff;
+}
+.user-info-web-bg li{
+    line-height: 3rem;
+    font-size: 1.5rem;
+
+}
+.buff{
+    color: #FF6600;
+    vertical-align: middle;
+}
+
+.notform{
+    height: 20rem;
+    background: url("../image/noOrder.png")center center no-repeat;
+
+    font-size: 2rem;
+    text-align: center;
+    margin: 2rem 0 0 0;
+}
+.refund{
+    top: 40%;
+    left: 10%;
+    z-index: 10;
+    position: fixed;
+    display: none;
+    width: 80%;
+    border: #000000 solid 0.1rem;
+    background-color: #FFFFFF;
+}
+.refund p {
+    font-size: 2rem;
+    text-align: center;
+    margin:  2rem 0 2rem 0;
+}
+.refund-box{
+ border-top: #000000 solid 0.1rem;
+}
+
+
+.refund button{
+   border: none;
+    background: #FFFFFF;
+    font-size: 1.6rem;
+    height: 3rem;
+    float: left;
+    width: 33.3%;
+
+}
+
+#sure button{
+    border: none;
+    background: #FFFFFF;
+    font-size: 1.6rem;
+    height: 3rem;
+    float: left;
+    width: 50%;
+
+}
+
+.refund button:active{
+    color: #FFFFFF;
+    background: #00a0df;
+}
+
+.pullDown{
+    top:-60px;
+   position: absolute;
+}
+
+.pullDown-refresh{
+
+    text-align: center;
+    height: 3rem;
+    line-height: 3rem;
+}
+
+.pullDown span{
+    line-height: 3rem;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.pullDown-img{
+
+    height: 1.8rem;
+    width: 1.8rem;
+    display: inline-block;
+    background: url("../image/pullDown.png")center center no-repeat;
+    background-size: cover;
+}
+
+
+.pullUp{
+    bottom:-60px;
+    position: absolute;
+}
+
+.pullUp-refresh{
+
+    text-align: center;
+    height: 3rem;
+    line-height: 3rem;
+}
+
+.pullUp span{
+    line-height: 3rem;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.pullUp-img{
+
+    height: 1.8rem;
+    width: 1.8rem;
+    display: inline-block;
+    background: url("../image/pullUp.png")center center no-repeat;
+    background-size: cover;
+}

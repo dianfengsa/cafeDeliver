@@ -1,0 +1,141 @@
+body {
+	background: #EFEFEF;
+}
+.h1 {
+	height: 1px;
+	background: rgba(0, 0, 0, 0.6);
+}
+.h10 {
+	height: 20px;
+}
+.topBack {
+	position: absolute;
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+}
+.bg {
+	position: absolute;
+	top: -5%;
+	left: -5%;
+	width: 110%;
+	height: 110%;
+	filter: blur(6px);
+	-webkit-filter: blur(6px);
+}
+.header {
+	height: 7%;
+	width: auto;
+	padding: 2%;
+	background: #FF7220;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-flex-flow: row;
+	flex-flow: row;
+}
+.backIcon {
+	position: absolute;
+}
+.backIcon img {
+	height: 32px;
+	width: 32px;
+}
+.title {
+	width: 60%;
+	text-align: center;
+	line-height: 48px;
+	position: absolute;
+	left: 20%;
+}
+.title span {
+	font-size: 22px;
+	font-weight: bold;
+	color: #fff;
+}
+.topInfo {
+	height: 30%;
+	text-align: center;
+}
+.status {
+	height: 110px;
+	width: 110px;
+	-moz-border-radius: 55px;
+	-webkit-border-radius: 55px;
+	border-radius: 55px;
+	background-color: #36A8DC;
+	text-align: center;
+	line-height: 110px;
+	position: relative;
+	margin-left: 34%;
+	margin-top: 14%;
+}
+.status-active {
+	height: 110px;
+	width: 110px;
+	-moz-border-radius: 55px;
+	-webkit-border-radius: 55px;
+	border-radius: 55px;
+	background-color: #FF8800;
+	text-align: center;
+	line-height: 110px;
+	position: relative;
+	margin-left: 34%;
+	margin-top: 14%;
+}
+.status span, .status-active span {
+	font-size: 50px;
+	font-weight: bold;
+	color: #fff;
+}
+.middleInfo {
+	height: 50%;
+	background: rgba(255, 251, 240, 0.6);
+	position: relative;
+}
+.item {
+	height: 60px;
+	/*display: -webkit-box;*/
+	/*display: -webkit-flex;*/
+	/*display: flex;*/
+	/*-webkit-box-orient: horizontal;*/
+	/*-webkit-flex-flow: row;*/
+	/*flex-flow: row;*/
+	padding: 0 4% 0 4%;
+}
+.manStatus {
+	float: left;
+	/*width: 80%;*/
+	line-height: 60px;
+}
+.manStatus span {
+	font-size: 18px;
+	font-weight: bold;
+	
+}
+.btn {
+	padding-top: 3%;
+	float: right;
+}
+.btn img {
+	height: 40px;
+}
+.logOutBtn {
+	height: 60px;
+	width: 60%;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	background-color: #DE6262;
+	text-align: center;
+	line-height: 60px;
+	position: absolute;
+	left: 20%;
+	bottom: 10%;
+}
+.logOutBtn span {
+	font-size: 20px;
+	font-weight: bold;
+	color: #fff;
+}

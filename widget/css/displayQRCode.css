@@ -1,0 +1,32 @@
+html, body {
+	height: 100%;
+	width: 100%;
+	background-color: transparent !important;
+}
+.qrCode {
+	z-index:10;
+	width: 100%;
+	padding-top: 40%;
+	text-align: center;
+}
+.qrCode img {
+	height: 200px;
+	width: 200px;
+}
+.receiptBtn {
+	height: 40px;
+	width: 40%;
+	background-color: #FF6633;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	margin-top: 10%;
+	margin-left: 30%;
+	text-align: center;
+}
+.receiptBtn span {
+	font-size: 18px;
+	font-weight: bold;
+	color: #fff;
+	line-height: 40px;
+}

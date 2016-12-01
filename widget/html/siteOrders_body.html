@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<style>
+			body {
+			}
+			.jdCss {
+				line-height: 30px;
+				background-color: #EE5F25;
+				width: 60px;
+				font-weight: bold;
+				color: white;
+				text-align: -webkit-center;
+				height: 30px;
+				border-radius: 4px;
+				margin-right: 10px;
+			}
+			.shCss {
+				line-height: 30px;
+				background-color: #7FD400;
+				width: 60px;
+				font-weight: bold;
+				color: white;
+				text-align: -webkit-center;
+				height: 30px;
+				border-radius: 4px;
+				margin-right: 10px;
+			}
+			.nhCss {
+				font-size: 14px;
+				color: gray;
+				font-weight: bold;
+				width: 14%;
+			}
+			.noCss {
+				padding-left: 10px;
+			}
+			.nameCss {
+				font-size: 14px;
+				color: gray;
+				padding-left: 25px;
+				width: 120px;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+			}
+			.liCss {
+				border-bottom: 1px dashed;
+				display: -webkit-box;
+				line-height: 50px;
+				height: 50px;
+			}
+			.dstatusCss {
+				background-color: #F5760B;
+				width: 80px;
+				text-align: -webkit-center;
+				color: white;
+				font-weight: bold;
+				border-radius: 5px;
+			}
+			.ystatusCss {
+				background-color: #059BFD;
+				width: 80px;
+				text-align: -webkit-center;
+				color: white;
+				font-weight: bold;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body style="background-color: #F0F0F0;">
+		<script type="text/template" id="template_siteOrdersItem">
+			<div style="line-height: 60px;border-bottom: 1px solid rgb(178, 175, 175);">
+			<span  style="font-weight: bold;color: black;font-size: 20px;width: 15%;text-align:left;padding-left: 10px;">单号</span>
+			<span  style="font-weight: bold;color: black;font-size: 20px;width: 50%;text-align:left;">站点名称</span>
+			</div>
+			<ul>
+			{{~it:value:index}}
+			<li id="id{{=value.orderId}}" class="liCss" tapmode>
+			<div class="nhCss">
+			<span class="noCss"><em style="font-size: large;">#{{=value.numberCount}}</em></span>
+			</div>
+			<div style="width: 40%;" onclick="adviceSelect('{{=value.orderId}}')">
+			<span class="nameCss">{{=value.name}}</span>
+			</div>
+			<div style="text-align: right;width: 48%;">
+			<span id="span{{=value.orderId}}" class="shCss" onclick="served('{{=value.orderId}}');"> 收货 </span>
+			<span id="span{{=value.orderId}}" class="jdCss" onclick="rejectOrderOrNot('{{=value.orderId}}');"> 拒单 </span>
+			</div>
+			<div style="height:5px;"></div>
+			</li>
+			{{~}}
+			</ul>
+		</script>
+		<div id="siteOrders" style="margin: 5px;background-color:white;"></div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/av.min.js"></script>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/AV_common.js"></script>
+	<script type="text/javascript" src="../script/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="../script/doT.min.js"></script>
+	<script type="text/javascript" src="../script/ajpush.js"></script>
+	<script type="text/javascript">
+		var siteInfo, kitId;
+		apiready = function() {
+			api.showProgress({
+				title : '加载数据中...',
+				modal : true
+			}, 10000);
+			siteInfo = $api.getStorage("siteInfo");
+			console.log("siteInfo>>>" + JSON.stringify(siteInfo))
+			if (siteInfo) {
+				getSiteOrders(siteInfo.siteId);
+				kitId = siteInfo.siteId;
+			} else {
+				getSiteOrders("");
+			}
+		};
+		function getSiteOrders(siteId) {
+			console.log(siteId)
+			return AV.Cloud.run("getSiteOrders", {
+				"siteId" : siteId
+			}).then(function(orders) {
+				console.log("orders>>>" + JSON.stringify(orders.taskObjArr))
+				if (orders) {
+					$api.setStorage("transPoints", orders.transPointArr);
+					var template_siteOrdersItem = document.getElementById("template_siteOrdersItem").innerHTML;
+					document.getElementById("siteOrders").innerHTML = doT.template(template_siteOrdersItem)(orders.taskObjArr);
+				} else {
+					document.getElementById("siteOrders").innerHTML = "该站点暂无需处理订单！";
+				}
+				api.hideProgress();
+			}).catch(function(erros) {
+				console.log("<<报错啦>>" + JSON.stringify(erros));
+				document.getElementById("siteOrders").innerHTML = "该站点暂无需处理订单！";
+				api.hideProgress();
+			});
+		}
+
+		function rejectOrderOrNot(orderId) {
+			var query = new AV.Query(Order);
+			query.get(orderId).then(function(order) {
+				api.confirm({
+					title : '拒单注意',
+					msg : '请谨慎拒单，建议拒单前先联系消费者',
+					buttons : ['直接拒单', '联系买 家', '取消']
+				}, function(ret, err) {
+					if (ret.buttonIndex == 1) {
+						rejectingReason(orderId);
+					} else if (ret.buttonIndex == 2) {
+						makeCustPhoneCall(orderId);
+					}
+				});
+			}).catch(function(error) {
+				errorAlert(error);
+			});
+		}
+
+		function makeCustPhoneCall(orderId) {
+			var query = new AV.Query(Order);
+			query.include('customer');
+			query.get(orderId).then(function(orderObj) {
+				console.log("orderObj>>" + JSON.stringify(orderObj))
+				var mobilePhoneNum = orderObj.customer().mobilePhoneNumber();
+				api.call({
+					type : 'tel_prompt',
+					number : mobilePhoneNum
+				});
+			}).catch(function(error) {
+				errorAlert(error);
+			});
+		}
+
+		function rejectingReason(orderId) {
+			api.actionSheet({
+				title : '拒单原因',
+				cancelTitle : '取 消',
+				//		destructiveTitle : ,
+				buttons : ['买卖双方协商一致', '送餐地址不在配送范围内', '送餐地址信息不完整', '订单过多', '订单中的商品已售完']
+			}, function(ret, err) {
+				if (ret.buttonIndex == 1) {
+					rejectingOrder(orderId, '买卖双方协商一致');
+				} else if (ret.buttonIndex == 2) {
+					rejectingOrder(orderId, '送餐地址不在配送范围内');
+				} else if (ret.buttonIndex == 3) {
+					rejectingOrder(orderId, '送餐地址信息不完整');
+				} else if (ret.buttonIndex == 4) {
+					rejectingOrder(orderId, '订单过多');
+				} else if (ret.buttonIndex == 5) {
+					rejectingOrder(orderId, '订单中的商品已售完');
+				}
+			});
+		}
+
+		function rejectingOrder(orderId, rejectReason) {
+			var custJPushRegistrationId;
+			api.showProgress({
+				title : '正在拒单...',
+				modal : true
+			});
+			var query = new AV.Query(Order);
+			query.include('customer');
+			query.get(orderId).then(function(order) {
+				custJPushRegistrationId = order.customer().JPushRegistrationId();
+				return AV.Cloud.run('updateOrderReject', {
+					orderObjectId : order.id
+				});
+			}).then(function(order) {
+				// 推送通知给customer
+				ajPushToCustomer(custJPushRegistrationId, order.id, rejectReason);
+				api.toast({
+					msg : '拒单成功！',
+					location : 'middle',
+					duration : 1000
+				});
+				$("#id" + orderId).remove();
+				api.hideProgress();
+			}).catch(function(order, error) {
+				console.log("出错了>>>" + JSON.stringify(error))
+			});
+		}
+
+		function served(orderId) {
+			var customerId;
+			var query = new AV.Query(Order);
+			query.include('customer');
+			query.get(orderId).then(function(orderObj) {
+				customerId = orderObj.get("customer").id;
+				console.log("customerId>>>" + customerId)
+				console.log("orderId>>>" + orderId)
+				api.confirm({
+					title : '提示',
+					msg : '是否确认快餐已送达?',
+					buttons : ['取消', '确定']
+				}, function(ret, err) {
+					if (ret.buttonIndex == 2) {
+						api.showProgress({
+							title : '提交数据中...',
+							modal : true
+						});
+						AV.Cloud.run('receiptTemp', {
+							"orderId" : orderId,
+							"userId" : customerId
+						}, {
+							success : function(orderSuccess) {
+								console.log("orderSuccess>>>" + JSON.stringify(orderSuccess))
+								getSiteOrders(siteInfo.siteId);
+								api.hideProgress();
+							},
+							error : function(error) {
+								console.log("error：" + JSON.stringify(error));
+								var msg = error.hasOwnProperty("msg") ? error.msg : JSON.stringify(error);
+								api.hideProgress();
+								api.alert({
+									title : '提示',
+									msg : msg
+								});
+							}
+						});
+					}
+				});
+			});
+		}
+
+		function adviceSelect(orderId, kitchenId) {
+			kitchenId = kitId;
+			console.log("orderId>>>" + orderId)
+			console.log("kitchenId>>>" + kitchenId)
+			$api.setStorage("adv", "adviceSelect");
+			api.openFrame({
+				name : 'adviceSelect',
+				url : './adviceSelect.html',
+				rect : {
+					x : 'auto',
+					y : 'auto',
+					w : 'auto',
+					h : 'auto'
+				},
+				pageParam : {
+					orderId : orderId,
+					kitchenId : kitchenId
+				},
+				bounces : false,
+				opaque : false,
+				bgColor : 'rgba(0, 0, 0, 0.8)',
+				reload : true
+			});
+		}
+	</script>
+</html>

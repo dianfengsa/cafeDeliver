@@ -399,6 +399,15 @@
 				number : cPhone
 			});
 		});
+
+
+		$("#deliver_template").on("touchend", ".user-info-top", function() {//快捷拨号
+			var cPhone = $(this).attr("data-value");
+			api.call({
+				type : 'tel_prompt',
+				number : cPhone
+			});
+		});
 	};
 	//获取申请退款的数目
 	function loadOrders(carId, pageSize) {
@@ -459,7 +468,6 @@
 				}
 			} else {
 				document.getElementById('nav-new2').style.display = "none";
-
 			}
 			if (finisheddArr.length > 0) {
 				var finishedd_template = document.getElementById('finishedd_template').innerHTML;

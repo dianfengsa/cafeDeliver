@@ -456,6 +456,18 @@ width: 90%;
     background-size: cover;
 }
 
+.phone-white{
+    float: right;
+    display: inline-block;
+    text-align: center;
+    line-height: 3rem;
+    height: 3rem;
+    width: 3rem;
+    margin-right: 0.5rem;
+    background: url("../image/phone3.png")center center no-repeat;
+    background-size: cover;
+}
+
 .user-info-other .i-2{
 
     float: right;

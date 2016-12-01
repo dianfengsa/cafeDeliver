@@ -101,11 +101,12 @@
 			{{?it&&it.length>0}}
 			{{~it:value:index}}
 			<div class="user-box flex-item-23 ">
-			<div class="user-info-top flex-item-24 ">
+			<div class="user-info-top flex-item-24" data-value ="{{=value.customerPhone}}">
 			<div class="user-info-text">
 			<p>
 			客户电话：{{=value.customerPhone}}
 			</p>
+				<div class="phone-white"></div>
 			</div>
 			</div>
 			<div class="user-info-body flex-row flex-item-24 flex-center">
@@ -338,7 +339,7 @@
 				});
 			});
 		};
-		$(".m-content").on("touchend", ".phone", function() {//快捷拨号
+		$("#deliverOrder").on("touchend", ".user-info-top", function() {//快捷拨号
 			var cPhone = $(this).attr("data-value");
 			api.call({
 				type : 'tel_prompt',

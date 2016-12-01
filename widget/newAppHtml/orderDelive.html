@@ -113,9 +113,11 @@
 			<p>
 			客户电话：{{=value.mobile}}
 			</p>
+
 			<p class="fr orderNumber" >
 			编号：{{=value.tasks[0].number}}
 			</p>
+				<div class="phone-white"></div>
 			</div>
 			</div>
 			<div class="user-info-body flex-row flex-item-24 flex-center">
@@ -125,7 +127,7 @@
 			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li>
-			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span> <div class="phone" data-value="{{=value.customerPhone}}"></div>
+			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
@@ -146,10 +148,8 @@
 			</div>
 			</div>
 			<div class="user-info-other-box flex-item-24 flex-row " style="display: none">
-			<div class="user-info-text flex-item-24">
-			<p>
-			商家电话:{{=value.tasks[0].restaurantPhone}}
-			</p>
+			<div class="user-info-text flex-item-24 user-info-text-store">
+			<p>商家电话:{{=value.tasks[0].restaurantPhone}}1111111111111111111</p>
 			</div>
 			<div class="user-info-other flex-item-23 flex-center">
 			<ul class="">
@@ -392,21 +392,30 @@
 				}
 			});
 		});
-		$("#m-content").on("touchend", ".phone", function() {//快捷拨号
+	/*	$("#m-content").on("touchend", ".phone", function() {//快捷拨号
 			var cPhone = $(this).attr("data-value");
 			api.call({
 				type : 'tel_prompt',
 				number : cPhone
 			});
 		});
-
-
-		$("#deliver_template").on("touchend", ".user-info-top", function() {//快捷拨号
+*/
+	$("#deliverOrder").on("touchend", ".user-info-text-store", function() {//快捷拨号(给商家拨打)
+			console.log("call商家");
 			var cPhone = $(this).attr("data-value");
 			api.call({
 				type : 'tel_prompt',
 				number : cPhone
 			});
+	});
+		$("#deliverOrder").on("touchend", ".user-info-top", function() {//快捷拨号(给客户拨打)
+			console.log("call客户");
+			var cPhone = $(this).attr("data-value");
+			api.call({
+				type : 'tel_prompt',
+				number : cPhone
+			});
+
 		});
 	};
 	//获取申请退款的数目

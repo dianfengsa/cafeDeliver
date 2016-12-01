@@ -116,7 +116,7 @@
 			<div class="clock"></div><span class="clock-text">{{=value.deliveryTime}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
 			</li>
 			<li>
-			<div class="order-time"></div><span class="order-time-text">下单时间:{{=value.createdAt}}</span> <div class="phone" data-value="{{=value.customerPhone}}"></div>
+			<div class="order-time"></div><span class="order-time-text">下单时间:{{=value.createdAt}}</span>
 			</li>
 			<li class="clearfix">
 			<div class="destination">
@@ -128,7 +128,8 @@
 			</li>
 			</ul>
 			<ul class="user-info-other flex-item-23 flex-center">
-			<li class="">
+			<li class="store">商家电话：
+				<div class="phone"></div>
 			</li>
 			</ul>
 			<div class="user-info-other-button flex-item-24 flex-column">
@@ -346,6 +347,16 @@
 				number : cPhone
 			});
 		});
+
+		$("#deliverOrder").on("touchend", ".store", function() {//快捷拨号(给商家拨打)
+			console.log("call商家");
+			var cPhone = $(this).attr("data-value");
+			api.call({
+				type : 'tel_prompt',
+				number : cPhone
+			});
+		});
+
 		///绑定配送请求订单的数据
 		function getDeliverRequestInfo() {
 			var waitingArr = [], deliverArr = [], finishedArr = [];

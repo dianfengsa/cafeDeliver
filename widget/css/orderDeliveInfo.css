@@ -91,6 +91,7 @@ background-color: #2fc2ec;
     height: 16rem;
     width: 100%;
     margin:  0 0 1rem 0;
+
 }
 .myInfoList{
     text-align: center;
@@ -106,18 +107,44 @@ background-color: #2fc2ec;
     width:8rem; height:8rem; border-radius:50%; overflow:hidden;
 }
 
+.user-area{
+background-color: #ac9ba2;
+    width: 100%;
+    padding-left: 2rem;
+    font-size: 2.4rem;
+    line-height: 5rem;
+}
+
 .myInfoList .avatar img{
     text-align: center;
 height: 100%;
 }
 
 .myInfoList .Name{
+ position: relative;
+}
+#dName{
+    -webkit-user-select:text;
+    position: relative;
     margin: auto auto;
-    min-width: 3rem;
+    width: 16rem;
     text-align: center;
- display: inline-block;
+    display: inline-block;
     font-size: 2rem;
     color: #FFFFFF;
+
+}
+#clear-text{
+    top: -1.2rem;
+    right: 0.5rem;
+position: absolute;
+    margin: 0;
+    display: none;
+    background: url("../image/clear.png")center center no-repeat;
+    height: 4.5rem;
+    width: 4.5rem;
+    background-size: cover;
+    z-index: 2;
 
 }
 
@@ -153,14 +180,7 @@ height: 100%;
 .user-info-web-box{
     font-size: 1.6rem;
 }
-.user-logo-img{
-    margin:  25% 0 0 25%;
-    line-height: 6rem;
-    height: 6rem;
-    width: 6rem;
-    background: url("../image/info_no.png")center center no-repeat;
-    background-size: cover;
-}
+
 .user-info-web-box  .bt{
 
 
@@ -265,7 +285,7 @@ background: url("../image/pen.png")center center no-repeat;
     border-left: transparent;
 }
 .close2{
-    left: 0rem;
+    left: 0;
     top: -0.3rem;
     border: 0.3rem solid #c9c9c9;
 }

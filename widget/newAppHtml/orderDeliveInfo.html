@@ -19,7 +19,7 @@
 				<div class="myInfoList">
 					<div class="avatar"><img src="../image/textava.png" alt="">
 					</div>
-					<span class="Name" id="dName" ></span>
+					<span class="Name" ><span id="dName">1111111111111</span></span>
 				</div>
 			</div>
 			<div class="user-info-web-box flex-item-24 flex-center flex-row">
@@ -120,101 +120,105 @@
 				});
 			}
 		});
-		//切换配送员状态
-		function logOut() {
-			api.confirm({
-				title : '提示',
-				msg : '确定注销登录？',
-				buttons : ['取消', '确定']
-			}, function(ret, err) {
-				if (ret.buttonIndex == 2) {
-					AV.User.logOut();
-					var currentUser = AV.User.current();
-					api.openWin({
-						name : 'login',
-						url : '../new_login.html',
-						opaque : true, // 页面不透明
-						bounces : false, // 不允许页面弹动
-						reload : true,
-						delay : 0
-					});
-				}
-			});
-		}
-
-	/*	function change() {
-			var original = $("#dName").text();
-			var value = prompt('输入新昵称：（请不要超过4个汉字,并且是中文）', original);
-			var reg = /^[\u4e00-\u9fa5]+$/;
-			console.log(original);
-			if (reg.test(value) && value.length <= 8) {
-				$("#dName").text(value);
-				//调用更改昵称函数
-				alert("更改昵称成功");
-			} else if (value == null) {
-			} else {
-				alert('昵称不符合格式');
-			}
-		}
-
-*/
-
-	/*	function blur() {			//失去焦点时
-			var original = $("#dName");
-			original.attr("contentEditable", false);
-
-			var reg = /^[\u4e00-\u9fa5]+$/;
-
-			if (reg.test(original.text) && value.length <= 8) {
-			//	$("#dName").text(value);
-				//调用更改昵称函数
-				alert("更改昵称成功");
-			} else if (value == null) {
-				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
-			} else {
-				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
-				alert('昵称不符合格式');
-			}
-		}
-*/
-
-		$("#dName").blur(function(){
+		$("#dName").blur(function() {
 			var original = $("#dName");
 			var originalT = document.getElementById("dName").innerHTML;
 			console.log(originalT);
 			var reg = /^[\u4e00-\u9fa5]+$/;
-			if(reg.test(originalT) && originalT.length <= 8){
-					
-				alert("更改昵称成功");
-			}
-			else if (original.text == null) {
+			var containSpecial = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im;
+			if (originalT == "") {
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
-				alert('昵称不符合格式（最多4汉字8位字符）');
-
+				api.toast({
+					msg : '昵称不允许出现特殊符号(最少2汉字或4位数字,只允许数字、中文)',
+					location : "middle",
+					duration : 2000
+				});
+			} else if (containSpecial.test(originalT)) {
+				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
+				api.toast({
+					msg : '昵称不允许出现特殊符号(最少2汉字或4位数字,只允许数字、中文)',
+					location : "middle",
+					duration : 2000
+				});
+			} else if (originalT.length < 2) {
+				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
+				api.toast({
+					msg : '昵称长度过短(最少2汉字)',
+					location : "middle",
+					duration : 2000
+				});
 			} else {
-				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
-				alert('昵称不符合格式（最多4汉字8位字符）');
+				alert('成功');
 			}
-
-			original.css("background","none");
+			original.css("background", "none");
 			original.attr("contentEditable", false);
-			original.css("color","#FFFFFF");
-
-
+			original.css("color", "#FFFFFF");
 		});
-
-
-		function active() {		//获得焦点时
-			var original = $("#dName");
-			original.attr("contentEditable", true);
-			original.css("background-color", "#FFFFFF");
-			original.css("color","#000000");
-		}
-
 		$(".user-info-web-bg").on("touchend", "#dName", function() {
 			// change();
 			active()
 		});
-
 	}
+	function active() {//获得焦点时
+		document.getElementById("dName").innerHTML = "";
+		var original = $("#dName");
+		original.attr("contentEditable", true);
+		original.css("background-color", "#FFFFFF");
+		original.css("color", "#000000");
+		$("#clear-text").css("display", "inline-block")
+	}
+
+	//切换配送员状态
+	function logOut() {
+		api.confirm({
+			title : '提示',
+			msg : '确定注销登录？',
+			buttons : ['取消', '确定']
+		}, function(ret, err) {
+			if (ret.buttonIndex == 2) {
+				AV.User.logOut();
+				var currentUser = AV.User.current();
+				api.openWin({
+					name : 'login',
+					url : '../new_login.html',
+					opaque : true, // 页面不透明
+					bounces : false, // 不允许页面弹动
+					reload : true,
+					delay : 0
+				});
+			}
+		});
+	}
+
+	/*	function change() {
+	 var original = $("#dName").text();
+	 var value = prompt('输入新昵称：（请不要超过4个汉字,并且是中文）', original);
+	 var reg = /^[\u4e00-\u9fa5]+$/;
+	 console.log(original);
+	 if (reg.test(value) && value.length <= 8) {
+	 $("#dName").text(value);
+	 //调用更改昵称函数
+	 alert("更改昵称成功");
+	 } else if (value == null) {
+	 } else {
+	 alert('昵称不符合格式');
+	 }
+	 }
+	 */
+	/*	function blur() {			//失去焦点时
+	 var original = $("#dName");
+	 original.attr("contentEditable", false);
+	 var reg = /^[\u4e00-\u9fa5]+$/;
+	 if (reg.test(original.text) && value.length <= 8) {
+	 //	$("#dName").text(value);
+	 //调用更改昵称函数
+	 alert("更改昵称成功");
+	 } else if (value == null) {
+	 $("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
+	 } else {
+	 $("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
+	 alert('昵称不符合格式');
+	 }
+	 }
+	 */
 </script>

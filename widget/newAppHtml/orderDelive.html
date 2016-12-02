@@ -299,7 +299,31 @@
 		}
 		deliver = $api.getStorage("deliverMan");
 		console.log("deliver>>>>>" + JSON.stringify(deliver))
-		$(".m-content").on("click", ".dispatch", function() {//dispatch按钮(立即接单)
+
+		var keybackNum = 0;
+		api.addEventListener({
+			name : 'keyback'
+		}, function(ret, err) {
+			if (keybackNum == 2) {
+				api.closeWidget({
+					silent : true
+				})
+			} else {
+				keybackNum++;
+				api.toast({
+					msg : "再按一次返回键退出程序。",
+					location : "middle"
+				});
+				setTimeout(function() {
+					keybackNum = 0;
+				}, 3000)
+			}
+		});
+		$(".top").on("touchend", ".refresh", function() {
+			location.reload(true);
+			myScroll.refresh()
+		});
+		$("#waitingOrder").on("touchend", ".dispatch", function() {//dispatch按钮(立即接单)
 			var orderId = $(this).attr("data-value");
 			api.openFrame({
 				name : 'deliveSelect',
@@ -331,29 +355,7 @@
 				}
 			});
 		});
-		var keybackNum = 0;
-		api.addEventListener({
-			name : 'keyback'
-		}, function(ret, err) {
-			if (keybackNum == 2) {
-				api.closeWidget({
-					silent : true
-				})
-			} else {
-				keybackNum++;
-				api.toast({
-					msg : "再按一次返回键退出程序。",
-					location : "middle"
-				});
-				setTimeout(function() {
-					keybackNum = 0;
-				}, 3000)
-			}
-		});
-		$(".top").on("touchend", ".refresh", function() {
-			location.reload(true);
-			myScroll.refresh()
-		});
+
 		$("#deliverOrder").on("click", ".dispatch3", function() {
 			var orderId = $(this).attr("data-value");
 			var customerId = $(this).attr("data-cust");

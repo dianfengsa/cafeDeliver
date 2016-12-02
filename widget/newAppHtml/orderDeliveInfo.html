@@ -184,6 +184,9 @@
 			buttons : ['取消', '确定']
 		}, function(ret, err) {
 			if (ret.buttonIndex == 2) {
+				$api.rmStorage("deliverMan");
+				api.closeWin({
+				});
 				AV.User.logOut();
 				var currentUser = AV.User.current();
 				api.openWin({

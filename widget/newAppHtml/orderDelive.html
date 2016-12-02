@@ -73,7 +73,7 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isoTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
@@ -122,7 +122,7 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isoTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
@@ -392,14 +392,14 @@
 				}
 			});
 		});
-	$("#m-content").on("touchend", ".store", function() {//快捷拨号(给商家拨打)
+		$("#m-content").on("touchend", ".store", function() {//快捷拨号(给商家拨打)
 			console.log("call商家");
 			var cPhone = $(this).attr("data-value");
 			api.call({
 				type : 'tel_prompt',
 				number : cPhone
 			});
-	});
+		});
 		$("#m-content").on("touchend", ".user-info-top", function() {//快捷拨号(给客户拨打)
 			console.log("call客户");
 			var cPhone = $(this).attr("data-value");
@@ -442,6 +442,7 @@
 			var noneOrder_template = document.getElementById('noneOrder_template').innerHTML;
 			//无订单时显示
 			if (waitingArr.length > 0) {
+				alertSound();
 				$("#nav-new1").text(waitingArr.length);
 				document.getElementById('nav-new1').style.display = "inline-block";
 				var waiting_template = document.getElementById('waiting_template').innerHTML;
@@ -458,6 +459,7 @@
 					}
 				}
 				if (myOrderArr.length > 0) {
+					alertSound();
 					$("#nav-new2").text(myOrderArr.length);
 					document.getElementById('nav-new2').style.display = "inline-block";
 					var deliver_template = document.getElementById('deliver_template').innerHTML;
@@ -477,13 +479,8 @@
 				document.getElementById('finishedOrder').innerHTML = doT.template(noneOrder_template)();
 			}
 			api.hideProgress();
-			console.log("waitingArr.........." + JSON.stringify(waitingArr))
-			console.log("myOrderArr.........." + JSON.stringify(myOrderArr))
-			console.log("finisheddArr.........." + JSON.stringify(finisheddArr))
 			$api.setStorage("wartNum", waitingArr.length);
 			$api.setStorage("deliveNum", myOrderArr.length);
-			console.log(waitingArr.length)
-			console.log(myOrderArr.length)
 			api.execScript({
 				frameName : 'footer',
 				script : 'setOrderNum();'
@@ -504,7 +501,7 @@
 		$api.rmStorage("requestDeliveNum");
 		var ref = new Wilddog("https://kaifanba.wilddogio.com/deliveryOrderRef/" + carId);
 		ref.limitToFirst(100).on("value", function(datasnapshot) {
-			var reWaitingArr = [], reDeliverArr = [], reFinishedArr = [];
+			var reWaitingArr = [], reDeliverArr = [], reFinishedArr = [], myOrderArr = [];
 			var snap = _.each(datasnapshot.val(), function(val, key) {
 				if (val.status == "等待接单") {
 					reWaitingArr.push(val);
@@ -517,11 +514,22 @@
 				}
 				return reWaitingArr;
 			});
-			console.log("配送请求》》》》waitingArr.........." + JSON.stringify(reWaitingArr))
-			console.log("配送请求》》》》myOrderArr.........." + JSON.stringify(reDeliverArr))
-			console.log("配送请求》》》》finisheddArr.........." + JSON.stringify(reFinishedArr))
+			for (var i = 0; i < reDeliverArr.length; i++) {
+				if (reDeliverArr[i].deliveryMan.objectId == deliver.id) {
+					myOrderArr.push(reDeliverArr[i]);
+				}
+			}
+			console.log("配送请求》》》》reWaitingArr.........." + JSON.stringify(reWaitingArr))
+			console.log("配送请求》》》》myOrderArr.........." + JSON.stringify(myOrderArr))
+			console.log("配送请求》》》》reFinishedArr.........." + JSON.stringify(reFinishedArr))
+			if (reWaitingArr.length > 0 || myOrderArr.length > 0) {
+				alertSound();
+			}
 			$api.setStorage("requestWartNum", reWaitingArr.length);
-			$api.setStorage("requestDeliveNum", reDeliverArr.length);
+			$api.setStorage("requestDeliveNum", myOrderArr.length);
+			$api.setStorage("requestWaiting", reWaitingArr);
+			$api.setStorage("requestDeliver", myOrderArr);
+			$api.setStorage("requestFinished", reFinishedArr);
 			api.execScript({
 				frameName : 'footer',
 				script : 'setRequestOrderNum();'
@@ -534,9 +542,6 @@
 				frameName : 'orderRequest',
 				script : 'getDeliverRequestInfo();'
 			});
-			$api.setStorage("requestWaiting", reWaitingArr);
-			$api.setStorage("requestDeliver", reDeliverArr);
-			$api.setStorage("requestFinished", reFinishedArr);
 		});
 	}
 
@@ -591,6 +596,13 @@
 				//刷新完成后重新获取高度
 				myScroll.refresh()
 			}
+		});
+	}
+
+	function alertSound() {
+		api.startPlay({
+			path : 'widget://res/finishOrder.mp3'
+		}, function() {
 		});
 	}
 </script>

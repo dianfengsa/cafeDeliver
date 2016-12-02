@@ -63,14 +63,14 @@
 			<p>
 			客户电话：{{=value.customerPhone}}
 			</p>
-				<div class="phone-white"></div>
+			<div class="phone-white"></div>
 			</div>
 			</div>
 			<div class="user-info-body flex-row flex-item-24 flex-center">
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">{{=value.deliveryTime}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.deliveryTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
 			</li>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=value.createdAt}}</span>
@@ -106,14 +106,14 @@
 			<div class="user-info-text">
 			<p>
 			客户电话：{{=value.customerPhone}}
-			</p> 
+			</p>
 			</div>
 			</div>
 			<div class="user-info-body flex-row flex-item-24 flex-center">
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">{{=value.deliveryTime}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.deliveryTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
 			</li>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=value.createdAt}}</span>
@@ -363,11 +363,21 @@
 				//状态为等待接单
 				var templateWartting = document.getElementById('waiting_template').innerHTML;
 				document.getElementById('waitingOrder').innerHTML = doT.template( templateWartting )(waitingArr);
+			} else {
+				$("#nav-new1").text(waitingArr.length)
+				document.getElementById('nav-new1').style.display = "none";
+				var templateWartting = document.getElementById('waiting_template').innerHTML;
+				document.getElementById('waitingOrder').innerHTML = doT.template( templateWartting )(waitingArr);
 			}
 			//状态配送中
 			if (deliverArr.length > 0) {
 				$("#nav-new2").text(deliverArr.length);
 				document.getElementById('nav-new2').style.display = "inline-block";
+				var templateDeliver = document.getElementById('deliver_template').innerHTML;
+				document.getElementById('deliverOrder').innerHTML = doT.template( templateDeliver )(deliverArr);
+			} else {
+				$("#nav-new2").text(deliverArr.length);
+				document.getElementById('nav-new2').style.display = "none";
 				var templateDeliver = document.getElementById('deliver_template').innerHTML;
 				document.getElementById('deliverOrder').innerHTML = doT.template( templateDeliver )(deliverArr);
 			}

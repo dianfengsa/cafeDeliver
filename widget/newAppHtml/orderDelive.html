@@ -351,7 +351,7 @@
 			}
 		});
 		$(".top").on("touchend", ".refresh", function() {
-			location.reload(true)
+			location.reload(true);
 			myScroll.refresh()
 		});
 		$("#deliverOrder").on("touchend", ".dispatch3", function() {
@@ -575,7 +575,7 @@
 	}
 
 	function loaded() {//已闲置，作为增加页面弹性滚动
-		myScroll = new IScroll('#m-content');
+		myScroll = new IScroll('#m-content',{ probeType: 3, mouseWheel: true });
 		myScroll.on("slideDown", function() {
 			if (this.y > 40) {
 				//刷新整个页面或者刷新订单数据

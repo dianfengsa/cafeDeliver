@@ -364,6 +364,7 @@
 				//状态为等待接单
 				var templateWartting = document.getElementById('waiting_template').innerHTML;
 				document.getElementById('waitingOrder').innerHTML = doT.template( templateWartting )(waitingArr);
+				myScroll.refresh()
 			}
 			//状态配送中
 			if (deliverArr.length > 0) {
@@ -371,11 +372,13 @@
 				document.getElementById('nav-new2').style.display = "inline-block";
 				var templateDeliver = document.getElementById('deliver_template').innerHTML;
 				document.getElementById('deliverOrder').innerHTML = doT.template( templateDeliver )(deliverArr);
+				myScroll.refresh()
 			}
 			//状态为已完成
 			if (finishedArr.length > 0) {
 				var templateFinished = document.getElementById('finishedd_template').innerHTML;
 				document.getElementById('finishedOrder').innerHTML = doT.template( templateFinished )(finishedArr);
+				myScroll.refresh()
 			}
 		}
 

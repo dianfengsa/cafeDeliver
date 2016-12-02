@@ -148,8 +148,9 @@
 					duration : 2000
 				});
 			} else {
-				updateDeliverManName(deliverManInfo.id, originalT).then(function(man) {
+				updateDeliverManName(deliverManInfo.id, originalT).then(function(man) { 
 					if (man) {
+						$api.setStorage("deliverMan", man);
 						api.toast({
 							msg : '修改成功',
 							location : "middle",

@@ -76,6 +76,20 @@
 			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isoTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li>
+			<div class="order-time"></div>
+			<span class="order-time-text">送餐类型:
+			{{?value.tsObject}}
+			{{?value.tsObject.radioId==3}}
+			<b style="color: red;">外卖订餐</b>
+			{{??}}
+			堂食点餐
+			{{?}}
+			{{??}}
+			<b style="color: red;">外卖订餐</b>
+			{{?}}
+			</span>
+			</li>
+			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
 			<li class="clearfix store"  data-value ="{{=value.tasks[0].restaurantPhone}}">
@@ -123,6 +137,20 @@
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
 			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isoTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
+			</li>
+			<li>
+			<div class="order-time"></div>
+			<span class="order-time-text">送餐类型:
+			{{?value.tsObject}}
+			{{?value.tsObject.radioId==3}}
+			<b style="color: red;">外卖订餐</b>
+			{{??}}
+			堂食点餐
+			{{?}}
+			{{??}}
+			<b style="color: red;">外卖订餐</b>
+			{{?}}
+			</span>
 			</li>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
@@ -354,6 +382,39 @@
 			location.reload(true);
 			myScroll.refresh()
 		});
+		//立即接单
+		$("#m-content").on("click", ".dispatch", function() { 
+			var orderId = $(this).attr("data-value");
+			api.openFrame({
+				name : 'deliveSelect',
+				url : './deliveSelect.html',
+				rect : {
+					x : 0,
+					y : 0,
+					w : "auto",
+					h : "auto",
+					marginLeft : 0, //相对父 window 左外边距的距离
+					marginTop : 0, //相对父 window 上外边距的距离
+					marginBottom : 0, //相对父 window 下外边距的距离
+					marginRight : 0 //相对父 window 右外边距的距离
+				},
+				pageParam : {
+					"cefeCar" : pageParam.cafeCar,
+					"orderId" : orderId,
+					"orderType" : 1
+				},
+				bounces : false,
+				bgColor : 'rgba(0,0,0,0)',
+				vScrollBarEnabled : true,
+				hScrollBarEnabled : true,
+				animation : {
+					type : "fade", //动画类型（详见动画类型常量）
+					subType : "from_bottom", //动画子类型（详见动画子类型常量）
+					curve : "ease_out",
+					duration : 200 //动画过渡时间，默认300毫秒
+				}
+			});
+		});
 		$("#deliverOrder").on("click", ".dispatch3", function() {
 			var orderId = $(this).attr("data-value");
 			var customerId = $(this).attr("data-cust");
@@ -406,6 +467,14 @@
 		$("#m-content").on("click", ".store", function() {//快捷拨号(给商家拨打)
 			console.log("call商家");
 			var cPhone = $(this).attr("data-value");
+			if (_.isEmpty(cPhone)) {
+				api.toast({
+					msg : '暂无商家电话',
+					location : 'middle',
+					duration : 2000
+				});
+				return;
+			}
 			api.call({
 				type : 'tel_prompt',
 				number : cPhone
@@ -414,6 +483,14 @@
 		$("#m-content").on("click", ".user-info-top", function() {//快捷拨号(给客户拨打)
 			console.log("call客户");
 			var cPhone = $(this).attr("data-value");
+			if (_.isEmpty(cPhone)) {
+				api.toast({
+					msg : '暂无客户电话',
+					location : 'middle',
+					duration : 2000
+				});
+				return;
+			}
 			api.call({
 				type : 'tel_prompt',
 				number : cPhone
@@ -429,7 +506,7 @@
 		//调用野狗,实时获取数据
 		var ref = new Wilddog("https://kaifanba.wilddogio.com/orderRef/" + carId);
 		ref.orderByKey().limitToFirst(100).on("value", function(datasnapshot) {
-			var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [], myOrderArr = [];
+			var proArray = [], waitingArr = [], deliverArr = [], finisheddArr = [], myOrderArr = [], wmArr = [];
 			var snap = _.groupBy(datasnapshot.val(), function(val) {
 				val.deliverMark = val.deliverMark ? val.deliverMark : "0";
 				return val.deliverMark;
@@ -451,13 +528,26 @@
 				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
 			});
 			var noneOrder_template = document.getElementById('noneOrder_template').innerHTML;
+			console.log("waitingArr>>>>>>>>" + JSON.stringify(waitingArr))
+			console.log("deliverArr>>>>>>>>" + JSON.stringify(deliverArr))
+			console.log("finisheddArr>>>>>>>>" + JSON.stringify(finisheddArr))
 			//无订单时显示
 			if (waitingArr.length > 0) {
+				for (var i = 0; i < waitingArr.length; i++) {
+					if (waitingArr[i].tsObject) {
+						if (waitingArr[i].tsObject.radioId == 3) {
+							wmArr.push(waitingArr[i]);
+						}
+					} else {
+						wmArr.push(waitingArr[i]);
+					}
+				}
+				console.log("wmArr><>>>>>" + JSON.stringify(wmArr))
 				alertSound();
-				$("#nav-new1").text(waitingArr.length);
+				$("#nav-new1").text(wmArr.length);
 				document.getElementById('nav-new1').style.display = "inline-block";
 				var waiting_template = document.getElementById('waiting_template').innerHTML;
-				document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(waitingArr);
+				document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(wmArr);
 			} else {
 				document.getElementById('waitingOrder').innerHTML = doT.template(noneOrder_template)();
 			}
@@ -487,7 +577,7 @@
 				document.getElementById('finishedOrder').innerHTML = doT.template(noneOrder_template)();
 			}
 			api.hideProgress();
-			$api.setStorage("wartNum", waitingArr.length);
+			$api.setStorage("wartNum", wmArr.length);
 			$api.setStorage("deliveNum", myOrderArr.length);
 			api.execScript({
 				frameName : 'footer',

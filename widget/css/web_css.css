@@ -247,7 +247,7 @@ footer i{
     border-radius: 0.5rem;
 }
 #deliverOrder .user-box:last-child{
-   margin-bottom: 50rem;
+
 }
 .user-info-body{
     background-color: #FFFFFF;
@@ -402,6 +402,7 @@ width: 80%;
 }
 
 .user-info-other{
+    background-color: #FFFFFF;
     line-height: 32px;
     padding:0.3rem 0 0 0;
     font-size: 1.2rem;

@@ -211,6 +211,7 @@
 	<!--页面脚本-->
 	<script src="../newAppJs/share.js"></script>
 	<script>
+		var t1=null;//全局  用于解决触发2次click事件
 		var pageParam;
 		apiready = function() {
 			pageParam = api.pageParam;
@@ -261,7 +262,7 @@
 				openOrderDeliveInfo(pageParam);
 			});
 			//重新派单事件
-			$("#deliverOrder").on("touchend", ".dispatch2", function() {
+			$("#deliverOrder").on("click", ".dispatch2", function() {
 				console.log(2);
 				var orderId = $(this).attr("data-value");
 				api.openFrame({
@@ -295,9 +296,20 @@
 				});
 			});
 			//确认送达事件
-			$("#deliverOrder").on("touchend", ".dispatch3", function() {
+			$("#deliverOrder").on("click", ".dispatch3", function() {
 				var orderId = $(this).attr("data-value");
 				var deliverId = $(this).attr("data-cust");
+				if (t1 == null){
+					t1 = new Date().getTime();
+				}else{
+					var t2 = new Date().getTime();
+					if(t2 - t1 < 500){
+						t1 = t2;
+						return;
+					}else{
+						t1 = t2;
+					}
+				}
 				served(orderId, deliverId);
 			});
 			console.log("pageParam>>>>>>>>" + JSON.stringify(pageParam));
@@ -336,14 +348,14 @@
 				});
 			});
 		};
-		$("#m-content").on("touchend", ".user-info-top", function() {//快捷拨号
+		$("#m-content").on("click", ".user-info-top", function() {//快捷拨号
 			var cPhone = $(this).attr("data-value");
 			api.call({
 				type : 'tel_prompt',
 				number : cPhone
 			});
 		});
-		$("#m-content").on("touchend", ".store", function() {//快捷拨号(给商家拨打)
+		$("#m-content").on("click", ".store", function() {//快捷拨号(给商家拨打)
 			console.log("call商家");
 			var cPhone = $(this).attr("data-value");
 			api.call({
@@ -391,11 +403,11 @@
 		}
 
 		function loaded() {
-			myScroll = new IScroll('#m-content');
+			myScroll = new IScroll('#m-content',{ probeType: 3, mouseWheel: true ,click:true});
 			myScroll.on("slideDown", function() {
 				if (this.y > 40) {
 					//刷新整个页面或者刷新订单数据
-					location.reload(true);
+					getDeliverRequestInfo();
 					console.log("刷新");
 					//刷新完成后重新获取高度
 					myScroll.refresh()

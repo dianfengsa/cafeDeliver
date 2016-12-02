@@ -48,7 +48,7 @@ $(document).ready(function(){
     $(".nav-box").on("touchend","#nav-1",function () {nav(1);});
     $(".nav-box").on("touchend","#nav-2",function () {nav(2);});
     $(".nav-box").on("touchend","#nav-3",function () {nav(3);});
-    $(".m-content").on("touchend",".businessInfo",function () {    //点击后显示该订单的商家信息
+    $(".m-content").on("click",".businessInfo",function () {    //点击后显示该订单的商家信息
         var businessInfo =  $(this).parents().siblings('.user-info-other-box');
         $(".user-info-other-box:not(businessInfo)").slideUp();
         if(businessInfo.css("display") == "none" ){

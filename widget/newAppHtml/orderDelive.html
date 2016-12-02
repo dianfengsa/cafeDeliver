@@ -146,7 +146,6 @@
 			</div>
 			</div>
 			<div class="user-info-other-box flex-item-24 flex-row " style="display: none">
-			<div class="user-info-text flex-item-24 user-info-text-store">
 			<div class="user-info-text flex-item-24 user-info-text-store"  data-value ="{{=value.tasks[0].restaurantPhone}}">
 			<p>商家电话:{{=value.tasks[0].restaurantPhone}}</p>
 			</div>
@@ -181,7 +180,6 @@
 			<button class="dispatch3" data-value="{{=value.orderid}}" data-cust="{{=value.customerId}}">
 			确认送达
 			</button>
-			</div>
 			</div>
 			</div>
 			</div>
@@ -261,6 +259,7 @@
 <script src="../newAppJs/orderDelive.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
 <script>
+	var t1=null;//全局  用于解决触发2次click事件
 	var pageParam, deliver;
 	apiready = function() {
 		pageParam = api.pageParam;
@@ -354,11 +353,25 @@
 			location.reload(true);
 			myScroll.refresh()
 		});
-		$("#deliverOrder").on("touchend", ".dispatch3", function() {
+		$("#deliverOrder").on("click", ".dispatch3", function() {
 			var orderId = $(this).attr("data-value");
 			var customerId = $(this).attr("data-cust");
+
+			if (t1 == null){
+				t1 = new Date().getTime();
+			}else{
+				var t2 = new Date().getTime();
+				if(t2 - t1 < 500){
+					t1 = t2;
+					return;
+				}else{
+					t1 = t2;
+				}
+			}
 			setDelivered(orderId, customerId);
 		});
+
+
 		//重新派单
 		$("#deliverOrder").on("click", ".dispatch2", function() {
 			var orderId = $(this).attr("data-value");
@@ -392,7 +405,7 @@
 				}
 			});
 		});
-	$("#m-content").on("touchend", ".store", function() {//快捷拨号(给商家拨打)
+	$("#m-content").on("click", ".store", function() {//快捷拨号(给商家拨打)
 			console.log("call商家");
 			var cPhone = $(this).attr("data-value");
 			api.call({
@@ -400,7 +413,7 @@
 				number : cPhone
 			});
 	});
-		$("#m-content").on("touchend", ".user-info-top", function() {//快捷拨号(给客户拨打)
+		$("#m-content").on("click", ".user-info-top", function() {//快捷拨号(给客户拨打)
 			console.log("call客户");
 			var cPhone = $(this).attr("data-value");
 			api.call({
@@ -446,7 +459,6 @@
 				document.getElementById('nav-new1').style.display = "inline-block";
 				var waiting_template = document.getElementById('waiting_template').innerHTML;
 				document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(waitingArr);
-				myScroll.refresh()
 			} else {
 				document.getElementById('waitingOrder').innerHTML = doT.template(noneOrder_template)();
 			}
@@ -462,7 +474,6 @@
 					document.getElementById('nav-new2').style.display = "inline-block";
 					var deliver_template = document.getElementById('deliver_template').innerHTML;
 					document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
-					myScroll.refresh()
 				} else {
 					document.getElementById('deliverOrder').innerHTML = doT.template(noneOrder_template)();
 				}
@@ -472,7 +483,6 @@
 			if (finisheddArr.length > 0) {
 				var finishedd_template = document.getElementById('finishedd_template').innerHTML;
 				document.getElementById('finishedOrder').innerHTML = doT.template(finishedd_template)(finisheddArr);
-				myScroll.refresh()
 			} else {
 				document.getElementById('finishedOrder').innerHTML = doT.template(noneOrder_template)();
 			}
@@ -575,22 +585,25 @@
 	}
 
 	function loaded() {//已闲置，作为增加页面弹性滚动
-		myScroll = new IScroll('#m-content',{ probeType: 3, mouseWheel: true });
+		myScroll = new IScroll('#m-content',{ probeType: 3, mouseWheel: true ,click:true});
 		myScroll.on("slideDown", function() {
-			if (this.y > 40) {
+			if (this.y > 80) {
 				//刷新整个页面或者刷新订单数据
 				console.log("刷新");
 				//刷新完成后重新获取高度
+				loadOrders(pageParam.cafeCar);
 				myScroll.refresh()
 			}
 		});
 		myScroll.on("slideUp", function() {
-			if (this.maxScrollY - this.y > 40) {
+			if (this.maxScrollY - this.y > 20) {
 				//加载更多
 				console.log("加载更多");
 				//刷新完成后重新获取高度
 				myScroll.refresh()
 			}
 		});
+
+		document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 	}
 </script>

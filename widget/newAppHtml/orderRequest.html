@@ -63,7 +63,7 @@
 			<p>
 			客户电话：{{=value.customerPhone}}
 			</p>
-			<div class="phone-white"></div>
+			<!--<div class="phone-white"></div>-->
 			</div>
 			</div>
 			<div class="user-info-body flex-row flex-item-24 flex-center">
@@ -315,7 +315,7 @@
 			});
 			console.log("pageParam>>>>>>>>" + JSON.stringify(pageParam));
 			//立即接单
-			$("#m-content").on("click", ".dispatch", function() {
+			$("#m-content").on("touchend", ".dispatch", function() {
 				console.log(1);
 				var orderId = $(this).attr("data-value");
 				api.openFrame({
@@ -379,8 +379,6 @@
 			} else {
 				$("#nav-new1").text(waitingArr.length)
 				document.getElementById('nav-new1').style.display = "none";
-				var templateWartting = document.getElementById('waiting_template').innerHTML;
-				document.getElementById('waitingOrder').innerHTML = doT.template( templateWartting )(waitingArr);
 			}
 			//状态配送中
 			if (deliverArr.length > 0) {
@@ -391,8 +389,6 @@
 			} else {
 				$("#nav-new2").text(deliverArr.length);
 				document.getElementById('nav-new2').style.display = "none";
-				var templateDeliver = document.getElementById('deliver_template').innerHTML;
-				document.getElementById('deliverOrder').innerHTML = doT.template( templateDeliver )(deliverArr);
 			}
 			//状态为已完成
 			if (finishedArr.length > 0) {

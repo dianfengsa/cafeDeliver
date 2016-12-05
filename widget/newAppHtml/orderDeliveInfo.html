@@ -77,6 +77,7 @@
 		$("#deliverDd").text(deliverManInfo.cafeCarName);
 		//退出登录
 		$("#btnLogOut").on("touchend", ".user-out-button", function() {
+			removeLacun();
 			logOut();
 		});
 		//打电话
@@ -202,6 +203,10 @@
 		});
 	}
 
+
+	function removeLacun() {
+		api.removeLaunchView();
+	}
 	/*	function change() {
 	 var original = $("#dName").text();
 	 var value = prompt('输入新昵称：（请不要超过4个汉字,并且是中文）', original);

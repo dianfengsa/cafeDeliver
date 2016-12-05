@@ -340,12 +340,7 @@
 					$api.setStorage("cafecarId", manObj.cafeCar().id);
 					goOrderListPage();
 				} else {
-					api.hideProgress();
-					api.toast({
-						location : 'middle',
-						duration : 3000,
-						msg : '该用户暂未分配餐车'
-					});
+					goOrderListPage();
 				}
 			}).catch(function(error) {
 				api.hideProgress();
@@ -363,6 +358,7 @@
 				vScrollBarEnabled : false,
 				pageParam : retsult,
 				slidBackEnabled : false,
+				pageParam : $api.getStorage("cafecarId"),
 				animation : {
 					type : "fade", //动画类型（详见动画类型常量）
 					subType : "from_right", //动画子类型（详见动画子类型常量）

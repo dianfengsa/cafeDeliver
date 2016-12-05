@@ -319,7 +319,7 @@
 			loadDeliverOrders(pageParam.cafeCar);
 		} else {
 			api.toast({
-				msg : '你还未分配送餐区域,请联系管理员!',
+				msg : '暂未分配送餐区域,请联系管理员!',
 				location : "middle",
 				duration : 3000
 			});
@@ -655,7 +655,19 @@
 				//刷新整个页面或者刷新订单数据
 				console.log("刷新");
 				//刷新完成后重新获取高度
-				loadOrders(pageParam.cafeCar);
+				checkDeliverManSataus(AV.User.current()).then(function(ret) {
+					console.log("pageParam>>>>>>>>" + JSON.stringify(ret))
+					$api.setStorage("deliverMan", ret);
+					if (!_.isEmpty(ret.cafeCar)) {
+						loadOrders(ret.cafeCar);
+					} else {
+						api.toast({
+							msg : '暂未分配送餐区域,请联系管理员！',
+							location : 'middle',
+							duration : 3000
+						});
+					}
+				});
 				myScroll.refresh()
 			}
 		});
@@ -671,12 +683,14 @@
 			e.preventDefault();
 		}, false);
 	}
+
 	function alertSound() {
 		api.startPlay({
 			path : 'widget://res/finishOrder.mp3'
 		}, function() {
 		});
 	}
+
 	function removeLacun() {
 		api.removeLaunchView();
 	}

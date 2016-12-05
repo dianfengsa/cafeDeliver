@@ -139,11 +139,24 @@ function setDeliverManStatus(deliverManId, status) {
 function updateDeliverManName(manId, updateName) {
 	console.log(manId + "__" + updateName)
 	var queryMan = new AV.Query(deliveryManObj);
+	var deliverMan = {};
 	return queryMan.get(manId).then(function(man) {
 		man.set("name", updateName);
 		return man.save();
 	}).then(function(manobj) {
-		return manobj;
+		if (manobj) {
+			deliverMan = {
+				id : manobj.id,
+				name : manobj.get("name"),
+				phone : manobj.get("mobilePhoneNumber"),
+				status : manobj.get("status"),
+				area : manobj.get("area"),
+				cafeCar : manobj.get("cafeCar") ? manobj.get("cafeCar").id : "",
+				cafeCarName : manobj.get("cafeCar") ? manobj.get("cafeCar").get("name") : "暂无区域",
+				owner : manobj.get("owner").id
+			}
+		}
+		return deliverMan;
 	}).catch(function(error) {
 		console.log("error>>>" + JSON.stringify(error))
 	})

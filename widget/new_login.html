@@ -338,7 +338,7 @@
 				if (!_.isEmpty(manObj)) {
 					$api.setStorage("useName", manObj.get("username"));
 					$api.setStorage("cafecarId", manObj.cafeCar().id);
-					goOrderListPage();
+					goOrderListPage(manObj);
 				} else {
 					goOrderListPage();
 				}
@@ -357,8 +357,7 @@
 				bounces : false, // 不允许页面弹动，ripple
 				vScrollBarEnabled : false,
 				pageParam : retsult,
-				slidBackEnabled : false,
-				pageParam : $api.getStorage("cafecarId"),
+				slidBackEnabled : false, 
 				animation : {
 					type : "fade", //动画类型（详见动画类型常量）
 					subType : "from_right", //动画子类型（详见动画子类型常量）

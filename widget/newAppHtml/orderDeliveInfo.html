@@ -125,8 +125,27 @@
 			var original = $("#dName");
 			var originalT = document.getElementById("dName").innerHTML;
 			console.log(originalT);
-			var reg = /^[\u4e00-\u9fa5]+$/;
-			var containSpecial = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im;
+			var reg = /^[\u4e00-\u9fa5]+$/;		//中文
+			var re = /^[0-9]*$/;					//数字
+			var red= /^[A-Za-z]+$/;					//英文
+			var containSpecial = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im;			//特殊符号（未补全）
+			var pattern = /^[A-Za-z0-9\u4e00-\u9fa5]+$/gi;
+
+			 function strlen(str) {				//计算用户输入的字节长度
+				var len = 0;
+				for (var i = 0; i < str.length; i++) {
+					var c = str.charCodeAt(i);
+					//单字节加1
+					if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
+						len++;
+					}
+					else {
+						len += 2;
+					}
+				}
+				return len;
+			}
+
 			if (originalT == "") {
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 				api.toast({
@@ -134,7 +153,22 @@
 					location : "middle",
 					duration : 2000
 				});
-			} else if (containSpecial.test(originalT)) {
+			}
+			else if (pattern.test(originalT) && 4 <= strlen(originalT) <= 10 )  {
+				console.log("123456");
+				updateDeliverManName(deliverManInfo.id, originalT).then(function(man) {
+					if (man) {
+						$api.setStorage("deliverMan", man);
+						api.toast({
+							msg : '修改成功',
+							location : "middle",
+							duration : 2000
+						});
+					}
+				});
+			}
+			/*
+			else if (containSpecial.test(originalT)) {
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 				api.toast({
 					msg : '昵称不允许出现特殊符号(最少2汉字或4位数字,只允许数字、中文)',
@@ -148,18 +182,17 @@
 					location : "middle",
 					duration : 2000
 				});
-			} else {
-				updateDeliverManName(deliverManInfo.id, originalT).then(function(man) { 
-					if (man) {
-						$api.setStorage("deliverMan", man);
-						api.toast({
-							msg : '修改成功',
-							location : "middle",
-							duration : 2000
-						});
-					}
+			}
+			 */
+			else {
+				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
+				api.toast({
+					msg : '昵称不允许出现特殊符号(最少2汉字或4位数字,只允许数字、中文)',
+					location : "middle",
+					duration : 2000
 				});
 			}
+
 			original.css("background", "none");
 			original.attr("contentEditable", false);
 			original.css("color", "#FFFFFF");

@@ -350,6 +350,7 @@
 
 		function goOrderListPage(retsult) {
 			api.hideProgress();
+			removeLacun();
 			api.openWin({
 				name : 'orderDelive',
 				url : './newAppHtml/orderDelive.html',
@@ -389,5 +390,8 @@
 			//				}
 			//			});
 		}
+		function removeLacun() {
+		api.removeLaunchView();
+	}
 	</script>
 </html>

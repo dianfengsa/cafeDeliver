@@ -218,6 +218,7 @@
 				});
 				AV.User.logOut();
 				var currentUser = AV.User.current();
+				removeLacun();
 				api.openWin({
 					name : 'login',
 					url : '../new_login.html',

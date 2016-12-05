@@ -125,12 +125,7 @@
 			var original = $("#dName");
 			var originalT = document.getElementById("dName").innerHTML;
 			console.log(originalT);
-			var reg = /^[\u4e00-\u9fa5]+$/;		//中文
-			var re = /^[0-9]*$/;					//数字
-			var red= /^[A-Za-z]+$/;					//英文
-			var containSpecial = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im;			//特殊符号（未补全）
 			var pattern = /^[A-Za-z0-9\u4e00-\u9fa5]+$/gi;
-
 			 function strlen(str) {				//计算用户输入的字节长度
 				var len = 0;
 				for (var i = 0; i < str.length; i++) {
@@ -145,7 +140,6 @@
 				}
 				return len;
 			}
-
 			if (originalT == "") {
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 				api.toast({
@@ -235,40 +229,7 @@
 			}
 		});
 	}
-
-
 	function removeLacun() {
 		api.removeLaunchView();
 	}
-	/*	function change() {
-	 var original = $("#dName").text();
-	 var value = prompt('输入新昵称：（请不要超过4个汉字,并且是中文）', original);
-	 var reg = /^[\u4e00-\u9fa5]+$/;
-	 console.log(original);
-	 if (reg.test(value) && value.length <= 8) {
-	 $("#dName").text(value);
-	 //调用更改昵称函数
-	 alert("更改昵称成功");
-	 } else if (value == null) {
-	 } else {
-	 alert('昵称不符合格式');
-	 }
-	 }
-	 */
-	/*	function blur() {			//失去焦点时
-	 var original = $("#dName");
-	 original.attr("contentEditable", false);
-	 var reg = /^[\u4e00-\u9fa5]+$/;
-	 if (reg.test(original.text) && value.length <= 8) {
-	 //	$("#dName").text(value);
-	 //调用更改昵称函数
-	 alert("更改昵称成功");
-	 } else if (value == null) {
-	 $("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
-	 } else {
-	 $("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
-	 alert('昵称不符合格式');
-	 }
-	 }
-	 */
 </script>

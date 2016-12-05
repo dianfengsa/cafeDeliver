@@ -379,7 +379,6 @@
 			} else {
 				$("#nav-new1").text(waitingArr.length)
 				document.getElementById('nav-new1').style.display = "none";
-				var templateWartting = document.getElementById('waiting_template').innerHTML;
 			}
 			//状态配送中
 			if (deliverArr.length > 0) {
@@ -390,7 +389,6 @@
 			} else {
 				$("#nav-new2").text(deliverArr.length);
 				document.getElementById('nav-new2').style.display = "none";
-				var templateDeliver = document.getElementById('deliver_template').innerHTML;
 			}
 			//状态为已完成
 			if (finishedArr.length > 0) {

@@ -73,7 +73,7 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isoTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li>
 			<div class="order-time"></div>
@@ -91,11 +91,18 @@
 			</li>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
-			</li>
-			<li class="clearfix store"  data-value ="{{=value.tasks[0].restaurantPhone}}">
+			</li> 
+			{{? value.kitObj[0].remittanceInfo.type=="phone"}}
+			<li class="clearfix store"   data-value ="{{=value.kitObj[0].remittanceInfo.account}}">
 			<div class="destination">
 			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span><div class="phone"></div>
 			</li>
+			{{??}}
+			<li class="clearfix store">
+			<div class="destination">
+			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span><div class="phone"></div>
+			</li>
+			{{?}} 
 			<li class="clearfix">
 			<div class="source">
 			</div><span class="add-source">{{=value.deliverAddress}}</span>
@@ -136,7 +143,7 @@
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
-			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isoTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
+			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
 			</li>
 			<li>
 			<div class="order-time"></div>
@@ -155,10 +162,17 @@
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
-			<li class="clearfix store"   data-value ="{{=value.tasks[0].restaurantPhone}}">
+			{{? value.kitObj[0].remittanceInfo.type=="phone"}}
+			<li class="clearfix store"   data-value ="{{=value.kitObj[0].remittanceInfo.account}}">
 			<div class="destination">
 			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span><div class="phone"></div>
 			</li>
+			{{??}}
+			<li class="clearfix store">
+			<div class="destination">
+			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span><div class="phone"></div>
+			</li>
+			{{?}}
 			<li class="clearfix">
 			<div class="source">
 			</div><span class="add-source">{{=value.deliverAddress}}</span>
@@ -174,8 +188,8 @@
 			</div>
 			</div>
 			<div class="user-info-other-box flex-item-24 flex-row " style="display: none">
-			<div class="user-info-text flex-item-24 user-info-text-store"  data-value ="{{=value.tasks[0].restaurantPhone}}">
-			<p>商家电话:{{=value.tasks[0].restaurantPhone}}</p>
+			<div class="user-info-text flex-item-24 user-info-text-store"  data-value ="{{=value.kitObj[0].remittanceInfo.account}}">
+			<p>商家电话:{{=value.kitObj[0].remittanceInfo.account}}</p>
 			</div>
 			<div class="user-info-other flex-item-23 flex-center">
 			<ul class="">

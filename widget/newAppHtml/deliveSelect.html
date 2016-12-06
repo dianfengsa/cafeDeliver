@@ -57,7 +57,7 @@
 			duration : 2000
 		});
 		pageParam = api.pageParam;
-		console.log(">>>>>>>>>>>>" + JSON.stringify(pageParam));
+	 
 		var deliver = $api.getStorage("deliverMan"); 
 		if (!_.isEmpty(pageParam.cefeCar)) {
 			getDeliverManByArea(pageParam.cefeCar, deliver.id).then(function(mans) {
@@ -148,11 +148,10 @@
 			title : '正在派单...',
 			modal : true
 		});
-		console.log(".............." + orderId + "    " + manId);
 		var queryOrder = new AV.Query(orderObj);
 		var queryMan = new AV.Query(deliveryManObj);
 		queryOrder.get(orderId).then(function(order) {
-			console.log("......order........" + JSON.stringify(order));
+//			console.log("......order........" + JSON.stringify(order))
 			var request = {
 				orderId : order.id,
 				carId : order.get("cafeCar").id,

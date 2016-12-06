@@ -69,8 +69,9 @@
 			<div class="user-info-body flex-row flex-item-24 flex-center">
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
-			<li>
-			<div class="clock"></div><span class="clock-text">{{=value.deliveryTime}}前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
+			<li> 
+			<div class="clock"></div><span class="clock-text">{{=value.deliveryTime}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
+ 
 			</li>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=value.createdAt}}</span>
@@ -110,8 +111,9 @@
 			<div class="user-info-body flex-row flex-item-24 flex-center">
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
 			<ul class="user-info-add-text flex-item-23 flex-center">
-			<li>
-			<div class="clock"></div><span class="clock-text">{{=value.deliveryTime}}前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
+			<li> 
+			<div class="clock"></div><span class="clock-text">{{=value.deliveryTime}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
+ 
 			</li>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=value.createdAt}}</span>
@@ -194,13 +196,13 @@
 			<div class="flex-item-24 flex-center notform flex-bottom" style="display: block"></div>
 		</script>
 		<!--底部固定栏-->
-	</body>
-	<script src="../newAppJs/date.format.js"></script>
-	<script src="../newAppJs/jquery.min.js"></script>
+	</body> 
 	<script src="../newAppJs/api.js"></script>
 	<script src="../newAppJs/av.js" ></script>
+	<script src="../newAppJs/jquery.min.js"></script>
+	<script src="../newAppJs/iscroll.js"></script>
 	<script src="../newAppJs/dbSearch.js" ></script>
-	<script src="../newAppJs/orderDelive.js"></script>
+	<script src="../newAppJs/date.format.js"></script>  
 	<script src="../newAppJs/doT.min.js"></script>
 	<script src="../newAppJs/iscroll.js"></script>
 	<!--模版配置脚本-->
@@ -388,6 +390,9 @@
 			waitingArr = $api.getStorage("requestWaiting");
 			deliverArr = $api.getStorage("requestDeliver");
 			finishedArr = $api.getStorage("requestFinished");
+			console.log("1....." + $api.getStorage("requestWaiting"))
+			console.log("2....." + $api.getStorage("requestDeliver"))
+			console.log("3....." + $api.getStorage("requestFinished"))
 			if (waitingArr.length > 0) {
 				$("#nav-new1").text(waitingArr.length)
 				document.getElementById('nav-new1').style.display = "inline-block";

@@ -516,8 +516,11 @@
 			finisheddArr = _.filter(newOrderArr, function(val, key) {
 				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
 			});
-			var noneOrder_template = document.getElementById('noneOrder_template').innerHTML;
 			//无订单时显示
+			var noneOrder_template = document.getElementById('noneOrder_template').innerHTML;
+			///
+			///等待接单的订单
+			///
 			for (var i = 0; i < waitingArr.length; i++) {
 				if (waitingArr[i].tsObject) {
 					if (waitingArr[i].tsObject.radioId == 3) {
@@ -527,46 +530,51 @@
 					wmArr.push(waitingArr[i]);
 				}
 			}
-			console.log("waitingArr>>>>>>>>" + JSON.stringify(wmArr.length))
 			if (wmArr.length > 0) {
 				alertSound();
 				$("#nav-new1").text(wmArr.length);
 				document.getElementById('nav-new1').style.display = "inline-block";
 				var waiting_template = document.getElementById('waiting_template').innerHTML;
 				document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(wmArr);
-			} else { 
+			} else {
 				$("#nav-new1").text(wmArr.length);
 				document.getElementById('nav-new1').style.display = "none";
-				document.getElementById('waitingOrder').innerHTML = doT.template(noneOrder_template)(); 
+				document.getElementById('waitingOrder').innerHTML = doT.template(noneOrder_template)();
 			}
-			if (deliverArr.length > 0) {
+			$api.setStorage("wartNum", wmArr.length);
+			console.log("wmArr>>>>" + JSON.stringify(wmArr.length))
+			///
+			///配送中的订单
+			///
+			for (var i = 0; i < deliverArr.length; i++) {
+				if (deliverArr[i].deliverObj.objectId == deliver.id) {
+					myOrderArr.push(deliverArr[i]);
+				}
+			}
+			if (myOrderArr.length > 0) {
 				//找出配送员是自己的单,不能看其他人的顶单
-				for (var i = 0; i < deliverArr.length; i++) {
-					if (deliverArr[i].deliverObj.objectId == deliver.id) {
-						myOrderArr.push(deliverArr[i]);
-					}
-				}
-				if (myOrderArr.length > 0) {
-					alertSound();
-					$("#nav-new2").text(myOrderArr.length);
-					document.getElementById('nav-new2').style.display = "inline-block";
-					var deliver_template = document.getElementById('deliver_template').innerHTML;
-					document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
-				} else {
-					document.getElementById('deliverOrder').innerHTML = doT.template(noneOrder_template)();
-				}
+				alertSound();
+				$("#nav-new2").text(myOrderArr.length);
+				document.getElementById('nav-new2').style.display = "inline-block";
+				var deliver_template = document.getElementById('deliver_template').innerHTML;
+				document.getElementById('deliverOrder').innerHTML = doT.template(deliver_template)(myOrderArr);
 			} else {
+				$("#nav-new2").text(myOrderArr.length);
 				document.getElementById('nav-new2').style.display = "none";
+				document.getElementById('deliverOrder').innerHTML = doT.template(noneOrder_template)();
 			}
+			$api.setStorage("deliveNum", myOrderArr.length);
+			console.log("myOrderArr>>>>" + JSON.stringify(myOrderArr.length))
+			///
+			///已经完成的订单
+			///
 			if (finisheddArr.length > 0) {
 				var finishedd_template = document.getElementById('finishedd_template').innerHTML;
 				document.getElementById('finishedOrder').innerHTML = doT.template(finishedd_template)(finisheddArr);
 			} else {
 				document.getElementById('finishedOrder').innerHTML = doT.template(noneOrder_template)();
 			}
-			api.hideProgress();
-			$api.setStorage("wartNum", wmArr.length);
-			$api.setStorage("deliveNum", myOrderArr.length);
+			console.log("finisheddArr>>>>" + JSON.stringify(finisheddArr))
 			api.execScript({
 				frameName : 'footer',
 				script : 'setOrderNum();'

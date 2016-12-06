@@ -154,7 +154,7 @@
 		var queryOrder = new AV.Query(orderObj);
 		var queryMan = new AV.Query(deliveryManObj);
 		queryOrder.get(orderId).then(function(order) {
-			console.log("......order........" + JSON.stringify(order))
+//			console.log("......order........" + JSON.stringify(order))
 			var request = {
 				orderId : order.id,
 				carId : order.get("cafeCar").id,

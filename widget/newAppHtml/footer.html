@@ -62,7 +62,6 @@
 <script src="../newAppJs/date.format.js" ></script>
 <script>
 	var pageParam;
-
 	apiready = function() {
 		var winHeight = api.winHeight;
 		pageParam = api.pageParam;
@@ -70,7 +69,6 @@
 		$(".footer-box").on("touchend", "#footer-1", function() {
 			openOrderDelive(pageParam);
 			api.openFrame({
-
 				name : 'footer',
 				url : '../newAppHtml/footer.html',
 				rect : {
@@ -95,7 +93,7 @@
 		//配送请求
 		$(".footer-box").on("touchend", "#footer-2", function() {
 			openOrderRequest(pageParam);
-			api.openFrame({ 
+			api.openFrame({
 				name : 'footer',
 				url : '../newAppHtml/footer.html',
 				rect : {
@@ -147,16 +145,24 @@
 	};
 	function setOrderNum() {
 		var num = Number($api.getStorage("wartNum")) + Number($api.getStorage("deliveNum"));
+		console.log(num)
 		if (num > 0) {
 			document.getElementById('footer-new1').style.display = "inline-block";
+			$("#footer-new1").text(num);
+		} else {
+			document.getElementById('footer-new1').style.display = "none";
 			$("#footer-new1").text(num);
 		}
 	}
 
 	function setRequestOrderNum() {
+		console.log(reNum)
 		var reNum = Number($api.getStorage("requestWartNum")) + Number($api.getStorage("requestDeliveNum"));
 		if (reNum > 0) {
 			document.getElementById('footer-new2').style.display = "inline-block";
+			$("#footer-new2").text(reNum);
+		} else {
+			document.getElementById('footer-new2').style.display = "none";
 			$("#footer-new2").text(reNum);
 		}
 	}

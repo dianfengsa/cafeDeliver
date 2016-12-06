@@ -352,66 +352,73 @@
 					}
 				});
 			});
+			$("#m-content").on("click", ".user-info-top", function() {//快捷拨号
+				var cPhone = $(this).attr("data-value");
+				if (_.isEmpty(cPhone)) {
+					api.toast({
+						msg : '暂无客户电话',
+						location : 'middle',
+						duration : 2000
+					});
+					return;
+				}
+				api.call({
+					type : 'tel_prompt',
+					number : cPhone
+				});
+			});
+			$("#m-content").on("click", ".store", function() {//快捷拨号(给商家拨打)
+				console.log("call商家");
+				var cPhone = $(this).attr("data-value");
+				if (_.isEmpty(cPhone)) {
+					api.toast({
+						msg : '暂无商家电话',
+						location : 'middle',
+						duration : 2000
+					});
+					return;
+				}
+				api.call({
+					type : 'tel_prompt',
+					number : cPhone
+				});
+			});
 		};
-		$("#m-content").on("click", ".user-info-top", function() {//快捷拨号
-			var cPhone = $(this).attr("data-value");
-			if (_.isEmpty(cPhone)) {
-				api.toast({
-					msg : '暂无客户电话',
-					location : 'middle',
-					duration : 2000
-				});
-				return;
-			}
-			api.call({
-				type : 'tel_prompt',
-				number : cPhone
-			});
-		});
-		$("#m-content").on("click", ".store", function() {//快捷拨号(给商家拨打)
-			console.log("call商家");
-			var cPhone = $(this).attr("data-value");
-			if (_.isEmpty(cPhone)) {
-				api.toast({
-					msg : '暂无商家电话',
-					location : 'middle',
-					duration : 2000
-				});
-				return;
-			}
-			api.call({
-				type : 'tel_prompt',
-				number : cPhone
-			});
-		});
+		var noneOrder_template = document.getElementById('noneOrder_template').innerHTML;
 		///绑定配送请求订单的数据
 		function getDeliverRequestInfo() {
 			var waitingArr = [], deliverArr = [], finishedArr = [];
 			waitingArr = $api.getStorage("requestWaiting");
 			deliverArr = $api.getStorage("requestDeliver");
 			finishedArr = $api.getStorage("requestFinished");
-			console.log("1....." + $api.getStorage("requestWaiting"))
-			console.log("2....." + $api.getStorage("requestDeliver"))
-			console.log("3....." + $api.getStorage("requestFinished"))
+			console.log("1....." + JSON.stringify(waitingArr))
+			console.log("2....." + JSON.stringify(deliverArr))
+			console.log("3....." + JSON.stringify(finishedArr))
+			//状态为等待接单
 			if (waitingArr.length > 0) {
+				console.log("1>>>>" + JSON.stringify(waitingArr))
 				$("#nav-new1").text(waitingArr.length)
 				document.getElementById('nav-new1').style.display = "inline-block";
-				//状态为等待接单
 				var templateWartting = document.getElementById('waiting_template').innerHTML;
 				document.getElementById('waitingOrder').innerHTML = doT.template( templateWartting )(waitingArr);
 			} else {
+				console.log("2>>>>" + JSON.stringify(waitingArr))
 				$("#nav-new1").text(waitingArr.length)
 				document.getElementById('nav-new1').style.display = "none";
+				document.getElementById('waitingOrder').innerHTML = doT.template(noneOrder_template)();
 			}
 			//状态配送中
 			if (deliverArr.length > 0) {
+				console.log("1>>>>" + JSON.stringify(deliverArr))
 				$("#nav-new2").text(deliverArr.length);
 				document.getElementById('nav-new2').style.display = "inline-block";
 				var templateDeliver = document.getElementById('deliver_template').innerHTML;
 				document.getElementById('deliverOrder').innerHTML = doT.template( templateDeliver )(deliverArr);
 			} else {
+				console.log("2>>>>" + JSON.stringify(deliverArr))
 				$("#nav-new2").text(deliverArr.length);
 				document.getElementById('nav-new2').style.display = "none";
+				document.getElementById('deliverOrder').innerHTML = doT.template(noneOrder_template)();
 			}
 			//状态为已完成
 			if (finishedArr.length > 0) {

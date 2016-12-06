@@ -50,9 +50,12 @@ $(document).ready(function(){
     $(".nav-box").on("touchend","#nav-3",function () {nav(3);});
     $(".m-content").on("click",".businessInfo",function () {    //点击后显示该订单的商家信息
         var businessInfo =  $(this).parents().siblings('.user-info-other-box');
+        var i2 =  $(this).find('.i-2');
         $(".user-info-other-box:not(businessInfo)").slideUp();
+        $(".i-2:not(i2)").removeClass('rotate');
         if(businessInfo.css("display") == "none" ){
             businessInfo.slideToggle(200);
+            i2.addClass('rotate');
         }
         else {
         }

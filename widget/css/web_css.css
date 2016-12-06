@@ -482,6 +482,14 @@ width: 80%;
     background-size: cover;
 
 }
+.rotate{
+    transform:rotate(180deg);
+    -ms-transform:rotate(180deg); 	/* IE 9 */
+    -moz-transform:rotate(180deg); 	/* Firefox */
+    -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+    -o-transform:rotate(180deg); 	/* Opera */
+}
+
 .user-info-other-box{
     background-color: #FFFFFF;
     font-size: 1.8rem;

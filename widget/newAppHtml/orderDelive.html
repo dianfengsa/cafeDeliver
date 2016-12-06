@@ -182,7 +182,7 @@
 			<li class="businessInfo">
 			<p class="ddbz">
 			订单备注:{{=value.mark}}
-			</p><i class="i-2"></i>
+			</p><i class="i-2 rotate"></i>
 			</li>
 			</ul>
 			</div>
@@ -345,6 +345,10 @@
 		api.addEventListener({
 			name : 'keyback'
 		}, function(ret, err) {
+
+			api.closeFrame({
+				name : 'deliveSelect'
+			});
 			if (keybackNum == 2) {
 				api.closeWidget({
 					silent : true

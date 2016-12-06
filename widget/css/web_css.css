@@ -328,6 +328,19 @@ footer i{
 
 }
 
+
+.order-type{
+    display: inline-block;
+    background: url("../image/type.png")center center no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 2rem;
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-right: 0.5rem;
+
+}
+
 .order-time-text{
     font-size: 1.4rem;
     line-height: 1.6rem;
@@ -340,7 +353,6 @@ footer i{
 
 .clock{
     display: inline-block;
-
     background: url("../image/clock.png")center center no-repeat;
     background-size: cover;
     text-align: center;

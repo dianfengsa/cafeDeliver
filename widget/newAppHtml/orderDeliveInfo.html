@@ -148,8 +148,8 @@
 					duration : 2000
 				});
 			}
-			else if (pattern.test(originalT) && 4 <= strlen(originalT) <= 10 )  {
-				console.log("123456");
+			else if (pattern.test(originalT) && 4 <= strlen(originalT) && strlen(originalT) <= 10 )  {
+				console.log(strlen(originalT));
 				updateDeliverManName(deliverManInfo.id, originalT).then(function(man) {
 					if (man) {
 						$api.setStorage("deliverMan", man);
@@ -181,7 +181,7 @@
 			else {
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 				api.toast({
-					msg : '昵称不允许出现特殊符号(最少2汉字或4位数字,只允许数字、中文)',
+					msg : '昵称不符合格式(限制长度4-10位字符,只允许数字、中文、字母)',
 					location : "middle",
 					duration : 2000
 				});

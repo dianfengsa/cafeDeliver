@@ -197,6 +197,7 @@
 			if (ret.buttonIndex == 2) {
 				$api.rmStorage("deliverMan");
 				api.closeWin({
+					name:'login'
 				});
 				AV.User.logOut();
 				var currentUser = AV.User.current();

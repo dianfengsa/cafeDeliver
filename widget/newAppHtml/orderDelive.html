@@ -91,7 +91,7 @@
 			</li>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
-			</li> 
+			</li>
 			{{? value.kitObj[0].remittanceInfo.type=="phone"}}
 			<li class="clearfix store"   data-value ="{{=value.kitObj[0].remittanceInfo.account}}">
 			<div class="destination">
@@ -102,7 +102,7 @@
 			<div class="destination">
 			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span><div class="phone"></div>
 			</li>
-			{{?}} 
+			{{?}}
 			<li class="clearfix">
 			<div class="source">
 			</div><span class="add-source">{{=value.deliverAddress}}</span>
@@ -234,7 +234,7 @@
 			{{?it&&it.length>0}}
 			{{~it:value:index}}
 			<div class="user-box flex-item-23 ">
-			<div class="user-info-top flex-item-24 ">
+			<div class="user-info-top flex-item-24 " data-value="{{=value.mobile}}">
 			<div class="user-info-text">
 			<p>
 			客户电话：{{=value.mobile}}
@@ -345,7 +345,6 @@
 		api.addEventListener({
 			name : 'keyback'
 		}, function(ret, err) {
-
 			api.closeFrame({
 				name : 'deliveSelect'
 			});
@@ -513,27 +512,26 @@
 				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
 			});
 			var noneOrder_template = document.getElementById('noneOrder_template').innerHTML;
-			console.log("waitingArr>>>>>>>>" + JSON.stringify(waitingArr))
-			console.log("deliverArr>>>>>>>>" + JSON.stringify(deliverArr))
-			console.log("finisheddArr>>>>>>>>" + JSON.stringify(finisheddArr))
 			//无订单时显示
-			if (waitingArr.length > 0) {
-				for (var i = 0; i < waitingArr.length; i++) {
-					if (waitingArr[i].tsObject) {
-						if (waitingArr[i].tsObject.radioId == 3) {
-							wmArr.push(waitingArr[i]);
-						}
-					} else {
+			for (var i = 0; i < waitingArr.length; i++) {
+				if (waitingArr[i].tsObject) {
+					if (waitingArr[i].tsObject.radioId == 3) {
 						wmArr.push(waitingArr[i]);
 					}
+				} else {
+					wmArr.push(waitingArr[i]);
 				}
-				console.log("wmArr><>>>>>" + JSON.stringify(wmArr))
+			}
+			console.log("waitingArr>>>>>>>>" + JSON.stringify(wmArr.length))
+			if (wmArr.length > 0) {
 				alertSound();
 				$("#nav-new1").text(wmArr.length);
 				document.getElementById('nav-new1').style.display = "inline-block";
 				var waiting_template = document.getElementById('waiting_template').innerHTML;
 				document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(wmArr);
 			} else {
+				$("#nav-new1").text(wmArr.length);
+				document.getElementById('nav-new1').style.display = "none";
 				document.getElementById('waitingOrder').innerHTML = doT.template(noneOrder_template)();
 			}
 			if (deliverArr.length > 0) {

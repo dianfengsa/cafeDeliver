@@ -93,7 +93,6 @@
 			});
 		});
 
-
 	};
 	function setDeliverMan(manId, manName) { 
 		api.confirm({
@@ -134,7 +133,7 @@
 			}, 1000);
 
 		}).catch(function(erroer) {
-			console.log("erroer>>>" + JSON.stringify(erroer))
+			console.log("erroer>>>" + JSON.stringify(erroer));
 			api.toast({
 				msg : '派单失败,请联系管理员',
 				locaion : "middle"
@@ -143,24 +142,23 @@
 			errorAlert(error);
 		});
 	}
-
 	//外卖订单的送餐员设置
 	function saveDeliveryMan(orderId, manId) {
 		api.showProgress({
 			title : '正在派单...',
 			modal : true
 		});
-		console.log(".............." + orderId + "    " + manId)
+		console.log(".............." + orderId + "    " + manId);
 		var queryOrder = new AV.Query(orderObj);
 		var queryMan = new AV.Query(deliveryManObj);
 		queryOrder.get(orderId).then(function(order) {
-			console.log("......order........" + JSON.stringify(order))
+			console.log("......order........" + JSON.stringify(order));
 			var request = {
 				orderId : order.id,
 				carId : order.get("cafeCar").id,
 				deliveryManId : manId
 			};
-			console.log("request>>>" + JSON.stringify(request))
+			console.log("request>>>" + JSON.stringify(request));
 			AV.Cloud.run('assignDeliveryMan', request).then(function(order) {
 				api.hideProgress();
 				api.toast({
@@ -186,18 +184,13 @@
 			console.log("error>>>" + JSON.stringify(error))
 		});
 	}
-
 	function goBack() {
 		api.hideProgress();
 		api.closeFrame({
 			name : 'deliveSelect'
 		});
 	}
-
-
-
-
-	$('body').on('touchend', '.background-box', function() {//点击详细信息保存值
+	$('body').on('touchend', '.background-box', function() {//点击遮罩部分关闭
 		api.closeFrame({
 			name : 'deliveSelect'
 		});

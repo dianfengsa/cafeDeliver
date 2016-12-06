@@ -161,23 +161,6 @@
 					}
 				});
 			}
-			/*
-			else if (containSpecial.test(originalT)) {
-				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
-				api.toast({
-					msg : '昵称不允许出现特殊符号(最少2汉字或4位数字,只允许数字、中文)',
-					location : "middle",
-					duration : 2000
-				});
-			} else if (originalT.length < 2) {
-				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
-				api.toast({
-					msg : '昵称长度过短(最少2汉字)',
-					location : "middle",
-					duration : 2000
-				});
-			}
-			 */
 			else {
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 				api.toast({
@@ -186,7 +169,6 @@
 					duration : 2000
 				});
 			}
-
 			original.css("background", "none");
 			original.attr("contentEditable", false);
 			original.css("color", "#FFFFFF");

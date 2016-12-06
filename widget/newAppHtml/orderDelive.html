@@ -40,7 +40,7 @@
 		<div class="m-content flex-item-24 flex-column " id="m-content">
 			<!--订单模版渲染区域-->
 			<div class="list flex-item-24 flex-center flex-row" id="list-1">
-				<div class="pullDown flex-item-24 flex-center"><div class="pullDown-refresh"><i class="pullDown-img"></i><span>下拉刷新订单列表</span></div></div>-
+				<div class="pullDown flex-item-24 flex-center"><div class="pullDown-refresh"><i class="pullDown-img"></i><span>下拉刷新订单列表</span></div></div>
 				<div class="m-container-1 flex-item-24 flex-row flex-center" id="waitingOrder">
 					<div class="flex-item-24 flex-center notform " ></div>
 				</div>
@@ -182,7 +182,7 @@
 			<li class="businessInfo">
 			<p class="ddbz">
 			订单备注:{{=value.mark}}
-			</p><i class="i-2 rotate"></i>
+			</p><i class="i-2 "></i>
 			</li>
 			</ul>
 			</div>
@@ -340,7 +340,7 @@
 			return;
 		}
 		deliver = $api.getStorage("deliverMan");
-		console.log("deliver>>>>>" + JSON.stringify(deliver))
+		console.log("deliver>>>>>" + JSON.stringify(deliver));
 		var keybackNum = 0;
 		api.addEventListener({
 			name : 'keyback'
@@ -513,11 +513,15 @@
 				return val.status == "已收货" || val.status == "已拒单" || val.status == "已退款";
 			});
 			var noneOrder_template = document.getElementById('noneOrder_template').innerHTML;
-			console.log("waitingArr>>>>>>>>" + JSON.stringify(waitingArr))
-			console.log("deliverArr>>>>>>>>" + JSON.stringify(deliverArr))
-			console.log("finisheddArr>>>>>>>>" + JSON.stringify(finisheddArr))
+			console.log("waitingArr>>>>>>>>" + JSON.stringify(waitingArr));
+			console.log("deliverArr>>>>>>>>" + JSON.stringify(deliverArr));
+			console.log("finisheddArr>>>>>>>>" + JSON.stringify(finisheddArr));
+
+			console.log(waitingArr.length);
 			//无订单时显示
 			if (waitingArr.length > 0) {
+
+				console.log("000000")
 				for (var i = 0; i < waitingArr.length; i++) {
 					if (waitingArr[i].tsObject) {
 						if (waitingArr[i].tsObject.radioId == 3) {
@@ -527,13 +531,18 @@
 						wmArr.push(waitingArr[i]);
 					}
 				}
-				console.log("wmArr><>>>>>" + JSON.stringify(wmArr))
+				console.log("wmArr><>>>>>" + JSON.stringify(wmArr));
 				alertSound();
 				$("#nav-new1").text(wmArr.length);
 				document.getElementById('nav-new1').style.display = "inline-block";
 				var waiting_template = document.getElementById('waiting_template').innerHTML;
 				document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(wmArr);
-			} else {
+			}
+			else if (waitingArr.length = 0){
+				document.getElementById('nav-new1').style.display = "none";
+			}
+			else {
+				console.log("000000")
 				document.getElementById('nav-new1').style.display = "none";
 			}
 			if (deliverArr.length > 0) {
@@ -602,9 +611,9 @@
 					myOrderArr.push(reDeliverArr[i]);
 				}
 			}
-			console.log("配送请求》》》》reWaitingArr.........." + JSON.stringify(reWaitingArr))
-			console.log("配送请求》》》》myOrderArr.........." + JSON.stringify(myOrderArr))
-			console.log("配送请求》》》》reFinishedArr.........." + JSON.stringify(reFinishedArr))
+			console.log("配送请求》》》》reWaitingArr.........." + JSON.stringify(reWaitingArr));
+			console.log("配送请求》》》》myOrderArr.........." + JSON.stringify(myOrderArr));
+			console.log("配送请求》》》》reFinishedArr.........." + JSON.stringify(reFinishedArr));
 			if (reWaitingArr.length > 0 || myOrderArr.length > 0) {
 				alertSound();
 			}
@@ -674,7 +683,7 @@
 				console.log("刷新");
 				//刷新完成后重新获取高度
 				checkDeliverManSataus(AV.User.current()).then(function(ret) {
-					console.log("pageParam>>>>>>>>" + JSON.stringify(ret))
+					console.log("pageParam>>>>>>>>" + JSON.stringify(ret));
 					$api.setStorage("deliverMan", ret);
 					if (!_.isEmpty(ret.cafeCar)) {
 						loadOrders(ret.cafeCar);

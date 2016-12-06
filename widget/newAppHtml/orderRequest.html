@@ -390,9 +390,9 @@
 			waitingArr = $api.getStorage("requestWaiting");
 			deliverArr = $api.getStorage("requestDeliver");
 			finishedArr = $api.getStorage("requestFinished");
-			console.log("1....." + $api.getStorage("requestWaiting"))
-			console.log("2....." + $api.getStorage("requestDeliver"))
-			console.log("3....." + $api.getStorage("requestFinished"))
+			console.log("1....." + $api.getStorage("requestWaiting"));
+			console.log("2....." + $api.getStorage("requestDeliver"));
+			console.log("3....." + $api.getStorage("requestFinished"));
 			if (waitingArr.length > 0) {
 				$("#nav-new1").text(waitingArr.length)
 				document.getElementById('nav-new1').style.display = "inline-block";
@@ -400,7 +400,7 @@
 				var templateWartting = document.getElementById('waiting_template').innerHTML;
 				document.getElementById('waitingOrder').innerHTML = doT.template( templateWartting )(waitingArr);
 			} else {
-				$("#nav-new1").text(waitingArr.length)
+				$("#nav-new1").text(waitingArr.length);
 				document.getElementById('nav-new1').style.display = "none";
 			}
 			//状态配送中
@@ -424,9 +424,9 @@
 		function setRequestStatusNum() {
 			var waitNum = $api.getStorage("requestWartNum");
 			var deliverNum = $api.getStorage("requestDeliveNum");
-			console.log(waitNum)
-			console.log(deliverNum)
-			$("#nav-new1").text(waitNum)
+			console.log(waitNum);
+			console.log(deliverNum);
+			$("#nav-new1").text(waitNum);
 			$("#nav-new2").text(deliverNum)
 		}
 
@@ -456,8 +456,8 @@
 		}
 
 		function served(orderId, customerId) {
-			console.log("orderId>>>" + orderId)
-			console.log("customerId>>>" + customerId)
+			console.log("orderId>>>" + orderId);
+			console.log("customerId>>>" + customerId);
 			api.confirm({
 				title : '提示',
 				msg : '是否确认快餐已送达?',
@@ -474,14 +474,14 @@
 						status : 2
 					};
 					AV.Cloud.run("updateDeliveryOrderStatus", request).then(function(prior) {
-						console.log("prior>>>" + JSON.stringify(prior))
+						console.log("prior>>>" + JSON.stringify(prior));
 						api.hideProgress();
 						api.toast({
 							msg : '确认成功',
 							locaion : "middle"
 						});
 					}).catch(function(erroer) {
-						console.log("erroer>>>" + JSON.stringify(erroer))
+						console.log("erroer>>>" + JSON.stringify(erroer));
 						api.toast({
 							msg : '派单失败,请联系管理员',
 							locaion : "middle"
@@ -491,6 +491,5 @@
 					});
 				}
 			});
-
 		}
 	</script>

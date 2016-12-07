@@ -544,9 +544,7 @@
 			}
 			$api.setStorage("wartNum", wmArr.length);
 			console.log("wmArr>>>>" + JSON.stringify(wmArr.length));
-			///
 			///配送中的订单
-			///
 			for (var i = 0; i < deliverArr.length; i++) {
 				if (deliverArr[i].deliverObj.objectId == deliver.id) {
 					myOrderArr.push(deliverArr[i]);
@@ -568,7 +566,6 @@
 			console.log("myOrderArr>>>>" + JSON.stringify(myOrderArr.length));
 			///
 			///已经完成的订单
-			///
 			if (finisheddArr.length > 0) {
 				var finishedd_template = document.getElementById('finishedd_template').innerHTML;
 				document.getElementById('finishedOrder').innerHTML = doT.template(finishedd_template)(finisheddArr);

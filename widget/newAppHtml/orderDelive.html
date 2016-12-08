@@ -8,10 +8,10 @@
 		<meta name="format-detection" content="telephone=no">
 		<meta name="full-screen" content="yes">
 		<meta name="x5-fullscreen" content="true">
-		<link href="../css/web_css.css" rel="stylesheet">
 		<!--页面样式-->
-		<link href="../css/reset.css" rel="stylesheet">
+		<link href="../css/web_css.css" rel="stylesheet">
 		<!--重置样式-->
+		<link href="../css/reset.css" rel="stylesheet">
 		<link rel="stylesheet" href="../css/flex-layout.css">
 		<link rel="stylesheet" href="../css/layout.css">
 		<link rel="stylesheet" href="../css/index.css">
@@ -40,24 +40,30 @@
 		<div class="m-content flex-item-24 flex-column " id="m-content">
 			<!--订单模版渲染区域-->
 			<div class="list flex-item-24 flex-center flex-row" id="list-1">
+				<!--下拉提示-->
 				<div class="pullDown flex-item-24 flex-center">
 					<div class="pullDown-refresh">
 						<i class="pullDown-img"></i><span>下拉刷新订单列表</span>
 					</div>
 				</div>
+				<!--等待接单-->
 				<div class="m-container-1 flex-item-24 flex-row flex-center" id="waitingOrder">
+					<!--没有订单时显示的部分-->
 					<div class="flex-item-24 flex-center notform " ></div>
 				</div>
+				<!--进行中的订单-->
 				<div class="m-container-2 flex-item-24 flex-row flex-center" id="deliverOrder" style="display: none" >
+					<!--没有订单时显示的部分-->
 					<div class="flex-item-24 flex-center notform " ></div>
 				</div>
+				<!--已完成的订单(已收货、已退款、已拒单)-->
 				<div class="m-container-3 flex-item-24 flex-row flex-center" id="finishedOrder" style="display: none"  >
+					<!--没有订单时显示的部分-->
 					<div class="flex-item-24 flex-center notform " ></div>
 				</div>
 				<!--<div class="pullUp flex-item-24 flex-center"><div class="pullUp-refresh"><i class="pullUp-img"></i><span>加载更多订单</span></div></div>-->
 			</div>
 		</div>
-		<!--弹窗事件的遮罩-->
 		<!--等待接单-->
 		<script type="text/template" charset="utf-8" id="waiting_template">
 			{{?it&&it.length>0}}
@@ -290,7 +296,6 @@
 		<script type="text/template" charset="utf-8" id="noneOrder_template">
 			<div class="flex-item-24 flex-center notform " ></div>
 		</script>
-		<!--底部固定栏-->
 	</body>
 </html>
 <script src="../newAppJs/api.js"></script>

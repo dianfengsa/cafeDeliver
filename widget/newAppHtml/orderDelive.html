@@ -304,14 +304,16 @@
 <script src="../newAppJs/iscroll.js"></script>
 <script src="../newAppJs/share.js"></script>
 <script src="../newAppJs/orderDelive.js"></script>
+<script src="../newAppJs/ajpush.js"></script>
 <script src="../newAppJs/underscore-min.js"></script>
 <script>
 	var t1 = null;
 	//全局  用于解决触发2次click事件
 	var pageParam, deliver;
 	apiready = function() {
+		//调用极光推送
+//		ajpushInit();
 		pageParam = api.pageParam;
-		//		console.log("pageParam>>>>>>" + JSON.stringify(pageParam));
 		//获取屏幕高度
 		var winHeight = api.winHeight;
 		var winWidth = api.winWidth;
@@ -484,6 +486,13 @@
 				type : 'tel_prompt',
 				number : cPhone
 			});
+		});
+		var ajpush = api.require('ajpush');
+		ajpush.setListener(function(ret) {
+			var id = ret.id;
+			var title = ret.title;
+			var content = ret.content;
+			var extra = ret.extra;
 		});
 	};
 	//获取申请退款的数目

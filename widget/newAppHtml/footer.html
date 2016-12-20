@@ -145,7 +145,7 @@
 	};
 	function setOrderNum() {
 		var num = Number($api.getStorage("wartNum")) + Number($api.getStorage("deliveNum"));
-		console.log(num)
+		console.log(num);
 		if (num > 0) {
 			document.getElementById('footer-new1').style.display = "inline-block";
 			$("#footer-new1").text(num);
@@ -154,9 +154,8 @@
 			$("#footer-new1").text(num);
 		}
 	}
-
 	function setRequestOrderNum() {
-		console.log(reNum)
+		console.log(reNum);
 		var reNum = Number($api.getStorage("requestWartNum")) + Number($api.getStorage("requestDeliveNum"));
 		if (reNum > 0) {
 			document.getElementById('footer-new2').style.display = "inline-block";

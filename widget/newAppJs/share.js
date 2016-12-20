@@ -4,7 +4,6 @@
 
 var footerH = 60;
 
-
 //打开外卖订单页面
 	function openOrderDelive(pageParam) {
 	var winHeight = api.winHeight;
@@ -24,12 +23,6 @@ var footerH = 60;
 			vScrollBarEnabled: false,
 			slidBackEnabled: false,
 			pageParam: pageParam,
-		/*	animation: {
-				type: "movein", //动画类型（详见动画类型常量）
-				subType: "from_right", //动画子类型（详见动画子类型常量）
-				curve: "ease_out",
-				duration: 200 //动画过渡时间，默认300毫秒
-			},*/
 			delay: 0
 		});
 
@@ -54,12 +47,6 @@ var footerH = 60;
 			vScrollBarEnabled: false,
 			slidBackEnabled: false,
 			pageParam: pageParam,
-		/*	animation: {
-				type: "movein", //动画类型（详见动画类型常量）
-				subType: "from_right", //动画子类型（详见动画子类型常量）
-				curve: "ease_out",
-				duration: 200 //动画过渡时间，默认300毫秒
-			},*/
 			delay: 0
 		});
 	}
@@ -83,12 +70,6 @@ var footerH = 60;
 			vScrollBarEnabled: false,
 			slidBackEnabled: false,
 			pageParam: pageParam,
-		/*	animation: {
-				type: "movein", //动画类型（详见动画类型常量）
-				subType: "from_right", //动画子类型（详见动画子类型常量）
-				curve: "ease_out",
-				duration: 200 //动画过渡时间，默认300毫秒
-			},*/
 			delay: 0
 		});
 	}
@@ -112,12 +93,6 @@ var footerH = 60;
 			vScrollBarEnabled: false,
 			slidBackEnabled: false,
 			pageParam: pageParam,
-		/*	animation: {
-				type: "movein", //动画类型（详见动画类型常量）
-				subType: "from_right", //动画子类型（详见动画子类型常量）
-				curve: "ease_out",
-				duration: 200 //动画过渡时间，默认300毫秒
-			},*/
 			delay: 0
 		});
 	}
@@ -140,12 +115,6 @@ function openOrderDine(pageParam) {
 		vScrollBarEnabled: false,
 		slidBackEnabled: false,
 		pageParam: pageParam,
-		/*	animation: {
-		 type: "movein", //动画类型（详见动画类型常量）
-		 subType: "from_right", //动画子类型（详见动画子类型常量）
-		 curve: "ease_out",
-		 duration: 200 //动画过渡时间，默认300毫秒
-		 },*/
 		delay: 0
 	});
 }

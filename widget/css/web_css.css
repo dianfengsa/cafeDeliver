@@ -7,29 +7,21 @@
     padding-top:20px ;
     background-color: #0459c4;
 }
-
 .hr_05{
 background-color: #FFFFFF;
 }
-
 body{
-
 height: 100%;
 }
-
 header{
     height: 4rem;
     background-color: #0459c4;
-
 }
-
 header .header-text{
     text-align: center;
     font-size: 2.2rem;
     color: #FFFFFF;
-
 }
-
 .back{
     position: absolute;
     left: 1rem;
@@ -39,7 +31,6 @@ header .header-text{
     background: url("../image/back.png")left center no-repeat;
     background-size: cover;
 }
-
 .refresh{
     position: absolute;
     top: 0.8rem;
@@ -51,65 +42,21 @@ header .header-text{
     background: url("../image/refresh.png")left center no-repeat;
     background-size: cover;
 }
-
-.search-box {
-    font-size: 1.8rem;
-    padding: 0 0.5rem 0 3rem;
-    color: #c9c9c9;
-    height: 2.5rem;
-    width: 100%;
-    border: none;
-    background: url("../image/search.png") 3% center no-repeat;
-
-    background-size:2rem 2rem;
-
-}
-
-.search-data{
-    font-weight: bold;
-    color: #000000;
-    line-height: 2.5rem;
-    font-size: 1.8rem;
-    cursor: pointer;
-    padding: 0 0 0 0.2rem;
-}
-
-.data-box{
-    border: none;
-    width: 100%;
-    height: 2.5rem;
-    background: url("../image/data.png") 95% center no-repeat;
-    background-size:2rem 2rem;
-}
-
-
-
 nav{
     height: 4rem;
-
-
 }
-
 .nav-box{
 color: #a0a0a0;
     background-color: #ffffff;
-
-
 }
-
 nav .active{
-
     color:#ff6600 ;
-
-
 }
 nav span{
     display: inline-block;
     height: 4rem;
     padding:  0 0.2rem 0 0.2rem;
-
 }
-
 nav .active span{
     border-bottom: #ff6600 solid 0.2rem;
 }
@@ -125,9 +72,7 @@ nav  #nav-new1{
     border-radius: 1.6rem;
    -webkit-border-radius: 1.6rem;
     font-style: normal;
-
 }
-
 nav #nav-new2{
      position: absolute;
      display: none;
@@ -140,9 +85,7 @@ nav #nav-new2{
      border-radius: 1.6rem;
      -webkit-border-radius: 1.6rem;
      font-style: normal;
-
  }
-
 nav .nav-new{
     position: absolute;
     display: none;
@@ -155,18 +98,12 @@ nav .nav-new{
     border-radius: 1.6rem;
     -webkit-border-radius: 1.6rem;
     font-style: normal;
-
 }
-
-
 nav .nav-text{
-
-
     line-height: 4rem;
      font-size: 1.8rem;
      text-align: center;
  }
-
 footer{
     height: 6rem;
     background-color: #FFFFFF;
@@ -175,38 +112,26 @@ footer{
     bottom: 0;
     z-index: 2;
 }
-
 .footer-box{
 border-top:#c9c9c9 solid 0.1rem ;
 }
-
 footer p{
     font-size: 1rem;
 }
-
-
 footer .footer-text p{
     color: #bfbfbf;
     font-size: 1.4rem;
     text-align: center;
-
 }
-
 footer .footer-text img{
     height: 2.5rem;
 }
-
-
 footer .active span p{
-
     color: #1296db;
-
 }
-
 footer div{
     position: relative;
 }
-
 footer i{
     position: absolute;
     right: 2rem;
@@ -222,44 +147,23 @@ footer i{
     -webkit-border-radius:1.6rem ;
     font-style: normal;
 }
-.ban-scroll{
-    overflow:hidden
-}
-
-.test{
-
-    background-color: #007BC5;
-}
-
-.test:last-child{
-    margin-bottom: 0;
-}
-
-
-
 .money i {
     font-style: normal;
     font-weight: bold;
 }
-
 .user-box{
     margin-bottom: 2rem;
     border-radius: 0.5rem;
 }
-#deliverOrder .user-box:last-child{
-
-}
 .user-info-body{
     background-color: #FFFFFF;
 }
-
 .user-info-top{
     background-color: #0894d2;
     -webkit-border-top-left-radius: 0.4rem;
     -webkit-border-top-right-radius: 0.4rem;
 
 }
-
 .destination{
     float: left;
     display: inline-block;
@@ -281,7 +185,6 @@ footer i{
     height: 1.8rem;
     width: 1.8rem;
     margin-right: 0.5rem;
-
 }
 .user-info-text{
     color: #FFFFFF;
@@ -289,8 +192,6 @@ footer i{
     padding:0 1.5rem ;
     border-bottom:#c9c9c9 solid 0.1rem ;
 }
-
-
 .user-info-other-box .user-info-text{
     color: #FFFFFF;
     background-color: #04b7f1;
@@ -299,25 +200,20 @@ footer i{
     height: 3rem;
     display: inline-block;
 }
-
 .user-info-other-box ul{
     line-height: 4rem;
 }
-
 .user-info-top p{
     margin: 0;
     line-height: 3rem;
     display: inline-block;
     font-size: 1.6rem;
-
 }
-
 .user-info-add{
     padding-top: 0.3rem;
 }
 .order-time{
     display: inline-block;
-
     background: url("../image/ordertime.png")center center no-repeat;
     background-size: cover;
     text-align: center;
@@ -325,10 +221,7 @@ footer i{
     height: 1.8rem;
     width: 1.8rem;
     margin-right: 0.5rem;
-
 }
-
-
 .order-type{
     display: inline-block;
     background: url("../image/type.png")center center no-repeat;
@@ -338,9 +231,7 @@ footer i{
     height: 1.8rem;
     width: 1.8rem;
     margin-right: 0.5rem;
-
 }
-
 .order-time-text{
     font-size: 1.4rem;
     line-height: 1.6rem;
@@ -350,7 +241,6 @@ footer i{
     text-overflow: ellipsis;
     color: #34495e;
 }
-
 .clock{
     display: inline-block;
     background: url("../image/clock.png")center center no-repeat;
@@ -361,7 +251,6 @@ footer i{
     width: 1.8rem;
     margin-right: 0.5rem;
 }
-
 .clock-text{
     font-size: 1.4rem;
     line-height: 1.6rem;
@@ -371,21 +260,16 @@ footer i{
     text-overflow: ellipsis;
     color: #ffb93c;
 }
-
 .user-info-other .ddbz{
     font-size: 1.3rem;
 }
-
 .user-info-add-text{
-
     border-bottom:#dfdfdf solid 1px ;
 }
-
 .user-info-add-text ul li img{
    text-align: center;
     transform:rotate(180deg);
 }
-
 .user-info-add-text ul{
     display: inline-block;
     word-break:break-all; /*支持IE，chrome，FF不支持*/
@@ -405,21 +289,16 @@ width: 80%;
     font-size: 1.4rem;
     line-height: 2rem;
     overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
-
 }
-
-
 .user-info-add-text img{
     margin-right: 0.5rem;
 }
-
 .user-info-other{
     background-color: #FFFFFF;
     line-height: 32px;
     padding:0.3rem 0 0 0;
     font-size: 1.2rem;
 }
-
 .user-info-add-text li,.user-info-other li{
     margin-left: 1.5rem;
     margin-right: 1rem;
@@ -427,26 +306,20 @@ width: 80%;
 .user-info-add-text li{
     margin-bottom: 0.5rem; ;
 }
-
-
 .user-info-other .ul-1{
     height: 3rem;
     line-height: 3rem;
 }
-
 .user-info-other li span{
     margin: 0 1rem 0 0;
     font-size: 1.6rem;
 }
-
 .user-info-other p{
     font-size: 1.2rem;
     margin-right: 1.2rem;
     display: inline;
     color:#626262 ;
-
 }
-
 .user-info-add-text img{
     height: 2rem;
 }
@@ -456,7 +329,6 @@ width: 80%;
     float: right;
     color: #FF0000;
 }
-
 .phone{
     float: right;
     display: inline-block;
@@ -468,7 +340,6 @@ width: 80%;
     width: 2.5rem;
     margin-right: 0.5rem;
 }
-
 .phone-white{
     float: right;
     display: inline-block;
@@ -480,9 +351,7 @@ width: 80%;
     background: url("../image/phone3.png")center center no-repeat;
     background-size: cover;
 }
-
 .user-info-other .i-2{
-
     float: right;
     display: inline-block;
     position: relative;
@@ -501,13 +370,11 @@ width: 80%;
     -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
     -o-transform:rotate(180deg); 	/* Opera */
 }
-
 .user-info-other-box{
     background-color: #FFFFFF;
     font-size: 1.8rem;
     color: #000000;
     display: none;
-
 }
 .th th{
     background-color: #eeeeee;
@@ -516,7 +383,6 @@ width: 80%;
     font-style: normal;
     font-weight: normal;
     padding: 0.4rem 0;
-
 }
 .tr{
     position: absolute;
@@ -595,7 +461,6 @@ width: 80%;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .order-cancel{
     color: #ef4a45;
     font-size: 1.4rem;
@@ -625,30 +490,6 @@ width: 80%;
     width: 1.8rem;
     margin-right: 0.5rem;
 }
-.dispatch4{
-    height: 3rem;
-    width: 8rem;
-    font-size: 1rem;
-    color: #ffffff;
-    background-color: #666666;
-    border-radius: 0.5rem;
-    -webkit-border-radius: 0.5rem;
-    border: none;
-}
-.dispatch5{
-    height: 3rem;
-    width: 8rem;
-    font-size: 1rem;
-    color: #ffffff;
-    background-color: #60c684;
-    border-radius: 0.5rem;
-    -webkit-border-radius: 0.5rem;
-    border: none;
-}
-
-
-
-
 .dispatch3{
     margin: 1rem 0 1rem 0;
     height: 3rem;
@@ -659,16 +500,10 @@ width: 80%;
     background-color: #60c684;
     color: #ffffff;
 }
-.user-info-web-bg li{
-    line-height: 3rem;
-    font-size: 1.5rem;
-
-}
 .buff{
     color: #FF6600;
     vertical-align: middle;
 }
-
 .notform{
     height: 20rem;
     background: url("../image/noOrder.png")center center no-repeat;
@@ -695,8 +530,6 @@ width: 80%;
 .refund-box{
  border-top: #000000 solid 0.1rem;
 }
-
-
 .refund button{
    border: none;
     background: #FFFFFF;
@@ -706,7 +539,6 @@ width: 80%;
     width: 33.3%;
 
 }
-
 #sure button{
     border: none;
     background: #FFFFFF;
@@ -714,62 +546,49 @@ width: 80%;
     height: 3rem;
     float: left;
     width: 50%;
-
 }
-
 .refund button:active{
     color: #FFFFFF;
     background: #00a0df;
 }
-
 .pullDown{
     top:-60px;
    position: absolute;
 }
-
 .pullDown-refresh{
-
     text-align: center;
     height: 3rem;
     line-height: 3rem;
 }
-
 .pullDown span{
     line-height: 3rem;
     font-size: 1.6rem;
     text-align: center;
 }
-
 .pullDown-img{
-
+    position: relative;
+    top: 0.5rem;
     height: 1.8rem;
     width: 1.8rem;
     display: inline-block;
     background: url("../image/pullDown.png")center center no-repeat;
     background-size: cover;
 }
-
-
 .pullUp{
     bottom:-60px;
     position: absolute;
 }
-
 .pullUp-refresh{
-
     text-align: center;
     height: 3rem;
     line-height: 3rem;
 }
-
 .pullUp span{
     line-height: 3rem;
     font-size: 1.6rem;
     text-align: center;
 }
-
 .pullUp-img{
-
     height: 1.8rem;
     width: 1.8rem;
     display: inline-block;

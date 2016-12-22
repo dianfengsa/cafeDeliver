@@ -81,6 +81,7 @@
 			</div>
 			<div class="user-info-body flex-row flex-item-24 flex-center">
 			<div class="user-info-add  flex-row flex-item-24 flex-center">
+				<i class="Back-order">退单</i>
 			<ul class="user-info-add-text flex-item-23 flex-center">
 			<li>
 			<div class="clock"></div><span class="clock-text">{{=new Date().format(value.presetTime,"isTime",0)}} 前送达</span><span class="money"><i>&#165</i>{{=value.totalPrice}}</span>
@@ -99,6 +100,7 @@
 			{{?}}
 			</span>
 			</li>
+				<i class="Back-order">退 单</i>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
@@ -169,6 +171,7 @@
 			{{?}}
 			</span>
 			</li>
+				<i class="Back-order">退 单</i>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
@@ -489,6 +492,8 @@
 				number : cPhone
 			});
 		});
+
+
 	};
 	//获取申请退款的数目
 	function loadOrders(carId, pageSize) {
@@ -726,4 +731,8 @@
 	function removeLacun() {
 		api.removeLaunchView();
 	}
+
+	$("#m-content").on("click", ".Back-order", function() {//退单按钮
+		alert("退单");
+	});
 </script>

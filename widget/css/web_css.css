@@ -595,3 +595,18 @@ width: 80%;
     background: url("../image/pullUp.png")center center no-repeat;
     background-size: cover;
 }
+.Back-order{
+    float: right;
+    position: relative;
+    top: -1rem;
+    right: 1.5rem;
+    background-color: #ff6e7d;
+    height: 3rem;
+    width: 6rem;
+    font-style: normal;
+    text-align: center;
+    line-height: 3rem;
+    color: #FFFFFF;
+    border-radius: 0.3rem;
+    font-size: 1.6rem;
+}

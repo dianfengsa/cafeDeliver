@@ -167,7 +167,7 @@
 			{{??}}
 			<b style="color: red;">外卖订餐</b>
 			{{?}}
-			</span>
+			</span> 
 			</li>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
@@ -316,7 +316,7 @@
 	var pageParam, deliver;
 	apiready = function() {
 		//调用极光推送
-//		ajpushInit();
+		//		ajpushInit();
 		pageParam = api.pageParam;
 		//获取屏幕高度
 		var winHeight = api.winHeight;
@@ -540,9 +540,7 @@
 				} else {
 					wmArr.push(waitingArr[i]);
 				}
-
 				console.log("wmArr><>>>>>" + JSON.stringify(wmArr));
-
 			}
 			if (wmArr.length > 0) {
 				alertSound();
@@ -550,7 +548,6 @@
 				document.getElementById('nav-new1').style.display = "inline-block";
 				var waiting_template = document.getElementById('waiting_template').innerHTML;
 				document.getElementById('waitingOrder').innerHTML = doT.template(waiting_template)(wmArr);
-
 			} else {
 				$("#nav-new1").text(wmArr.length);
 				document.getElementById('nav-new1').style.display = "none";

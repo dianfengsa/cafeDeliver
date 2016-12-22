@@ -151,6 +151,7 @@
 			else if (pattern.test(originalT) && 4 <= strlen(originalT) && strlen(originalT) <= 10 )  {
 				console.log(strlen(originalT));
 				updateDeliverManName(deliverManInfo.id, originalT).then(function(man) {
+				console.log("man<<<<<<<<<<<<"+JSON.stringify(man))
 					if (man) {
 						$api.setStorage("deliverMan", man);
 						api.toast({

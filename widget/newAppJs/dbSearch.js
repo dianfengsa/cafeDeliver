@@ -139,6 +139,7 @@ function setDeliverManStatus(deliverManId, status) {
 function updateDeliverManName(manId, updateName) {
 	console.log(manId + "__" + updateName)
 	var queryMan = new AV.Query(deliveryManObj);
+	queryMan.include("cafeCar");
 	var deliverMan = {};
 	return queryMan.get(manId).then(function(man) {
 		man.set("name", updateName);

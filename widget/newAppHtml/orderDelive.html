@@ -99,7 +99,6 @@
 			{{?}}
 			</span>
 			</li>
-				<i class="Back-order">退 单</i>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
@@ -168,9 +167,9 @@
 			{{??}}
 			<b style="color: red;">外卖订餐</b>
 			{{?}}
-			</span> 
+			</span>
 			</li>
-				<i class="Back-order">退 单</i>
+			<i class="Back-order">拒 单</i>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
@@ -493,12 +492,8 @@
 				number : cPhone
 			});
 		});
-		var ajpush = api.require('ajpush');
-		ajpush.setListener(function(ret) {
-			var id = ret.id;
-			var title = ret.title;
-			var content = ret.content;
-			var extra = ret.extra;
+		$("#m-content").on("click", ".Back-order", function() {//退单按钮
+			alert("退单");
 		});
 	};
 	//获取申请退款的数目
@@ -734,8 +729,4 @@
 	function removeLacun() {
 		api.removeLaunchView();
 	}
-
-	$("#m-content").on("click", ".Back-order", function() {//退单按钮
-		alert("退单");
-	});
 </script>

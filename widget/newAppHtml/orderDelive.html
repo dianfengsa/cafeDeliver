@@ -99,6 +99,7 @@
 			{{?}}
 			</span>
 			</li>
+				<i class="Back-order">退 单</i>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
@@ -169,6 +170,7 @@
 			{{?}}
 			</span> 
 			</li>
+				<i class="Back-order">退 单</i>
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
@@ -732,4 +734,8 @@
 	function removeLacun() {
 		api.removeLaunchView();
 	}
+
+	$("#m-content").on("click", ".Back-order", function() {//退单按钮
+		alert("退单");
+	});
 </script>

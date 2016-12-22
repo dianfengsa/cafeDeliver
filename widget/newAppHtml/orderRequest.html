@@ -84,6 +84,7 @@
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=value.createdAt}}</span>
 			</li>
+				<i class="Back-order">退 单</i>
 			<li class="clearfix store"   data-value ="{{=value.kitchen.remittanceInfo.account}}">
 			<div class="destination">
 			</div><span class="add-destination">{{=value.kitchen.name}}—{{=value.kitchen.addressDetail}}</span><div class="phone"></div>
@@ -122,9 +123,11 @@
 			<li>
 			<div class="clock"></div><span class="clock-text">{{=value.deliveryTime}} 前送达</span><span class="money"><i>&#165</i>{{=value.price}}</span>
 			</li>
+
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=value.createdAt}}</span>
 			</li>
+				<i class="Back-order">退 单</i>
 			<li class="clearfix store"  data-value ="{{=value.kitchen.remittanceInfo.account}}">
 			<div class="destination">
 			</div><span class="add-destination">{{=value.kitchen.name}}—{{=value.kitchen.addressDetail}}</span><div class="phone"></div>
@@ -505,4 +508,7 @@
 				}
 			});
 		}
+		$("#m-content").on("click", ".Back-order", function() {//退单按钮
+			alert("退单");
+		});
 	</script>

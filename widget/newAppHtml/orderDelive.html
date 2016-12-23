@@ -493,10 +493,86 @@
 			});
 		});
 		$("#m-content").on("click", ".Back-order", function() {//退单按钮
-		var orderId=$(this).attr("data-value");
-			alert(orderId);
+			var orderId = $(this).attr("data-value");
+			api.confirm({
+				title : '拒单注意',
+				msg : '请谨慎拒单，建议拒单前先联系消费者',
+				buttons : ['直接拒单', '联系买家', '取消']
+			}, function(ret, err) {
+				if (ret.buttonIndex == 1) {
+					rejectingReason(orderId);
+				} else if (ret.buttonIndex == 2) {
+					makeCustPhoneCall(orderId);
+				}
+			});
 		});
 	};
+	///
+	function makeCustPhoneCall(orderId) {
+		var query = new AV.Query(orderObj);
+		query.include('customer');
+		query.get(orderId).then(function(order) {
+			var mobilePhoneNum = order.get("customer").get("mobilePhoneNumber");
+			console.log("mobilePhoneNum>>>" + JSON.stringify(mobilePhoneNum))
+			api.call({
+				type : 'tel_prompt',
+				number : mobilePhoneNum
+			});
+		}).catch(function(error) {
+			errorAlert(error);
+		});
+	}
+
+	///
+	function rejectingReason(orderId) {
+		console.log(orderId)
+		api.actionSheet({
+			title : '拒单原因',
+			cancelTitle : '取 消',
+			//		destructiveTitle : ,
+			buttons : ['买卖双方协商一致', '送餐地址不在配送范围内', '送餐地址信息不完整', '订单过多', '订单中的商品已售完']
+		}, function(ret, err) {
+			if (ret.buttonIndex == 1) {
+				rejectingOrder(orderId, '买卖双方协商一致');
+			} else if (ret.buttonIndex == 2) {
+				rejectingOrder(orderId, '送餐地址不在配送范围内');
+			} else if (ret.buttonIndex == 3) {
+				rejectingOrder(orderId, '送餐地址信息不完整');
+			} else if (ret.buttonIndex == 4) {
+				rejectingOrder(orderId, '订单过多');
+			} else if (ret.buttonIndex == 5) {
+				rejectingOrder(orderId, '订单中的商品已售完');
+			}
+		});
+	}
+
+	///
+	function rejectingOrder(orderId, rejectReason) {
+		var custJPushRegistrationId;
+		api.showProgress({
+			title : '正在拒单...',
+			modal : true
+		});
+		var query = new AV.Query(orderObj);
+		query.include('customer');
+		query.get(orderId).then(function(order) {
+			custJPushRegistrationId = order.get("customer").get("JPushRegistrationId");
+			return AV.Cloud.run('updateOrderReject', {
+				orderObjectId : order.id
+			});
+		}).then(function(order) {
+			api.hideProgress();
+			api.toast({
+				msg : '拒单成功！',
+				location : 'middle',
+				duration : 1000
+			});
+			alertSound();
+		}).catch(function(order, error) {
+			console.log("error>>>" + JSON.stringify(error))
+		});
+	}
+
 	//获取申请退款的数目
 	function loadOrders(carId, pageSize) {
 		api.showProgress({
@@ -559,7 +635,7 @@
 				}
 			}
 			if (myOrderArr.length > 0) {
-			console.log("myOrderArr>>>>" + JSON.stringify(myOrderArr));
+				console.log("myOrderArr>>>>" + JSON.stringify(myOrderArr));
 				//找出配送员是自己的单,不能看其他人的顶单
 				alertSound();
 				$("#nav-new2").text(myOrderArr.length);

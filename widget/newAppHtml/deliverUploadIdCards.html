@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link href="../css/web_css.css" rel="stylesheet">
+		<link href="../css/userLogin.css" rel="stylesheet">
+		<style>
+			body {
+			}
+			.btn {
+				height: 50px;
+				line-height: 50px;
+				width: 100%;
+				border-radius: 5px;
+				background-color: #FD8C40;
+				font-size: 1.2em;
+				font-weight: 900;
+				color: #fff;
+				position: fixed;
+				bottom: 2px;
+			}
+			.cardImg {
+				background-color: #B1DFF7;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="shadow">
+			<div class="selectPic position">
+				<button>
+					拍照
+				</button>
+				<button>
+					相册
+				</button>
+				<button>
+					取消
+				</button>
+			</div>
+		</div>
+		<div class="topcity">
+			<header style="text-align: center;font-size: 1.2rem;color: #FFFFFF;">
+				身份信息完善
+			</header>
+		</div>
+		<span style="height: 40px;line-height: 40px;">身份证正面照:</span>
+		<div style="height: 220px;" class="cardImg" >
+			<img src="" id="cardNegative" style="height: inherit;width:  100%;"/>
+		</div>
+		<span style="height: 40px;line-height: 40px;">身份证反面照:</span>
+		<div style="height: 220px;" class="cardImg" >
+			<img src="" id="cardPositive" style="height: inherit;width: 100%;"/>
+		</div>
+		<button id="btnSH" class="btn">
+			提交审核
+		</button>
+	</body>
+	<script src="../newAppJs/api.js"></script>
+	<script src="../newAppJs/av.js" ></script>
+	<script src="../newAppJs/dbSearch.js" ></script>
+	<script src="../newAppJs/doT.min.js"></script>
+	<script src="../newAppJs/jquery.min.js"></script>
+	<script type="text/javascript">
+		var deliverManObj = "";
+		apiready = function() {
+			window.loginUser = AV.User.current();
+			if (loginUser) {
+				afterLogin();
+			}
+			var shadow = $('.shadow');
+			shadow.hide();
+			$('.cardImg').click(function() {
+				shadow.show();
+			});
+			$('.selectPic button').click(function() {
+				var self = $(this).text().trim();
+				var sourceType = "album";
+				if (self == "取消") {
+					shadow.hide();
+					return;
+				}
+				if (self == "拍照") {
+					sourceType = "camera";
+				}
+				api.getPicture({
+					destinationType : 'base64',
+					sourceType : sourceType,
+					encodingType : 'jpg',
+					mediaValue : 'pic'
+				}, function(ret, err) {
+					shadow.hide();
+					//在这里处理上传的图片
+					if (ret && ret.data) {
+						api.showProgress({
+							title : '上传头像中...',
+							modal : true
+						});
+						//upload file3
+						var imgPath = ret.data;
+						var base64 = ret.base64Data.replace(/^data:image\/\w+;base64,/, "");
+						var fileName = getFileName(imgPath);
+						var file = new AV.File(fileName, {
+							base64 : base64
+						});
+						file.save().then(function(uploadSuccess) {
+							console.log("deliverManObj>>>>>>>" + JSON.stringify(deliverManObj))
+							api.hideProgress();
+							var city = $api.getStorage("deliverCity");
+							deliverManObj.set("city", city);
+							deliverManObj.set("negative", uploadSuccess);
+							deliverManObj.set("positive", uploadSuccess);
+							return deliverManObj.save();
+						}).then(function(success) {
+							deliverManObj = success;
+							document.getElementById('cardNegative').src = imgPath;
+							document.getElementById('cardPositive').src = imgPath;
+						}).catch(function(error) {
+							console.log(JSON.stringify(error));
+							api.hideProgress();
+							errorAlert(JSON.stringify(error))
+						});
+					}
+				});
+			});
+			$("#btnSH").click(function() {
+				alert("信息已经提交,请耐心等待审核");
+				api.openWin({
+					name : 'orderDelive',
+					url : './newAppHtml/orderDelive.html',
+					opaque : true, // 页面不透明
+					bounces : false, // 不允许页面弹动，ripple
+					vScrollBarEnabled : false,
+					pageParam : deliverManObj,
+					slidBackEnabled : false,
+					animation : {
+						type : "fade", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					},
+					delay : 0
+				});
+			})
+		};
+		function afterLogin() {//更新头部信息
+			var query = new AV.Query(deliveryManObj);
+			query.equalTo('owner', loginUser);
+			query.first().then(function(diliver) {
+				deliverManObj = diliver;
+				console.log("deliverManObj>>>>>>>" + JSON.stringify(deliverManObj))
+			});
+		}
+	</script>
+</html>

@@ -1,0 +1,37 @@
+body {
+	background: #f3f1f2;
+}
+.shadow {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	display:none;
+	background: rgba(0,0,0,0.3);
+	z-index: 99;
+}
+.selectPic {
+	width: 50%;
+}
+.selectPic button {
+	display: block;
+	width: 50%;
+	line-height: 2.5rem;
+	background: #fff;
+	border-radius: 5px;
+	border: 1px solid #f60;
+	margin-bottom: 1rem;
+	color: #f60;
+	font-size: 1.5 rem;
+}
+.position {
+	position: absolute;
+	top: 50%;
+	left: 60%;
+	/* transform: translate(-50%,-50%);
+	 */ 
+	-webkit-transform: translate(-50%,-50%);
+}
+.selectPic button:last-child {
+	background: #f60;
+	color: #fff;
+} 

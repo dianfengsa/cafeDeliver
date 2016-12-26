@@ -1,0 +1,330 @@
+hr{
+	color: rgb(230,120,31);
+	background: rgb(230,120,31);
+	height: 1px;
+	border: none;
+	line-height:1px;
+	font-size:0;
+	margin-top: 0.3rem;
+}
+.business_icon{
+	max-height: 2rem;
+	position: relative;
+	overflow: hidden;
+}
+.business_icon.active{
+	max-height: none;
+	height: 100%;
+}
+.business_icon.active li:first-child:after{
+	transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+}
+.business_icon li:first-child:after{
+	content: "";
+	width: 1.5rem;
+	height: 2.2rem;
+	background-size: 1rem !important;
+	background: url(../newAppImages/position_l.png) no-repeat center;
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	transform: rotate(270deg);
+	-webkit-transform: rotate(270deg);
+}
+.business_icon li{
+	display: block;
+	line-height: 2rem;
+	color: #000;
+	font-size: 1.1rem;
+	padding-top: 2px;
+	width: 95%;
+	padding-right:5%;
+}
+.business_icon i{
+	display: inline-block;
+	width: 1.5rem;
+	height: 1.5rem;
+	background-size: cover !important;
+	vertical-align: middle;
+	margin-top: -2px;
+	margin-right: 1rem;
+	position:relative;
+}
+.business_icon i:before{
+	position:absolute;
+	width:1.5rem;
+	line-height:1.5rem;
+	border-radius:5px;
+	top:0;
+	left:0;
+	color:#fff;
+	text-align:center;
+	font-style:normal;
+}
+.discount-fullcut:before{
+	content:"减";
+	background:#FF635B;
+}
+.discount-gift:before{
+	content:"赠";
+	background:#52B3FF;
+}
+.discount-first:before{
+	content:"首";
+	background:#FFA627;
+}
+.discount-discount:before{
+	content:"折";
+	background:#C082E1;
+}
+.box_size{
+	display: inline-block;
+	color: #ff292a !important;
+	font-size: 1.7rem !important;
+	line-height: 3.5rem !important;
+}
+.box_size span{
+	color: #ff292a !important;
+	font-size: 1.7rem !important;
+	line-height: 3.5rem !important;
+}
+.box_sales{
+	display: inline-block;
+	font-size: 1.5rem;
+	color: #bab8b9;
+	margin-left:0.5rem;
+	margin-top:-0.2rem;
+}
+.box_sales i{
+	margin-top: 0.8rem;
+	display: inline-block;
+	width: 2.2rem;
+	height: 2.2rem;
+	background-size: cover !important;
+}
+.box_sales .click_reduce{
+	background: url(../newAppImages/reduce.png) no-repeat center;
+}
+.box_sales .click_add{
+	background: url(../newAppImages/add.png) no-repeat center;
+}
+.box_sales .echo_num{
+	display: inline-block;
+	padding:0 0.5rem;
+	color: #000;
+	text-align: center;
+	font-size: 1.6rem;
+	vertical-align:top;
+	line-height: 3.5rem;
+}
+.sepcifications{
+    border-radius: 50px;
+    background: #ff6600;
+   	height: 2rem;
+   	width: 5rem;
+    color: #fff;
+    float: right;
+    margin:0.5rem 0;
+    margin-right: 0.5rem;
+    background: url(../newAppImages/sepcifications.png) no-repeat center;
+    background-size: cover;
+}
+.footer{
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #ddd; 
+	z-index:99;
+}
+.footer .ft_img{
+	height: 100%;
+	width: 25%;
+	position: relative;
+	z-index: 50;
+}
+.footer .ft_img img{
+	background:none;
+	width: 50%;
+	height: auto;
+	position: absolute;
+	left: 50%;
+	bottom: 30%;
+	margin-left: -25%;
+}
+.footer .ft_sales{
+	z-index:50;
+	font-size: 2rem;
+	position: absolute;
+	left:25%;
+	top:50%;
+	transform: translate(0,-50%);
+	-webkit-transform: translate(0,-50%);
+	color: #ababab;
+}
+.footer .ft_btn{
+	z-index:50;
+	width: 30%;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	background: rgba(171,171,171,1);
+	color: #fff;
+	line-height: 100%;
+	font-size: 1.5rem;
+	height:100%;
+}
+.footer.active .ft_img:after{
+	content:attr(data-num);
+	display: block;
+	color: #fff;
+	width: 2rem;
+	line-height:2rem;
+	background: rgba(230,0,18,1);
+	border-radius: 50%;
+	font-size: 1.5rem;
+	position: absolute;
+	top: -40%;
+	left: 60%;
+	z-index:50;
+}
+.ft_btn.active{
+	background: rgba(255,102,0,1);
+	color: #fff;
+}
+.dialog,.shadow,.shopCartDialog{
+	z-index:62;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+/*	display: none;*/
+	background:rgba(0,0,0,0.3);
+}
+.shopCartDialog{
+	z-index: 1 !important;
+}
+.dialog_info{
+	z-index:60;
+	width: 80%;
+	padding: 1rem;
+	border:2px solid rgba(230,120,31,1);
+	background: #fff;
+	position:relative;
+	max-height: 70%;
+	overflow-y:scroll;
+}
+.dialog_info .off{
+	display: block;
+	background: url(../newAppImages/off.png) no-repeat;
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+	width: 3rem;
+	height: 3rem;
+	background-size: 2rem;
+}
+.dialog_info h3{
+	font-size: 1.5rem;
+	width: 80%;
+}
+.dialog_info span{
+	line-height: 2.5rem;
+	color: #858585;
+	font-size: 1.3rem;
+}
+.dialog_list li{
+	padding: 4px;
+	border:1px solid #ddd;
+	float: left;
+	border-radius: 4px;
+	font-size: 1.2rem;
+	margin: 0 1rem 1rem 0;
+}
+.dialog_list li.active{
+	background: rgb(231,120,31);
+	color: #fff;
+	border-color: rgb(231,120,31)
+}
+.listMenu{
+	overflow-y:scroll;
+	position:absolute;
+	left:0;
+	width:100%;
+	background:#fff;
+	padding-bottom:2rem;
+	z-index: 2;
+}
+.listMenu dt{
+	background:#e7e7e7;
+	border-left:3px solid #f60;
+	color:#626262;
+	padding:1rem;
+	font-size:1.4rem;
+}
+.clearCar{
+	padding-left:1.8rem;
+	background:url(../newAppImages/deletecar.png) no-repeat left;
+	background-size:1.2rem;
+}
+.listMenu dd{
+	padding:3%;
+}
+.listMenu dd span{
+	font-size:1.5rem;
+	color:#f60;
+}
+.bottomFooter{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #fff;
+	z-index: 99;
+	padding: 0.5rem 0;
+	border-top:1px solid #c6c6c6;
+}
+.bottomFooter li{
+	width: 33.3%;
+	text-align: center;
+	float: left;
+	font-size: 1.3rem;
+}
+.bottomFooter li i{
+	display: block;
+	width: 2rem;
+	height: 2rem;
+	margin: 0 auto 0.3rem;
+	background-size: 100% !important;
+}
+.bottomFooter li.active{
+	color:#f60;
+}
+.bottomFooter li:nth-child(1) i{
+	background: url(../newAppImages/index.png) no-repeat;
+}
+.bottomFooter li:nth-child(2) i{
+	background: url(../newAppImages/order.png) no-repeat;
+}
+.bottomFooter li:nth-child(3) i{
+	background: url(../newAppImages/my.png) no-repeat;
+}
+.bottomFooter li.active i{
+	background-position: 0 bottom;
+}
+.shopCartCommodityNum .box_sales{
+	line-height: 1;
+	margin:0;
+}
+.shopCartCommodityNum i{
+	margin-top:0;
+}
+.shopCartCommodityNum .echo_num{
+	line-height: 2rem;
+}

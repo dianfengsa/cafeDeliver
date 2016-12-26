@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<!--页面样式-->
+		<link href="../css/web_css.css" rel="stylesheet">
+		<style>
+			.clor1 {
+				line-height: 50px;
+				background-color: #5CBCEF;
+				font-weight: bold;
+				color: #ffffff;
+				font-size: 1.2em;
+				border-radius: 5px;
+			}
+			.clor2 {
+				line-height: 50px;
+				background-color: #7270E8;
+				font-weight: bold;
+				color: #ff6600;
+				font-size: 1.2em;
+				border-radius: 5px;
+			}
+			.btn {
+				height: 50px;
+				line-height: 50px;
+				width: 100%;
+				border-radius: 5px;
+				background-color: #FD8C40;
+				font-size: 1.2em;
+				font-weight: 900;
+				color: #fff;
+				position: fixed;
+				bottom: 30px;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="topcity">
+			<header style="text-align: center;font-size: 1.2rem;color: #FFFFFF;">
+				配送区域选择
+			</header>
+		</div>
+		<div style="line-height: 50px;height: 50px;">
+			选择所在城市:
+			<input type="radio" name="cityRadio" data-value="广州" style="margin-left: 5px;"/>
+			广州市
+			<input type="radio" name="cityRadio" data-value="珠海" style="margin-left: 10px;"/>
+			珠海市
+		</div>
+		选择配送区域:
+		<div id="carList" style="text-align: -webkit-center;">
+			<ul style="padding-top: 20px;">
+				<li class="clor1">
+					暂无区域
+				</li>
+			</ul>
+		</div>
+		<div style="display: none;" id="mainPhone">
+			管理员电话:<span id="phoneInfo"></span>
+		</div>
+		<button id="btnSH" class="btn">
+			下一步(完善资料)
+		</button>
+		<script type="text/template" charset="utf-8" id="carList_template">
+			<ul style="padding-top: 20px;">
+			{{~it:value:index}}
+			{{?index%2==0}}
+			<li class="ulStyle clor1" data-value="{{=value.ownerPhone}}">
+			{{??}}
+			<li class="ulStyle clor2" data-value="{{=value.ownerPhone}}">
+			{{?}}
+			{{=value.carName}}
+			</li>
+			<div style="height: 5px;"></div>
+			{{~}}
+			</ul>
+		</script>
+	</body>
+	<script src="../newAppJs/api.js"></script>
+	<script src="../newAppJs/av.js" ></script>
+	<script src="../newAppJs/dbSearch.js" ></script>
+	<script src="../newAppJs/doT.min.js"></script>
+	<script src="../newAppJs/jquery.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			removeLacun();
+			$("input[name=cityRadio]").each(function(e) {
+				$(this).click(function() {
+					$api.setStorage("deliverCity", $(this).attr("data-value"));
+					getAeraInfo($(this).attr("data-value")).then(function(cars) {
+						console.log("cars.>>>" + JSON.stringify(cars))
+						//绑定数据
+						var carList_template = document.getElementById('carList_template').innerHTML;
+						document.getElementById('carList').innerHTML = doT.template(carList_template)(cars);
+						$("li").each(function(e) {
+							$(this).click(function() {
+								var phones = $(this).attr("data-value");
+								document.getElementById('phoneInfo').innerHTML = phones;
+								document.getElementById('mainPhone').style.display = "block";
+								document.getElementById('btnSH').style.display = "block";
+							})
+						});
+					});
+				});
+			});
+			$("#btnSH").click(function() {
+				uploadIdCards();
+			})
+		};
+		function removeLacun() {
+			api.removeLaunchView();
+		}
+
+		function uploadIdCards() {
+			//加载底部栏
+			api.openWin({
+				name : 'deliverUploadIdCards',
+				url : '../newAppHtml/deliverUploadIdCards.html',
+				rect : {
+					x : 0,
+					y : 0,
+					w : "auto",
+					h : 60
+				},
+				opaque : true, // 页面不透明
+				bounces : false, // 不允许页面弹动，ripple
+				vScrollBarEnabled : false,
+				slidBackEnabled : false,
+				delay : 0
+			});
+		}
+	</script>
+</html>

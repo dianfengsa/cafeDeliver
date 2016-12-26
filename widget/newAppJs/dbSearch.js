@@ -162,3 +162,34 @@ function updateDeliverManName(manId, updateName) {
 		console.log("error>>>" + JSON.stringify(error))
 	})
 }
+
+//获取配送区域信息
+function getAeraInfo(getCity) {
+	var queryCafebar = new AV.Query(cafeCarObj);
+	var carArr = [];
+	queryCafebar.equalTo("status", "营业中");
+	queryCafebar.equalTo("city", getCity);
+	queryCafebar.include('owner');
+	return queryCafebar.find().then(function(cars) {
+		for (var i = 0; i < cars.length; i++) {
+			carArr.push({
+				carId : cars[i].id,
+				carName : cars[i].get("name"),
+				city : cars[i].get("city"),
+				masterPhone : cars[i].get("mobilePhoneNumber"),
+				status : cars[i].get("status"),
+				ownerName : cars[i].get("owner").get("username"),
+				ownerPhone : cars[i].get("owner").get("mobilePhoneNumber")
+			});
+		}
+		return carArr;
+	}).catch(function(error) {
+		console.log(JSON.stringify(error))
+	});
+}
+
+//获取文件名
+function getFileName(o) {
+	var pos = o.lastIndexOf('/');
+	return o.substring(pos + 1);
+}

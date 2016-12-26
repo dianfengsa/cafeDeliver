@@ -23,8 +23,19 @@
 				position: fixed;
 				bottom: 2px;
 			}
-			.cardImg {
+		/*	.cardImg {
 				background-color: #B1DFF7;
+			}*/
+			.idCard {
+				height: 40px;
+				line-height: 40px;
+				width: 90%;
+				border-radius: 5px;
+				border: 1px solid #E0D9D9;
+				margin-top: 10px;
+			}
+			li {
+				text-align: -webkit-center;
 			}
 		</style>
 	</head>
@@ -47,13 +58,23 @@
 				身份信息完善
 			</header>
 		</div>
-		<span style="height: 40px;line-height: 40px;">身份证正面照:</span>
-		<div style="height: 220px;" class="cardImg" >
-			<img src="" id="cardNegative" style="height: inherit;width:  100%;"/>
+		<div>
+			<ul>
+				<li>
+					<input type="text" class="idCard" placeholder="请输入真实姓名" />
+				</li>
+				<li>
+					<input type="text" class="idCard" placeholder="请输入身份证号"/>
+				</li>
+			</ul>
 		</div>
-		<span style="height: 40px;line-height: 40px;">身份证反面照:</span>
-		<div style="height: 220px;" class="cardImg" >
-			<img src="" id="cardPositive" style="height: inherit;width: 100%;"/>
+		<div style="height: 220px;padding-left: 5%;"  >
+			<span style="height: 40px;line-height: 40px;">1.上传手持身份证照</span>
+			<img src="" id="cardNegative" style="height: inherit;width:  95%;"/>
+		</div>
+		<div style="height: 220px;padding-left: 5%;" >
+			<span style="height: 40px;line-height: 40px;">2.上传身份证正面照</span>
+			<img src="" id="cardPositive" style="height: inherit;width: 95%;"/>
 		</div>
 		<button id="btnSH" class="btn">
 			提交审核

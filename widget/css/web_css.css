@@ -40,6 +40,26 @@ header .header-text {
 	background: url("../image/back.png") left center no-repeat;
 	background-size: cover;
 }
+.positionCenter{
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:translate(-50%,-50%);
+	-webkit-transform:translate(-50%,-50%);
+	color:#fff;
+}
+.headerFixed{
+	position:relative;
+	width:100%;
+	background-color: #0459c4;
+	line-height: 30px;
+	height:30px;
+	padding-top:20px;
+}
+.headerFixed p{
+	padding-top:20px;
+	font-size:1.5rem;
+}
 .refresh {
 	position: absolute;
 	top: 0.8 rem;
@@ -614,4 +634,61 @@ footer i {
 	color: #FFFFFF;
 	border-radius: 0.3 rem;
 	font-size: 1.6 rem;
+}
+.all{
+	padding:0 1rem;
+}
+.inputInfo input{
+	display: block;
+	width:98%;
+	margin-top:1rem;
+	border-radius:3px;
+	border:1px solid #BFBFBF;
+	padding: 0.8rem 0;
+	padding-left:2%;
+	font-size:1.5rem;
+}
+.referPic dt{
+	width:100%;
+	font-size:1.5rem;
+	color:#000;
+	padding:1rem 0;
+}
+.referPic dt span{
+	float:left;
+	border-radius:50%;
+	background:#A0A0A0;
+	color:#fff;
+	height: 1.5rem;
+	width:1.5rem;
+	font-size:1rem;
+	text-align:center;
+	margin-right:0.5rem;
+	margin-top:4px;
+}
+.referPic dd{
+	float:left;
+	width:48%;
+	font-size:1.2rem;
+	line-height: 2rem;
+}
+.referPic dd:nth-child(2n){
+	float:right;
+}
+.referPic dd p{
+	color:#A0A0A0;
+}
+.referPic dd img{
+	width:100%;
+	display:block;
+	height:13rem;
+}
+.button{
+	width:100%;
+	padding:1rem 0;
+	border:none;
+	background:#f60;
+	font-size:1.7rem;
+	color:#fff;
+	margin-top:1rem;
 }

@@ -5,41 +5,66 @@
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
 		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
 		<title>title</title>
-		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link href="../css/reset.css" rel="stylesheet">
 		<link href="../css/web_css.css" rel="stylesheet">
 		<link href="../css/userLogin.css" rel="stylesheet">
-		<style>
-			body {
-			}
-			.btn {
-				height: 50px;
-				line-height: 50px;
-				width: 100%;
-				border-radius: 5px;
-				background-color: #FD8C40;
-				font-size: 1.2em;
-				font-weight: 900;
-				color: #fff;
-				position: fixed;
-				bottom: 2px;
-			}
-		/*	.cardImg {
-				background-color: #B1DFF7;
-			}*/
-			.idCard {
-				height: 40px;
-				line-height: 40px;
-				width: 90%;
-				border-radius: 5px;
-				border: 1px solid #E0D9D9;
-				margin-top: 10px;
-			}
-			li {
-				text-align: -webkit-center;
-			}
-		</style>
 	</head>
 	<body>
+		<div class="headerFixed">
+			<div class="back"></div>
+			<p class="positionCenter">
+				身份信息完善
+			</p>
+		</div>
+		<div class="all">
+			<div class="inputInfo">
+				<label for="">
+					<input type="text" class="idCard" placeholder="真实姓名" />
+				</label>
+				<label for="">
+					<input type="text" class="idCard" placeholder="身份证号"/>
+				</label>
+				</ul>
+			</div>
+			<dl class="referPic">
+				<dt>
+					<span>1</span>上传手持身份证的照片
+				</dt>
+				<dd>
+					<p>
+						你的照片
+					</p>
+					<img  id="cardNegative"  src="../image/camera.png" alt="" class="yourPic"/>
+				</dd>
+				<dd>
+					<p>
+						参考照片
+					</p>
+					<img src="../image/IDcardFont.png" alt="" />
+				</dd>
+			</dl>
+			<div class="clear"></div>
+			<dl class="referPic">
+				<dt>
+					<span>2</span>上传身份证正面照片
+				</dt>
+				<dd>
+					<p>
+						你的照片
+					</p>
+					<img id="cardPositive" src="../image/camera.png" alt="" class="yourPic" />
+				</dd>
+				<dd>
+					<p>
+						参考照片
+					</p>
+					<img  src="../image/IDcardEnd.png" alt="" />
+				</dd>
+			</dl>
+			<button id="btnSH" class="btn button">
+				提交审核
+			</button>
+		</div>
 		<div class="shadow">
 			<div class="selectPic position">
 				<button>
@@ -53,32 +78,6 @@
 				</button>
 			</div>
 		</div>
-		<div class="topcity">
-			<header style="text-align: center;font-size: 1.2rem;color: #FFFFFF;">
-				身份信息完善
-			</header>
-		</div>
-		<div>
-			<ul>
-				<li>
-					<input type="text" class="idCard" placeholder="请输入真实姓名" />
-				</li>
-				<li>
-					<input type="text" class="idCard" placeholder="请输入身份证号"/>
-				</li>
-			</ul>
-		</div>
-		<div style="height: 220px;padding-left: 5%;"  >
-			<span style="height: 40px;line-height: 40px;">1.上传手持身份证照</span>
-			<img src="" id="cardNegative" style="height: inherit;width:  95%;"/>
-		</div>
-		<div style="height: 220px;padding-left: 5%;" >
-			<span style="height: 40px;line-height: 40px;">2.上传身份证正面照</span>
-			<img src="" id="cardPositive" style="height: inherit;width: 95%;"/>
-		</div>
-		<button id="btnSH" class="btn">
-			提交审核
-		</button>
 	</body>
 	<script src="../newAppJs/api.js"></script>
 	<script src="../newAppJs/av.js" ></script>
@@ -94,9 +93,12 @@
 			}
 			var shadow = $('.shadow');
 			shadow.hide();
-			$('.cardImg').click(function() {
+			$('.yourPic').click(function() {
 				shadow.show();
 			});
+			$('.back').click(function() {
+				api.closeWin();
+			})
 			$('.selectPic button').click(function() {
 				var self = $(this).text().trim();
 				var sourceType = "album";
@@ -128,7 +130,6 @@
 							base64 : base64
 						});
 						file.save().then(function(uploadSuccess) {
-							console.log("deliverManObj>>>>>>>" + JSON.stringify(deliverManObj))
 							api.hideProgress();
 							var city = $api.getStorage("deliverCity");
 							deliverManObj.set("city", city);
@@ -136,6 +137,7 @@
 							deliverManObj.set("positive", uploadSuccess);
 							return deliverManObj.save();
 						}).then(function(success) {
+							console.log("success>>>>>>>" + JSON.stringify(success))
 							deliverManObj = success;
 							document.getElementById('cardNegative').src = imgPath;
 							document.getElementById('cardPositive').src = imgPath;
@@ -149,7 +151,6 @@
 			});
 			$("#btnSH").click(function() {
 				alert("信息已经提交,请耐心等待审核");
-				
 				 
 			})
 		};
@@ -157,7 +158,7 @@
 			var query = new AV.Query(deliveryManObj);
 			query.equalTo('owner', loginUser);
 			query.first().then(function(diliver) {
-				deliverManObj = diliver; 
+				deliverManObj = diliver;
 			});
 		}
 	</script>

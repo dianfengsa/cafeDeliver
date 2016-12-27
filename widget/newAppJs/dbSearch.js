@@ -14,6 +14,7 @@ var deliveryManObj = AV.Object.extend('deliveryMan');
 var deliveryOrderObj = AV.Object.extend('deliveryOrder');
 var cafeCarObj = AV.Object.extend('cafeCar');
 var orderObj = AV.Object.extend('order');
+var customerObj = AV.Object.extend('customer');
 //判断此用户是否已经分配了送餐区域
 function checkDeliverManSataus(user) {
 	var query = new AV.Query(deliveryManObj);

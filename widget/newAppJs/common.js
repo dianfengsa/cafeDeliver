@@ -323,3 +323,23 @@ function errorAlert(error) {
 		});
 	}
 }
+
+function getDeviceId(callBack) {//获取设备id，极光推送
+	jpush = api.require('ajpush');
+	var systemType = api.systemType;
+	if (systemType === "android") {//初始化推送服务，只Android有效，ios上会自动初始化
+		jpush.init(function(ret, err) {
+			if (ret && ret.status) {
+				jpush.getRegistrationId(function(ret, err) {
+					callBack(ret, err);
+				});
+			} else {
+				callBack(ret, err);
+			}
+		});
+	} else {
+		jpush.getRegistrationId(function(ret, err) {
+			callBack(ret, err);
+		});
+	}
+}

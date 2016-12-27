@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="./newAppJs/api.js"></script>
 	<script type="text/javascript" src="./newAppJs/av.js"></script>
 	<script type="text/javascript" src="./newAppJs/dbSearch.js"></script>
+	<script type="text/javascript" src="./newAppJs/common.js"></script>
 	<script type="text/javascript" src="./newAppJs/underscore-min.js"></script>
 	<script>
 		apiready = function() {
@@ -24,6 +25,15 @@
 			$api.rmStorage("requestFinished");
 			$api.rmStorage("deliverCity");
 			newInit();
+			var ajpushId = $api.getStorage("ajpushId");
+			if (!ajpushId) {//更新
+				getDeviceId(function(ret) {
+					console.log("ret>>>>>>>>" + JSON.stringify(ret))
+					if (ret) {
+						$api.setStorage("ajpushId", ret.id);
+					}
+				});
+			}
 		}
 		function newInit() {
 			var user = AV.User.current();
@@ -51,7 +61,7 @@
 								duration : 300 //动画过渡时间，默认300毫秒
 							},
 							delay : 0
-						}); 
+						});
 					} else {
 						//没有这个deliverMan就跳转登录页面注册
 						api.openWin({
@@ -65,7 +75,7 @@
 					}
 				}).catch(function(error) {
 				});
-				removeLacun(); 
+				removeLacun();
 			} else {
 				//没有这个用户就跳转登录页面注册
 				api.openWin({
@@ -76,7 +86,7 @@
 					reload : true,
 					delay : 0
 				});
-				removeLacun(); 
+				removeLacun();
 			}
 		}
 

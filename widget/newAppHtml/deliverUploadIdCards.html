@@ -149,29 +149,15 @@
 			});
 			$("#btnSH").click(function() {
 				alert("信息已经提交,请耐心等待审核");
-				api.openWin({
-					name : 'orderDelive',
-					url : './newAppHtml/orderDelive.html',
-					opaque : true, // 页面不透明
-					bounces : false, // 不允许页面弹动，ripple
-					vScrollBarEnabled : false,
-					pageParam : deliverManObj,
-					slidBackEnabled : false,
-					animation : {
-						type : "fade", //动画类型（详见动画类型常量）
-						subType : "from_right", //动画子类型（详见动画子类型常量）
-						duration : 300 //动画过渡时间，默认300毫秒
-					},
-					delay : 0
-				});
+				
+				 
 			})
 		};
 		function afterLogin() {//更新头部信息
 			var query = new AV.Query(deliveryManObj);
 			query.equalTo('owner', loginUser);
 			query.first().then(function(diliver) {
-				deliverManObj = diliver;
-				console.log("deliverManObj>>>>>>>" + JSON.stringify(deliverManObj))
+				deliverManObj = diliver; 
 			});
 		}
 	</script>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link href="../css/reset.css" rel="stylesheet">
+		<link href="../css/carList.css" rel="stylesheet">
+		<link href="../css/userLogin.css" rel="stylesheet">
+		<style>
+			body {
+			}
+		</style>
+	</head>
+	<body>
+		<div class="headerFixed">
+			<div class="back"></div>
+			<p class="positionCenter">
+				资料审核
+			</p>
+		</div>
+		<div style="margin-top: 30%;text-align: -webkit-center;font-size: 14px;">
+			资料正在审核中,如有需要请联系管理员
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		var pageParam;
+		apiready = function() {
+			pageParam = api.pageParam;
+			console.log("pageParam>>>>>>>" + JSON.stringify(pageParam))
+			//根据送餐员选择的区域信息,查找该区域的管理员电话
+			//			var queryCafeCar = new AV.Query(cafeCarObj);
+			//			var queryCustomer = new AV.Query(customerObj);
+			//			return queryCafeCar.get(pageParam.carId).then(function(cafecar) {
+			//				queryCustomer.equalTo("mobilePhoneNumber", cafecar.get("mobilePhoneNumber"));
+			//				return queryCustomer.first();
+			//			}).then(function(customer) {
+			//				newAJpush(customer.get("JPushRegistrationId"), "您的区域有新增送餐员,请速审核!", 3, 3);
+			//			});
+		};
+	</script>
+</html>

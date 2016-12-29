@@ -2,215 +2,83 @@
  * ajpush
  *
  */
-var jpush = null;
-function ajpushInit(callBack) {
-	jpush = api.require('ajpush');
-	api.addEventListener({
-		name : 'appintent'
-	}, function(ret, err) { 
-	console.log("ret/???"+JSON.stringify(ret))
-		if (ret && ret.appParam.ajpush) {
-			var tmpData = JSON.parse(ret.appParam.ajpush.extra);
-			var orderId = tmpData.orderId;
-			if (tmpData.type) {
-				var type = parseInt(tmpData.type);
-				switch(type) {
-					case 0 : {
-						// 餐车注册
-						api.execScript({
-							name : 'homeFixed',
-							script : 'updateLSInfo();'
-						});
-						api.openWin({
-							name : 'carInfo',
-							url : './html/carInfo.html',
-							rect : {
-								x : 0,
-								y : 0,
-								w : 'auto',
-								h : 'auto'
-							},
-							reload : true,
-							opaque : true,
-							bounces : false,
-							delay : 0
-						});
-						break;
-					}
-					case 1 : {
-						// 餐车来订单
-						// coding...
-						break;
-					}
-					case 2: {
-						// 餐车货存
-						// coding...
-						break;
-					}
-					case 3: {
-						// 客户收货
-						break;
-					}
-					default:
-						break;
-				}
-			}
-		}
-	});
-	jpush.setListener(function(ret, err) {
-		if (ret) {
-			var tmpData = JSON.parse(ret.extra);
-			var orderId = tmpData.orderId;
-			var param = {
-				id : -1
-			};
-			if (tmpData.type) {
-				var type = parseInt(tmpData.type);
-				switch(type) {
-					case 0: {
-						// 餐车注册
-						alertSound('carRegist');
-						api.execScript({
-							name : 'homeFixed',
-							script : 'updateLSInfo();'
-						});
-						break;
-					}
-					case 1: {
-						// 餐车来订单
-						//alertSound('finishOrder');
-						api.execScript({
-							name : 'homeSlide',
-							frameName : 'orderList_simple',
-							script : 'reloadFrame();'
-						});
-						break;
-					}
-					case 2: {
-						// 餐车货存
-						// coding...
-						break;
-					}
-					case 3: {
-						// 客户收货
-						alertSound('finishOrder');
-						api.execScript({
-							name : 'homeSlide',
-							frameName : 'orderList_simple',
-							script : 'reloadFrame();'
-						});
-						break;
-					}
-					default:
-						break;
-				}
-			}
-			//			jpush.clearNotification(param, function(ret, err) {//清除通知栏
-			//				if (ret && ret.status) {
-			//					//success
-			//				}
-			//			});
-			//			jpush.setBadge({//清除角标,ios
-			//				badge : 0
-			//			});
-		}
-	});
-	api.addEventListener({
-		name : 'pause'
-	}, function(ret, err) {
-		onPause();
-		//监听应用进入后台，通知jpush暂停事件
-	});
-
-	api.addEventListener({
-		name : 'resume'
-	}, function(ret, err) {
-		onResume();
-		if (api.systemType == 'ios') {//清除ios角标，暂时不清除通知栏消息
-			jpush.setBadge({
-				badge : 0
-			});
-		}
-		//监听应用恢复到前台，通知jpush恢复事件
-	});
-	//统计-app恢复
-	function onResume() {
-		jpush.onResume();
-	}
-
-	//统计-app暂停
-	function onPause() {
-		jpush.onPause();
-	}
-
-
-	jpush.init(function(ret, err) {
-		if (ret && ret.status) {
-		} else {
-		}
-	});
-
-	function alertSound(name) {
-		api.startPlay({
-			path : 'widget://res/' + name + '.mp3'
-		}, function() {
-		});
-	}
-}
-
-function getDeviceId(callBack) {//获取设备id，极光推送
-	jpush = api.require('ajpush');
-	var systemType = api.systemType;
-	if (systemType === "android") {//初始化推送服务，只Android有效，ios上会自动初始化
-		jpush.init(function(ret, err) {
-			if (ret && ret.status) {
-				jpush.getRegistrationId(function(ret, err) {
-					callBack(ret, err);
-				});
-			} else {
-				callBack(ret, err);
-			}
-		});
-	} else {
-		jpush.getRegistrationId(function(ret, err) {
-			callBack(ret, err);
-		});
-	}
-}
-
-/**
- * 推送到 customer, deliveryMan
- *
- */
-function ajPushToCustomer(JPushRegistrationId, orderId, status) {
-	AV.Cloud.run('aJpush', {
-		'JPushRegistrationId' : JPushRegistrationId,
-		'appType' : 1,
-		'orderId' : orderId,
-		'alert' : status
-	}, {
-		success : function(result) {
-			console.log(JSON.stringify(result));
+//////////重新极光推送函数
+//////////////2016-12-28
+////////////////////通知送餐员审核
+////////////////////////////推送给区域管理员
+function newAJpush(JPushRegistrationId, message, appType, type) {
+	/**
+	 * appType 1@cafebar，2@cafecar，3@cafedeliver
+	 */
+	var base64JSON = {
+		1 : "ZTNiNGZlZjMyZWU5MmVkOGYzZmI5YjBiOjkyNDM1MGI1MTVmNTdjMTEyYTM2MjhlNA==",
+		2 : "ZmM0MmFmMzM2M2IzNjZmOTlmNGRkZDQ1OmJiNjUwOGM4ODBmNmRlMzFkNjIyOWRjMA==",
+		3 : "MjkzMzkxMGE3NTNiNTdhNmYxN2RkNDQzOjY5MTcyNzA0ZDA1NzA2ZWIzNmM1OGRlZg=="
+	};
+	var titleJSON = {
+		1 : "开饭吧",
+		2 : "开饭吧区域",
+		3 : "开饭吧送餐"
+	};
+	console.log("JPushRegistrationId, message, appType, type" + JPushRegistrationId + "----" + message + "----" + appType + "----" + type)
+	var registration_id = new Array();
+	var alert = message;
+	var title = titleJSON[appType];
+	var apns_production = true;
+	registration_id.push(JPushRegistrationId);
+	AV.Cloud.httpRequest({
+		method : 'POST',
+		url : 'https://api.jpush.cn/v3/push',
+		headers : {
+			'Content-Type' : 'application/json',
+			"Authorization" : "Basic " + base64JSON[appType]
 		},
-		error : function(error) {
-			console.log(JSON.stringify(error));
-		}
-	});
-}
-
-function ajPushToDeliveryMan(JPushRegistrationId, orderId, status, type) {
-	AV.Cloud.run('aJpush', {
-		'JPushRegistrationId' : JPushRegistrationId,
-		'appType' : 3,
-		'orderId' : orderId,
-		'alert' : status,
-		'type' : type
-	}, {
-		success : function(result) {
-			console.log(JSON.stringify(result));
+		body : {
+			"platform" : "all",
+			"audience" : {
+				"registration_id" : registration_id
+			},
+			"notification" : {
+				"android" : {
+					"alert" : alert,
+					"title" : title,
+					"extras" : {
+						"type" : type,
+						"restaurantName" : "开饭吧餐饮"
+					}
+				},
+				"ios" : {
+					"alert" : alert,
+					"sound" : "sound.caf",
+					"badge" : "+1",
+					"extras" : {
+						"type" : type,
+						"restaurantName" : "开饭吧餐饮"
+					}
+				}
+			},
+			"message" : {
+				"msg_content" : '',
+				"extras" : {
+					"type" : type
+				}
+			},
+			"options" : {
+				"time_to_live" : 60,
+				"apns_production" : apns_production
+			}
 		},
-		error : function(error) {
-			console.log(JSON.stringify(error));
+		success : function(httpResponse) {
+			console.log("httpResponse>>>>>>>>>>" + httpResponse.text);
+			//			response.success({
+			//				"status" : 1
+			//			});
+		},
+		error : function(httpResponse) {
+			console.error('aJpush Request failed with response code ' + httpResponse.status);
+			//			response.error({
+			//				"status" : httpResponse.status
+			//			});
 		}
 	});
 }

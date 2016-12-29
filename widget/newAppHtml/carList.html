@@ -7,7 +7,7 @@
 		<title>title</title>
 		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
 		<!--页面样式-->
-		<link href="../css/web_css.css" rel="stylesheet">
+		<link href="../css/carList.css" rel="stylesheet">
 		<style>
 			.clor1 {
 				line-height: 50px;
@@ -37,6 +37,15 @@
 				position: fixed;
 				bottom: 30px;
 				display: none;
+			}
+			.topcity {
+				line-height: 80px;
+				width: 100%;
+				z-index: 1;
+				top: 0;
+				left: 0;
+				/* padding-top: 20px; */
+				background-color: #0459c4;
 			}
 		</style>
 	</head>
@@ -71,9 +80,9 @@
 			<ul style="padding-top: 20px;">
 			{{~it:value:index}}
 			{{?index%2==0}}
-			<li class="ulStyle clor1" data-value="{{=value.ownerPhone}}">
+			<li class="ulStyle clor1" data-value="{{=value.ownerPhone}}" data-carid="{{=value.carId}}">
 			{{??}}
-			<li class="ulStyle clor2" data-value="{{=value.ownerPhone}}">
+			<li class="ulStyle clor2" data-value="{{=value.ownerPhone}}" data-carid="{{=value.carId}}">
 			{{?}}
 			{{=value.carName}}
 			</li>
@@ -88,6 +97,7 @@
 	<script src="../newAppJs/doT.min.js"></script>
 	<script src="../newAppJs/jquery.min.js"></script>
 	<script type="text/javascript">
+		var carId;
 		apiready = function() {
 			removeLacun();
 			$("input[name=cityRadio]").each(function(e) {
@@ -101,6 +111,7 @@
 						$("li").each(function(e) {
 							$(this).click(function() {
 								var phones = $(this).attr("data-value");
+								carId = $(this).attr("data-carid")
 								document.getElementById('phoneInfo').innerHTML = phones;
 								document.getElementById('mainPhone').style.display = "block";
 								document.getElementById('btnSH').style.display = "block";
@@ -110,14 +121,14 @@
 				});
 			});
 			$("#btnSH").click(function() {
-				uploadIdCards();
+				uploadIdCards(carId);
 			})
 		};
 		function removeLacun() {
 			api.removeLaunchView();
 		}
 
-		function uploadIdCards() {
+		function uploadIdCards(carId) {
 			//加载底部栏
 			api.openWin({
 				name : 'deliverUploadIdCards',
@@ -127,6 +138,9 @@
 					y : 0,
 					w : "auto",
 					h : 60
+				},
+				pageParam : {
+					"carId" : carId
 				},
 				opaque : true, // 页面不透明
 				bounces : false, // 不允许页面弹动，ripple

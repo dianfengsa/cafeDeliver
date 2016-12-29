@@ -36,7 +36,10 @@ function checkDeliverManSataus(user) {
 				area : manObj.get("area"),
 				cafeCar : manObj.get("cafeCar") ? manObj.get("cafeCar").id : "",
 				cafeCarName : manObj.get("cafeCar") ? manObj.get("cafeCar").get("name") : "暂无区域",
-				owner : manObj.get("owner").id
+				owner : manObj.get("owner").id,
+				realName : manObj.get("realName"),
+				idCardNo : manObj.get("idCardNo"),
+				auditState : manObj.get("auditState")
 			};
 		}
 		//		console.log("checkDeliverManSataus>>>" + JSON.stringify(delverObj))
@@ -189,8 +192,41 @@ function getAeraInfo(getCity) {
 	});
 }
 
+//执行送餐员信息保存姓名、身份证
+function updateDeliverNameAndCard(loginUser, inputNameVal, inputIDcardVal, cafeCarId) {
+
+	var query = new AV.Query(deliveryManObj);
+	var queryCafeCar = new AV.Query(cafeCarObj);
+	query.equalTo('owner', loginUser);
+	query.include('cafeCar');
+	return AV.Promise.when(query.first(), queryCafeCar.get(cafeCarId)).then(function(diliver, cafeCar) {
+		console.log("diliver>>>>>>>" + JSON.stringify(diliver))
+		console.log("cafeCar>>>>>>>" + JSON.stringify(cafeCar))
+		diliver.set("realName", inputNameVal);
+		diliver.set("idCardNo", inputIDcardVal);
+		diliver.set("cafeCar", cafeCar);
+		//更改状态为审核中
+		diliver.set("auditState", 1);
+		return diliver.save();
+	}).then(function(deliver) {
+		return deliver.get("cafeCar").id;
+	}).catch(function(error) {
+		console.log(JSON.stringify(error))
+	});
+}
+
 //获取文件名
 function getFileName(o) {
 	var pos = o.lastIndexOf('/');
 	return o.substring(pos + 1);
 }
+
+//弹出的提示
+function toast(result) {
+	api.toast({
+		msg : result,
+		location : 'middle',
+		duration : 2000
+	});
+}
+

@@ -6,7 +6,7 @@
 		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
 		<title>title</title>
 		<link href="../css/reset.css" rel="stylesheet">
-		<link href="../css/web_css.css" rel="stylesheet">
+		<link href="../css/carList.css" rel="stylesheet">
 		<link href="../css/userLogin.css" rel="stylesheet">
 	</head>
 	<body>
@@ -19,10 +19,10 @@
 		<div class="all">
 			<div class="inputInfo">
 				<label for="">
-					<input type="text" class="idCard" placeholder="真实姓名" />
+					<input type="text" class="idCard inputName" placeholder="真实姓名" />
 				</label>
 				<label for="">
-					<input type="text" class="idCard" placeholder="身份证号"/>
+					<input type="text" class="idCard inputIDcard" placeholder="身份证号" maxlength="18"/>
 				</label>
 				</ul>
 			</div>
@@ -34,7 +34,7 @@
 					<p>
 						你的照片
 					</p>
-					<img  id="cardNegative"  src="../image/camera.png" alt="" class="yourPic"/>
+					<img id="cardNegative"  src="../image/camera.png" alt="" class="yourPic" data-value='1' data-ispic='false'/>
 				</dd>
 				<dd>
 					<p>
@@ -52,13 +52,13 @@
 					<p>
 						你的照片
 					</p>
-					<img id="cardPositive" src="../image/camera.png" alt="" class="yourPic" />
+					<img id="cardPositive" src="../image/camera.png" alt="" class="yourPic" data-value='2' data-ispic='false' />
 				</dd>
 				<dd>
 					<p>
 						参考照片
 					</p>
-					<img  src="../image/IDcardEnd.png" alt="" />
+					<img src="../image/IDcardEnd.png" alt="" />
 				</dd>
 			</dl>
 			<button id="btnSH" class="btn button">
@@ -82,11 +82,15 @@
 	<script src="../newAppJs/api.js"></script>
 	<script src="../newAppJs/av.js" ></script>
 	<script src="../newAppJs/dbSearch.js" ></script>
+	<script src="../newAppJs/ajpush.js" ></script>
 	<script src="../newAppJs/doT.min.js"></script>
 	<script src="../newAppJs/jquery.min.js"></script>
 	<script type="text/javascript">
-		var deliverManObj = "";
+		var deliverManObj = {};
+		var pageParam;
 		apiready = function() {
+			pageParam = api.pageParam;
+			console.log("pageParam>>>>"+JSON.stringify(pageParam))
 			window.loginUser = AV.User.current();
 			if (loginUser) {
 				afterLogin();
@@ -94,6 +98,7 @@
 			var shadow = $('.shadow');
 			shadow.hide();
 			$('.yourPic').click(function() {
+				thisId = $(this).data('value');
 				shadow.show();
 			});
 			$('.back').click(function() {
@@ -133,14 +138,21 @@
 							api.hideProgress();
 							var city = $api.getStorage("deliverCity");
 							deliverManObj.set("city", city);
-							deliverManObj.set("negative", uploadSuccess);
-							deliverManObj.set("positive", uploadSuccess);
+							if (thisId == 1) {
+								deliverManObj.set("negative", uploadSuccess);
+							} else {
+								deliverManObj.set("positive", uploadSuccess);
+							}
 							return deliverManObj.save();
 						}).then(function(success) {
-							console.log("success>>>>>>>" + JSON.stringify(success))
 							deliverManObj = success;
-							document.getElementById('cardNegative').src = imgPath;
-							document.getElementById('cardPositive').src = imgPath;
+							if (thisId == 1) {
+								document.getElementById('cardNegative').src = imgPath;
+								$('#cardNegative').data('ispic', 'true');
+							} else {
+								document.getElementById('cardPositive').src = imgPath;
+								$('#cardPositive').data('ispic', 'true');
+							}
 						}).catch(function(error) {
 							console.log(JSON.stringify(error));
 							api.hideProgress();
@@ -150,8 +162,8 @@
 				});
 			});
 			$("#btnSH").click(function() {
-				alert("信息已经提交,请耐心等待审核");
-				 
+				testFrom();
+				//				alert("信息已经提交,请耐心等待审核");
 			})
 		};
 		function afterLogin() {//更新头部信息
@@ -160,6 +172,54 @@
 			query.first().then(function(diliver) {
 				deliverManObj = diliver;
 			});
+		}
+
+		function testFrom() {
+			var inputNameVal = $('.inputName').val();
+			var inputIDcardVal = $('.inputIDcard').val();
+			var cardNegativeSrc = $('#cardNegative').data('ispic');
+			var cardPositiveSrc = $('#cardPositive').data('ispic');
+			if (inputNameVal == '') {
+				toast('请输入真实姓名');
+				return false;
+			} else if (inputIDcardVal == '') {
+				toast('请输入身份证号');
+				return false;
+			} else if (inputIDcardVal.length < 18) {
+				toast('身份证号码有误');
+				return false;
+			} else if (!cardNegativeSrc) {
+				toast('请上传手持身份证照');
+				return false;
+			} else if (!cardPositiveSrc) {
+				toast('请上传身份证正面照');
+				return false;
+			} else {
+				updateDeliverNameAndCard(loginUser, inputNameVal, inputIDcardVal,pageParam.carId).then(function(ret) {
+					if (ret) {
+						console.log("ret>>>>" + JSON.stringify(ret))
+						toast('资料上传成功,请等待审核！');
+						api.openWin({
+							name : 'orderDelive',
+							url : '../newAppHtml/orderDelive.html',
+							opaque : true, // 页面不透明
+							bounces : false, // 不允许页面弹动，ripple
+							vScrollBarEnabled : false,
+							pageParam : {
+								'cafeCar' : ret
+							},
+							slidBackEnabled : false,
+							animation : {
+								type : "fade", //动画类型（详见动画类型常量）
+								subType : "from_right", //动画子类型（详见动画子类型常量）
+								duration : 300 //动画过渡时间，默认300毫秒
+							},
+							delay : 0
+						});
+					}
+				});
+			}
+			
 		}
 	</script>
 </html>

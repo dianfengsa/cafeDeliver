@@ -49,8 +49,8 @@
 					if (!_.isEmpty(ret)) {
 						if (ret.auditState == 1) {//进入待审核页面
 							api.openWin({
-								name : 'auditState',
-								url : './newAppHtml/auditState.html',
+								name : 'orderDelive',
+								url : './newAppHtml/orderDelive.html',
 								opaque : true, // 页面不透明
 								bounces : false, // 不允许页面弹动，ripple
 								vScrollBarEnabled : false,
@@ -65,8 +65,8 @@
 							});
 						} else if (ret.auditState == 0) {//进入治疗提交页面
 							api.openWin({
-								name : 'carList',
-								url : './newAppHtml/carList.html',
+								name : 'orderDelive',
+								url : './newAppHtml/orderDelive.html',
 								opaque : true, // 页面不透明
 								bounces : false, // 不允许页面弹动，ripple
 								vScrollBarEnabled : false,

@@ -24,6 +24,7 @@
 			$api.rmStorage("requestDeliver");
 			$api.rmStorage("requestFinished");
 			$api.rmStorage("deliverCity");
+			$api.rmStorage("deliverAudit");
 			newInit();
 			var ajpushId = $api.getStorage("ajpushId");
 			if (!ajpushId) {//更新
@@ -49,8 +50,8 @@
 					if (!_.isEmpty(ret)) {
 						if (ret.auditState == 1) {//进入待审核页面
 							api.openWin({
-								name : 'orderDelive',
-								url : './newAppHtml/orderDelive.html',
+								name : 'auditState',
+								url : './newAppHtml/auditState.html',
 								opaque : true, // 页面不透明
 								bounces : false, // 不允许页面弹动，ripple
 								vScrollBarEnabled : false,
@@ -65,8 +66,8 @@
 							});
 						} else if (ret.auditState == 0) {//进入治疗提交页面
 							api.openWin({
-								name : 'orderDelive',
-								url : './newAppHtml/orderDelive.html',
+								name : 'carList',
+								url : './newAppHtml/carList.html',
 								opaque : true, // 页面不透明
 								bounces : false, // 不允许页面弹动，ripple
 								vScrollBarEnabled : false,

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>资料审核</title>
+		<link href="../css/reset.css" rel="stylesheet">
+		<link href="../css/carList.css" rel="stylesheet">
+		<link href="../css/userLogin.css" rel="stylesheet">
+		<style>
+			body {
+			}
+		</style>
+	</head>
+	<body>
+		<div class="headerFixed">
+			<div class="back"></div>
+			<p class="positionCenter">
+				资料审核
+			</p>
+		</div>
+	</body>
+	<script src="../script/newAppJs.js"></script>
+	<script src="../newAppJs/av.js" ></script>
+	<script src="../newAppJs/dbSearch.js" ></script>
+	<script src="../newAppJs/ajpush.js" ></script>
+	<script src="../newAppJs/doT.min.js"></script>
+	<script src="../newAppJs/jquery.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			var auditArr = $api.getStorage("deliverAudit");
+			console.log("auditArr>>>" + JSON.stringify(auditArr))
+		};
+	</script>
+</html>

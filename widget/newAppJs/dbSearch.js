@@ -194,24 +194,53 @@ function getAeraInfo(getCity) {
 
 //执行送餐员信息保存姓名、身份证
 function updateDeliverNameAndCard(loginUser, inputNameVal, inputIDcardVal, cafeCarId) {
-
 	var query = new AV.Query(deliveryManObj);
 	var queryCafeCar = new AV.Query(cafeCarObj);
 	query.equalTo('owner', loginUser);
 	query.include('cafeCar');
 	return AV.Promise.when(query.first(), queryCafeCar.get(cafeCarId)).then(function(diliver, cafeCar) {
-		console.log("diliver>>>>>>>" + JSON.stringify(diliver))
-		console.log("cafeCar>>>>>>>" + JSON.stringify(cafeCar))
 		diliver.set("realName", inputNameVal);
+		diliver.set("mobilePhoneNumber", diliver.get("mobilePhoneNumber"));
+		diliver.set("status", "休息");
+		diliver.set("area", "暂无");
 		diliver.set("idCardNo", inputIDcardVal);
-		diliver.set("cafeCar", cafeCar);
-		//更改状态为审核中
 		diliver.set("auditState", 1);
+		diliver.set("cafeCar", cafeCar);
 		return diliver.save();
-	}).then(function(deliver) {
-		return deliver.get("cafeCar").id;
+	}).then(function(man) {
+		console.log("man>>>>>>>" + JSON.stringify(man.get("cafeCar")))
+		return man.get("cafeCar") ? man.get("cafeCar").id : "5562927de4b07ae45cf76dd5";
 	}).catch(function(error) {
-		console.log(JSON.stringify(error))
+		console.log(JSON.stringify(error.message))
+	});
+}
+
+//根据送餐员信息获取区域信息
+function areaByDeliver(manId) {
+	var query = new AV.Query(deliveryManObj);
+	var queryCafeCar = new AV.Query(cafeCarObj);
+	var carObj = {};
+	query.include('cafeCar');
+	return query.get(manId).then(function(man) {
+		queryCafeCar.equalTo('objectId', man.get("cafeCar").id);
+		return AV.Promise.when(queryCafeCar.first(), man);
+	}).then(function(cafecar, man) {
+		console.log("man>>>" + JSON.stringify(man))
+		carObj = {
+			carId : cafecar.id,
+			carName : cafecar.get("name"),
+			carCity : cafecar.get("city"),
+			address : cafecar.get("parkingAddress"),
+			phone : cafecar.get("mobilePhoneNumber"),
+			status : cafecar.get("status"),
+			remittanceInfo : cafecar.get("remittanceInfo"),
+			realName : man.get("realName"),
+			idCardNo : man.get("idCardNo"),
+			auditState : man.get("auditState")
+		};
+		return carObj;
+	}).catch(function(error) {
+		console.log("error>>>>" + JSON.stringify(error.message))
 	});
 }
 

@@ -23,22 +23,48 @@
 		<div style="margin-top: 30%;text-align: -webkit-center;font-size: 14px;">
 			资料正在审核中,如有需要请联系管理员
 		</div>
+		<div style="" id="cafeCarInfo"></div>
+		<script type="text/template" charset="utf-8" id="cafeCar_template">
+			<ul style="margin-top: 10%;font-size: 14px;">
+			{{?it}}
+			<li>
+			申请人:{{=it.realName}}
+			</li>
+			<li>
+			身份证:{{=it.idCardNo}}
+			</li>
+			{{?it.remittanceInfo.type=='phone'}}
+			<li>
+			负责人:{{=it.remittanceInfo.name}}
+			</li>
+			{{?}}
+			<li>
+			区域负责人电话:{{=it.remittanceInfo.account}}
+			</li>
+			<li>
+			审核状态:审核中
+			</li>
+			{{?}}
+			</ul>
+		</script>
 	</body>
 	<script type="text/javascript" src="../script/api.js"></script>
+	<script src="../newAppJs/av.js" ></script>
+	<script src="../newAppJs/dbSearch.js" ></script>
+	<script src="../newAppJs/ajpush.js" ></script>
+	<script src="../newAppJs/doT.min.js"></script>
+	<script src="../newAppJs/jquery.min.js"></script>
 	<script type="text/javascript">
 		var pageParam;
 		apiready = function() {
-			pageParam = api.pageParam;
-			console.log("pageParam>>>>>>>" + JSON.stringify(pageParam))
+			pageParam = api.pageParam; 
 			//根据送餐员选择的区域信息,查找该区域的管理员电话
-			//			var queryCafeCar = new AV.Query(cafeCarObj);
-			//			var queryCustomer = new AV.Query(customerObj);
-			//			return queryCafeCar.get(pageParam.carId).then(function(cafecar) {
-			//				queryCustomer.equalTo("mobilePhoneNumber", cafecar.get("mobilePhoneNumber"));
-			//				return queryCustomer.first();
-			//			}).then(function(customer) {
-			//				newAJpush(customer.get("JPushRegistrationId"), "您的区域有新增送餐员,请速审核!", 3, 3);
-			//			});
+			areaByDeliver(pageParam.id).then(function(manObj) { 
+				var cafeCar_template = document.getElementById('cafeCar_template').innerHTML;
+				document.getElementById('cafeCarInfo').innerHTML = doT.template(cafeCar_template)(manObj);
+			}).catch(function(error) {
+				console.log("error>>" + JSON.string(error.message))
+			})
 		};
 	</script>
 </html>

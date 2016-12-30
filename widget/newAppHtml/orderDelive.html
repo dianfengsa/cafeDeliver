@@ -126,7 +126,7 @@
 			</li>
 			</ul>
 			<span>
-			<input type="button" value="立即接单" data-value="{{=value.orderid}}" class="dispatch">
+			<input type="button" value="立即接单" data-value="{{=value.orderid}}" data-state="{{=value.auditState}}" class="dispatch">
 			</span>
 			</div>
 			</div>
@@ -342,9 +342,10 @@
 		});
 		if (pageParam.cafeCar) {
 			//有送餐区域,加载数据
-			console.log("pageParam.cafeCar>>>>>>"+JSON.stringify(pageParam.cafeCar))
+			console.log("pageParam.cafeCar>>>>>>" + JSON.stringify(pageParam.cafeCar))
 			loadOrders(pageParam.cafeCar);
 			loadDeliverOrders(pageParam.cafeCar);
+			loadDeliverManAudit(pageParam.cafeCar);
 		} else {
 			api.toast({
 				msg : '暂未分配送餐区域,请联系管理员!',
@@ -432,35 +433,44 @@
 		//重新派单
 		$("#deliverOrder").on("click", ".dispatch2", function() {
 			var orderId = $(this).attr("data-value");
-			api.openFrame({
-				name : 'deliveSelect',
-				url : './deliveSelect.html',
-				rect : {
-					x : 0,
-					y : 0,
-					w : "auto",
-					h : "auto",
-					marginLeft : 0, //相对父 window 左外边距的距离
-					marginTop : 0, //相对父 window 上外边距的距离
-					marginBottom : 0, //相对父 window 下外边距的距离
-					marginRight : 0 //相对父 window 右外边距的距离
-				},
-				pageParam : {
-					"cefeCar" : pageParam.cafeCar,
-					"orderId" : orderId,
-					"orderType" : 1
-				},
-				bounces : false,
-				bgColor : 'rgba(0,0,0,0)',
-				vScrollBarEnabled : true,
-				hScrollBarEnabled : true,
-				animation : {
-					type : "fade", //动画类型（详见动画类型常量）
-					subType : "from_bottom", //动画子类型（详见动画子类型常量）
-					curve : "ease_out",
-					duration : 200 //动画过渡时间，默认300毫秒
-				}
-			});
+			var state = $(this).attr("data-state");
+			if (state == 2) {
+				api.openFrame({
+					name : 'deliveSelect',
+					url : './deliveSelect.html',
+					rect : {
+						x : 0,
+						y : 0,
+						w : "auto",
+						h : "auto",
+						marginLeft : 0, //相对父 window 左外边距的距离
+						marginTop : 0, //相对父 window 上外边距的距离
+						marginBottom : 0, //相对父 window 下外边距的距离
+						marginRight : 0 //相对父 window 右外边距的距离
+					},
+					pageParam : {
+						"cefeCar" : pageParam.cafeCar,
+						"orderId" : orderId,
+						"orderType" : 1
+					},
+					bounces : false,
+					bgColor : 'rgba(0,0,0,0)',
+					vScrollBarEnabled : true,
+					hScrollBarEnabled : true,
+					animation : {
+						type : "fade", //动画类型（详见动画类型常量）
+						subType : "from_bottom", //动画子类型（详见动画子类型常量）
+						curve : "ease_out",
+						duration : 200 //动画过渡时间，默认300毫秒
+					}
+				});
+			} else {
+				api.toast({
+					msg : '您的资料正在审核中,无法接单！',
+					location : 'middle',
+					duration : 3000
+				});
+			}
 		});
 		$("#m-content").on("click", ".store", function() {//快捷拨号(给商家拨打)
 			console.log("call商家");
@@ -721,6 +731,27 @@
 			api.execScript({
 				frameName : 'orderRequest',
 				script : 'getDeliverRequestInfo();'
+			});
+		});
+	}
+
+	//加载需要审核的送餐员信息
+	function loadDeliverManAudit(carId) {
+		var ref = new Wilddog("https://kaifanba.wilddogio.com/deliveryManRef/" + carId);
+		ref.limitToFirst(100).on("value", function(datasnapshot) {
+			var auditArr = [], deliverAuditArr = [];
+			var snap = _.each(datasnapshot.val(), function(val, key) {
+				return auditArr.push(val);
+			});
+			for (var i = 0; i < auditArr.length; i++) {
+				if (auditArr[i].auditState == 1) {
+					deliverAuditArr.push(auditArr[i]);
+				}
+			}
+			$api.setStorage("deliverAudit", deliverAuditArr);
+			api.execScript({
+				frameName : 'footer',
+				script : 'setAuditNum();'
 			});
 		});
 	}

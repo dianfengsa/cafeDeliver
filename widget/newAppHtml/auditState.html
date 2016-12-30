@@ -16,41 +16,48 @@
 				资料审核
 			</p>
 		</div>
-		<div class="examine" id="cafeCarInfo">
-			
-		</div>
+		<div class="examine" id="cafeCarInfo"></div>
 		<script type="text/template" charset="utf-8" id="cafeCar_template">
 			<div class="whiteBg">
-				<div class="h50 blueBg">
-					<p class="positionCenter tc">
-						资料正在审核中
-						<br />
-						如有需要请联系管理员
-					</p>
-				</div>
-				<div class="h50 personInfo">
-					<ul>
-						{{?it}}
-						<li>
-							<span>申请人:</span>{{=it.realName}}
-						</li>
-						<li>
-							<span>身份证:</span>{{=it.idCardNo}}
-						</li>
-						{{?it.remittanceInfo.type=='phone'}}
-						<li>
-							<span>负责人:</span>{{=it.remittanceInfo.name}}
-						</li>
-						{{?}}
-						<li>
-							<span>负责人电话:</span><a href="tel:{{=it.remittanceInfo.account}}"></a>{{=it.remittanceInfo.account}}
-						</li>
-						<li>
-							<span>审核状态:</span>审核中
-						</li>
-						{{?}}
-					</ul>
-				</div>
+			<div class="h50 blueBg">
+			<p class="positionCenter tc">
+			资料正在审核中
+			<br />
+			如有需要请联系管理员
+			</p>
+			</div>
+			<div class="h50 personInfo">
+			<ul>
+			{{?it}}
+			<li>
+			<span>申请人:</span>{{=it.realName}}
+			</li>
+			<li>
+			<span>身份证:</span>{{=it.idCardNo}}
+			</li>
+			{{?it.remittanceInfo.type=='phone'}}
+			<li>
+			<span>负责人:</span>{{=it.remittanceInfo.name}}
+			</li>
+			{{?}}
+			<li>
+			<span>负责人电话:</span><a href="tel:{{=it.remittanceInfo.account}}">{{=it.remittanceInfo.account}}</a>
+			</li>
+			{{?it.auditState==1}}
+			<li>
+			<span>审核状态:</span>审核中
+			</li>
+			{{??it.auditState==3}}
+			<li>
+			<span>审核状态:</span><b style="font-weight: bold;color: red;">审核不通过</b>
+			</li>
+			<li>
+			<span>拒绝原因:</span>{{=it.rejectReason}}
+			</li>
+			{{?}}
+			{{?}}
+			</ul>
+			</div>
 			</div>
 		</script>
 	</body>
@@ -66,6 +73,7 @@
 			pageParam = api.pageParam;
 			//根据送餐员选择的区域信息,查找该区域的管理员电话
 			areaByDeliver(pageParam.id).then(function(manObj) {
+				console.log("manObj>>>" + JSON.stringify(manObj))
 				var cafeCar_template = document.getElementById('cafeCar_template').innerHTML;
 				document.getElementById('cafeCarInfo').innerHTML = doT.template(cafeCar_template)(manObj);
 			}).catch(function(error) {

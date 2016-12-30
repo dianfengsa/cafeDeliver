@@ -748,10 +748,15 @@
 					deliverAuditArr.push(auditArr[i]);
 				}
 			}
+			console.log("deliverAuditArr>>>>>>"+JSON.stringify(deliverAuditArr))
 			$api.setStorage("deliverAudit", deliverAuditArr);
 			api.execScript({
 				frameName : 'footer',
 				script : 'setAuditNum();'
+			});
+			api.execScript({
+				frameName : 'deliverAudit',
+				script : 'reloadPage();'
 			});
 		});
 	}

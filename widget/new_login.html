@@ -359,7 +359,7 @@
 					url : './newAppHtml/carList.html',
 					pageParam : retsult
 				});
-			} else if (retsult.auditState == 1) {//进入资料提交页面
+			} else if (retsult.auditState == 1 || ret.auditState == 3) {//进入资料提交页面
 				api.openWin({
 					name : 'auditState',
 					url : './newAppHtml/auditState.html',

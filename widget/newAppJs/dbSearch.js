@@ -225,7 +225,6 @@ function areaByDeliver(manId) {
 		queryCafeCar.equalTo('objectId', man.get("cafeCar").id);
 		return AV.Promise.when(queryCafeCar.first(), man);
 	}).then(function(cafecar, man) {
-		console.log("man>>>" + JSON.stringify(man))
 		carObj = {
 			carId : cafecar.id,
 			carName : cafecar.get("name"),
@@ -233,6 +232,7 @@ function areaByDeliver(manId) {
 			address : cafecar.get("parkingAddress"),
 			phone : cafecar.get("mobilePhoneNumber"),
 			status : cafecar.get("status"),
+			rejectReason: man.get("rejectReason"),
 			remittanceInfo : cafecar.get("remittanceInfo"),
 			realName : man.get("realName") ? man.get("realName") : "未填写",
 			idCardNo : man.get("idCardNo") ? man.get("idCardNo") : "未填写",
@@ -242,6 +242,22 @@ function areaByDeliver(manId) {
 	}).catch(function(error) {
 		console.log("error>>>>" + JSON.stringify(error.message))
 	});
+}
+
+//更新审核状态
+function updateAuditStatus(manId, status, reson) {
+	console.log(manId + "  " + status + "  " + reson)
+	var query = new AV.Query(deliveryManObj);
+	return query.get(manId).then(function(man) {
+		console.log("man>>>>>>" + JSON.stringify(man))
+		man.set("auditState", status);
+		man.set("rejectReason", reson);
+		return man.save();
+	}).then(function(manObj) {
+		return manObj;
+	}).catch(function(error) {
+		console.log("error>>>" + JSON.stringify(error.message))
+	})
 }
 
 //获取文件名

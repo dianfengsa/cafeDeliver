@@ -8,10 +8,6 @@
 		<link href="../css/reset.css" rel="stylesheet">
 		<link href="../css/carList.css" rel="stylesheet">
 		<link href="../css/userLogin.css" rel="stylesheet">
-		<style>
-			body {
-			}
-		</style>
 	</head>
 	<body>
 		<div class="headerFixed">
@@ -20,35 +16,45 @@
 				资料审核
 			</p>
 		</div>
-		<div style="margin-top: 30%;text-align: -webkit-center;font-size: 14px;">
-			资料正在审核中,如有需要请联系管理员
+		<div class="examine" id="cafeCarInfo">
+			
 		</div>
-		<div style="" id="cafeCarInfo"></div>
 		<script type="text/template" charset="utf-8" id="cafeCar_template">
-			<ul style="margin-top: 10%;font-size: 14px;">
-			{{?it}}
-			<li>
-			申请人:{{=it.realName}}
-			</li>
-			<li>
-			身份证:{{=it.idCardNo}}
-			</li>
-			{{?it.remittanceInfo.type=='phone'}}
-			<li>
-			负责人:{{=it.remittanceInfo.name}}
-			</li>
-			{{?}}
-			<li>
-			区域负责人电话:{{=it.remittanceInfo.account}}
-			</li>
-			<li>
-			审核状态:审核中
-			</li>
-			{{?}}
-			</ul>
+			<div class="whiteBg">
+				<div class="h50 blueBg">
+					<p class="positionCenter tc">
+						资料正在审核中
+						<br />
+						如有需要请联系管理员
+					</p>
+				</div>
+				<div class="h50 personInfo">
+					<ul>
+						{{?it}}
+						<li>
+							<span>申请人:</span>{{=it.realName}}
+						</li>
+						<li>
+							<span>身份证:</span>{{=it.idCardNo}}
+						</li>
+						{{?it.remittanceInfo.type=='phone'}}
+						<li>
+							<span>负责人:</span>{{=it.remittanceInfo.name}}
+						</li>
+						{{?}}
+						<li>
+							<span>负责人电话:</span><a href="tel:{{=it.remittanceInfo.account}}"></a>{{=it.remittanceInfo.account}}
+						</li>
+						<li>
+							<span>审核状态:</span>审核中
+						</li>
+						{{?}}
+					</ul>
+				</div>
+			</div>
 		</script>
 	</body>
-	<script type="text/javascript" src="../script/api.js"></script>
+	<script src="../newAppJs/api.js"></script>
 	<script src="../newAppJs/av.js" ></script>
 	<script src="../newAppJs/dbSearch.js" ></script>
 	<script src="../newAppJs/ajpush.js" ></script>
@@ -57,9 +63,9 @@
 	<script type="text/javascript">
 		var pageParam;
 		apiready = function() {
-			pageParam = api.pageParam; 
+			pageParam = api.pageParam;
 			//根据送餐员选择的区域信息,查找该区域的管理员电话
-			areaByDeliver(pageParam.id).then(function(manObj) { 
+			areaByDeliver(pageParam.id).then(function(manObj) {
 				var cafeCar_template = document.getElementById('cafeCar_template').innerHTML;
 				document.getElementById('cafeCarInfo').innerHTML = doT.template(cafeCar_template)(manObj);
 			}).catch(function(error) {

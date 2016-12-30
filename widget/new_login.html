@@ -176,8 +176,11 @@
 				if (registry.phone.value === '18600000000') {
 					AV.User.logIn(registry.phone.value, registry.code.value, {
 						success : function(user) {
-							//注册或者登录成功
-							afterRegister(user);
+							console.log("user>>>>>" + JSON.stringify(user))
+							checkDeliverManSataus(user).then(function(ret) {
+								//注册或者登录成功
+								goOrderListPage(ret);
+							});
 						},
 						error : function(user, error) {
 							api.hideProgress();
@@ -349,61 +352,32 @@
 		}
 
 		function goOrderListPage(retsult) {
-			console.log("retsult>>>>>>>" + JSON.stringify(retsult))
-			api.hideProgress();
+			console.log("retsult>>>>>>>" + JSON.stringify(retsult.auditState))
 			if (retsult.auditState == 0) {//进入待审核页面
 				api.openWin({
 					name : 'carList',
 					url : './newAppHtml/carList.html',
-					opaque : true, // 页面不透明
-					bounces : false, // 不允许页面弹动，ripple
-					vScrollBarEnabled : false,
-					pageParam : ret,
-					slidBackEnabled : false,
-					animation : {
-						type : "fade", //动画类型（详见动画类型常量）
-						subType : "from_right", //动画子类型（详见动画子类型常量）
-						duration : 300 //动画过渡时间，默认300毫秒
-					},
-					delay : 0
+					pageParam : retsult
 				});
-			} else if (ret.auditState == 1) {//进入治疗提交页面
+			} else if (retsult.auditState == 1) {//进入资料提交页面
 				api.openWin({
 					name : 'auditState',
 					url : './newAppHtml/auditState.html',
-					opaque : true, // 页面不透明
-					bounces : false, // 不允许页面弹动，ripple
-					vScrollBarEnabled : false,
-					pageParam : ret,
-					slidBackEnabled : false,
-					animation : {
-						type : "fade", //动画类型（详见动画类型常量）
-						subType : "from_right", //动画子类型（详见动画子类型常量）
-						duration : 300 //动画过渡时间，默认300毫秒
-					},
-					delay : 0
+					pageParam : retsult
 				});
-			} else if (ret.auditState == 2) {//进入订单页面
+			} else if (retsult.auditState == 2) {//进入订单页面
 				api.openWin({
 					name : 'orderDelive',
 					url : './newAppHtml/orderDelive.html',
-					opaque : true, // 页面不透明
-					bounces : false, // 不允许页面弹动，ripple
-					vScrollBarEnabled : false,
-					pageParam : ret,
-					slidBackEnabled : false,
-					animation : {
-						type : "fade", //动画类型（详见动画类型常量）
-						subType : "from_right", //动画子类型（详见动画子类型常量）
-						duration : 300 //动画过渡时间，默认300毫秒
-					},
-					delay : 0
+					pageParam : retsult
 				});
 			}
+			setTimeout(function() {
+				api.closeWin({
+					name : 'login'
+				});
+			}, 3000);
 			removeLacun();
-			api.closeWin({
-				name : 'login'
-			});
 			//			api.openSlidLayout({
 			//				type : 'left',
 			//				leftEdge : 60,

@@ -113,7 +113,9 @@ input[type="button"],button{
 .clearfix:after {clear:both;}
 .clearfix {zoom:1;}
 .clear {clear:both;display:block;font-size:0;height:0;line-height:0;overflow:hidden;}
-
+.tc{
+	text-align:center;
+}
 .fl{float:left;}
 .fr{float:right;}
 .displayinline{

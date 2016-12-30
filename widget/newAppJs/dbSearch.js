@@ -234,8 +234,8 @@ function areaByDeliver(manId) {
 			phone : cafecar.get("mobilePhoneNumber"),
 			status : cafecar.get("status"),
 			remittanceInfo : cafecar.get("remittanceInfo"),
-			realName : man.get("realName"),
-			idCardNo : man.get("idCardNo"),
+			realName : man.get("realName") ? man.get("realName") : "未填写",
+			idCardNo : man.get("idCardNo") ? man.get("idCardNo") : "未填写",
 			auditState : man.get("auditState")
 		};
 		return carObj;

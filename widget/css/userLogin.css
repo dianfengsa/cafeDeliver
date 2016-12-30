@@ -1,6 +1,15 @@
 body {
 	background: #f3f1f2;
 }
+.back{
+    position: absolute;
+    left: 1rem;
+    display: inline-block;
+    height: 3rem;
+    width: 3rem;
+    background: url("../image/back.png")left center no-repeat;
+    background-size: cover;
+}
 .shadow {
 	position: fixed;
 	height: 100%;

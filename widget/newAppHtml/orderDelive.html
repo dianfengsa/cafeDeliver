@@ -320,6 +320,7 @@
 		//调用极光推送
 		//		ajpushInit();
 		pageParam = api.pageParam;
+		console.log("进来了>>>" + JSON.stringify(pageParam))
 		//获取屏幕高度
 		var winHeight = api.winHeight;
 		var winWidth = api.winWidth;
@@ -342,7 +343,6 @@
 		});
 		if (pageParam.cafeCar) {
 			//有送餐区域,加载数据
-			console.log("pageParam.cafeCar>>>>>>" + JSON.stringify(pageParam.cafeCar))
 			loadOrders(pageParam.cafeCar);
 			loadDeliverOrders(pageParam.cafeCar);
 			loadDeliverManAudit(pageParam.cafeCar);
@@ -355,7 +355,6 @@
 			return;
 		}
 		deliver = $api.getStorage("deliverMan");
-		console.log("deliver>>>>>" + JSON.stringify(deliver));
 		var keybackNum = 0;
 		api.addEventListener({
 			name : 'keyback'
@@ -748,7 +747,6 @@
 					deliverAuditArr.push(auditArr[i]);
 				}
 			}
-			console.log("deliverAuditArr>>>>>>"+JSON.stringify(deliverAuditArr))
 			$api.setStorage("deliverAudit", deliverAuditArr);
 			api.execScript({
 				frameName : 'footer',

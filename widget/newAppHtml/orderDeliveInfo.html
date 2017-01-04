@@ -10,14 +10,29 @@
 		<link rel="stylesheet" href="../css/flex-layout.css">
 		<link rel="stylesheet" href="../css/layout.css">
 		<link rel="stylesheet" href="../css/index.css">
+		<link href="../css/carList.css" rel="stylesheet">
+		<link href="../css/userLogin.css" rel="stylesheet">
 		<link href="../css/orderDeliveInfo.css" rel="stylesheet">
 		<title>我的信息</title>
 	</head>
 	<body>
+		<div class="shadow">
+			<div class="selectPic position">
+				<button>
+					拍照
+				</button>
+				<button>
+					相册
+				</button>
+				<button>
+					取消
+				</button>
+			</div>
+		</div>
 		<div class="user-info-web flex-item-24 flex-row">
 			<div class="user-info-web-bg flex-item-24 flex-center flex-row">
 				<div class="myInfoList">
-					<div class="avatar"><img src="../image/textava.png" alt="">
+					<div class="avatar"><img id="imageFilePic" src="../image/textava.png" alt="">
 					</div>
 					<span class="Name" ><span id="dName"></span></span>
 				</div>
@@ -64,17 +79,23 @@
 </html>
 <script>
 	/*我的信息页面按钮*/
-	var pageParam, deliverManInfo;
+	var pageParam, deliverManInfo, deliverManObj;
 	apiready = function() {
+		window.loginUser = AV.User.current();
+		if (loginUser) {
+			afterLogin();
+		}
 		//状态按钮
 		var div2 = document.getElementById("div2");
 		var div1 = document.getElementById("div1");
 		pageParam = api.pageParam;
 		deliverManInfo = $api.getStorage("deliverMan");
-		console.log("deliverManInfo>>>>" + JSON.stringify(deliverManInfo));
 		$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 		$("#deliverPhone").text(deliverManInfo.phone);
 		$("#deliverDd").text(deliverManInfo.cafeCarName);
+		if (deliverManInfo.deliverImage) { 
+			document.getElementById("imageFilePic").src = deliverManInfo.deliverImage;
+		}
 		//退出登录
 		$("#btnLogOut").on("touchend", ".user-out-button", function() {
 			removeLacun();
@@ -126,20 +147,20 @@
 			var originalT = document.getElementById("dName").innerHTML;
 			console.log(originalT);
 			var pattern = /^[A-Za-z0-9\u4e00-\u9fa5]+$/gi;
-			 function strlen(str) {				//计算用户输入的字节长度
+			function strlen(str) {//计算用户输入的字节长度
 				var len = 0;
 				for (var i = 0; i < str.length; i++) {
 					var c = str.charCodeAt(i);
 					//单字节加1
 					if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
 						len++;
-					}
-					else {
+					} else {
 						len += 2;
 					}
 				}
 				return len;
 			}
+
 			if (originalT == "") {
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 				api.toast({
@@ -147,11 +168,9 @@
 					location : "middle",
 					duration : 2000
 				});
-			}
-			else if (pattern.test(originalT) && 4 <= strlen(originalT) && strlen(originalT) <= 10 )  {
+			} else if (pattern.test(originalT) && 4 <= strlen(originalT) && strlen(originalT) <= 10) {
 				console.log(strlen(originalT));
 				updateDeliverManName(deliverManInfo.id, originalT).then(function(man) {
-				console.log("man<<<<<<<<<<<<"+JSON.stringify(man))
 					if (man) {
 						$api.setStorage("deliverMan", man);
 						api.toast({
@@ -161,8 +180,7 @@
 						});
 					}
 				});
-			}
-			else {
+			} else {
 				$("#dName").text(deliverManInfo.name ? deliverManInfo.name : "暂无昵称");
 				api.toast({
 					msg : '昵称不符合格式(限制长度4-10位字母数字或2-5位中文,只允许数字、中文、字母)',
@@ -177,6 +195,61 @@
 		$(".user-info-web-bg").on("touchend", "#dName", function() {
 			// change();
 			active()
+		});
+		var shadow = $('.shadow');
+		shadow.hide();
+		$('#imageFilePic').click(function() {
+			thisId = $(this).data('value');
+			shadow.show();
+		});
+		$('.back').click(function() {
+			api.closeWin();
+		})
+		$('.selectPic button').click(function() {
+			var self = $(this).text().trim();
+			var sourceType = "album";
+			if (self == "取消") {
+				shadow.hide();
+				return;
+			}
+			if (self == "拍照") {
+				sourceType = "camera";
+			}
+			api.getPicture({
+				destinationType : 'base64',
+				sourceType : sourceType,
+				encodingType : 'jpg',
+				mediaValue : 'pic'
+			}, function(ret, err) {
+				shadow.hide();
+				//在这里处理上传的图片
+				if (ret && ret.data) {
+					api.showProgress({
+						title : '上传头像中...',
+						modal : true
+					});
+					//upload file3
+					var imgPath = ret.data;
+					var base64 = ret.base64Data.replace(/^data:image\/\w+;base64,/, "");
+					var fileName = getFileName(imgPath);
+					var file = new AV.File(fileName, {
+						base64 : base64
+					});
+					file.save().then(function(uploadSuccess) {
+						api.hideProgress();
+						var city = $api.getStorage("deliverCity");
+						deliverManObj.set("imageFile", uploadSuccess);
+						return deliverManObj.save();
+					}).then(function(success) {
+						deliverManObj = success;
+						document.getElementById('imageFilePic').src = imgPath;
+					}).catch(function(error) {
+						console.log(JSON.stringify(error));
+						api.hideProgress();
+						errorAlert(JSON.stringify(error))
+					});
+				}
+			});
 		});
 	}
 	function active() {//获得焦点时
@@ -198,7 +271,7 @@
 			if (ret.buttonIndex == 2) {
 				$api.rmStorage("deliverMan");
 				api.closeWin({
-					name:'login'
+					name : 'login'
 				});
 				AV.User.logOut();
 				var currentUser = AV.User.current();
@@ -214,7 +287,16 @@
 			}
 		});
 	}
+
 	function removeLacun() {
 		api.removeLaunchView();
+	}
+
+	function afterLogin() {//更新头部信息
+		var query = new AV.Query(deliveryManObj);
+		query.equalTo('owner', loginUser);
+		query.first().then(function(diliver) {
+			deliverManObj = diliver;
+		});
 	}
 </script>

@@ -44,8 +44,7 @@
 					modal : true
 				}, 3000);
 				checkDeliverManSataus(user).then(function(ret) {
-					///如果存在这个deliverMan,就直接登录订单页面
-					console.log("ret>>>" + JSON.stringify(ret))
+					///如果存在这个deliverMan,就直接登录订单页面 
 					$api.setStorage("deliverMan", ret);
 					if (!_.isEmpty(ret)) {
 						if (ret.auditState == 1||ret.auditState == 3) {//进入待审核页面

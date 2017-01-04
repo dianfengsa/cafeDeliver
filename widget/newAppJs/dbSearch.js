@@ -36,9 +36,10 @@ function checkDeliverManSataus(user) {
 				area : manObj.get("area"),
 				cafeCar : manObj.get("cafeCar") ? manObj.get("cafeCar").id : "",
 				cafeCarName : manObj.get("cafeCar") ? manObj.get("cafeCar").get("name") : "暂无区域",
-				owner : manObj.get("owner").id,
+				owner : manObj.get("owner"),
 				realName : manObj.get("realName"),
 				idCardNo : manObj.get("idCardNo"),
+				deliverImage : manObj.get("imageFile") ? manObj.get("imageFile").url() : '',
 				auditState : manObj.get("auditState")
 			};
 		}
@@ -229,10 +230,12 @@ function areaByDeliver(manId) {
 			carId : cafecar.id,
 			carName : cafecar.get("name"),
 			carCity : cafecar.get("city"),
+			carOwner : cafecar.get("owner"),
+			manOwner : man.get("owner"),
 			address : cafecar.get("parkingAddress"),
 			phone : cafecar.get("mobilePhoneNumber"),
 			status : cafecar.get("status"),
-			rejectReason: man.get("rejectReason"),
+			rejectReason : man.get("rejectReason"),
 			remittanceInfo : cafecar.get("remittanceInfo"),
 			realName : man.get("realName") ? man.get("realName") : "未填写",
 			idCardNo : man.get("idCardNo") ? man.get("idCardNo") : "未填写",

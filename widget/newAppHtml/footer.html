@@ -70,7 +70,7 @@
 	var pageParam;
 	apiready = function() {
 		var winHeight = api.winHeight;
-		pageParam = api.pageParam;
+		pageParam = api.pageParam; 
 		//外卖订单
 		$(".footer-box").on("touchend", "#footer-1", function() {
 			openOrderDelive(pageParam);
@@ -173,8 +173,7 @@
 
 	//资料审核
 	function setAuditNum() {
-		var arrs = $api.getStorage("deliverAudit");
-		console.log("arrs>>>>"+JSON.stringify(arrs))
+		var arrs = $api.getStorage("deliverAudit"); 
 		var auditNum = arrs.length;
 		if (auditNum > 0) {
 			document.getElementById('footer-new4').style.display = "inline-block";

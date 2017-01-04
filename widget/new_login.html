@@ -352,24 +352,77 @@
 		}
 
 		function goOrderListPage(retsult) {
-			console.log("retsult>>>>>>>" + JSON.stringify(retsult.auditState))
 			if (retsult.auditState == 0) {//进入待审核页面
+				alert(1)
 				api.openWin({
 					name : 'carList',
 					url : './newAppHtml/carList.html',
-					pageParam : retsult
+					opaque : true, // 页面不透明
+					bounces : false, // 不允许页面弹动，ripple
+					vScrollBarEnabled : false,
+					pageParam : retsult,
+					slidBackEnabled : false,
+					animation : {
+						type : "fade", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					},
+					delay : 0
 				});
-			} else if (retsult.auditState == 1 || ret.auditState == 3) {//进入资料提交页面
+			}
+			if (retsult.auditState == 1) {//进入资料提交页面
+				alert("retsult>>>>" + JSON.stringify(retsult))
 				api.openWin({
 					name : 'auditState',
 					url : './newAppHtml/auditState.html',
-					pageParam : retsult
+					opaque : true, // 页面不透明
+					bounces : false, // 不允许页面弹动，ripple
+					vScrollBarEnabled : false,
+					pageParam : retsult,
+					slidBackEnabled : false,
+					animation : {
+						type : "fade", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					},
+					delay : 0
 				});
-			} else if (retsult.auditState == 2) {//进入订单页面
+			}
+			if (retsult.auditState == 3) {//进入资料提交页面
+				alert(22)
+				api.openWin({
+					name : 'auditState',
+					url : './newAppHtml/auditState.html',
+					opaque : true, // 页面不透明
+					bounces : false, // 不允许页面弹动，ripple
+					vScrollBarEnabled : false,
+					pageParam : retsult,
+					slidBackEnabled : false,
+					animation : {
+						type : "fade", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					},
+					delay : 0
+				});
+			}
+			if (retsult.auditState == 2) {//进入订单页面
+				alert(3)
+				//加载底部栏
 				api.openWin({
 					name : 'orderDelive',
 					url : './newAppHtml/orderDelive.html',
-					pageParam : retsult
+					opaque : true, // 页面不透明
+					bounces : false, // 不允许页面弹动，ripple
+					vScrollBarEnabled : false,
+					pageParam : retsult,
+					slidBackEnabled : false,
+					animation : {
+						type : "fade", //动画类型（详见动画类型常量）
+						subType : "from_right", //动画子类型（详见动画子类型常量）
+						duration : 300 //动画过渡时间，默认300毫秒
+					},
+					delay : 0
 				});
 			}
 			setTimeout(function() {

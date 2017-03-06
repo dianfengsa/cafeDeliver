@@ -134,3 +134,14 @@ input[type="button"],button{
 .hide{
     display: none;
 }
+.Back-order{
+	border-radius:5px;
+	color:#FFFFFF;
+	background-color:#FF6633;
+	height: 20px;
+	line-height:20px;
+	font-size:12px;
+	width: 50px;
+	float: right;
+	text-align: -webkit-center;
+}

@@ -114,8 +114,12 @@
 			</li>
 			{{?}}
 			<li class="clearfix">
-			<div class="source">
-			</div><span class="add-source">{{=value.deliverAddress}}</span>
+			<div class="source"></div>
+			{{?value.addressObj}}
+			<span class="add-source">{{=value.addressObj[0].address}}{{=value.addressObj[0].addressDetails}}</span>
+			{{??}}
+			<span class="add-source">{{=value.deliverAddress}}</span>
+			{{?}}
 			</li>
 			</ul>
 			<ul class="user-info-other flex-item-23 flex-center">
@@ -168,8 +172,8 @@
 			<b style="color: red;">外卖订餐</b>
 			{{?}}
 			</span>
-			</li>
-			<i class="Back-order" data-value='{{=value.orderid}}'>拒 单</i>
+			<b class="Back-order" data-value='{{=value.orderid}}'>拒 单</b>
+			</li> 
 			<li>
 			<div class="order-time"></div><span class="order-time-text">下单时间:{{=new Date().format(value.paidTime,"dateTime",0)}}</span>
 			</li>
@@ -185,9 +189,13 @@
 			</li>
 			{{?}}
 			<li class="clearfix">
-			<div class="source">
-			</div><span class="add-source">{{=value.deliverAddress}}</span>
-			</li>
+			<div class="source"></div>  
+			{{?value.addressObj}}
+			<span class="add-source">{{=value.addressObj[0].address}}{{=value.addressObj[0].addressDetails}}</span>
+			{{??}}
+			<span class="add-source">{{=value.deliverAddress}}</span>
+			{{?}} 
+			</li> 
 			</ul>
 			<ul class="user-info-other flex-item-23 flex-center">
 			<li class="businessInfo">
@@ -276,8 +284,12 @@
 			</div><span class="add-destination">{{=value.tasks[0].kitchenName}}—{{=value.tasks[0].address}}</span>
 			</li>
 			<li class="clearfix">
-			<div class="source">
-			</div><span class="add-source">{{=value.deliverAddress}}</span>
+			<div class="source"></div>
+			{{?value.addressObj}}
+			<span class="add-source">{{=value.addressObj[0].address}}{{=value.addressObj[0].addressDetails}}</span>
+			{{??}}
+			<span class="add-source">{{=value.deliverAddress}}</span>
+			{{?}}
 			</li>
 			</ul>
 			<ul class="user-info-other flex-item-23 flex-center">
@@ -670,6 +682,8 @@
 			} else {
 				document.getElementById('finishedOrder').innerHTML = doT.template(noneOrder_template)();
 			}
+			console.log("wmArr>>>>"+JSON.stringify(wmArr))	
+			console.log("myOrderArr>>>>"+JSON.stringify(myOrderArr))
 			api.execScript({
 				frameName : 'footer',
 				script : 'setOrderNum();'

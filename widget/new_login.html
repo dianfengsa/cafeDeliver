@@ -105,7 +105,7 @@
 			<img class="bg" src="./image/bg_002.png" />
 		</div>
 		<div id="form" style="position: fixed;height: 100%;width: 100%;display:block;">
-			<div id="" class="divider"></div>
+			<div id="" class="divider"></div> 
 			<div class="item">
 				<input type="tel" placeholder="请填写手机号码" id="phone" value="" required />
 			</div>
@@ -130,6 +130,7 @@
 	</body>
 	<script type="text/javascript" src="./newAppJs/api.js"></script>
 	<script type="text/javascript" src="./newAppJs/av.js"></script>
+	<script type="text/javascript" src="./newAppJs/ajpush.js"></script>
 	<script type="text/javascript" src="./newAppJs/dbSearch.js"></script>
 	<script type="text/javascript" src="./newAppJs/common.js"></script>
 	<script type="text/javascript" src="./newAppJs/underscore-min.js"></script>
@@ -352,8 +353,7 @@
 		}
 
 		function goOrderListPage(retsult) {
-			if (retsult.auditState == 0) {//进入待审核页面
-				alert(1)
+			if (retsult.auditState == 0) {//进入待审核页面 
 				api.openWin({
 					name : 'carList',
 					url : './newAppHtml/carList.html',
@@ -371,7 +371,7 @@
 				});
 			}
 			if (retsult.auditState == 1) {//进入资料提交页面
-				alert("retsult>>>>" + JSON.stringify(retsult))
+				console.log("retsult>>>>" + JSON.stringify(retsult))
 				api.openWin({
 					name : 'auditState',
 					url : './newAppHtml/auditState.html',
@@ -389,7 +389,7 @@
 				});
 			}
 			if (retsult.auditState == 3) {//进入资料提交页面
-				alert(22)
+				console.log(22)
 				api.openWin({
 					name : 'auditState',
 					url : './newAppHtml/auditState.html',
@@ -407,7 +407,7 @@
 				});
 			}
 			if (retsult.auditState == 2) {//进入订单页面
-				alert(3)
+				console.log (3)
 				//加载底部栏
 				api.openWin({
 					name : 'orderDelive',

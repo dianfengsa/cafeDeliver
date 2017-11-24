@@ -138,31 +138,32 @@
     <div class="login-form">
         <div class="form">
             <select class="select-form" onchange="getIdByArea(this)">
-              <option value="+86">大陆</option>
               <option value="+853">澳门</option>
+                <option value="+86" selected="selected">大陆</option>
               <option value="+852">香港</option>
             </select>
             <div class="input-form">
                 <input type="text" placeholder="请输入手机号..." maxlength="11">
-                <span class="focus-border"></span></div>
+                <span class="focus-border"></span>
+            </div>
         </div>
         <div class="form">
             <button class="button-form hollow">
             验证码
-        </button>
+            </button>
             <div class="input-form">
                 <input type="text" placeholder="6位数验证码..." maxlength="6">
                 <span class="focus-border"></span>
             </div>
         </div>
-        <div class="form">
+        <!-- <div class="form">
             <button class="button-form button-icon">
-            <span class="icon">麦克风</span>
-            获取语音验证码
-        </button>
-        </div>
+              <span class="icon">麦克风</span>
+              获取语音验证码
+            </button>
+        </div> -->
         <div class="form">
-            <button class="button-form">登录</button>
+            <button class="button-form">短信验证登录</button>
         </div>
     </div>
 </body>
